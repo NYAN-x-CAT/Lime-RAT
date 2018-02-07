@@ -1,4 +1,4 @@
-# Lime-Controller
+# Lime Controller v1.0
 
 <img src="https://i.imgur.com/dMV4Xv5.png">
 
@@ -31,14 +31,17 @@
  - [ ] DDOS
  - [ ] Screen-shot
  - [ ] Key-logger
- - [ ] MessageBox
+ - [ ] Message box
  - [ ] Bot details
  
  Builder
+ - [x] Dual host
+ - [x] Mutex
  - [x] Anti virtual environment
  - [x] USB spread
  - [x] Local disk spread
  - [x] Custom folder to drop
+ - [x] Delay execution 
  
  ```
  This is lite version to prevent misuse

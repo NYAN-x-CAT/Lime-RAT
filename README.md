@@ -28,9 +28,12 @@
  - [ ] Recovery browsers and application passwords
 	
  Miscellaneous
+ - [ ] DDOS
  - [ ] Screen-shot
  - [ ] Key-logger
-
+ - [ ] MessageBox
+ - [ ] Bot details
+ 
  Builder
  - [x] Anti virtual environment
  - [x] USB spread

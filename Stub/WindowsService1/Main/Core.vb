@@ -60,7 +60,7 @@ Public Module Core
     Public DRCHK As Boolean = "%DRCHK%"
     Public DRPATH As String = "%DRPATH%"
     Public DRFOLDER As String = "%DRFOLDER%"
-    Public Xsec As Integer = "0"
+    Public Xsec As Integer = "%Xsec%"
     Public SPUSB_TEXT As String
     Public NEXE As Object = New IO.FileInfo(Reflection.Assembly.GetExecutingAssembly.Location)
     Public S As New SK

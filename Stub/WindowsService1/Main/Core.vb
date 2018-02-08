@@ -45,7 +45,7 @@ Imports System.Management
 Public Module Core
     Public ClientIP = LHOST
     Public LHOST As String = "%LHOST%"
-    Public LHOST2 As String = "%LHOST%2"
+    Public LHOST2 As String = "%LHOST2%"
     Public LPORT As Integer = "%LPORT%"
     Public LID As String = "%LID%"
     Public LKEY As String = ChrW(91) & ChrW(76) & ChrW(93)

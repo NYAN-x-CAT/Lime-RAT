@@ -45,4 +45,5 @@
  
  ```
  This is lite version to prevent misuse
+ Also I will fix the bugs, but won't update the project.
  ```

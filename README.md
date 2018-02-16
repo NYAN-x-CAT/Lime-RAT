@@ -33,7 +33,6 @@
  - [ ] Screen-shot
  - [ ] Key-logger
  - [ ] Message box
- - [ ] Bot details
  
  Builder
  - [x] Dual host

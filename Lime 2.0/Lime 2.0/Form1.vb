@@ -82,8 +82,9 @@ Public Class Form1
 #End Region
 
 #Region "receiving"
-
-    Sub Data(ByVal sock As Integer, ByVal B As Byte()) Handles S.Data
+  
+  Delegate Sub _Data(ByVal sock As Integer, ByVal B As Byte())   
+   Sub CMD(ByVal sock As Integer, ByVal B As Byte()) Handles S.Data
         Dim DATA As String() = Split(BS(B), RKEY)
         Try
             Select Case DATA(0)
@@ -135,8 +136,16 @@ Public Class Form1
 
                     'fix
                     D.ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
-                    D.ShowDialog()
 
+					If My.Application.OpenForms("details" & sock) IsNot Nothing Then Exit Sub
+                    If Me.InvokeRequired Then
+                        Dim j As New _Data(AddressOf CMD)
+                        Me.Invoke(j, New Object() {sock, B})
+                        Exit Sub
+                    End If
+                    D.sock = sock
+                    D.Name = "details" & sock 'object name
+                    D.Show()
 
 
 

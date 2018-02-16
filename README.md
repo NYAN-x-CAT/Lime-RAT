@@ -1,4 +1,4 @@
-# Lime Controller v1.0
+# Lime Controller v2.0
 
 <img src="https://i.imgur.com/dMV4Xv5.png">
 
@@ -28,6 +28,7 @@
  - [ ] Recovery browsers and application passwords
 	
  Miscellaneous
+ - [x] Client Details
  - [ ] DDOS
  - [ ] Screen-shot
  - [ ] Key-logger
@@ -45,5 +46,4 @@
  
  ```
  This is lite version to prevent misuse
- Also I will fix the bugs, but won't update the project.
  ```

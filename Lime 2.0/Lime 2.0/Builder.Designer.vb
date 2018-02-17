@@ -42,6 +42,10 @@ Partial Class Builder
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.DWCHK = New System.Windows.Forms.CheckBox()
+        Me.DWURL = New System.Windows.Forms.TextBox()
         Me.DRFOLDER = New System.Windows.Forms.TextBox()
         Me.exename = New System.Windows.Forms.TextBox()
         Me.host2 = New System.Windows.Forms.TextBox()
@@ -52,13 +56,14 @@ Partial Class Builder
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
         Me.SuspendLayout()
         '
         'Button2
         '
         Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button2.ForeColor = System.Drawing.SystemColors.ActiveBorder
-        Me.Button2.Location = New System.Drawing.Point(257, 785)
+        Me.Button2.Location = New System.Drawing.Point(257, 1016)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(134, 56)
         Me.Button2.TabIndex = 19
@@ -109,7 +114,7 @@ Partial Class Builder
         '
         Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button1.ForeColor = System.Drawing.SystemColors.ActiveBorder
-        Me.Button1.Location = New System.Drawing.Point(12, 785)
+        Me.Button1.Location = New System.Drawing.Point(11, 1016)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(134, 56)
         Me.Button1.TabIndex = 18
@@ -285,6 +290,53 @@ Partial Class Builder
         Me.Label2.TabIndex = 2
         Me.Label2.Text = "Port"
         '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.Label9)
+        Me.GroupBox4.Controls.Add(Me.DWCHK)
+        Me.GroupBox4.Controls.Add(Me.DWURL)
+        Me.GroupBox4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.GroupBox4.ForeColor = System.Drawing.Color.Lime
+        Me.GroupBox4.Location = New System.Drawing.Point(12, 798)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(379, 163)
+        Me.GroupBox4.TabIndex = 18
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Downloader"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.ForeColor = System.Drawing.SystemColors.ActiveBorder
+        Me.Label9.Location = New System.Drawing.Point(22, 91)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(42, 20)
+        Me.Label9.TabIndex = 14
+        Me.Label9.Text = "URL"
+        '
+        'DWCHK
+        '
+        Me.DWCHK.AutoSize = True
+        Me.DWCHK.ForeColor = System.Drawing.SystemColors.ActiveBorder
+        Me.DWCHK.Location = New System.Drawing.Point(26, 45)
+        Me.DWCHK.Name = "DWCHK"
+        Me.DWCHK.Size = New System.Drawing.Size(107, 24)
+        Me.DWCHK.TabIndex = 13
+        Me.DWCHK.Text = "Run Once"
+        Me.DWCHK.UseVisualStyleBackColor = True
+        '
+        'DWURL
+        '
+        Me.DWURL.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.DWURL.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.DWURL.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Lime_2._0.My.MySettings.Default, "dwurl", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.DWURL.ForeColor = System.Drawing.Color.Lime
+        Me.DWURL.Location = New System.Drawing.Point(133, 89)
+        Me.DWURL.Name = "DWURL"
+        Me.DWURL.Size = New System.Drawing.Size(222, 26)
+        Me.DWURL.TabIndex = 15
+        Me.DWURL.Text = Global.Lime_2._0.My.MySettings.Default.dwurl
+        '
         'DRFOLDER
         '
         Me.DRFOLDER.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
@@ -363,7 +415,8 @@ Partial Class Builder
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(403, 880)
+        Me.ClientSize = New System.Drawing.Size(403, 1149)
+        Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.GroupBox3)
@@ -382,6 +435,8 @@ Partial Class Builder
         Me.GroupBox2.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox4.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -412,4 +467,8 @@ Partial Class Builder
     Friend WithEvents host As TextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents Label2 As Label
+    Friend WithEvents GroupBox4 As GroupBox
+    Friend WithEvents Label9 As Label
+    Friend WithEvents DWCHK As CheckBox
+    Friend WithEvents DWURL As TextBox
 End Class

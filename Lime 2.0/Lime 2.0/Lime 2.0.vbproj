@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <StartupObject>Lime_2._0.My.MyApplication</StartupObject>
     <RootNamespace>Lime_2._0</RootNamespace>
-    <AssemblyName>Lime Controller 2.0</AssemblyName>
+    <AssemblyName>Lime Controller 2.1</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
@@ -22,7 +22,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>Lime Controller 2.0.xml</DocumentationFile>
+    <DocumentationFile>Lime Controller 2.1.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -32,7 +32,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>Lime Controller 2.0.xml</DocumentationFile>
+    <DocumentationFile>Lime Controller 2.1.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>

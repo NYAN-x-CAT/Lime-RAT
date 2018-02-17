@@ -39,7 +39,7 @@
  - [x] Mutex
  - [x] Anti virtual environment
  - [x] USB spread
- - [x] Local disk spread
+ - [x] Downloader
  - [x] Custom folder to drop
  - [x] Delay execution 
  

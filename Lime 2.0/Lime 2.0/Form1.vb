@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##           N Y A N   C A T  ||  Last edit FEB/16/2018         ##
+'##           N Y A N   C A T  ||  Last edit FEB/18/2018         ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -19,7 +19,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                  .. Lime Controller v2.0 ..                  ##
+'##                  .. Lime Controller v2.1 ..                  ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -33,10 +33,11 @@ Public Class Form1
     Private lvwColumnSorter As ListViewColumnSorter
     Public WithEvents S As Socket
     Public RKEY As String = "|L|"
-    Public Myport As String = InputBox("Enter port", "PORT")
+    Public Myport As String = InputBox(" Hello " & Environment.UserName + vbNewLine + vbNewLine & " Please enter port", "PORT")
 
 
 #Region "Events"
+
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             Control.CheckForIllegalCrossThreadCalls = False
@@ -47,17 +48,6 @@ Public Class Form1
             End
         End Try
 
-
-        ToolStripStatusLabel1.Visible = False
-
-        Dim iCount As Integer
-        For iCount = 0 To 100 Step 5
-            Me.Opacity = iCount / 100
-            Me.Refresh()
-            Threading.Thread.Sleep(50)
-        Next
-
-        ToolStripStatusLabel1.Visible = True
         NotifyIcon1.Icon = Me.Icon
 
     End Sub
@@ -93,10 +83,8 @@ Public Class Form1
                     Dim L = L1.Items.Add(sock.ToString, DATA(1), "")
                     For i As Integer = 1 To DATA.Length - 1
                         L.SubItems.Add(DATA(i))
-                    Next
-                    For i As Integer = 1 To DATA.Length - 1
-                        L.SubItems.Add(DATA(i))
                         L.SubItems(c_ip.Index).Text = (S.IP(sock))
+
                     Next
 
                     For i = 0 To L1.Items.Count - 1
@@ -321,8 +309,16 @@ Public Class Form1
         Me.ToolStripStatusLabel1.Text = "Port [ pp ] Online[ oo ] Select[ ss ]".Replace("oo", L1.Items.Count).Replace("pp", Myport).Replace("ss", L1.SelectedItems.Count)
     End Sub
 
-#End Region
+    Private Sub Form1_Activated(sender As Object, e As EventArgs) Handles Me.Activated
+        Opacity = 1
+    End Sub
 
+    Private Sub Form1_Deactivate(sender As Object, e As EventArgs) Handles Me.Deactivate
+        Opacity = 0.8
+    End Sub
+
+
+#End Region
 
     Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
         MsgBox("Coded by : NYAN CAT")
@@ -331,4 +327,5 @@ Public Class Form1
     Private Sub BuilderToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BuilderToolStripMenuItem.Click
         Builder.ShowDialog()
     End Sub
+
 End Class

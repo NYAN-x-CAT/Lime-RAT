@@ -50,6 +50,10 @@ Public Class Form1
 
         NotifyIcon1.Icon = Me.Icon
 
+        If Not IO.Directory.Exists(Application.StartupPath + "\Stub") Then
+            IO.Directory.CreateDirectory(Application.StartupPath + "\Stub")
+        End If
+
     End Sub
 
     Sub Disconnect(ByVal sock As Integer) Handles S.DisConnected

@@ -31,27 +31,28 @@ Partial Class Builder
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.DRFOLDER = New System.Windows.Forms.TextBox()
         Me.DRPATH = New System.Windows.Forms.ComboBox()
         Me.CHKDR = New System.Windows.Forms.CheckBox()
         Me.Label6 = New System.Windows.Forms.Label()
+        Me.exename = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.port = New System.Windows.Forms.TextBox()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.host2 = New System.Windows.Forms.TextBox()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.vn = New System.Windows.Forms.TextBox()
+        Me.host = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.DWCHK = New System.Windows.Forms.CheckBox()
         Me.DWURL = New System.Windows.Forms.TextBox()
-        Me.DRFOLDER = New System.Windows.Forms.TextBox()
-        Me.exename = New System.Windows.Forms.TextBox()
-        Me.host2 = New System.Windows.Forms.TextBox()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.vn = New System.Windows.Forms.TextBox()
-        Me.host = New System.Windows.Forms.TextBox()
+        Me.Button4 = New System.Windows.Forms.Button()
         CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -164,6 +165,18 @@ Partial Class Builder
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Drop File"
         '
+        'DRFOLDER
+        '
+        Me.DRFOLDER.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.DRFOLDER.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.DRFOLDER.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Lime_2._0.My.MySettings.Default, "folder", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.DRFOLDER.ForeColor = System.Drawing.Color.Lime
+        Me.DRFOLDER.Location = New System.Drawing.Point(133, 161)
+        Me.DRFOLDER.Name = "DRFOLDER"
+        Me.DRFOLDER.Size = New System.Drawing.Size(222, 26)
+        Me.DRFOLDER.TabIndex = 13
+        Me.DRFOLDER.Text = Global.Lime_2._0.My.MySettings.Default.folder
+        '
         'DRPATH
         '
         Me.DRPATH.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
@@ -195,6 +208,18 @@ Partial Class Builder
         Me.Label6.Size = New System.Drawing.Size(80, 20)
         Me.Label6.TabIndex = 0
         Me.Label6.Text = "File Name"
+        '
+        'exename
+        '
+        Me.exename.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.exename.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.exename.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Lime_2._0.My.MySettings.Default, "lexe", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.exename.ForeColor = System.Drawing.Color.Lime
+        Me.exename.Location = New System.Drawing.Point(133, 67)
+        Me.exename.Name = "exename"
+        Me.exename.Size = New System.Drawing.Size(222, 26)
+        Me.exename.TabIndex = 1
+        Me.exename.Text = Global.Lime_2._0.My.MySettings.Default.lexe
         '
         'Label8
         '
@@ -260,6 +285,31 @@ Partial Class Builder
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Connection"
         '
+        'host2
+        '
+        Me.host2.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.host2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.host2.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Lime_2._0.My.MySettings.Default, "host2", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.host2.ForeColor = System.Drawing.Color.Lime
+        Me.host2.Location = New System.Drawing.Point(133, 74)
+        Me.host2.Name = "host2"
+        Me.host2.Size = New System.Drawing.Size(222, 26)
+        Me.host2.TabIndex = 9
+        Me.host2.Text = Global.Lime_2._0.My.MySettings.Default.host2
+        '
+        'TextBox2
+        '
+        Me.TextBox2.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.TextBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.TextBox2.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Lime_2._0.My.MySettings.Default, "mutex", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.TextBox2.ForeColor = System.Drawing.Color.Lime
+        Me.TextBox2.Location = New System.Drawing.Point(133, 203)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.ReadOnly = True
+        Me.TextBox2.Size = New System.Drawing.Size(222, 26)
+        Me.TextBox2.TabIndex = 7
+        Me.TextBox2.Text = Global.Lime_2._0.My.MySettings.Default.mutex
+        '
         'Label1
         '
         Me.Label1.AutoSize = True
@@ -269,6 +319,30 @@ Partial Class Builder
         Me.Label1.Size = New System.Drawing.Size(71, 20)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "DNS - IP"
+        '
+        'vn
+        '
+        Me.vn.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.vn.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.vn.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Lime_2._0.My.MySettings.Default, "id", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.vn.ForeColor = System.Drawing.Color.Lime
+        Me.vn.Location = New System.Drawing.Point(133, 160)
+        Me.vn.Name = "vn"
+        Me.vn.Size = New System.Drawing.Size(222, 26)
+        Me.vn.TabIndex = 5
+        Me.vn.Text = Global.Lime_2._0.My.MySettings.Default.id
+        '
+        'host
+        '
+        Me.host.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.host.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.host.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Lime_2._0.My.MySettings.Default, "host", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.host.ForeColor = System.Drawing.Color.Lime
+        Me.host.Location = New System.Drawing.Point(133, 30)
+        Me.host.Name = "host"
+        Me.host.Size = New System.Drawing.Size(222, 26)
+        Me.host.TabIndex = 1
+        Me.host.Text = Global.Lime_2._0.My.MySettings.Default.host
         '
         'Label3
         '
@@ -337,78 +411,16 @@ Partial Class Builder
         Me.DWURL.TabIndex = 15
         Me.DWURL.Text = Global.Lime_2._0.My.MySettings.Default.dwurl
         '
-        'DRFOLDER
+        'Button4
         '
-        Me.DRFOLDER.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
-        Me.DRFOLDER.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.DRFOLDER.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Lime_2._0.My.MySettings.Default, "folder", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.DRFOLDER.ForeColor = System.Drawing.Color.Lime
-        Me.DRFOLDER.Location = New System.Drawing.Point(133, 161)
-        Me.DRFOLDER.Name = "DRFOLDER"
-        Me.DRFOLDER.Size = New System.Drawing.Size(222, 26)
-        Me.DRFOLDER.TabIndex = 13
-        Me.DRFOLDER.Text = Global.Lime_2._0.My.MySettings.Default.folder
-        '
-        'exename
-        '
-        Me.exename.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
-        Me.exename.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.exename.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Lime_2._0.My.MySettings.Default, "lexe", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.exename.ForeColor = System.Drawing.Color.Lime
-        Me.exename.Location = New System.Drawing.Point(133, 67)
-        Me.exename.Name = "exename"
-        Me.exename.Size = New System.Drawing.Size(222, 26)
-        Me.exename.TabIndex = 1
-        Me.exename.Text = Global.Lime_2._0.My.MySettings.Default.lexe
-        '
-        'host2
-        '
-        Me.host2.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
-        Me.host2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.host2.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Lime_2._0.My.MySettings.Default, "host2", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.host2.ForeColor = System.Drawing.Color.Lime
-        Me.host2.Location = New System.Drawing.Point(133, 74)
-        Me.host2.Name = "host2"
-        Me.host2.Size = New System.Drawing.Size(222, 26)
-        Me.host2.TabIndex = 9
-        Me.host2.Text = Global.Lime_2._0.My.MySettings.Default.host2
-        '
-        'TextBox2
-        '
-        Me.TextBox2.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
-        Me.TextBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox2.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Lime_2._0.My.MySettings.Default, "mutex", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.TextBox2.ForeColor = System.Drawing.Color.Lime
-        Me.TextBox2.Location = New System.Drawing.Point(133, 203)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.ReadOnly = True
-        Me.TextBox2.Size = New System.Drawing.Size(222, 26)
-        Me.TextBox2.TabIndex = 7
-        Me.TextBox2.Text = Global.Lime_2._0.My.MySettings.Default.mutex
-        '
-        'vn
-        '
-        Me.vn.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
-        Me.vn.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.vn.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Lime_2._0.My.MySettings.Default, "id", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.vn.ForeColor = System.Drawing.Color.Lime
-        Me.vn.Location = New System.Drawing.Point(133, 160)
-        Me.vn.Name = "vn"
-        Me.vn.Size = New System.Drawing.Size(222, 26)
-        Me.vn.TabIndex = 5
-        Me.vn.Text = Global.Lime_2._0.My.MySettings.Default.id
-        '
-        'host
-        '
-        Me.host.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
-        Me.host.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.host.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Lime_2._0.My.MySettings.Default, "host", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.host.ForeColor = System.Drawing.Color.Lime
-        Me.host.Location = New System.Drawing.Point(133, 30)
-        Me.host.Name = "host"
-        Me.host.Size = New System.Drawing.Size(222, 26)
-        Me.host.TabIndex = 1
-        Me.host.Text = Global.Lime_2._0.My.MySettings.Default.host
+        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button4.ForeColor = System.Drawing.SystemColors.ActiveBorder
+        Me.Button4.Location = New System.Drawing.Point(12, 1097)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(379, 40)
+        Me.Button4.TabIndex = 20
+        Me.Button4.Text = "H E L P"
+        Me.Button4.UseVisualStyleBackColor = True
         '
         'Builder
         '
@@ -416,6 +428,7 @@ Partial Class Builder
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(403, 1149)
+        Me.Controls.Add(Me.Button4)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
@@ -471,4 +484,5 @@ Partial Class Builder
     Friend WithEvents Label9 As Label
     Friend WithEvents DWCHK As CheckBox
     Friend WithEvents DWURL As TextBox
+    Friend WithEvents Button4 As Button
 End Class

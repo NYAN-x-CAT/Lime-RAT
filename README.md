@@ -36,7 +36,7 @@
  
  Builder
  - [x] Dual host
- - [x] using ip or dns or pastebin as host
+ - [x] Using ip or dns or pastebin as host
  - [x] Mutex
  - [x] Anti virtual environment
  - [x] USB spread

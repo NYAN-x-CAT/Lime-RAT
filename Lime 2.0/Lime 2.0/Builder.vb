@@ -8,12 +8,12 @@ Public Class Builder
     Private Sub Button1_Click(ByVal sender As Object, ByVal e As EventArgs) Handles Button1.Click
 
         If host.Text.ToLower.Contains("pastebin.com".ToLower) AndAlso Not host.Text.ToLower.Contains("/raw/".ToLower) Then
-            MsgBox("Your pastebin should be like this https://pastebin.com/raw/asdf123")
+            MsgBox("Your pastebin should be like this https://pastebin.com/raw/pJS2zFAz")
             Return
         End If
 
         If host2.Text.ToLower.Contains("pastebin.com".ToLower) AndAlso Not host2.Text.ToLower.Contains("/raw/".ToLower) Then
-            MsgBox("Your pastebin should be like this https://pastebin.com/raw/asdf123")
+            MsgBox("Your pastebin should be like this https://pastebin.com/raw/pJS2zFAz")
             Return
         End If
 

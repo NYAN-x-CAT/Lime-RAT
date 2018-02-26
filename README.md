@@ -1,10 +1,8 @@
-# Lime Controller v2.0
+# Lime Controller v0.3
 
-<img src="https://i.imgur.com/dMV4Xv5.png">
+<img src="https://i.imgur.com/BypoJN8.jpg">
 
- is a malware that act as bots controller for holding and saving bots then redirect them to main C&C. And also will copy itself to every USB and local driver ..
-
- **For educational purposes only ..**
+ This is how the attacker can install ransomware module that can encrypt all files on all drivers then send the key back to c&c, and yet, the attack also can run files, spread the controller over USB drivers and gathering information about the client.
 
  
  Run files
@@ -22,28 +20,21 @@
  - [x] Log Off
  - [x] Shutdown
 	
- Stealer
- - [ ] Bitcoin grabber
- - [ ] Bank sensor
- - [ ] Recovery browsers and application passwords
+ Ransom-ware
+ - [x] Encrypt files
+ - [x] Decrypt files
 	
  Miscellaneous
- - [x] Client Details
- - [ ] DDOS
- - [ ] Screen-shot
- - [ ] Key-logger
- - [ ] Message box
+ - [x] Bot Details
  
  Builder
- - [x] Dual host
- - [x] Using ip or dns or pastebin as host
- - [x] Mutex
+ - [x] Pastebin URL as Dynamic IP
  - [x] Anti virtual environment
  - [x] USB spread
- - [x] Downloader
  - [x] Custom folder to drop
- - [x] Delay execution 
  
  ```
- This is lite version to prevent misuse
+ Tested on virtual machine just to proof of concept
+ This project was created for educational purposes only
+ I am not responsible for any actions, and or damages, caused by this software
  ```

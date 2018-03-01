@@ -30,7 +30,6 @@ Partial Class Form1
         Me.RansomwareToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EncryptToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DecryptToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DetailsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.VvvToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FromDiskToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.FromURLToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
@@ -64,6 +63,8 @@ Partial Class Form1
         Me.c_av = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.c_usb = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.ListView2 = New System.Windows.Forms.ListView()
+        Me.ListView1 = New System.Windows.Forms.ListView()
         Me.L2 = New System.Windows.Forms.ListBox()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -78,11 +79,11 @@ Partial Class Form1
         '
         Me.ContextMenuStrip1.BackColor = System.Drawing.SystemColors.Control
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BuilderToolStripMenuItem, Me.ToolStripSeparator1, Me.RansomwareToolStripMenuItem, Me.DetailsToolStripMenuItem, Me.VvvToolStripMenuItem, Me.ComputerToolStripMenuItem, Me.WormSettingToolStripMenuItem, Me.ToolStripSeparator2, Me.AboutToolStripMenuItem})
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BuilderToolStripMenuItem, Me.ToolStripSeparator1, Me.RansomwareToolStripMenuItem, Me.VvvToolStripMenuItem, Me.ComputerToolStripMenuItem, Me.WormSettingToolStripMenuItem, Me.ToolStripSeparator2, Me.AboutToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         Me.ContextMenuStrip1.ShowImageMargin = False
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(199, 226)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(199, 229)
         '
         'BuilderToolStripMenuItem
         '
@@ -114,12 +115,6 @@ Partial Class Form1
         Me.DecryptToolStripMenuItem.Size = New System.Drawing.Size(158, 30)
         Me.DecryptToolStripMenuItem.Text = "Decrypt"
         '
-        'DetailsToolStripMenuItem
-        '
-        Me.DetailsToolStripMenuItem.Name = "DetailsToolStripMenuItem"
-        Me.DetailsToolStripMenuItem.Size = New System.Drawing.Size(198, 30)
-        Me.DetailsToolStripMenuItem.Text = "Details"
-        '
         'VvvToolStripMenuItem
         '
         Me.VvvToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FromDiskToolStripMenuItem1, Me.FromURLToolStripMenuItem1})
@@ -130,13 +125,13 @@ Partial Class Form1
         'FromDiskToolStripMenuItem1
         '
         Me.FromDiskToolStripMenuItem1.Name = "FromDiskToolStripMenuItem1"
-        Me.FromDiskToolStripMenuItem1.Size = New System.Drawing.Size(177, 30)
+        Me.FromDiskToolStripMenuItem1.Size = New System.Drawing.Size(210, 30)
         Me.FromDiskToolStripMenuItem1.Text = "From Disk"
         '
         'FromURLToolStripMenuItem1
         '
         Me.FromURLToolStripMenuItem1.Name = "FromURLToolStripMenuItem1"
-        Me.FromURLToolStripMenuItem1.Size = New System.Drawing.Size(177, 30)
+        Me.FromURLToolStripMenuItem1.Size = New System.Drawing.Size(210, 30)
         Me.FromURLToolStripMenuItem1.Text = "From URL"
         '
         'ComputerToolStripMenuItem
@@ -176,7 +171,7 @@ Partial Class Form1
         Me.UpdateToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FromDiskToolStripMenuItem, Me.FromURLToolStripMenuItem})
         Me.UpdateToolStripMenuItem.Name = "UpdateToolStripMenuItem"
         Me.UpdateToolStripMenuItem.ShowShortcutKeys = False
-        Me.UpdateToolStripMenuItem.Size = New System.Drawing.Size(178, 30)
+        Me.UpdateToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
         Me.UpdateToolStripMenuItem.Text = "Update"
         '
         'FromDiskToolStripMenuItem
@@ -194,19 +189,19 @@ Partial Class Form1
         'RestartToolStripMenuItem1
         '
         Me.RestartToolStripMenuItem1.Name = "RestartToolStripMenuItem1"
-        Me.RestartToolStripMenuItem1.Size = New System.Drawing.Size(178, 30)
+        Me.RestartToolStripMenuItem1.Size = New System.Drawing.Size(177, 30)
         Me.RestartToolStripMenuItem1.Text = "Reconnect"
         '
         'UninstallToolStripMenuItem1
         '
         Me.UninstallToolStripMenuItem1.Name = "UninstallToolStripMenuItem1"
-        Me.UninstallToolStripMenuItem1.Size = New System.Drawing.Size(178, 30)
+        Me.UninstallToolStripMenuItem1.Size = New System.Drawing.Size(177, 30)
         Me.UninstallToolStripMenuItem1.Text = "Uninstall"
         '
         'CloseToolStripMenuItem
         '
         Me.CloseToolStripMenuItem.Name = "CloseToolStripMenuItem"
-        Me.CloseToolStripMenuItem.Size = New System.Drawing.Size(178, 30)
+        Me.CloseToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
         Me.CloseToolStripMenuItem.Text = "Close"
         '
         'ToolStripSeparator2
@@ -227,7 +222,7 @@ Partial Class Form1
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 633)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1433, 30)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1544, 30)
         Me.StatusStrip1.SizingGrip = False
         Me.StatusStrip1.TabIndex = 3
         Me.StatusStrip1.Text = "StatusStrip1"
@@ -236,7 +231,7 @@ Partial Class Form1
         '
         Me.ToolStripStatusLabel1.ForeColor = System.Drawing.Color.Lime
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(184, 25)
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(180, 25)
         Me.ToolStripStatusLabel1.Text = "ToolStripStatusLabel1"
         '
         'Timer1
@@ -257,10 +252,13 @@ Partial Class Form1
         '
         'SplitContainer1.Panel2
         '
-        Me.SplitContainer1.Panel2.Controls.Add(Me.PictureBox1)
+        Me.SplitContainer1.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.SplitContainer1.Panel2.Controls.Add(Me.ListView2)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.ListView1)
         Me.SplitContainer1.Panel2.Controls.Add(Me.L2)
-        Me.SplitContainer1.Size = New System.Drawing.Size(1433, 663)
-        Me.SplitContainer1.SplitterDistance = 469
+        Me.SplitContainer1.Panel2.Controls.Add(Me.PictureBox1)
+        Me.SplitContainer1.Size = New System.Drawing.Size(1544, 663)
+        Me.SplitContainer1.SplitterDistance = 435
         Me.SplitContainer1.TabIndex = 0
         '
         'L1
@@ -276,7 +274,7 @@ Partial Class Form1
         Me.L1.Location = New System.Drawing.Point(0, 0)
         Me.L1.Name = "L1"
         Me.L1.Scrollable = False
-        Me.L1.Size = New System.Drawing.Size(1433, 469)
+        Me.L1.Size = New System.Drawing.Size(1544, 435)
         Me.L1.TabIndex = 1
         Me.L1.UseCompatibleStateImageBehavior = False
         Me.L1.View = System.Windows.Forms.View.Details
@@ -331,33 +329,60 @@ Partial Class Form1
         Me.PictureBox1.Dock = System.Windows.Forms.DockStyle.Right
         Me.PictureBox1.ErrorImage = Nothing
         Me.PictureBox1.InitialImage = Nothing
-        Me.PictureBox1.Location = New System.Drawing.Point(1146, 0)
+        Me.PictureBox1.Location = New System.Drawing.Point(1257, 0)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(287, 190)
+        Me.PictureBox1.Size = New System.Drawing.Size(287, 224)
         Me.PictureBox1.TabIndex = 4
         Me.PictureBox1.TabStop = False
+        '
+        'ListView2
+        '
+        Me.ListView2.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.ListView2.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.ListView2.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.ListView2.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None
+        Me.ListView2.Location = New System.Drawing.Point(802, 3)
+        Me.ListView2.Name = "ListView2"
+        Me.ListView2.Scrollable = False
+        Me.ListView2.Size = New System.Drawing.Size(448, 180)
+        Me.ListView2.TabIndex = 9
+        Me.ListView2.UseCompatibleStateImageBehavior = False
+        Me.ListView2.View = System.Windows.Forms.View.Details
+        '
+        'ListView1
+        '
+        Me.ListView1.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.ListView1.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.ListView1.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.ListView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None
+        Me.ListView1.Location = New System.Drawing.Point(389, 3)
+        Me.ListView1.Name = "ListView1"
+        Me.ListView1.Scrollable = False
+        Me.ListView1.Size = New System.Drawing.Size(407, 180)
+        Me.ListView1.TabIndex = 8
+        Me.ListView1.UseCompatibleStateImageBehavior = False
+        Me.ListView1.View = System.Windows.Forms.View.Details
         '
         'L2
         '
         Me.L2.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.L2.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.L2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.L2.ForeColor = System.Drawing.Color.Gainsboro
         Me.L2.FormattingEnabled = True
         Me.L2.ItemHeight = 20
         Me.L2.Items.AddRange(New Object() {"#Logs", ""})
-        Me.L2.Location = New System.Drawing.Point(0, 0)
+        Me.L2.Location = New System.Drawing.Point(3, 3)
         Me.L2.Name = "L2"
         Me.L2.SelectionMode = System.Windows.Forms.SelectionMode.None
-        Me.L2.Size = New System.Drawing.Size(1433, 190)
-        Me.L2.TabIndex = 2
+        Me.L2.Size = New System.Drawing.Size(380, 180)
+        Me.L2.TabIndex = 7
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(1433, 663)
+        Me.ClientSize = New System.Drawing.Size(1544, 663)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -411,11 +436,12 @@ Partial Class Form1
     Friend WithEvents c_install As ColumnHeader
     Friend WithEvents c_av As ColumnHeader
     Friend WithEvents c_usb As ColumnHeader
-    Friend WithEvents L2 As ListBox
     Friend WithEvents c_ransomware As ColumnHeader
-    Friend WithEvents DetailsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents RansomwareToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents EncryptToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents DecryptToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents ListView2 As ListView
+    Friend WithEvents ListView1 As ListView
+    Friend WithEvents L2 As ListBox
 End Class

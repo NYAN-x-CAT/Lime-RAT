@@ -1,7 +1,7 @@
 ﻿
 Namespace Lime
     Public Class Settings
-    'Don't forget to put it to /Stub/Stub.exe or the builder won't build it
+        'Don't forget to put it to /Stub/Stub.exe or the builder won't build it
         Public Shared LHOST As String = "%LHOST%"
         Public Shared LPORT As Integer = "%LPORT%"
         Public Shared SPL As String = "'L'"

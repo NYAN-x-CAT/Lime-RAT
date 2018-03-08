@@ -55,6 +55,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -69,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands.vb" />
+    <Compile Include="PWD.vb" />
     <Compile Include="Socket.vb" />
     <Compile Include="ID.vb" />
     <Compile Include="Insistence.vb" />

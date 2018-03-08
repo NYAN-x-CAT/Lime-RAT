@@ -39,8 +39,8 @@ Namespace Lime
                 If Not createdNew Then End
             Finally
                 If createdNew Then
-                    Settings.NMT.ReleaseMutex()
-                End If
+                Settings.NMT.ReleaseMutex()
+            End If
             End Try
 
             Call MISC.Anti()
@@ -57,8 +57,6 @@ Namespace Lime
                 End If
             Catch
             End Try
-
-
 
 
         End Sub

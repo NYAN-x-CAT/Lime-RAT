@@ -349,14 +349,15 @@ Partial Class Form1
         '
         Me.L2.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.L2.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.L2.Dock = System.Windows.Forms.DockStyle.Left
         Me.L2.ForeColor = System.Drawing.Color.Gainsboro
         Me.L2.FormattingEnabled = True
         Me.L2.ItemHeight = 20
         Me.L2.Items.AddRange(New Object() {"#Logs", ""})
-        Me.L2.Location = New System.Drawing.Point(3, 7)
+        Me.L2.Location = New System.Drawing.Point(0, 0)
         Me.L2.Name = "L2"
         Me.L2.SelectionMode = System.Windows.Forms.SelectionMode.None
-        Me.L2.Size = New System.Drawing.Size(1165, 180)
+        Me.L2.Size = New System.Drawing.Size(1165, 198)
         Me.L2.TabIndex = 2
         '
         'Form1

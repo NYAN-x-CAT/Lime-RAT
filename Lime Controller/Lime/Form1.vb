@@ -43,11 +43,10 @@ Public Class Form1
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         TOS.ShowDialog()
-
-        Dim box As Integer = InputBox(" Hello " & Environment.UserName + vbNewLine + vbNewLine & " Please enter port", "PORT")
-        Myport = box
-
         Try
+            Dim box As Integer = InputBox(" Hello " & Environment.UserName + vbNewLine + vbNewLine & " Please enter port", "PORT")
+            Myport = box
+
             Control.CheckForIllegalCrossThreadCalls = False
             F = Me
             cc.Start(Myport)
@@ -510,7 +509,6 @@ Public Class Form1
 
 
 #End Region
-
 
 
 End Class

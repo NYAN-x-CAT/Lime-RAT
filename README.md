@@ -1,4 +1,4 @@
-# Lime Controller v0.3
+# Lime Controller v0.3.1
 
 <img src="https://i.imgur.com/BypoJN8.jpg">
 
@@ -26,6 +26,8 @@
 	
  Miscellaneous
  - [x] Bot Details
+ - [x] Processes list
+ - [x] Visit website
  
  Builder
  - [x] Pastebin URL as Dynamic IP

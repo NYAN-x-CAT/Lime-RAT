@@ -128,6 +128,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="TOS.Designer.vb">
+      <DependentUpon>TOS.vb</DependentUpon>
+    </Compile>
+    <Compile Include="TOS.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Builder.resx">
@@ -147,6 +153,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ransomware.resx">
       <DependentUpon>Ransomware.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TOS.resx">
+      <DependentUpon>TOS.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

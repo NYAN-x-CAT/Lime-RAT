@@ -8,10 +8,10 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("Lime Controller 0.3.1")>
-<Assembly: AssemblyDescription("Lime Controller 0.3.1")>
+<Assembly: AssemblyTitle("Lime Controller 0.3.1A")>
+<Assembly: AssemblyDescription("Lime Controller 0.3.1A")>
 <Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("Lime Controller 0.3.1")>
+<Assembly: AssemblyProduct("Lime Controller 0.3.1A")>
 <Assembly: AssemblyCopyright("Copyright © NYAN CAT 2018")>
 <Assembly: AssemblyTrademark("")>
 

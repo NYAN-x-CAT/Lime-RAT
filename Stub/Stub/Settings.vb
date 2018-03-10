@@ -5,7 +5,7 @@ Namespace Lime
         'For testing use debug compiler
 
 #If DEBUG Then
-        Public Shared LHOST As String = "192.168.1.233"
+        Public Shared LHOST As String = "127.0.0.1"
         Public Shared LPORT As Integer = "1111"
         Public Shared SPL As String = "'L'"
         Public Shared LVER As String = "Stub 0.4"

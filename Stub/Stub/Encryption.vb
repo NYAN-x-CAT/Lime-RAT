@@ -177,7 +177,7 @@ Namespace Lime
 
 
                 Dim NewFile = IO.Path.GetTempFileName + ".jpeg"
-                File.WriteAllBytes(NewFile, Convert.FromBase64String(Mywallpaper))
+                My.Computer.Network.DownloadFile(Mywallpaper, NewFile)
 
                 Dim registryKey As Microsoft.Win32.RegistryKey = My.Computer.Registry.CurrentUser.OpenSubKey("Control Panel\Desktop", True)
                 registryKey.SetValue("WallpaperStyle", "2")

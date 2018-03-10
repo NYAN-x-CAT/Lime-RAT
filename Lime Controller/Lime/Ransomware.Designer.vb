@@ -25,13 +25,13 @@ Partial Class Ransomware
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Ransomware))
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.Button1 = New Lime.CHButton()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
         Me.Textbox1 = New Lime.CHTextbox()
         Me.Button2 = New Lime.CHButton()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Splitter1 = New System.Windows.Forms.Splitter()
-        Me.Label1 = New System.Windows.Forms.Label()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -77,6 +77,16 @@ Partial Class Ransomware
         Me.Button1.Text = "Send"
         Me.Button1.Transparent = False
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.ForeColor = System.Drawing.Color.Lime
+        Me.Label1.Location = New System.Drawing.Point(12, 11)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(112, 20)
+        Me.Label1.TabIndex = 4
+        Me.Label1.Text = "Your message"
+        '
         'RichTextBox1
         '
         Me.RichTextBox1.BackColor = System.Drawing.Color.DarkGreen
@@ -114,7 +124,7 @@ Partial Class Ransomware
         Me.Button2.NoRounding = False
         Me.Button2.Size = New System.Drawing.Size(130, 38)
         Me.Button2.TabIndex = 7
-        Me.Button2.Text = "Browse"
+        Me.Button2.Text = "Preview"
         Me.Button2.Transparent = False
         '
         'PictureBox1
@@ -146,16 +156,6 @@ Partial Class Ransomware
         Me.Splitter1.Size = New System.Drawing.Size(3, 348)
         Me.Splitter1.TabIndex = 1
         Me.Splitter1.TabStop = False
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.ForeColor = System.Drawing.Color.Lime
-        Me.Label1.Location = New System.Drawing.Point(12, 11)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(112, 20)
-        Me.Label1.TabIndex = 4
-        Me.Label1.Text = "Your message"
         '
         'Ransomware
         '

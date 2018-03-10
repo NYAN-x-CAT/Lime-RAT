@@ -1,6 +1,6 @@
 # Lime Controller v0.4
 
-<a href="http://sendvid.com/e513ss1r"><img border="0" alt="W3Schools" src="https://i.imgur.com/A03qFj3.png">
+<a href="http://sendvid.com/e513ss1r"><img border="0" alt="W3Schools" src="https://i.imgur.com/A03qFj3.png"></a>
 	
  This is how the attacker can install ransomware module that can encrypt all files on all drivers then send the key back to c&c, and yet, the attack also can run files, spread the controller over USB drivers and gathering information about the client.
 

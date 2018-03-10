@@ -111,6 +111,7 @@ Partial Class Ransomware
         Me.Textbox1.NoRounding = False
         Me.Textbox1.Size = New System.Drawing.Size(265, 25)
         Me.Textbox1.TabIndex = 9
+        Me.Textbox1.Text = "https://i.imgur.com/Id6A385.jpg"
         Me.Textbox1.Transparent = True
         Me.Textbox1.UsePasswordMask = False
         '

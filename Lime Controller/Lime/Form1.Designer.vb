@@ -151,6 +151,7 @@ Partial Class Form1
         Me.FromDiskToolStripMenuItem1.Name = "FromDiskToolStripMenuItem1"
         Me.FromDiskToolStripMenuItem1.Size = New System.Drawing.Size(177, 30)
         Me.FromDiskToolStripMenuItem1.Text = "From Disk"
+        Me.FromDiskToolStripMenuItem1.Visible = False
         '
         'FromURLToolStripMenuItem1
         '
@@ -210,6 +211,7 @@ Partial Class Form1
         Me.FromDiskToolStripMenuItem.Name = "FromDiskToolStripMenuItem"
         Me.FromDiskToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
         Me.FromDiskToolStripMenuItem.Text = "From Disk"
+        Me.FromDiskToolStripMenuItem.Visible = False
         '
         'FromURLToolStripMenuItem
         '

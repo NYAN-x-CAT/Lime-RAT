@@ -25,7 +25,6 @@ Partial Class Form1
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.BuilderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.RansomwareToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EncryptToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -48,10 +47,12 @@ Partial Class Form1
         Me.CloseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
-        Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.ChTabcontrol1 = New Lime.CHTabcontrol()
+        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.L1 = New System.Windows.Forms.ListView()
         Me.c_id = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.c_ip = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -64,33 +65,48 @@ Partial Class Form1
         Me.c_install = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.c_av = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.c_usb = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.L2 = New System.Windows.Forms.ListBox()
-        Me.PasswordsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.L2 = New Lime.CHListbox()
+        Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.Button4 = New Lime.CHButton()
+        Me.Button1 = New Lime.CHButton()
+        Me.ChGroupBox3 = New Lime.CHGroupBox()
+        Me.SPUSB = New Lime.CHCheckbox()
+        Me.ANTI_VM = New Lime.CHCheckbox()
+        Me.ChGroupBox2 = New Lime.CHGroupBox()
+        Me.CHKDR = New Lime.CHOnOffBox()
+        Me.DRPATH = New Lime.CHCombobox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.DRFOLDER = New Lime.CHTextbox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.exename = New Lime.CHTextbox()
+        Me.ChGroupBox1 = New Lime.CHGroupBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.port = New Lime.CHTextbox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.host = New Lime.CHTextbox()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
-        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SplitContainer1.Panel1.SuspendLayout()
-        Me.SplitContainer1.Panel2.SuspendLayout()
-        Me.SplitContainer1.SuspendLayout()
+        Me.ChTabcontrol1.SuspendLayout()
+        Me.TabPage1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage2.SuspendLayout()
+        Me.TabPage3.SuspendLayout()
+        Me.ChGroupBox3.SuspendLayout()
+        Me.ChGroupBox2.SuspendLayout()
+        Me.ChGroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'ContextMenuStrip1
         '
         Me.ContextMenuStrip1.BackColor = System.Drawing.SystemColors.Control
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BuilderToolStripMenuItem, Me.ToolStripSeparator1, Me.RansomwareToolStripMenuItem, Me.PasswordsToolStripMenuItem, Me.DetailsToolStripMenuItem, Me.VvvToolStripMenuItem, Me.VisitWebsiteToolStripMenuItem, Me.ComputerToolStripMenuItem, Me.WormSettingToolStripMenuItem, Me.ToolStripSeparator2, Me.AboutToolStripMenuItem})
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripSeparator1, Me.RansomwareToolStripMenuItem, Me.DetailsToolStripMenuItem, Me.VvvToolStripMenuItem, Me.VisitWebsiteToolStripMenuItem, Me.ComputerToolStripMenuItem, Me.WormSettingToolStripMenuItem, Me.ToolStripSeparator2, Me.AboutToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         Me.ContextMenuStrip1.ShowImageMargin = False
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(199, 319)
-        '
-        'BuilderToolStripMenuItem
-        '
-        Me.BuilderToolStripMenuItem.Name = "BuilderToolStripMenuItem"
-        Me.BuilderToolStripMenuItem.Size = New System.Drawing.Size(198, 30)
-        Me.BuilderToolStripMenuItem.Text = "Builder"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(199, 226)
         '
         'ToolStripSeparator1
         '
@@ -228,9 +244,20 @@ Partial Class Form1
         Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(198, 30)
         Me.AboutToolStripMenuItem.Text = "About"
         '
+        'Timer1
+        '
+        Me.Timer1.Enabled = True
+        '
+        'ToolStripStatusLabel1
+        '
+        Me.ToolStripStatusLabel1.ForeColor = System.Drawing.Color.Lime
+        Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(180, 25)
+        Me.ToolStripStatusLabel1.Text = "ToolStripStatusLabel1"
+        '
         'StatusStrip1
         '
-        Me.StatusStrip1.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.StatusStrip1.BackColor = System.Drawing.Color.Black
         Me.StatusStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 633)
@@ -240,41 +267,47 @@ Partial Class Form1
         Me.StatusStrip1.TabIndex = 3
         Me.StatusStrip1.Text = "StatusStrip1"
         '
-        'ToolStripStatusLabel1
+        'ChTabcontrol1
         '
-        Me.ToolStripStatusLabel1.ForeColor = System.Drawing.Color.Lime
-        Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(180, 25)
-        Me.ToolStripStatusLabel1.Text = "ToolStripStatusLabel1"
+        Me.ChTabcontrol1.Controls.Add(Me.TabPage1)
+        Me.ChTabcontrol1.Controls.Add(Me.TabPage2)
+        Me.ChTabcontrol1.Controls.Add(Me.TabPage3)
+        Me.ChTabcontrol1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ChTabcontrol1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
+        Me.ChTabcontrol1.GlowColor = System.Drawing.Color.Empty
+        Me.ChTabcontrol1.ItemSize = New System.Drawing.Size(80, 30)
+        Me.ChTabcontrol1.Location = New System.Drawing.Point(0, 0)
+        Me.ChTabcontrol1.Name = "ChTabcontrol1"
+        Me.ChTabcontrol1.SelectedIndex = 0
+        Me.ChTabcontrol1.Size = New System.Drawing.Size(1461, 633)
+        Me.ChTabcontrol1.TabIndex = 4
         '
-        'Timer1
+        'TabPage1
         '
-        Me.Timer1.Enabled = True
+        Me.TabPage1.BackColor = System.Drawing.Color.Black
+        Me.TabPage1.Controls.Add(Me.PictureBox1)
+        Me.TabPage1.Controls.Add(Me.L1)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 34)
+        Me.TabPage1.Name = "TabPage1"
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage1.Size = New System.Drawing.Size(1453, 595)
+        Me.TabPage1.TabIndex = 0
+        Me.TabPage1.Text = "Bots"
         '
-        'SplitContainer1
+        'PictureBox1
         '
-        Me.SplitContainer1.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitContainer1.Location = New System.Drawing.Point(0, 0)
-        Me.SplitContainer1.Name = "SplitContainer1"
-        Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
-        '
-        'SplitContainer1.Panel1
-        '
-        Me.SplitContainer1.Panel1.Controls.Add(Me.L1)
-        '
-        'SplitContainer1.Panel2
-        '
-        Me.SplitContainer1.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
-        Me.SplitContainer1.Panel2.Controls.Add(Me.PictureBox1)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.L2)
-        Me.SplitContainer1.Size = New System.Drawing.Size(1461, 663)
-        Me.SplitContainer1.SplitterDistance = 461
-        Me.SplitContainer1.TabIndex = 0
+        Me.PictureBox1.BackColor = System.Drawing.Color.Black
+        Me.PictureBox1.ErrorImage = Nothing
+        Me.PictureBox1.InitialImage = Nothing
+        Me.PictureBox1.Location = New System.Drawing.Point(1145, 392)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(287, 182)
+        Me.PictureBox1.TabIndex = 5
+        Me.PictureBox1.TabStop = False
         '
         'L1
         '
-        Me.L1.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.L1.BackColor = System.Drawing.Color.Black
         Me.L1.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.L1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.c_id, Me.c_ip, Me.c_user, Me.c_ransomware, Me.c_stub, Me.c_country, Me.c_os, Me.c_version, Me.c_install, Me.c_av, Me.c_usb})
         Me.L1.ContextMenuStrip = Me.ContextMenuStrip1
@@ -282,11 +315,12 @@ Partial Class Form1
         Me.L1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.L1.ForeColor = System.Drawing.Color.Lime
         Me.L1.FullRowSelect = True
-        Me.L1.Location = New System.Drawing.Point(0, 0)
+        Me.L1.Location = New System.Drawing.Point(3, 3)
         Me.L1.Name = "L1"
+        Me.L1.OwnerDraw = True
         Me.L1.Scrollable = False
-        Me.L1.Size = New System.Drawing.Size(1461, 461)
-        Me.L1.TabIndex = 1
+        Me.L1.Size = New System.Drawing.Size(1447, 589)
+        Me.L1.TabIndex = 2
         Me.L1.UseCompatibleStateImageBehavior = False
         Me.L1.View = System.Windows.Forms.View.Details
         '
@@ -334,65 +368,343 @@ Partial Class Form1
         '
         Me.c_usb.Text = " USB Spread "
         '
-        'PictureBox1
+        'TabPage2
         '
-        Me.PictureBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
-        Me.PictureBox1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.PictureBox1.ErrorImage = Nothing
-        Me.PictureBox1.InitialImage = Nothing
-        Me.PictureBox1.Location = New System.Drawing.Point(1174, 0)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(287, 198)
-        Me.PictureBox1.TabIndex = 4
-        Me.PictureBox1.TabStop = False
+        Me.TabPage2.BackColor = System.Drawing.Color.Black
+        Me.TabPage2.Controls.Add(Me.L2)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 34)
+        Me.TabPage2.Name = "TabPage2"
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage2.Size = New System.Drawing.Size(1453, 595)
+        Me.TabPage2.TabIndex = 1
+        Me.TabPage2.Text = "Logs"
         '
         'L2
         '
-        Me.L2.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.L2.BackColor = System.Drawing.Color.Black
         Me.L2.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.L2.Dock = System.Windows.Forms.DockStyle.Left
-        Me.L2.ForeColor = System.Drawing.Color.Gainsboro
+        Me.L2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.L2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.L2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
+        Me.L2.ForeColor = System.Drawing.Color.Lime
         Me.L2.FormattingEnabled = True
-        Me.L2.ItemHeight = 20
-        Me.L2.Items.AddRange(New Object() {"#Logs", ""})
-        Me.L2.Location = New System.Drawing.Point(0, 0)
+        Me.L2.IntegralHeight = False
+        Me.L2.ItemHeight = 21
+        Me.L2.ItemImage = Nothing
+        Me.L2.Location = New System.Drawing.Point(3, 3)
         Me.L2.Name = "L2"
-        Me.L2.SelectionMode = System.Windows.Forms.SelectionMode.None
-        Me.L2.Size = New System.Drawing.Size(1165, 198)
-        Me.L2.TabIndex = 2
+        Me.L2.Size = New System.Drawing.Size(1447, 589)
+        Me.L2.TabIndex = 0
         '
-        'PasswordsToolStripMenuItem
+        'TabPage3
         '
-        Me.PasswordsToolStripMenuItem.Name = "PasswordsToolStripMenuItem"
-        Me.PasswordsToolStripMenuItem.Size = New System.Drawing.Size(198, 30)
-        Me.PasswordsToolStripMenuItem.Text = "Passwords"
+        Me.TabPage3.BackColor = System.Drawing.Color.Black
+        Me.TabPage3.Controls.Add(Me.Button4)
+        Me.TabPage3.Controls.Add(Me.Button1)
+        Me.TabPage3.Controls.Add(Me.ChGroupBox3)
+        Me.TabPage3.Controls.Add(Me.ChGroupBox2)
+        Me.TabPage3.Controls.Add(Me.ChGroupBox1)
+        Me.TabPage3.Location = New System.Drawing.Point(4, 34)
+        Me.TabPage3.Name = "TabPage3"
+        Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage3.Size = New System.Drawing.Size(1453, 595)
+        Me.TabPage3.TabIndex = 2
+        Me.TabPage3.Text = "Builder"
+        '
+        'Button4
+        '
+        Me.Button4.Customization = "AGQA/wD/AP8AgAD/"
+        Me.Button4.Font = New System.Drawing.Font("Verdana", 8.0!)
+        Me.Button4.Image = Nothing
+        Me.Button4.Location = New System.Drawing.Point(982, 232)
+        Me.Button4.Name = "Button4"
+        Me.Button4.NoRounding = False
+        Me.Button4.Size = New System.Drawing.Size(226, 44)
+        Me.Button4.TabIndex = 8
+        Me.Button4.Text = "H E L P"
+        Me.Button4.Transparent = False
+        '
+        'Button1
+        '
+        Me.Button1.Customization = "AGQA/wD/AP8AgAD/"
+        Me.Button1.Font = New System.Drawing.Font("Verdana", 8.0!)
+        Me.Button1.Image = Nothing
+        Me.Button1.Location = New System.Drawing.Point(657, 232)
+        Me.Button1.Name = "Button1"
+        Me.Button1.NoRounding = False
+        Me.Button1.Size = New System.Drawing.Size(226, 44)
+        Me.Button1.TabIndex = 7
+        Me.Button1.Text = "B U I L D"
+        Me.Button1.Transparent = False
+        '
+        'ChGroupBox3
+        '
+        Me.ChGroupBox3.BackColor = System.Drawing.Color.Black
+        Me.ChGroupBox3.BorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.ChGroupBox3.Controls.Add(Me.SPUSB)
+        Me.ChGroupBox3.Controls.Add(Me.ANTI_VM)
+        Me.ChGroupBox3.Customization = "AGQA/wAAAP8A/wD/"
+        Me.ChGroupBox3.Font = New System.Drawing.Font("Verdana", 8.0!)
+        Me.ChGroupBox3.Image = Nothing
+        Me.ChGroupBox3.Location = New System.Drawing.Point(657, 25)
+        Me.ChGroupBox3.Movable = True
+        Me.ChGroupBox3.Name = "ChGroupBox3"
+        Me.ChGroupBox3.NoRounding = False
+        Me.ChGroupBox3.Sizable = True
+        Me.ChGroupBox3.Size = New System.Drawing.Size(551, 144)
+        Me.ChGroupBox3.SmartBounds = True
+        Me.ChGroupBox3.StartPosition = System.Windows.Forms.FormStartPosition.Manual
+        Me.ChGroupBox3.TabIndex = 6
+        Me.ChGroupBox3.Text = "MISC"
+        Me.ChGroupBox3.TransparencyKey = System.Drawing.Color.Empty
+        Me.ChGroupBox3.Transparent = False
+        '
+        'SPUSB
+        '
+        Me.SPUSB.BackColor = System.Drawing.Color.Transparent
+        Me.SPUSB.Checked = False
+        Me.SPUSB.ForeColor = System.Drawing.Color.Black
+        Me.SPUSB.Location = New System.Drawing.Point(33, 101)
+        Me.SPUSB.Name = "SPUSB"
+        Me.SPUSB.Size = New System.Drawing.Size(351, 14)
+        Me.SPUSB.TabIndex = 1
+        Me.SPUSB.Text = "USB Spread"
+        '
+        'ANTI_VM
+        '
+        Me.ANTI_VM.BackColor = System.Drawing.Color.Transparent
+        Me.ANTI_VM.Checked = False
+        Me.ANTI_VM.ForeColor = System.Drawing.Color.Black
+        Me.ANTI_VM.Location = New System.Drawing.Point(33, 54)
+        Me.ANTI_VM.Name = "ANTI_VM"
+        Me.ANTI_VM.Size = New System.Drawing.Size(351, 14)
+        Me.ANTI_VM.TabIndex = 0
+        Me.ANTI_VM.Text = "Don't Run On Virtual Environment"
+        '
+        'ChGroupBox2
+        '
+        Me.ChGroupBox2.BackColor = System.Drawing.Color.Black
+        Me.ChGroupBox2.BorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.ChGroupBox2.Controls.Add(Me.CHKDR)
+        Me.ChGroupBox2.Controls.Add(Me.DRPATH)
+        Me.ChGroupBox2.Controls.Add(Me.Label5)
+        Me.ChGroupBox2.Controls.Add(Me.Label3)
+        Me.ChGroupBox2.Controls.Add(Me.DRFOLDER)
+        Me.ChGroupBox2.Controls.Add(Me.Label4)
+        Me.ChGroupBox2.Controls.Add(Me.exename)
+        Me.ChGroupBox2.Customization = "AGQA/wAAAP8A/wD/"
+        Me.ChGroupBox2.Font = New System.Drawing.Font("Verdana", 8.0!)
+        Me.ChGroupBox2.Image = Nothing
+        Me.ChGroupBox2.Location = New System.Drawing.Point(20, 232)
+        Me.ChGroupBox2.Movable = True
+        Me.ChGroupBox2.Name = "ChGroupBox2"
+        Me.ChGroupBox2.NoRounding = False
+        Me.ChGroupBox2.Sizable = True
+        Me.ChGroupBox2.Size = New System.Drawing.Size(557, 271)
+        Me.ChGroupBox2.SmartBounds = True
+        Me.ChGroupBox2.StartPosition = System.Windows.Forms.FormStartPosition.Manual
+        Me.ChGroupBox2.TabIndex = 5
+        Me.ChGroupBox2.Text = "Persistence"
+        Me.ChGroupBox2.TransparencyKey = System.Drawing.Color.Empty
+        Me.ChGroupBox2.Transparent = False
+        '
+        'CHKDR
+        '
+        Me.CHKDR.Checked = False
+        Me.CHKDR.Location = New System.Drawing.Point(22, 54)
+        Me.CHKDR.MaximumSize = New System.Drawing.Size(56, 24)
+        Me.CHKDR.MinimumSize = New System.Drawing.Size(56, 24)
+        Me.CHKDR.Name = "CHKDR"
+        Me.CHKDR.Size = New System.Drawing.Size(56, 24)
+        Me.CHKDR.TabIndex = 7
+        Me.CHKDR.Text = "ChOnOffBox1"
+        '
+        'DRPATH
+        '
+        Me.DRPATH.BackColor = System.Drawing.Color.Black
+        Me.DRPATH.BaseColour = System.Drawing.Color.Black
+        Me.DRPATH.BorderColour = System.Drawing.Color.DarkGreen
+        Me.DRPATH.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.DRPATH.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.DRPATH.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
+        Me.DRPATH.FontColour = System.Drawing.Color.Lime
+        Me.DRPATH.FormattingEnabled = True
+        Me.DRPATH.Items.AddRange(New Object() {"AppData", "Temp", "UserProfile"})
+        Me.DRPATH.Location = New System.Drawing.Point(126, 144)
+        Me.DRPATH.Name = "DRPATH"
+        Me.DRPATH.Size = New System.Drawing.Size(227, 29)
+        Me.DRPATH.StartIndex = 0
+        Me.DRPATH.TabIndex = 6
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.ForeColor = System.Drawing.Color.Lime
+        Me.Label5.Location = New System.Drawing.Point(19, 150)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(81, 18)
+        Me.Label5.TabIndex = 5
+        Me.Label5.Text = "Directory"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.ForeColor = System.Drawing.Color.Lime
+        Me.Label3.Location = New System.Drawing.Point(19, 206)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(94, 18)
+        Me.Label3.TabIndex = 3
+        Me.Label3.Text = "Sub Folder"
+        '
+        'DRFOLDER
+        '
+        Me.DRFOLDER.BackColor = System.Drawing.Color.Transparent
+        Me.DRFOLDER.Colors = New Lime.Bloom(-1) {}
+        Me.DRFOLDER.Customization = ""
+        Me.DRFOLDER.Font = New System.Drawing.Font("Verdana", 8.0!)
+        Me.DRFOLDER.Image = Nothing
+        Me.DRFOLDER.Location = New System.Drawing.Point(126, 199)
+        Me.DRFOLDER.MaxCharacters = 0
+        Me.DRFOLDER.Name = "DRFOLDER"
+        Me.DRFOLDER.NoRounding = False
+        Me.DRFOLDER.Size = New System.Drawing.Size(227, 25)
+        Me.DRFOLDER.TabIndex = 4
+        Me.DRFOLDER.Transparent = True
+        Me.DRFOLDER.UsePasswordMask = False
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.ForeColor = System.Drawing.Color.Lime
+        Me.Label4.Location = New System.Drawing.Point(19, 97)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(90, 18)
+        Me.Label4.TabIndex = 1
+        Me.Label4.Text = "File Name"
+        '
+        'exename
+        '
+        Me.exename.BackColor = System.Drawing.Color.Transparent
+        Me.exename.Colors = New Lime.Bloom(-1) {}
+        Me.exename.Customization = ""
+        Me.exename.Font = New System.Drawing.Font("Verdana", 8.0!)
+        Me.exename.Image = Nothing
+        Me.exename.Location = New System.Drawing.Point(126, 97)
+        Me.exename.MaxCharacters = 0
+        Me.exename.Name = "exename"
+        Me.exename.NoRounding = False
+        Me.exename.Size = New System.Drawing.Size(227, 25)
+        Me.exename.TabIndex = 2
+        Me.exename.Transparent = True
+        Me.exename.UsePasswordMask = False
+        '
+        'ChGroupBox1
+        '
+        Me.ChGroupBox1.BackColor = System.Drawing.Color.Black
+        Me.ChGroupBox1.BorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.ChGroupBox1.Controls.Add(Me.Label2)
+        Me.ChGroupBox1.Controls.Add(Me.port)
+        Me.ChGroupBox1.Controls.Add(Me.Label1)
+        Me.ChGroupBox1.Controls.Add(Me.host)
+        Me.ChGroupBox1.Customization = "AGQA/wAAAP8A/wD/"
+        Me.ChGroupBox1.Font = New System.Drawing.Font("Verdana", 8.0!)
+        Me.ChGroupBox1.Image = Nothing
+        Me.ChGroupBox1.Location = New System.Drawing.Point(20, 25)
+        Me.ChGroupBox1.Movable = True
+        Me.ChGroupBox1.Name = "ChGroupBox1"
+        Me.ChGroupBox1.NoRounding = False
+        Me.ChGroupBox1.Sizable = True
+        Me.ChGroupBox1.Size = New System.Drawing.Size(557, 144)
+        Me.ChGroupBox1.SmartBounds = True
+        Me.ChGroupBox1.StartPosition = System.Windows.Forms.FormStartPosition.Manual
+        Me.ChGroupBox1.TabIndex = 7
+        Me.ChGroupBox1.Text = "Connection"
+        Me.ChGroupBox1.TransparencyKey = System.Drawing.Color.Empty
+        Me.ChGroupBox1.Transparent = False
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.ForeColor = System.Drawing.Color.Lime
+        Me.Label2.Location = New System.Drawing.Point(349, 71)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(41, 18)
+        Me.Label2.TabIndex = 3
+        Me.Label2.Text = "Port"
+        '
+        'port
+        '
+        Me.port.BackColor = System.Drawing.Color.Transparent
+        Me.port.Colors = New Lime.Bloom(-1) {}
+        Me.port.Customization = ""
+        Me.port.Font = New System.Drawing.Font("Verdana", 8.0!)
+        Me.port.Image = Nothing
+        Me.port.Location = New System.Drawing.Point(396, 71)
+        Me.port.MaxCharacters = 0
+        Me.port.Name = "port"
+        Me.port.NoRounding = False
+        Me.port.Size = New System.Drawing.Size(117, 25)
+        Me.port.TabIndex = 4
+        Me.port.Transparent = True
+        Me.port.UsePasswordMask = False
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.ForeColor = System.Drawing.Color.Lime
+        Me.Label1.Location = New System.Drawing.Point(17, 71)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(25, 18)
+        Me.Label1.TabIndex = 1
+        Me.Label1.Text = "IP"
+        '
+        'host
+        '
+        Me.host.BackColor = System.Drawing.Color.Transparent
+        Me.host.Colors = New Lime.Bloom(-1) {}
+        Me.host.Customization = ""
+        Me.host.Font = New System.Drawing.Font("Verdana", 8.0!)
+        Me.host.Image = Nothing
+        Me.host.Location = New System.Drawing.Point(48, 71)
+        Me.host.MaxCharacters = 0
+        Me.host.Name = "host"
+        Me.host.NoRounding = False
+        Me.host.Size = New System.Drawing.Size(269, 25)
+        Me.host.TabIndex = 2
+        Me.host.Transparent = True
+        Me.host.UsePasswordMask = False
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.BackColor = System.Drawing.Color.Black
         Me.ClientSize = New System.Drawing.Size(1461, 663)
+        Me.Controls.Add(Me.ChTabcontrol1)
         Me.Controls.Add(Me.StatusStrip1)
-        Me.Controls.Add(Me.SplitContainer1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Lime Controller v0.3"
+        Me.Text = "Lime Controller v0.4"
+        Me.TransparencyKey = System.Drawing.Color.Fuchsia
         Me.ContextMenuStrip1.ResumeLayout(False)
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
-        Me.SplitContainer1.Panel1.ResumeLayout(False)
-        Me.SplitContainer1.Panel2.ResumeLayout(False)
-        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.SplitContainer1.ResumeLayout(False)
+        Me.ChTabcontrol1.ResumeLayout(False)
+        Me.TabPage1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage2.ResumeLayout(False)
+        Me.TabPage3.ResumeLayout(False)
+        Me.ChGroupBox3.ResumeLayout(False)
+        Me.ChGroupBox2.ResumeLayout(False)
+        Me.ChGroupBox2.PerformLayout()
+        Me.ChGroupBox1.ResumeLayout(False)
+        Me.ChGroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
     Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
-    Friend WithEvents BuilderToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
     Friend WithEvents VvvToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents FromDiskToolStripMenuItem1 As ToolStripMenuItem
@@ -410,15 +722,20 @@ Partial Class Form1
     Friend WithEvents CloseToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
     Friend WithEvents AboutToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents StatusStrip1 As StatusStrip
-    Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel
     Friend WithEvents Timer1 As Timer
-    Friend WithEvents NotifyIcon1 As NotifyIcon
-    Friend WithEvents SplitContainer1 As SplitContainer
+    Friend WithEvents DetailsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents RansomwareToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents EncryptToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents DecryptToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents VisitWebsiteToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents TabPage2 As TabPage
+    Friend WithEvents TabPage1 As TabPage
+    Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents L1 As ListView
     Friend WithEvents c_id As ColumnHeader
     Friend WithEvents c_ip As ColumnHeader
     Friend WithEvents c_user As ColumnHeader
+    Friend WithEvents c_ransomware As ColumnHeader
     Friend WithEvents c_stub As ColumnHeader
     Friend WithEvents c_country As ColumnHeader
     Friend WithEvents c_os As ColumnHeader
@@ -426,13 +743,27 @@ Partial Class Form1
     Friend WithEvents c_install As ColumnHeader
     Friend WithEvents c_av As ColumnHeader
     Friend WithEvents c_usb As ColumnHeader
-    Friend WithEvents L2 As ListBox
-    Friend WithEvents c_ransomware As ColumnHeader
-    Friend WithEvents DetailsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents RansomwareToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents EncryptToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents DecryptToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents PictureBox1 As PictureBox
-    Friend WithEvents VisitWebsiteToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents PasswordsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ChTabcontrol1 As CHTabcontrol
+    Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel
+    Friend WithEvents StatusStrip1 As StatusStrip
+    Friend WithEvents L2 As CHListbox
+    Friend WithEvents TabPage3 As TabPage
+    Friend WithEvents ChGroupBox1 As CHGroupBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents port As CHTextbox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents host As CHTextbox
+    Friend WithEvents ChGroupBox2 As CHGroupBox
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents DRFOLDER As CHTextbox
+    Friend WithEvents Label4 As Label
+    Friend WithEvents exename As CHTextbox
+    Friend WithEvents DRPATH As CHCombobox
+    Friend WithEvents ChGroupBox3 As CHGroupBox
+    Friend WithEvents SPUSB As CHCheckbox
+    Friend WithEvents ANTI_VM As CHCheckbox
+    Friend WithEvents Button1 As CHButton
+    Friend WithEvents CHKDR As CHOnOffBox
+    Friend WithEvents Button4 As CHButton
 End Class

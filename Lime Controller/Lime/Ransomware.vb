@@ -11,8 +11,8 @@
                 .InitialDirectory = Application.StartupPath
             End With
             If o.ShowDialog = Windows.Forms.DialogResult.OK Then
-                TextBox1.Text = o.FileName
-                PictureBox1.ImageLocation = TextBox1.Text
+                Textbox1.Text = o.FileName
+                PictureBox1.ImageLocation = Textbox1.Text
             End If
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, Nothing)
@@ -22,7 +22,7 @@
     End Sub
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
-        If TextBox1.Text <> Nothing AndAlso PictureBox1.ImageLocation <> Nothing AndAlso RichTextBox1.Text <> Nothing Then
+        If Textbox1.Text <> Nothing AndAlso PictureBox1.ImageLocation <> Nothing AndAlso RichTextBox1.Text <> Nothing Then
             OK = True
             Me.Close()
         Else
@@ -30,5 +30,6 @@
             Return
         End If
     End Sub
+
 
 End Class

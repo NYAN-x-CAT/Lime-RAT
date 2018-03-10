@@ -1,8 +1,8 @@
-# Lime Controller v0.3.1
+# Lime Controller v0.4
 
-<img src="https://i.imgur.com/BypoJN8.jpg">
+<img src="https://i.imgur.com/A03qFj3.png">
 
- This is how the attacker can install ransomware module that can encrypt all files on all drivers then send the key back to c&c, and yet he can also steal browser passwords, the attack also can run files, spread the controller over USB drivers and gathering information about the client.
+ This is how the attacker can install ransomware module that can encrypt all files on all drivers then send the key back to c&c, and yet, the attack also can run files, spread the controller over USB drivers and gathering information about the client.
 
  
  Run files
@@ -25,7 +25,6 @@
  - [x] Decrypt files
 	
  Miscellaneous
- - [x] Steal Passwords
  - [x] Bot Details
  - [x] Processes list
  - [x] Visit website

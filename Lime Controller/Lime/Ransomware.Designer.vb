@@ -24,14 +24,14 @@ Partial Class Ransomware
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Ransomware))
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Button1 = New Lime.CHButton()
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
+        Me.Textbox1 = New Lime.CHTextbox()
+        Me.Button2 = New Lime.CHButton()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.Splitter1 = New System.Windows.Forms.Splitter()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -55,47 +55,67 @@ Partial Class Ransomware
         '
         'SplitContainer1.Panel2
         '
+        Me.SplitContainer1.Panel2.Controls.Add(Me.Textbox1)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.Button2)
         Me.SplitContainer1.Panel2.Controls.Add(Me.PictureBox1)
         Me.SplitContainer1.Panel2.Controls.Add(Me.Label2)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.Button2)
         Me.SplitContainer1.Panel2.Controls.Add(Me.Splitter1)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.TextBox1)
         Me.SplitContainer1.Size = New System.Drawing.Size(889, 348)
         Me.SplitContainer1.SplitterDistance = 463
         Me.SplitContainer1.TabIndex = 3
         '
         'Button1
         '
-        Me.Button1.FlatAppearance.BorderColor = System.Drawing.Color.Lime
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.ForeColor = System.Drawing.Color.Lime
+        Me.Button1.Customization = "AGQA/wD/AP8AgAD/"
+        Me.Button1.Font = New System.Drawing.Font("Verdana", 8.0!)
+        Me.Button1.Image = Nothing
         Me.Button1.Location = New System.Drawing.Point(12, 298)
         Me.Button1.Name = "Button1"
+        Me.Button1.NoRounding = False
         Me.Button1.Size = New System.Drawing.Size(130, 38)
-        Me.Button1.TabIndex = 5
-        Me.Button1.Text = "OK"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.ForeColor = System.Drawing.Color.Lime
-        Me.Label1.Location = New System.Drawing.Point(12, 11)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(112, 20)
-        Me.Label1.TabIndex = 4
-        Me.Label1.Text = "Your message"
+        Me.Button1.TabIndex = 6
+        Me.Button1.Text = "Send"
+        Me.Button1.Transparent = False
         '
         'RichTextBox1
         '
-        Me.RichTextBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.RichTextBox1.BackColor = System.Drawing.Color.DarkGreen
         Me.RichTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.RichTextBox1.ForeColor = System.Drawing.Color.White
+        Me.RichTextBox1.ForeColor = System.Drawing.Color.Lime
         Me.RichTextBox1.Location = New System.Drawing.Point(12, 34)
         Me.RichTextBox1.Name = "RichTextBox1"
         Me.RichTextBox1.Size = New System.Drawing.Size(448, 250)
         Me.RichTextBox1.TabIndex = 3
         Me.RichTextBox1.Text = resources.GetString("RichTextBox1.Text")
+        '
+        'Textbox1
+        '
+        Me.Textbox1.BackColor = System.Drawing.Color.Transparent
+        Me.Textbox1.Colors = New Lime.Bloom(-1) {}
+        Me.Textbox1.Customization = ""
+        Me.Textbox1.Font = New System.Drawing.Font("Verdana", 8.0!)
+        Me.Textbox1.Image = Nothing
+        Me.Textbox1.Location = New System.Drawing.Point(145, 302)
+        Me.Textbox1.MaxCharacters = 0
+        Me.Textbox1.Name = "Textbox1"
+        Me.Textbox1.NoRounding = False
+        Me.Textbox1.Size = New System.Drawing.Size(265, 25)
+        Me.Textbox1.TabIndex = 9
+        Me.Textbox1.Transparent = True
+        Me.Textbox1.UsePasswordMask = False
+        '
+        'Button2
+        '
+        Me.Button2.Customization = "AGQA/wD/AP8AgAD/"
+        Me.Button2.Font = New System.Drawing.Font("Verdana", 8.0!)
+        Me.Button2.Image = Nothing
+        Me.Button2.Location = New System.Drawing.Point(9, 298)
+        Me.Button2.Name = "Button2"
+        Me.Button2.NoRounding = False
+        Me.Button2.Size = New System.Drawing.Size(130, 38)
+        Me.Button2.TabIndex = 7
+        Me.Button2.Text = "Browse"
+        Me.Button2.Transparent = False
         '
         'PictureBox1
         '
@@ -118,18 +138,6 @@ Partial Class Ransomware
         Me.Label2.TabIndex = 7
         Me.Label2.Text = "Wallpaper image"
         '
-        'Button2
-        '
-        Me.Button2.FlatAppearance.BorderColor = System.Drawing.Color.Lime
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.ForeColor = System.Drawing.Color.Lime
-        Me.Button2.Location = New System.Drawing.Point(9, 298)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(130, 38)
-        Me.Button2.TabIndex = 6
-        Me.Button2.Text = "Browse"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
         'Splitter1
         '
         Me.Splitter1.BackColor = System.Drawing.SystemColors.ControlLight
@@ -139,21 +147,21 @@ Partial Class Ransomware
         Me.Splitter1.TabIndex = 1
         Me.Splitter1.TabStop = False
         '
-        'TextBox1
+        'Label1
         '
-        Me.TextBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
-        Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox1.ForeColor = System.Drawing.Color.Lime
-        Me.TextBox1.Location = New System.Drawing.Point(145, 305)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(265, 26)
-        Me.TextBox1.TabIndex = 0
+        Me.Label1.AutoSize = True
+        Me.Label1.ForeColor = System.Drawing.Color.Lime
+        Me.Label1.Location = New System.Drawing.Point(12, 11)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(112, 20)
+        Me.Label1.TabIndex = 4
+        Me.Label1.Text = "Your message"
         '
         'Ransomware
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.BackColor = System.Drawing.Color.Black
         Me.ClientSize = New System.Drawing.Size(889, 348)
         Me.Controls.Add(Me.SplitContainer1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
@@ -174,12 +182,12 @@ Partial Class Ransomware
     End Sub
 
     Friend WithEvents SplitContainer1 As SplitContainer
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Label1 As Label
     Friend WithEvents RichTextBox1 As RichTextBox
-    Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Splitter1 As Splitter
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents Label2 As Label
-    Friend WithEvents Button2 As Button
+    Friend WithEvents Button1 As CHButton
+    Friend WithEvents Textbox1 As CHTextbox
+    Friend WithEvents Button2 As CHButton
+    Friend WithEvents Label1 As Label
 End Class

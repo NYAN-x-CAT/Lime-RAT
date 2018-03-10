@@ -113,14 +113,13 @@ E:
     Public Sub Check()
         Try
             SyncLock Form1.F.L1.Items
-                '    Form1.F.WRB.Text = "  - CHECK CONNECTION   " & M.ToArray.Length.ToString.Length - 1
-                '   Form1.F.WRB.ForeColor = Color.Green
+
                 If Not bool Then
-                    '  Form1.F.WRB.ForeColor = Color.Red
-                    ' Form1.F.WRB.Text = "  -  DISCONNECTION   " & Form1.F.L2.Items.Count.ToString
+
 
                     For Each L As ListViewItem In Form1.F.L1.Items
                         If L.SubItems(1).Text = Me.ip Then
+                            Form1.Messages("{" + L.SubItems(0).Text + "}" + " " + "{" + L.SubItems(2).Text + "}", "Disconnected")
                             L.Remove()
                             Exit For
                         End If

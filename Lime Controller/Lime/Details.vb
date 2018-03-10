@@ -7,7 +7,7 @@
         Me.Text = C.L.Text + "_" + C.ip
     End Sub
 
-    Private Sub TabPage2_click(sender As Object, e As EventArgs) Handles TabPage2.Enter
+    Private Sub TabPage2_click(sender As Object, e As EventArgs) Handles TabPage4.Enter
         On Error Resume Next
         C.SendText("Processes")
     End Sub

@@ -72,8 +72,13 @@
       <HintPath>..\packages\Mono.Cecil.0.9.6.4\lib\net45\Mono.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -86,12 +91,6 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Builder.Designer.vb">
-      <DependentUpon>Builder.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Builder.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Details.Designer.vb">
       <DependentUpon>Details.vb</DependentUpon>
     </Compile>
@@ -99,16 +98,16 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FN.vb" />
-    <Compile Include="PWD.Designer.vb">
-      <DependentUpon>PWD.vb</DependentUpon>
-    </Compile>
-    <Compile Include="PWD.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Ransomware.Designer.vb">
       <DependentUpon>Ransomware.vb</DependentUpon>
     </Compile>
     <Compile Include="Ransomware.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelPORT.Designer.vb">
+      <DependentUpon>SelPORT.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SelPORT.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Socket.vb" />
@@ -134,6 +133,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Theme.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="TOS.Designer.vb">
       <DependentUpon>TOS.vb</DependentUpon>
     </Compile>
@@ -142,9 +144,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Builder.resx">
-      <DependentUpon>Builder.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Details.resx">
       <DependentUpon>Details.vb</DependentUpon>
     </EmbeddedResource>
@@ -157,11 +156,11 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="PWD.resx">
-      <DependentUpon>PWD.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Ransomware.resx">
       <DependentUpon>Ransomware.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelPORT.resx">
+      <DependentUpon>SelPORT.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TOS.resx">
       <DependentUpon>TOS.vb</DependentUpon>

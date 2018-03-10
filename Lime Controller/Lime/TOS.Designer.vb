@@ -36,7 +36,7 @@ Partial Class TOS
         Me.RichTextBox1.Name = "RichTextBox1"
         Me.RichTextBox1.ReadOnly = True
         Me.RichTextBox1.Size = New System.Drawing.Size(680, 349)
-        Me.RichTextBox1.TabIndex = 0
+        Me.RichTextBox1.TabIndex = 2
         Me.RichTextBox1.Text = resources.GetString("RichTextBox1.Text")
         '
         'Button1
@@ -53,7 +53,7 @@ Partial Class TOS
         Me.Button2.Location = New System.Drawing.Point(32, 238)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(169, 39)
-        Me.Button2.TabIndex = 2
+        Me.Button2.TabIndex = 0
         Me.Button2.Text = "I Agree"
         Me.Button2.UseVisualStyleBackColor = True
         '

@@ -69,8 +69,8 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Decryption.vb" />
     <Compile Include="Commands.vb" />
-    <Compile Include="PWD.vb" />
     <Compile Include="Socket.vb" />
     <Compile Include="ID.vb" />
     <Compile Include="Insistence.vb" />
@@ -91,7 +91,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Ransom.vb" />
+    <Compile Include="Encryption.vb" />
     <Compile Include="Settings.vb" />
   </ItemGroup>
   <ItemGroup>

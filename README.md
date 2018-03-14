@@ -1,8 +1,8 @@
-# Lime Controller v0.4
+# Lime Controller v0.4.1
 
-<a href="http://sendvid.com/e513ss1r"><img border="0" alt="W3Schools" src="https://i.imgur.com/A03qFj3.png"></a>
+<img src="https://i.imgur.com/A03qFj3.png">
 	
- This is how the attacker can install ransomware module that can encrypt all files on all drivers then send the key back to c&c, and yet, the attack also can run files, spread the controller over USB drivers and gathering information about the client.
+ This is how the attacker can install ransomware module that can encrypt all files on all drivers then send the key back to c&c.
 
  
  Run files
@@ -14,26 +14,15 @@
  - [x] Restart
  - [x] Close
  - [x] Uninstall
-	
- PC options
- - [x] Restart
- - [x] Log Off
- - [x] Shutdown
-	
+	 	
  Ransom-ware
- - [x] Encrypt files
- - [x] Decrypt files
+ - [x] Encrypt all files
+ - [x] Decrypt all files
 	
  Miscellaneous
+ - [x] Remote Desktop
  - [x] Bot Details
- - [x] Processes list
- - [x] Visit website
  
- Builder
- - [x] Pastebin URL as Dynamic IP
- - [x] Anti virtual environment
- - [x] USB spread
- - [x] Custom folder to drop
  
  ```
  Tested on virtual machine just to proof of concept

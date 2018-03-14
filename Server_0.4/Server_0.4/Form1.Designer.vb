@@ -55,6 +55,7 @@ Partial Class Form1
         Me.OS = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.INDATE = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.Rans = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.PING = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.L2 = New System.Windows.Forms.ListBox()
         Me.ContextMenuStrip1.SuspendLayout()
@@ -236,7 +237,7 @@ Partial Class Form1
         Me.L1.AutoArrange = False
         Me.L1.BackColor = System.Drawing.Color.Black
         Me.L1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.L1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ID, Me.IP, Me.USER, Me.OS, Me.INDATE, Me.Rans})
+        Me.L1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ID, Me.IP, Me.USER, Me.OS, Me.INDATE, Me.Rans, Me.PING})
         Me.L1.ContextMenuStrip = Me.ContextMenuStrip1
         Me.L1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.L1.ForeColor = System.Drawing.Color.Lime
@@ -272,6 +273,10 @@ Partial Class Form1
         'Rans
         '
         Me.Rans.Text = "Ransomware Status"
+        '
+        'PING
+        '
+        Me.PING.Text = "Ping"
         '
         'TabPage2
         '
@@ -353,4 +358,5 @@ Partial Class Form1
     Friend WithEvents DecryptionToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents NotifyIcon1 As NotifyIcon
     Friend WithEvents DetailsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PING As ColumnHeader
 End Class

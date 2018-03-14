@@ -1,5 +1,5 @@
 ﻿Public Class Details
     Public F As Form1
-    Public Sock As Integer
+    Public U As USER
 
 End Class

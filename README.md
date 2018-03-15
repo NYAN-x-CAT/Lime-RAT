@@ -22,6 +22,8 @@
  Miscellaneous
  - [x] Remote Desktop
  - [x] Bot Details
+ - [x] PC Shutdown
+ - [x] Bot color
  
  
  ```

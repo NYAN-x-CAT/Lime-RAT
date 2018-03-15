@@ -32,6 +32,9 @@ Partial Class Form1
         Me.EncryptToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DecryptionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DetailsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RunAFileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FromDiskToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FromURLToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ControllerOptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UpdateToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DiskToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -39,14 +42,17 @@ Partial Class Form1
         Me.RestartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CloseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UninstallToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RunAFileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.FromDiskToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.FromURLToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BotColorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
-        Me.ChTabcontrol1 = New Server_0._4.CHTabcontrol()
+        Me.BotPCOptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PCRestartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PCShutdownToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PCLogoutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.MAIN_TAB = New Server_0._4.CHTabcontrol()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
@@ -64,7 +70,7 @@ Partial Class Form1
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.L2 = New System.Windows.Forms.ListBox()
         Me.ContextMenuStrip1.SuspendLayout()
-        Me.ChTabcontrol1.SuspendLayout()
+        Me.MAIN_TAB.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
@@ -74,32 +80,32 @@ Partial Class Form1
         'ContextMenuStrip1
         '
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BuilderToolStripMenuItem, Me.ToolStripSeparator2, Me.RemoteDesktopToolStripMenuItem, Me.RansomwareToolStripMenuItem, Me.DetailsToolStripMenuItem, Me.ControllerOptionsToolStripMenuItem, Me.RunAFileToolStripMenuItem, Me.ToolStripSeparator1, Me.AboutToolStripMenuItem})
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BuilderToolStripMenuItem, Me.ToolStripSeparator2, Me.RemoteDesktopToolStripMenuItem, Me.RansomwareToolStripMenuItem, Me.DetailsToolStripMenuItem, Me.RunAFileToolStripMenuItem, Me.ToolStripSeparator3, Me.ControllerOptionsToolStripMenuItem, Me.BotPCOptionsToolStripMenuItem, Me.BotColorToolStripMenuItem, Me.ToolStripSeparator1, Me.AboutToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(232, 226)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(222, 292)
         '
         'BuilderToolStripMenuItem
         '
         Me.BuilderToolStripMenuItem.Name = "BuilderToolStripMenuItem"
-        Me.BuilderToolStripMenuItem.Size = New System.Drawing.Size(231, 30)
+        Me.BuilderToolStripMenuItem.Size = New System.Drawing.Size(221, 30)
         Me.BuilderToolStripMenuItem.Text = "Builder"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(228, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(218, 6)
         '
         'RemoteDesktopToolStripMenuItem
         '
         Me.RemoteDesktopToolStripMenuItem.Name = "RemoteDesktopToolStripMenuItem"
-        Me.RemoteDesktopToolStripMenuItem.Size = New System.Drawing.Size(231, 30)
+        Me.RemoteDesktopToolStripMenuItem.Size = New System.Drawing.Size(221, 30)
         Me.RemoteDesktopToolStripMenuItem.Text = "Remote Desktop"
         '
         'RansomwareToolStripMenuItem
         '
         Me.RansomwareToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EncryptToolStripMenuItem, Me.DecryptionToolStripMenuItem})
         Me.RansomwareToolStripMenuItem.Name = "RansomwareToolStripMenuItem"
-        Me.RansomwareToolStripMenuItem.Size = New System.Drawing.Size(231, 30)
+        Me.RansomwareToolStripMenuItem.Size = New System.Drawing.Size(221, 30)
         Me.RansomwareToolStripMenuItem.Text = "Ransomware"
         '
         'EncryptToolStripMenuItem
@@ -117,15 +123,34 @@ Partial Class Form1
         'DetailsToolStripMenuItem
         '
         Me.DetailsToolStripMenuItem.Name = "DetailsToolStripMenuItem"
-        Me.DetailsToolStripMenuItem.Size = New System.Drawing.Size(231, 30)
+        Me.DetailsToolStripMenuItem.Size = New System.Drawing.Size(221, 30)
         Me.DetailsToolStripMenuItem.Text = "Details"
+        '
+        'RunAFileToolStripMenuItem
+        '
+        Me.RunAFileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FromDiskToolStripMenuItem, Me.FromURLToolStripMenuItem1})
+        Me.RunAFileToolStripMenuItem.Name = "RunAFileToolStripMenuItem"
+        Me.RunAFileToolStripMenuItem.Size = New System.Drawing.Size(221, 30)
+        Me.RunAFileToolStripMenuItem.Text = "Run a File"
+        '
+        'FromDiskToolStripMenuItem
+        '
+        Me.FromDiskToolStripMenuItem.Name = "FromDiskToolStripMenuItem"
+        Me.FromDiskToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
+        Me.FromDiskToolStripMenuItem.Text = "From Disk"
+        '
+        'FromURLToolStripMenuItem1
+        '
+        Me.FromURLToolStripMenuItem1.Name = "FromURLToolStripMenuItem1"
+        Me.FromURLToolStripMenuItem1.Size = New System.Drawing.Size(177, 30)
+        Me.FromURLToolStripMenuItem1.Text = "From URL"
         '
         'ControllerOptionsToolStripMenuItem
         '
         Me.ControllerOptionsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UpdateToolStripMenuItem, Me.RestartToolStripMenuItem, Me.CloseToolStripMenuItem, Me.UninstallToolStripMenuItem})
         Me.ControllerOptionsToolStripMenuItem.Name = "ControllerOptionsToolStripMenuItem"
-        Me.ControllerOptionsToolStripMenuItem.Size = New System.Drawing.Size(231, 30)
-        Me.ControllerOptionsToolStripMenuItem.Text = "Controller Options"
+        Me.ControllerOptionsToolStripMenuItem.Size = New System.Drawing.Size(221, 30)
+        Me.ControllerOptionsToolStripMenuItem.Text = "Bot Stub Options"
         '
         'UpdateToolStripMenuItem
         '
@@ -164,34 +189,21 @@ Partial Class Form1
         Me.UninstallToolStripMenuItem.Size = New System.Drawing.Size(163, 30)
         Me.UninstallToolStripMenuItem.Text = "Uninstall"
         '
-        'RunAFileToolStripMenuItem
+        'BotColorToolStripMenuItem
         '
-        Me.RunAFileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FromDiskToolStripMenuItem, Me.FromURLToolStripMenuItem1})
-        Me.RunAFileToolStripMenuItem.Name = "RunAFileToolStripMenuItem"
-        Me.RunAFileToolStripMenuItem.Size = New System.Drawing.Size(231, 30)
-        Me.RunAFileToolStripMenuItem.Text = "Run a File"
-        '
-        'FromDiskToolStripMenuItem
-        '
-        Me.FromDiskToolStripMenuItem.Name = "FromDiskToolStripMenuItem"
-        Me.FromDiskToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
-        Me.FromDiskToolStripMenuItem.Text = "From Disk"
-        '
-        'FromURLToolStripMenuItem1
-        '
-        Me.FromURLToolStripMenuItem1.Name = "FromURLToolStripMenuItem1"
-        Me.FromURLToolStripMenuItem1.Size = New System.Drawing.Size(177, 30)
-        Me.FromURLToolStripMenuItem1.Text = "From URL"
+        Me.BotColorToolStripMenuItem.Name = "BotColorToolStripMenuItem"
+        Me.BotColorToolStripMenuItem.Size = New System.Drawing.Size(221, 30)
+        Me.BotColorToolStripMenuItem.Text = "Bot Color"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(228, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(218, 6)
         '
         'AboutToolStripMenuItem
         '
         Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
-        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(231, 30)
+        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(221, 30)
         Me.AboutToolStripMenuItem.Text = "About"
         '
         'Timer1
@@ -204,19 +216,49 @@ Partial Class Form1
         Me.NotifyIcon1.Text = "NotifyIcon1"
         Me.NotifyIcon1.Visible = True
         '
-        'ChTabcontrol1
+        'BotPCOptionsToolStripMenuItem
         '
-        Me.ChTabcontrol1.Controls.Add(Me.TabPage1)
-        Me.ChTabcontrol1.Controls.Add(Me.TabPage2)
-        Me.ChTabcontrol1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ChTabcontrol1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
-        Me.ChTabcontrol1.GlowColor = System.Drawing.Color.Empty
-        Me.ChTabcontrol1.ItemSize = New System.Drawing.Size(80, 30)
-        Me.ChTabcontrol1.Location = New System.Drawing.Point(0, 0)
-        Me.ChTabcontrol1.Name = "ChTabcontrol1"
-        Me.ChTabcontrol1.SelectedIndex = 0
-        Me.ChTabcontrol1.Size = New System.Drawing.Size(1263, 472)
-        Me.ChTabcontrol1.TabIndex = 0
+        Me.BotPCOptionsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PCRestartToolStripMenuItem, Me.PCShutdownToolStripMenuItem, Me.PCLogoutToolStripMenuItem})
+        Me.BotPCOptionsToolStripMenuItem.Name = "BotPCOptionsToolStripMenuItem"
+        Me.BotPCOptionsToolStripMenuItem.Size = New System.Drawing.Size(221, 30)
+        Me.BotPCOptionsToolStripMenuItem.Text = "Bot PC Options"
+        '
+        'PCRestartToolStripMenuItem
+        '
+        Me.PCRestartToolStripMenuItem.Name = "PCRestartToolStripMenuItem"
+        Me.PCRestartToolStripMenuItem.Size = New System.Drawing.Size(203, 30)
+        Me.PCRestartToolStripMenuItem.Text = "PC Restart"
+        '
+        'PCShutdownToolStripMenuItem
+        '
+        Me.PCShutdownToolStripMenuItem.Name = "PCShutdownToolStripMenuItem"
+        Me.PCShutdownToolStripMenuItem.Size = New System.Drawing.Size(203, 30)
+        Me.PCShutdownToolStripMenuItem.Text = "PC Shutdown"
+        '
+        'PCLogoutToolStripMenuItem
+        '
+        Me.PCLogoutToolStripMenuItem.Name = "PCLogoutToolStripMenuItem"
+        Me.PCLogoutToolStripMenuItem.Size = New System.Drawing.Size(203, 30)
+        Me.PCLogoutToolStripMenuItem.Text = "PC Logout"
+        '
+        'ToolStripSeparator3
+        '
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(218, 6)
+        '
+        'MAIN_TAB
+        '
+        Me.MAIN_TAB.Controls.Add(Me.TabPage1)
+        Me.MAIN_TAB.Controls.Add(Me.TabPage2)
+        Me.MAIN_TAB.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MAIN_TAB.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
+        Me.MAIN_TAB.GlowColor = System.Drawing.Color.Empty
+        Me.MAIN_TAB.ItemSize = New System.Drawing.Size(80, 30)
+        Me.MAIN_TAB.Location = New System.Drawing.Point(0, 0)
+        Me.MAIN_TAB.Name = "MAIN_TAB"
+        Me.MAIN_TAB.SelectedIndex = 0
+        Me.MAIN_TAB.Size = New System.Drawing.Size(1263, 472)
+        Me.MAIN_TAB.TabIndex = 0
         '
         'TabPage1
         '
@@ -355,12 +397,12 @@ Partial Class Form1
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Black
         Me.ClientSize = New System.Drawing.Size(1263, 472)
-        Me.Controls.Add(Me.ChTabcontrol1)
+        Me.Controls.Add(Me.MAIN_TAB)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Form1"
         Me.Text = "Form1"
         Me.ContextMenuStrip1.ResumeLayout(False)
-        Me.ChTabcontrol1.ResumeLayout(False)
+        Me.MAIN_TAB.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -371,7 +413,7 @@ Partial Class Form1
 
     End Sub
 
-    Friend WithEvents ChTabcontrol1 As CHTabcontrol
+    Friend WithEvents MAIN_TAB As CHTabcontrol
     Friend WithEvents TabPage1 As TabPage
     Friend WithEvents TabPage2 As TabPage
     Friend WithEvents L1 As ListView
@@ -410,4 +452,10 @@ Partial Class Form1
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
     Friend WithEvents AboutToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents BotColorToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents BotPCOptionsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PCRestartToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PCShutdownToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PCLogoutToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
 End Class

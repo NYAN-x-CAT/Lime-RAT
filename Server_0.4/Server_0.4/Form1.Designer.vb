@@ -25,6 +25,8 @@ Partial Class Form1
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.BuilderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.RemoteDesktopToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RansomwareToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EncryptToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -41,17 +43,20 @@ Partial Class Form1
         Me.FromDiskToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FromURLToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.BuilderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.ChTabcontrol1 = New Server_0._4.CHTabcontrol()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.L1 = New System.Windows.Forms.ListView()
         Me.ID = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.IP = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.USER = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.EXE_NAME = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.VER = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.OS = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.INDATE = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.Rans = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -61,6 +66,7 @@ Partial Class Form1
         Me.ContextMenuStrip1.SuspendLayout()
         Me.ChTabcontrol1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.SuspendLayout()
@@ -68,9 +74,20 @@ Partial Class Form1
         'ContextMenuStrip1
         '
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RemoteDesktopToolStripMenuItem, Me.RansomwareToolStripMenuItem, Me.DetailsToolStripMenuItem, Me.ControllerOptionsToolStripMenuItem, Me.RunAFileToolStripMenuItem, Me.ToolStripSeparator1, Me.BuilderToolStripMenuItem})
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BuilderToolStripMenuItem, Me.ToolStripSeparator2, Me.RemoteDesktopToolStripMenuItem, Me.RansomwareToolStripMenuItem, Me.DetailsToolStripMenuItem, Me.ControllerOptionsToolStripMenuItem, Me.RunAFileToolStripMenuItem, Me.ToolStripSeparator1, Me.AboutToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(232, 190)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(232, 226)
+        '
+        'BuilderToolStripMenuItem
+        '
+        Me.BuilderToolStripMenuItem.Name = "BuilderToolStripMenuItem"
+        Me.BuilderToolStripMenuItem.Size = New System.Drawing.Size(231, 30)
+        Me.BuilderToolStripMenuItem.Text = "Builder"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(228, 6)
         '
         'RemoteDesktopToolStripMenuItem
         '
@@ -171,11 +188,11 @@ Partial Class Form1
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
         Me.ToolStripSeparator1.Size = New System.Drawing.Size(228, 6)
         '
-        'BuilderToolStripMenuItem
+        'AboutToolStripMenuItem
         '
-        Me.BuilderToolStripMenuItem.Name = "BuilderToolStripMenuItem"
-        Me.BuilderToolStripMenuItem.Size = New System.Drawing.Size(231, 30)
-        Me.BuilderToolStripMenuItem.Text = "Builder"
+        Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
+        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(231, 30)
+        Me.AboutToolStripMenuItem.Text = "About"
         '
         'Timer1
         '
@@ -198,20 +215,34 @@ Partial Class Form1
         Me.ChTabcontrol1.Location = New System.Drawing.Point(0, 0)
         Me.ChTabcontrol1.Name = "ChTabcontrol1"
         Me.ChTabcontrol1.SelectedIndex = 0
-        Me.ChTabcontrol1.Size = New System.Drawing.Size(1190, 472)
+        Me.ChTabcontrol1.Size = New System.Drawing.Size(1263, 472)
         Me.ChTabcontrol1.TabIndex = 0
         '
         'TabPage1
         '
         Me.TabPage1.BackColor = System.Drawing.Color.Black
+        Me.TabPage1.Controls.Add(Me.PictureBox1)
         Me.TabPage1.Controls.Add(Me.StatusStrip1)
         Me.TabPage1.Controls.Add(Me.L1)
         Me.TabPage1.Location = New System.Drawing.Point(4, 34)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(1182, 434)
+        Me.TabPage1.Size = New System.Drawing.Size(1255, 434)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Bots"
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.BackColor = System.Drawing.Color.Black
+        Me.PictureBox1.ErrorImage = Nothing
+        Me.PictureBox1.InitialImage = Nothing
+        Me.PictureBox1.Location = New System.Drawing.Point(1000, 270)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(247, 128)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 2
+        Me.PictureBox1.TabStop = False
+        Me.PictureBox1.Visible = False
         '
         'StatusStrip1
         '
@@ -220,7 +251,7 @@ Partial Class Form1
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1})
         Me.StatusStrip1.Location = New System.Drawing.Point(3, 401)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1176, 30)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1249, 30)
         Me.StatusStrip1.SizingGrip = False
         Me.StatusStrip1.TabIndex = 1
         Me.StatusStrip1.Text = "StatusStrip1"
@@ -229,7 +260,7 @@ Partial Class Form1
         '
         Me.ToolStripStatusLabel1.ForeColor = System.Drawing.Color.Lime
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(184, 25)
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(180, 25)
         Me.ToolStripStatusLabel1.Text = "ToolStripStatusLabel1"
         '
         'L1
@@ -237,7 +268,7 @@ Partial Class Form1
         Me.L1.AutoArrange = False
         Me.L1.BackColor = System.Drawing.Color.Black
         Me.L1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.L1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ID, Me.IP, Me.USER, Me.OS, Me.INDATE, Me.Rans, Me.PING})
+        Me.L1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ID, Me.IP, Me.USER, Me.EXE_NAME, Me.VER, Me.OS, Me.INDATE, Me.Rans, Me.PING})
         Me.L1.ContextMenuStrip = Me.ContextMenuStrip1
         Me.L1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.L1.ForeColor = System.Drawing.Color.Lime
@@ -245,38 +276,52 @@ Partial Class Form1
         Me.L1.Location = New System.Drawing.Point(3, 3)
         Me.L1.Name = "L1"
         Me.L1.OwnerDraw = True
-        Me.L1.Size = New System.Drawing.Size(1176, 428)
+        Me.L1.Size = New System.Drawing.Size(1249, 428)
         Me.L1.TabIndex = 0
         Me.L1.UseCompatibleStateImageBehavior = False
         Me.L1.View = System.Windows.Forms.View.Details
         '
         'ID
         '
-        Me.ID.Text = "Unique Identifier"
+        Me.ID.Text = " User ID "
+        Me.ID.Width = 184
         '
         'IP
         '
-        Me.IP.Text = "IP Address"
+        Me.IP.Text = " IP Address "
+        Me.IP.Width = 132
         '
         'USER
         '
-        Me.USER.Text = "Uer Name"
+        Me.USER.Text = " User Name "
+        Me.USER.Width = 127
+        '
+        'EXE_NAME
+        '
+        Me.EXE_NAME.Text = " File Name "
+        '
+        'VER
+        '
+        Me.VER.Text = " Version "
         '
         'OS
         '
-        Me.OS.Text = "Operating System"
+        Me.OS.Text = " Operating System "
+        Me.OS.Width = 200
         '
         'INDATE
         '
-        Me.INDATE.Text = "Installation Date"
+        Me.INDATE.Text = " Installation Date "
+        Me.INDATE.Width = 164
         '
         'Rans
         '
-        Me.Rans.Text = "Ransomware Status"
+        Me.Rans.Text = " Ransomware Status "
+        Me.Rans.Width = 205
         '
         'PING
         '
-        Me.PING.Text = "Ping"
+        Me.PING.Text = " Ping "
         '
         'TabPage2
         '
@@ -285,7 +330,7 @@ Partial Class Form1
         Me.TabPage2.Location = New System.Drawing.Point(4, 34)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(1182, 434)
+        Me.TabPage2.Size = New System.Drawing.Size(1255, 434)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Logs"
         '
@@ -301,7 +346,7 @@ Partial Class Form1
         Me.L2.ItemHeight = 22
         Me.L2.Location = New System.Drawing.Point(3, 3)
         Me.L2.Name = "L2"
-        Me.L2.Size = New System.Drawing.Size(1176, 428)
+        Me.L2.Size = New System.Drawing.Size(1249, 428)
         Me.L2.TabIndex = 0
         '
         'Form1
@@ -309,7 +354,7 @@ Partial Class Form1
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(1190, 472)
+        Me.ClientSize = New System.Drawing.Size(1263, 472)
         Me.Controls.Add(Me.ChTabcontrol1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Form1"
@@ -318,6 +363,7 @@ Partial Class Form1
         Me.ChTabcontrol1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
@@ -359,4 +405,9 @@ Partial Class Form1
     Friend WithEvents NotifyIcon1 As NotifyIcon
     Friend WithEvents DetailsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents PING As ColumnHeader
+    Friend WithEvents VER As ColumnHeader
+    Friend WithEvents EXE_NAME As ColumnHeader
+    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
+    Friend WithEvents AboutToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PictureBox1 As PictureBox
 End Class

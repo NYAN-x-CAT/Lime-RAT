@@ -22,7 +22,7 @@ Public Class TCP
         End Try
     End Sub
     Public Sub Send(ByVal S As String)
-        Send(SB(S))
+        Send(SB(AES_Encrypt(S)))
     End Sub
     Private CN As Boolean = False
     Sub RC()

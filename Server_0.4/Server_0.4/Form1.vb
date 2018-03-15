@@ -95,7 +95,9 @@ Public Class Form1
 
     Delegate Sub _Data(ByVal u As USER, ByVal b() As Byte)
     Private Sub S_Data(ByVal u As USER, ByVal b() As Byte) Handles S.Data
-        Dim A As String() = Split(BS(b), SPL)
+        Dim E As String = AES_Decrypt(BS(b))
+        Dim A As String() = Split(E, SPL)
+
         Try
             Select Case A(0)
                 Case "info" ' Client Sent me PC name

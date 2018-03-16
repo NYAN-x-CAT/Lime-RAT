@@ -2773,6 +2773,7 @@ Class CHTabcontrol
     End Sub
 
     Protected Overrides Sub CreateHandle()
+        On Error Resume Next
         MyBase.CreateHandle()
         Alignment = TabAlignment.Top
     End Sub

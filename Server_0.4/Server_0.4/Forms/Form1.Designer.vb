@@ -27,14 +27,18 @@ Partial Class Form1
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BuilderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.RunAFileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FromDiskToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FromURLToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.RemoteDesktopToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RansomwareToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EncryptToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DecryptionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DetailsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RunAFileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.FromDiskToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.FromURLToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BotPCOptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PCRestartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PCShutdownToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PCLogoutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.ControllerOptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UpdateToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -43,10 +47,6 @@ Partial Class Form1
         Me.RestartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CloseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UninstallToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BotPCOptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PCRestartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PCShutdownToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PCLogoutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BotColorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -65,7 +65,9 @@ Partial Class Form1
         Me.VER = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.OS = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.INDATE = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.AV = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.Rans = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.USB = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.PING = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.L2 = New System.Windows.Forms.ListBox()
@@ -80,33 +82,52 @@ Partial Class Form1
         'ContextMenuStrip1
         '
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BuilderToolStripMenuItem, Me.ToolStripSeparator2, Me.RemoteDesktopToolStripMenuItem, Me.RansomwareToolStripMenuItem, Me.DetailsToolStripMenuItem, Me.RunAFileToolStripMenuItem, Me.ToolStripSeparator3, Me.ControllerOptionsToolStripMenuItem, Me.BotPCOptionsToolStripMenuItem, Me.BotColorToolStripMenuItem, Me.ToolStripSeparator1, Me.AboutToolStripMenuItem})
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BuilderToolStripMenuItem, Me.ToolStripSeparator2, Me.RunAFileToolStripMenuItem, Me.RemoteDesktopToolStripMenuItem, Me.RansomwareToolStripMenuItem, Me.DetailsToolStripMenuItem, Me.BotPCOptionsToolStripMenuItem, Me.ToolStripSeparator3, Me.ControllerOptionsToolStripMenuItem, Me.BotColorToolStripMenuItem, Me.ToolStripSeparator1, Me.AboutToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(222, 292)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(218, 292)
         '
         'BuilderToolStripMenuItem
         '
         Me.BuilderToolStripMenuItem.Name = "BuilderToolStripMenuItem"
-        Me.BuilderToolStripMenuItem.Size = New System.Drawing.Size(221, 30)
+        Me.BuilderToolStripMenuItem.Size = New System.Drawing.Size(217, 30)
         Me.BuilderToolStripMenuItem.Text = "Builder"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(218, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(214, 6)
+        '
+        'RunAFileToolStripMenuItem
+        '
+        Me.RunAFileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FromDiskToolStripMenuItem, Me.FromURLToolStripMenuItem1})
+        Me.RunAFileToolStripMenuItem.Name = "RunAFileToolStripMenuItem"
+        Me.RunAFileToolStripMenuItem.Size = New System.Drawing.Size(217, 30)
+        Me.RunAFileToolStripMenuItem.Text = "Run a File"
+        '
+        'FromDiskToolStripMenuItem
+        '
+        Me.FromDiskToolStripMenuItem.Name = "FromDiskToolStripMenuItem"
+        Me.FromDiskToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
+        Me.FromDiskToolStripMenuItem.Text = "From Disk"
+        '
+        'FromURLToolStripMenuItem1
+        '
+        Me.FromURLToolStripMenuItem1.Name = "FromURLToolStripMenuItem1"
+        Me.FromURLToolStripMenuItem1.Size = New System.Drawing.Size(177, 30)
+        Me.FromURLToolStripMenuItem1.Text = "From URL"
         '
         'RemoteDesktopToolStripMenuItem
         '
         Me.RemoteDesktopToolStripMenuItem.Name = "RemoteDesktopToolStripMenuItem"
-        Me.RemoteDesktopToolStripMenuItem.Size = New System.Drawing.Size(221, 30)
+        Me.RemoteDesktopToolStripMenuItem.Size = New System.Drawing.Size(217, 30)
         Me.RemoteDesktopToolStripMenuItem.Text = "Remote Desktop"
         '
         'RansomwareToolStripMenuItem
         '
         Me.RansomwareToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EncryptToolStripMenuItem, Me.DecryptionToolStripMenuItem})
         Me.RansomwareToolStripMenuItem.Name = "RansomwareToolStripMenuItem"
-        Me.RansomwareToolStripMenuItem.Size = New System.Drawing.Size(221, 30)
+        Me.RansomwareToolStripMenuItem.Size = New System.Drawing.Size(217, 30)
         Me.RansomwareToolStripMenuItem.Text = "Ransomware"
         '
         'EncryptToolStripMenuItem
@@ -124,39 +145,45 @@ Partial Class Form1
         'DetailsToolStripMenuItem
         '
         Me.DetailsToolStripMenuItem.Name = "DetailsToolStripMenuItem"
-        Me.DetailsToolStripMenuItem.Size = New System.Drawing.Size(221, 30)
+        Me.DetailsToolStripMenuItem.Size = New System.Drawing.Size(217, 30)
         Me.DetailsToolStripMenuItem.Text = "Details"
         '
-        'RunAFileToolStripMenuItem
+        'BotPCOptionsToolStripMenuItem
         '
-        Me.RunAFileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FromDiskToolStripMenuItem, Me.FromURLToolStripMenuItem1})
-        Me.RunAFileToolStripMenuItem.Name = "RunAFileToolStripMenuItem"
-        Me.RunAFileToolStripMenuItem.Size = New System.Drawing.Size(221, 30)
-        Me.RunAFileToolStripMenuItem.Text = "Run a File"
+        Me.BotPCOptionsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PCRestartToolStripMenuItem, Me.PCShutdownToolStripMenuItem, Me.PCLogoutToolStripMenuItem})
+        Me.BotPCOptionsToolStripMenuItem.Name = "BotPCOptionsToolStripMenuItem"
+        Me.BotPCOptionsToolStripMenuItem.Size = New System.Drawing.Size(217, 30)
+        Me.BotPCOptionsToolStripMenuItem.Text = "PC Options"
         '
-        'FromDiskToolStripMenuItem
+        'PCRestartToolStripMenuItem
         '
-        Me.FromDiskToolStripMenuItem.Name = "FromDiskToolStripMenuItem"
-        Me.FromDiskToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
-        Me.FromDiskToolStripMenuItem.Text = "From Disk"
+        Me.PCRestartToolStripMenuItem.Name = "PCRestartToolStripMenuItem"
+        Me.PCRestartToolStripMenuItem.Size = New System.Drawing.Size(203, 30)
+        Me.PCRestartToolStripMenuItem.Text = "PC Restart"
         '
-        'FromURLToolStripMenuItem1
+        'PCShutdownToolStripMenuItem
         '
-        Me.FromURLToolStripMenuItem1.Name = "FromURLToolStripMenuItem1"
-        Me.FromURLToolStripMenuItem1.Size = New System.Drawing.Size(177, 30)
-        Me.FromURLToolStripMenuItem1.Text = "From URL"
+        Me.PCShutdownToolStripMenuItem.Name = "PCShutdownToolStripMenuItem"
+        Me.PCShutdownToolStripMenuItem.Size = New System.Drawing.Size(203, 30)
+        Me.PCShutdownToolStripMenuItem.Text = "PC Shutdown"
+        '
+        'PCLogoutToolStripMenuItem
+        '
+        Me.PCLogoutToolStripMenuItem.Name = "PCLogoutToolStripMenuItem"
+        Me.PCLogoutToolStripMenuItem.Size = New System.Drawing.Size(203, 30)
+        Me.PCLogoutToolStripMenuItem.Text = "PC Logout"
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(218, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(214, 6)
         '
         'ControllerOptionsToolStripMenuItem
         '
         Me.ControllerOptionsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UpdateToolStripMenuItem, Me.RestartToolStripMenuItem, Me.CloseToolStripMenuItem, Me.UninstallToolStripMenuItem})
         Me.ControllerOptionsToolStripMenuItem.Name = "ControllerOptionsToolStripMenuItem"
-        Me.ControllerOptionsToolStripMenuItem.Size = New System.Drawing.Size(221, 30)
-        Me.ControllerOptionsToolStripMenuItem.Text = "Bot Stub Options"
+        Me.ControllerOptionsToolStripMenuItem.Size = New System.Drawing.Size(217, 30)
+        Me.ControllerOptionsToolStripMenuItem.Text = "Worm Options"
         '
         'UpdateToolStripMenuItem
         '
@@ -195,46 +222,21 @@ Partial Class Form1
         Me.UninstallToolStripMenuItem.Size = New System.Drawing.Size(163, 30)
         Me.UninstallToolStripMenuItem.Text = "Uninstall"
         '
-        'BotPCOptionsToolStripMenuItem
-        '
-        Me.BotPCOptionsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PCRestartToolStripMenuItem, Me.PCShutdownToolStripMenuItem, Me.PCLogoutToolStripMenuItem})
-        Me.BotPCOptionsToolStripMenuItem.Name = "BotPCOptionsToolStripMenuItem"
-        Me.BotPCOptionsToolStripMenuItem.Size = New System.Drawing.Size(221, 30)
-        Me.BotPCOptionsToolStripMenuItem.Text = "Bot PC Options"
-        '
-        'PCRestartToolStripMenuItem
-        '
-        Me.PCRestartToolStripMenuItem.Name = "PCRestartToolStripMenuItem"
-        Me.PCRestartToolStripMenuItem.Size = New System.Drawing.Size(203, 30)
-        Me.PCRestartToolStripMenuItem.Text = "PC Restart"
-        '
-        'PCShutdownToolStripMenuItem
-        '
-        Me.PCShutdownToolStripMenuItem.Name = "PCShutdownToolStripMenuItem"
-        Me.PCShutdownToolStripMenuItem.Size = New System.Drawing.Size(203, 30)
-        Me.PCShutdownToolStripMenuItem.Text = "PC Shutdown"
-        '
-        'PCLogoutToolStripMenuItem
-        '
-        Me.PCLogoutToolStripMenuItem.Name = "PCLogoutToolStripMenuItem"
-        Me.PCLogoutToolStripMenuItem.Size = New System.Drawing.Size(203, 30)
-        Me.PCLogoutToolStripMenuItem.Text = "PC Logout"
-        '
         'BotColorToolStripMenuItem
         '
         Me.BotColorToolStripMenuItem.Name = "BotColorToolStripMenuItem"
-        Me.BotColorToolStripMenuItem.Size = New System.Drawing.Size(221, 30)
-        Me.BotColorToolStripMenuItem.Text = "Bot Color"
+        Me.BotColorToolStripMenuItem.Size = New System.Drawing.Size(217, 30)
+        Me.BotColorToolStripMenuItem.Text = "Worm Color"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(218, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(214, 6)
         '
         'AboutToolStripMenuItem
         '
         Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
-        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(221, 30)
+        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(217, 30)
         Me.AboutToolStripMenuItem.Text = "About"
         '
         'Timer1
@@ -244,7 +246,7 @@ Partial Class Form1
         'NotifyIcon1
         '
         Me.NotifyIcon1.Icon = CType(resources.GetObject("NotifyIcon1.Icon"), System.Drawing.Icon)
-        Me.NotifyIcon1.Text = "NotifyIcon1"
+        Me.NotifyIcon1.Text = "Lime Worm"
         Me.NotifyIcon1.Visible = True
         '
         'MAIN_TAB
@@ -258,7 +260,7 @@ Partial Class Form1
         Me.MAIN_TAB.Location = New System.Drawing.Point(0, 0)
         Me.MAIN_TAB.Name = "MAIN_TAB"
         Me.MAIN_TAB.SelectedIndex = 0
-        Me.MAIN_TAB.Size = New System.Drawing.Size(1263, 472)
+        Me.MAIN_TAB.Size = New System.Drawing.Size(1549, 508)
         Me.MAIN_TAB.TabIndex = 0
         '
         'TabPage1
@@ -270,16 +272,16 @@ Partial Class Form1
         Me.TabPage1.Location = New System.Drawing.Point(4, 34)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(1255, 434)
+        Me.TabPage1.Size = New System.Drawing.Size(1541, 470)
         Me.TabPage1.TabIndex = 0
-        Me.TabPage1.Text = "Bots"
+        Me.TabPage1.Text = "Worms"
         '
         'PictureBox1
         '
         Me.PictureBox1.BackColor = System.Drawing.Color.Black
         Me.PictureBox1.ErrorImage = Nothing
         Me.PictureBox1.InitialImage = Nothing
-        Me.PictureBox1.Location = New System.Drawing.Point(1000, 270)
+        Me.PictureBox1.Location = New System.Drawing.Point(1286, 334)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(247, 128)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -292,9 +294,9 @@ Partial Class Form1
         Me.StatusStrip1.BackColor = System.Drawing.Color.Black
         Me.StatusStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1})
-        Me.StatusStrip1.Location = New System.Drawing.Point(3, 401)
+        Me.StatusStrip1.Location = New System.Drawing.Point(3, 437)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1249, 30)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1535, 30)
         Me.StatusStrip1.SizingGrip = False
         Me.StatusStrip1.TabIndex = 1
         Me.StatusStrip1.Text = "StatusStrip1"
@@ -311,7 +313,7 @@ Partial Class Form1
         Me.L1.AutoArrange = False
         Me.L1.BackColor = System.Drawing.Color.Black
         Me.L1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.L1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ID, Me.IP, Me.USER, Me.EXE_NAME, Me.VER, Me.OS, Me.INDATE, Me.Rans, Me.PING})
+        Me.L1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ID, Me.IP, Me.USER, Me.EXE_NAME, Me.VER, Me.OS, Me.INDATE, Me.AV, Me.Rans, Me.USB, Me.PING})
         Me.L1.ContextMenuStrip = Me.ContextMenuStrip1
         Me.L1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.L1.ForeColor = System.Drawing.Color.Lime
@@ -319,7 +321,7 @@ Partial Class Form1
         Me.L1.Location = New System.Drawing.Point(3, 3)
         Me.L1.Name = "L1"
         Me.L1.OwnerDraw = True
-        Me.L1.Size = New System.Drawing.Size(1249, 428)
+        Me.L1.Size = New System.Drawing.Size(1535, 464)
         Me.L1.TabIndex = 0
         Me.L1.UseCompatibleStateImageBehavior = False
         Me.L1.View = System.Windows.Forms.View.Details
@@ -357,10 +359,18 @@ Partial Class Form1
         Me.INDATE.Text = " Installation Date "
         Me.INDATE.Width = 164
         '
+        'AV
+        '
+        Me.AV.Text = " Anti-Virus "
+        '
         'Rans
         '
         Me.Rans.Text = " Ransomware Status "
         Me.Rans.Width = 205
+        '
+        'USB
+        '
+        Me.USB.Text = " USB Spread "
         '
         'PING
         '
@@ -373,7 +383,7 @@ Partial Class Form1
         Me.TabPage2.Location = New System.Drawing.Point(4, 34)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(1255, 434)
+        Me.TabPage2.Size = New System.Drawing.Size(1541, 470)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Logs"
         '
@@ -389,7 +399,7 @@ Partial Class Form1
         Me.L2.ItemHeight = 22
         Me.L2.Location = New System.Drawing.Point(3, 3)
         Me.L2.Name = "L2"
-        Me.L2.Size = New System.Drawing.Size(1249, 428)
+        Me.L2.Size = New System.Drawing.Size(1535, 464)
         Me.L2.TabIndex = 0
         '
         'Form1
@@ -397,10 +407,10 @@ Partial Class Form1
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(1263, 472)
+        Me.ClientSize = New System.Drawing.Size(1549, 508)
         Me.Controls.Add(Me.MAIN_TAB)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Form1"
+        Me.ShowIcon = False
         Me.Text = "Form1"
         Me.ContextMenuStrip1.ResumeLayout(False)
         Me.MAIN_TAB.ResumeLayout(False)
@@ -459,4 +469,6 @@ Partial Class Form1
     Friend WithEvents PCShutdownToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents PCLogoutToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
+    Friend WithEvents USB As ColumnHeader
+    Friend WithEvents AV As ColumnHeader
 End Class

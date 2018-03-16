@@ -6,7 +6,6 @@
 
  Main information
  - [x] Both client and server coded in vb.net framework 2.0
- - [x] TCP secure communication
  - [x] client final size is 40KB
  - [x] Every bot has it's folder to store ransomware key
  - [x] This ransomware attack will encrypt al files on all drivers depending on stub's privilege

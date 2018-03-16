@@ -1,6 +1,6 @@
-# Lime Controller v0.4.1
-
 <img src="https://i.imgur.com/A03qFj3.png">
+
+# Lime Controller v0.4.1
 	
  Simple yet powerful ransomware tool for windows
 
@@ -22,7 +22,7 @@ To open project you need:
 
 ✔ Visual Studio 2017+
 
-✔ This repository :)
+✔ This repository
  
 ## Author
 

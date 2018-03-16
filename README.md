@@ -10,7 +10,7 @@
 
 ✔ Undetected
 
-✔ Both client and server coded in Visual Basic .NET, Framework 2.0 dependency
+✔ Both client and server were coded in Visual Basic .NET, Framework 2.0 dependency
  
 ✔ Lightweight - Less than 60 kb
 

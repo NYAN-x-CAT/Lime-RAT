@@ -1,4 +1,4 @@
-<img src="https://i.imgur.com/A03qFj3.png">
+<img src="https://i.imgur.com/apHF7Q0.png">
 
 # Lime Controller v0.4.1
 	

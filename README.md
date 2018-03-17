@@ -6,13 +6,13 @@
 
  ## Main Features
  
-✔ Simple UI
+✔ Simple GUI
 
 ✔ Undetected
 
 ✔ Both client and server were coded in Visual Basic .NET, Framework 2.0 dependency
  
-✔ Lightweight - Less than 60 kb
+✔ Lightweight - Less than 60 KB
 
 ✔ Encrypt all files on all drivers
 

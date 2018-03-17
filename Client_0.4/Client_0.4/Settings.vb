@@ -3,12 +3,12 @@
     'For testing use debug compiler
 
 #If DEBUG Then
-    Public Shared HOST As String = "192.168.1.24"
+    Public Shared HOST As String = "127.0.0.1"
     Public Shared PORT As Integer = "8989"
     Public Shared EXE As String = "Stub.exe"
     Public Shared NMT As Threading.Mutex = Nothing
     Public Shared MTX As String = "Lime_Worm_v0.4"
-    Public Shared USB As Boolean = True
+    Public Shared USB As Boolean = False
     Public Shared DROP As Boolean = False
     Public Shared PATH1 As String = "Lime"
     Public Shared PATH2 As String = "Lime2"

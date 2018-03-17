@@ -281,7 +281,7 @@ Partial Class Form1
         Me.PictureBox1.BackColor = System.Drawing.Color.Black
         Me.PictureBox1.ErrorImage = Nothing
         Me.PictureBox1.InitialImage = Nothing
-        Me.PictureBox1.Location = New System.Drawing.Point(1286, 334)
+        Me.PictureBox1.Location = New System.Drawing.Point(1286, 306)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(247, 128)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage

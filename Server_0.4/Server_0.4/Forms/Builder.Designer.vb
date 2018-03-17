@@ -38,6 +38,7 @@ Partial Class Builder
         Me.PORT = New Server_0._4.CHTextbox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.HOST = New Server_0._4.CHTextbox()
+        Me.ANTI = New Server_0._4.CHCheckbox()
         Me.ChGroupBox3.SuspendLayout()
         Me.ChGroupBox2.SuspendLayout()
         Me.ChGroupBox1.SuspendLayout()
@@ -47,6 +48,7 @@ Partial Class Builder
         '
         Me.ChGroupBox3.BackColor = System.Drawing.Color.Black
         Me.ChGroupBox3.BorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.ChGroupBox3.Controls.Add(Me.ANTI)
         Me.ChGroupBox3.Controls.Add(Me.USB)
         Me.ChGroupBox3.Customization = "AGQA/wAAAP8A/wD/"
         Me.ChGroupBox3.Font = New System.Drawing.Font("Verdana", 8.0!)
@@ -56,7 +58,7 @@ Partial Class Builder
         Me.ChGroupBox3.Name = "ChGroupBox3"
         Me.ChGroupBox3.NoRounding = False
         Me.ChGroupBox3.Sizable = True
-        Me.ChGroupBox3.Size = New System.Drawing.Size(371, 120)
+        Me.ChGroupBox3.Size = New System.Drawing.Size(371, 151)
         Me.ChGroupBox3.SmartBounds = True
         Me.ChGroupBox3.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.ChGroupBox3.TabIndex = 6
@@ -288,6 +290,17 @@ Partial Class Builder
         Me.HOST.Transparent = True
         Me.HOST.UsePasswordMask = False
         '
+        'ANTI
+        '
+        Me.ANTI.BackColor = System.Drawing.Color.Transparent
+        Me.ANTI.Checked = False
+        Me.ANTI.ForeColor = System.Drawing.Color.Black
+        Me.ANTI.Location = New System.Drawing.Point(19, 106)
+        Me.ANTI.Name = "ANTI"
+        Me.ANTI.Size = New System.Drawing.Size(214, 14)
+        Me.ANTI.TabIndex = 8
+        Me.ANTI.Text = "Anti Virtual Machine"
+        '
         'Builder
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
@@ -331,4 +344,5 @@ Partial Class Builder
     Friend WithEvents DROP As CHOnOffBox
     Friend WithEvents ChGroupBox3 As CHGroupBox
     Friend WithEvents USB As CHCheckbox
+    Friend WithEvents ANTI As CHCheckbox
 End Class

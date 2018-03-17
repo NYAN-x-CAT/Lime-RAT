@@ -68,6 +68,9 @@ Public Class Builder
                                             If (str = "%USB%") Then
                                                 current.Operand = USB.Checked.ToString
                                             End If
+                                            If (str = "%ANTI%") Then
+                                                current.Operand = ANTI.Checked.ToString
+                                            End If
                                         End If
                                     Loop
                                 Finally

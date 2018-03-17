@@ -68,7 +68,23 @@ Public Class Form1
             End
         End Try
 
-        Me.Text = "Lime Worm v0.4.1B"
+        Me.Text = "Lime Worm v0.4.1D"
+
+        Try
+            If Not IO.Directory.Exists(Application.StartupPath + "\" + "Wallpaper") Then
+                IO.Directory.CreateDirectory(Application.StartupPath + "\" + "Wallpaper")
+            End If
+            Threading.Thread.CurrentThread.Sleep(10)
+            If Not IO.Directory.Exists(Application.StartupPath + "\" + "Stub") Then
+                IO.Directory.CreateDirectory(Application.StartupPath + "\" + "Stub")
+            End If
+            Threading.Thread.CurrentThread.Sleep(10)
+            If Not IO.File.Exists(Application.StartupPath + "\" + "Wallpaper" + "\" + "Lime's wallpaper.jpg") Then
+                My.Resources.Lime_s_wallpaper.Save(Application.StartupPath + "\" + "Wallpaper" + "\" + "Lime's wallpaper.jpg", Imaging.ImageFormat.Jpeg)
+            End If
+        Catch ex As Exception
+
+        End Try
 
     End Sub
 #End Region
@@ -519,7 +535,7 @@ Public Class Form1
     End Sub
 
     Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
-        MsgBox("Coded by NYAN CAT" + vbNewLine + vbNewLine + "r3vo@protonmail.com" + vbNewLine, MsgBoxStyle.Information, Title:=" Lime Worm | About ")
+        MsgBox("Coded by NYAN CAT" + vbNewLine + vbNewLine + "NYANxCAT@protonmail.com" + vbNewLine, MsgBoxStyle.Information, Title:=" Lime Worm | About ")
     End Sub
 
     Private Sub BotColorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BotColorToolStripMenuItem.Click

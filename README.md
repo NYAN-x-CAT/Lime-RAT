@@ -1,4 +1,4 @@
-<img src="https://i.imgur.com/apHF7Q0.png">
+[![License](https://poser.pugx.org/buonzz/laravel-4-freegeoip/license.svg)](/LICENSE)
 
 # Lime Worm v0.4.1
 	
@@ -25,6 +25,13 @@ To open project you need:
 ✔ Visual Studio 2017+
 
 ✔ This repository
+
+ ### Testing
+ 
+1. Use "Release" compiler in both solution
+2. Execute "Server_0.4\Server_0.4\bin\Release\Lime Worm.exe"
+3. Copy "Client_0.4\Client_0.4\bin\Release\Stub.exe", To "Server_0.4\Server_0.4\bin\Release\Stub\Stub.exe"
+4. Using "Builder" form, create your worm.
  
 ## Author
 

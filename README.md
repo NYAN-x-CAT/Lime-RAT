@@ -1,4 +1,4 @@
-[![License](https://poser.pugx.org/buonzz/laravel-4-freegeoip/license.svg)](/LICENSE)
+<img src="https://i.imgur.com/apHF7Q0.png" alt="Lime Worm">
 
 # Lime Worm v0.4.1
 	

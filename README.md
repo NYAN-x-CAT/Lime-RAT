@@ -1,4 +1,4 @@
-<img src="https://i.imgur.com/apHF7Q0.png">
+<img src="https://i.imgur.com/apHF7Q0.png" alt="Lime Worm">
 
 
 # Lime Worm v0.4.1
@@ -27,15 +27,22 @@ To open project you need:
 
 1- Visual Studio 2017+
 
+<<<<<<< HEAD
 2- This repository
  
  
 ## Testing
+=======
+✔ This repository
+
+ ### Testing
+>>>>>>> 22de3c4306350c94b9380ad0794d073db427d8cc
  
 1. Use "Release" compiler in both solution
 2. Execute "Server_0.4\Server_0.4\bin\Release\Lime Worm.exe"
 3. Copy "Client_0.4\Client_0.4\bin\Release\Stub.exe", To "Server_0.4\Server_0.4\bin\Release\Stub\Stub.exe"
 4. Using "Builder" form, create your worm.
+<<<<<<< HEAD
  ```
  Tested on virtual machine just to P.O.C
  This project created for educational purposes only
@@ -43,6 +50,8 @@ To open project you need:
  Server tested on Windows 10, Client tested on virtual machine windows 7
  ```
  
+=======
+>>>>>>> 22de3c4306350c94b9380ad0794d073db427d8cc
  
 ## Author
 
@@ -52,3 +61,13 @@ To open project you need:
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](/LICENSE) file for details
+<<<<<<< HEAD
+=======
+
+ ```
+ Tested on virtual machine just to P.O.C
+ This project was created for educational purposes only
+ I am not responsible for any actions, and or damages, caused by this software
+ Server tested on Windows 10, Client tested on virtual machine windows 7
+ ```
+>>>>>>> 22de3c4306350c94b9380ad0794d073db427d8cc

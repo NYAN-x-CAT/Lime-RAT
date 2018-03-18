@@ -53,7 +53,6 @@ Public Class ID
         End Try
     End Function
 
-    'install Date
     Public Shared Function INDATE() As String
         Try
             Dim file As New IO.FileInfo(Windows.Forms.Application.ExecutablePath)
@@ -63,7 +62,6 @@ Public Class ID
         End Try
     End Function
 
-    'HWID
     Public Shared Function HWID() As String
         Try
             Dim tohash As String = Identifier("Win32_Processor", "ProcessorId")
@@ -241,4 +239,61 @@ Public Class ID
         End Try
     End Function
 
+    Public Shared Function WinKey() As String
+
+        Dim HexBuf As Object = My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\", "DigitalProductId", 0)
+
+        If HexBuf Is Nothing Then Return "N/A"
+        Dim tmp As String = ""
+
+        For l As Integer = LBound(HexBuf) To UBound(HexBuf)
+            tmp = tmp & " " & Hex(HexBuf(l))
+        Next
+
+        Dim StartOffset As Integer = 52
+        Dim EndOffset As Integer = 67
+        Dim Digits(24) As String
+
+        Digits(0) = "B" : Digits(1) = "C" : Digits(2) = "D" : Digits(3) = "F"
+        Digits(4) = "G" : Digits(5) = "H" : Digits(6) = "J" : Digits(7) = "K"
+        Digits(8) = "M" : Digits(9) = "P" : Digits(10) = "Q" : Digits(11) = "R"
+        Digits(12) = "T" : Digits(13) = "V" : Digits(14) = "W" : Digits(15) = "X"
+        Digits(16) = "Y" : Digits(17) = "2" : Digits(18) = "3" : Digits(19) = "4"
+        Digits(20) = "6" : Digits(21) = "7" : Digits(22) = "8" : Digits(23) = "9"
+
+        Dim dLen As Integer = 29
+        Dim sLen As Integer = 15
+        Dim HexDigitalPID(15) As String
+        Dim Des(30) As String
+
+        Dim tmp2 As String = ""
+
+        For i = StartOffset To EndOffset
+            HexDigitalPID(i - StartOffset) = HexBuf(i)
+            tmp2 = tmp2 & " " & Hex(HexDigitalPID(i - StartOffset))
+        Next
+
+        Dim KEYSTRING As String = ""
+
+        For i As Integer = dLen - 1 To 0 Step -1
+            If ((i + 1) Mod 6) = 0 Then
+                Des(i) = "-"
+                KEYSTRING = KEYSTRING & "-"
+            Else
+                Dim HN As Integer = 0
+                For N As Integer = (sLen - 1) To 0 Step -1
+                    Dim Value As Integer = ((HN * 2 ^ 8) Or HexDigitalPID(N))
+                    HexDigitalPID(N) = Value \ 24
+                    HN = (Value Mod 24)
+
+                Next
+
+                Des(i) = Digits(HN)
+                KEYSTRING = KEYSTRING & Digits(HN)
+            End If
+        Next
+
+        Return StrReverse(KEYSTRING)
+
+    End Function
 End Class

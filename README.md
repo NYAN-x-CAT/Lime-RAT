@@ -46,7 +46,7 @@ To open project you need:
  
 ## Author
 
-* **Humoud MJ**  
+* **NYAN CAT**  
 
 
 ## License

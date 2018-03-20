@@ -34,6 +34,7 @@ Partial Class Form1
         Me.RansomwareToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EncryptToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DecryptionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CheckFilesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DetailsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BotPCOptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PCRestartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -125,7 +126,7 @@ Partial Class Form1
         '
         'RansomwareToolStripMenuItem
         '
-        Me.RansomwareToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EncryptToolStripMenuItem, Me.DecryptionToolStripMenuItem})
+        Me.RansomwareToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EncryptToolStripMenuItem, Me.DecryptionToolStripMenuItem, Me.CheckFilesToolStripMenuItem})
         Me.RansomwareToolStripMenuItem.Name = "RansomwareToolStripMenuItem"
         Me.RansomwareToolStripMenuItem.Size = New System.Drawing.Size(217, 30)
         Me.RansomwareToolStripMenuItem.Text = "Ransomware"
@@ -141,6 +142,12 @@ Partial Class Form1
         Me.DecryptionToolStripMenuItem.Name = "DecryptionToolStripMenuItem"
         Me.DecryptionToolStripMenuItem.Size = New System.Drawing.Size(183, 30)
         Me.DecryptionToolStripMenuItem.Text = "Decryption"
+        '
+        'CheckFilesToolStripMenuItem
+        '
+        Me.CheckFilesToolStripMenuItem.Name = "CheckFilesToolStripMenuItem"
+        Me.CheckFilesToolStripMenuItem.Size = New System.Drawing.Size(183, 30)
+        Me.CheckFilesToolStripMenuItem.Text = "Check Files"
         '
         'DetailsToolStripMenuItem
         '
@@ -471,4 +478,5 @@ Partial Class Form1
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
     Friend WithEvents USB As ColumnHeader
     Friend WithEvents AV As ColumnHeader
+    Friend WithEvents CheckFilesToolStripMenuItem As ToolStripMenuItem
 End Class

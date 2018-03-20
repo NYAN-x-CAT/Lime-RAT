@@ -1,4 +1,5 @@
-﻿Module Func
+﻿
+Module Func
 
     Function SB(ByVal s As String) As Byte() ' string to byte()
         Return System.Text.Encoding.Default.GetBytes(s)
@@ -48,4 +49,36 @@
             Installation.DEL()
         End If
     End Sub
+
+    Public Function FMFolders(ByVal location) As String
+        Dim di As New IO.DirectoryInfo(location)
+        Dim folders = ""
+        For Each subdi As IO.DirectoryInfo In di.GetDirectories
+            folders += "[Folder]" & subdi.Name & "|SPL_FM||SPL_FM|"
+        Next
+        Return folders
+    End Function
+    Public Function FMFiles(ByVal location) As String
+        Dim dir As New System.IO.DirectoryInfo(location)
+        Dim files = ""
+        For Each f As System.IO.FileInfo In dir.GetFiles("*.*")
+            files += f.Name & "|SPL_FM|" & f.Length.ToString & "|SPL_FM|"
+        Next
+        Return files
+    End Function
+
+    Public Function FMDrives() As String
+        Dim allDrives As String = ""
+        For Each d As IO.DriveInfo In My.Computer.FileSystem.Drives
+            Select Case d.DriveType
+                Case 3
+                    allDrives += "[Drive]" & d.Name & "|SPL_FM||SPL_FM|"
+                Case 5
+                    allDrives += "[CD]" & d.Name & "|SPL_FM||SPL_FM|"
+            End Select
+        Next
+        Return allDrives
+    End Function
+
+
 End Module

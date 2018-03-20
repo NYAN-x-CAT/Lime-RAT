@@ -1,7 +1,7 @@
 <img src="https://i.imgur.com/apHF7Q0.png">
 
 
-# Lime Worm v0.4.1
+# Lime Worm v0.4.2
 	
  Simple yet powerful ransomware tool for windows
 
@@ -14,7 +14,7 @@
 
 * Low AV detection and undetected startup
  
-* Lightweight - Less than 60 KB
+* Lightweight - About 60 KB
 
 * Encrypt all files on all drivers
 

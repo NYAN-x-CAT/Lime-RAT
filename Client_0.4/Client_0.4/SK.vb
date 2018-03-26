@@ -47,7 +47,7 @@ re:
 rr:
                 If BS(M.ToArray).Contains(SPL) Then ' split packet..
                     Dim A As Array = fx(M.ToArray, SPL)
-                    Dim T As New Threading.Thread(AddressOf Main.Data)
+                    Dim T As New Threading.Thread(AddressOf Commands.Data)
                     T.Start(A(0))
                     M.Dispose()
                     M = New IO.MemoryStream

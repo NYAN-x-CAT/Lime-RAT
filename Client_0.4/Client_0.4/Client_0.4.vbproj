@@ -65,7 +65,8 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Func.vb" />
+    <Compile Include="Commands.vb" />
+    <Compile Include="MISC\Func.vb" />
     <Compile Include="ID.vb" />
     <Compile Include="Installation.vb" />
     <Compile Include="Main.vb" />
@@ -86,10 +87,10 @@
     </Compile>
     <Compile Include="Ransomware\Decryption.vb" />
     <Compile Include="Ransomware\Encryption.vb" />
-    <Compile Include="RDP.vb" />
+    <Compile Include="MISC\RDP.vb" />
     <Compile Include="Settings.vb" />
     <Compile Include="SK.vb" />
-    <Compile Include="USB_SP.vb" />
+    <Compile Include="MISC\USB_SP.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

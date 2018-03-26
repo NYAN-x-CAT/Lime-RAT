@@ -46,7 +46,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <ApplicationIcon>ico.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Cecil, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
@@ -67,12 +67,6 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\Builder.Designer.vb">
-      <DependentUpon>Builder.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Builder.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\Cap.Designer.vb">
       <DependentUpon>Cap.vb</DependentUpon>
     </Compile>
@@ -125,9 +119,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms\Builder.resx">
-      <DependentUpon>Builder.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Cap.resx">
       <DependentUpon>Cap.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -165,8 +156,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="icon.ico" />
     <None Include="Resources\Lime%27s wallpaper.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ico.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

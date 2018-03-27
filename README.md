@@ -33,7 +33,7 @@ To open project you need:
 1. Use "Release" compiler in both solution
 2. Execute "Server_0.4\Server_0.4\bin\Release\Lime Worm.exe"
 3. Copy "Client_0.4\Client_0.4\bin\Release\Stub.exe", To "Server_0.4\Server_0.4\bin\Release\Stub\Stub.exe"
-4. Using "Builder" form, create your worm.
+4. Using "Builder" tab, create your worm.
  ```
  Tested on virtual machine just to P.O.C
  This project created for educational purposes only

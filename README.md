@@ -36,17 +36,24 @@ To open project you need:
 3. Copy "Client_0.4\Client_0.4\bin\Release\Stub.exe", To "Server_0.4\Server_0.4\bin\Release\Stub\Stub.exe"
 4. Using "Builder" tab, create your worm.
  ```
- Tested on virtual machine just to P.O.C 
- This project created for educational purposes only
- I am not responsible for any actions, and or damages, caused by this software
  Server tested on Windows 10, Client tested on virtual machine windows 7
  ```
  
- 
+
 ## Author
 
 * **NYAN CAT**  
 
+
+## Disclaimer
+
+I, the creator, am not responsible for any actions, and or damages, caused by this software.
+
+You bear the full responsibilty of your actions and acknowledge that this software was created for educational purposes only.
+
+This software's main purpose is NOT to be used maliciously, or on any system that you do not own, or have the right to use.
+
+By using this software, you automatically agree to the above.
 
 ## License
 

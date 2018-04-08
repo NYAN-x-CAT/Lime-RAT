@@ -15,6 +15,8 @@
  
 * Lightweight - About 60 KB
 
+* Passwords recovery , file explorer and also RDP
+
 * Encrypt all files on all drivers
 
 * Spreading over USB drivers

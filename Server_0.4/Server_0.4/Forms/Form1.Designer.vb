@@ -33,6 +33,7 @@ Partial Class Form1
         Me.EncryptToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DecryptionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CheckFilesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PasswordsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DetailsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BotPCOptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PCRestartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -108,10 +109,10 @@ Partial Class Form1
         Me.ContextMenuStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.ContextMenuStrip1.DropShadowEnabled = False
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RunAFileToolStripMenuItem, Me.RemoteDesktopToolStripMenuItem, Me.RansomwareToolStripMenuItem, Me.DetailsToolStripMenuItem, Me.BotPCOptionsToolStripMenuItem, Me.ControllerOptionsToolStripMenuItem, Me.BotColorToolStripMenuItem, Me.ToolStripSeparator1, Me.AboutToolStripMenuItem})
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RunAFileToolStripMenuItem, Me.RemoteDesktopToolStripMenuItem, Me.RansomwareToolStripMenuItem, Me.PasswordsToolStripMenuItem, Me.DetailsToolStripMenuItem, Me.BotPCOptionsToolStripMenuItem, Me.ControllerOptionsToolStripMenuItem, Me.BotColorToolStripMenuItem, Me.ToolStripSeparator1, Me.AboutToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.ShowImageMargin = False
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(193, 250)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(193, 280)
         '
         'RunAFileToolStripMenuItem
         '
@@ -170,6 +171,13 @@ Partial Class Form1
         Me.CheckFilesToolStripMenuItem.Name = "CheckFilesToolStripMenuItem"
         Me.CheckFilesToolStripMenuItem.Size = New System.Drawing.Size(183, 30)
         Me.CheckFilesToolStripMenuItem.Text = "Check Files"
+        '
+        'PasswordsToolStripMenuItem
+        '
+        Me.PasswordsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
+        Me.PasswordsToolStripMenuItem.Name = "PasswordsToolStripMenuItem"
+        Me.PasswordsToolStripMenuItem.Size = New System.Drawing.Size(192, 30)
+        Me.PasswordsToolStripMenuItem.Text = "Passwords"
         '
         'DetailsToolStripMenuItem
         '
@@ -726,7 +734,6 @@ Partial Class Form1
         Me.PORT.NoRounding = False
         Me.PORT.Size = New System.Drawing.Size(124, 25)
         Me.PORT.TabIndex = 2
-        Me.PORT.Text = "8989"
         Me.PORT.Transparent = True
         Me.PORT.UsePasswordMask = False
         '
@@ -852,4 +859,5 @@ Partial Class Form1
     Friend WithEvents ChButton1 As CHButton
     Friend WithEvents ChSeparator1 As CHSeparator
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents PasswordsToolStripMenuItem As ToolStripMenuItem
 End Class

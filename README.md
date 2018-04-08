@@ -1,4 +1,4 @@
-<img src="https://i.imgur.com/BQgvLeA.gif">
+<img src="https://i.imgur.com/gHXUBWY.gif">
 
 # Lime Worm v0.4.4
 	

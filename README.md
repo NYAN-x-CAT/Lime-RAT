@@ -1,6 +1,6 @@
 <img src="https://i.imgur.com/BQgvLeA.gif">
 
-# Lime Worm v0.4.3
+# Lime Worm v0.4.4
 	
  Simple yet powerful ransomware tool for windows
 

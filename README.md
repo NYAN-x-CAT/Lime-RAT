@@ -13,7 +13,7 @@
 
 * Low AV detection and undetected startup
  
-* Lightweight - About 60 KB
+* Lightweight - About 70 KB
 
 * Passwords recovery , file explorer and also RDP
 

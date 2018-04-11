@@ -38,7 +38,7 @@ To open project you need:
 3. Copy "Client_0.4\Client_0.4\bin\Release\Stub.exe", To "Server_0.4\Server_0.4\bin\Release\Stub\Stub.exe"
 4. Using "Builder" tab, create your worm.
  ```
- Server tested on Windows 10, Client tested on virtual machine windows 7
+ [Server tested on Windows 10, Client tested on virtual machine windows 7]
  ```
  
 

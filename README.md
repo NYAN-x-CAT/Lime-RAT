@@ -39,8 +39,12 @@ To open project you need:
 4. Execute "Server_0.5\Server_0.5\bin\Release\Lime Worm.exe"
 5. Using "Builder" tab, create your worm.
  ```
+<<<<<<< HEAD
  This project was tested only on local lab. I do not know if it will work on external lab.
  Server tested on Windows 10, Client tested on virtual machine windows 7
+=======
+ [Server tested on Windows 10, Client tested on virtual machine windows 7]
+>>>>>>> ad73c96f62250a6283a8b21334c0e06d2390cb33
  ```
  
 

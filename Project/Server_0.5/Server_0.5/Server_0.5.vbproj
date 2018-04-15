@@ -68,6 +68,12 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\About.Designer.vb">
+      <DependentUpon>About.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\About.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Cap.Designer.vb">
       <DependentUpon>Cap.vb</DependentUpon>
     </Compile>
@@ -127,6 +133,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms\About.resx">
+      <DependentUpon>About.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Cap.resx">
       <DependentUpon>Cap.vb</DependentUpon>
       <SubType>Designer</SubType>

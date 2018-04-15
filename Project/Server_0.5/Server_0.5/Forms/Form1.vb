@@ -800,7 +800,7 @@ Public Class Form1
     End Sub
 
     Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
-        MsgBox("Coded by NYAN CAT" + vbNewLine + vbNewLine + "NYANxCAT@protonmail.com" + vbNewLine, MsgBoxStyle.Information, Title:=" Lime Worm | About ")
+        About.Show()
     End Sub
 
     Private Sub BotColorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BotColorToolStripMenuItem.Click

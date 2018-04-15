@@ -15,7 +15,7 @@
  
 * Lightweight - About 40 KB
 
-* Ransomware , passwords recovery , RDP , DDOS
+* Ransomware , passwords recovery , RDP , Bitcoin grabber
 
 * Spreading over USB drivers
  

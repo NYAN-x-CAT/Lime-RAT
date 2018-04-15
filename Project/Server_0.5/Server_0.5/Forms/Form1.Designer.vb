@@ -33,6 +33,7 @@ Partial Class Form1
         Me.RemoteDesktopToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DetailsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PasswordsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DDOSToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.RunAFileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FromDiskToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -54,7 +55,6 @@ Partial Class Form1
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.Flag = New System.Windows.Forms.ImageList(Me.components)
-        Me.DDOSToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MAIN_TAB = New Server_0._5.CHTabcontrol()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
@@ -179,6 +179,13 @@ Partial Class Form1
         Me.PasswordsToolStripMenuItem.Name = "PasswordsToolStripMenuItem"
         Me.PasswordsToolStripMenuItem.Size = New System.Drawing.Size(229, 30)
         Me.PasswordsToolStripMenuItem.Text = "Passwords"
+        '
+        'DDOSToolStripMenuItem
+        '
+        Me.DDOSToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
+        Me.DDOSToolStripMenuItem.Name = "DDOSToolStripMenuItem"
+        Me.DDOSToolStripMenuItem.Size = New System.Drawing.Size(229, 30)
+        Me.DDOSToolStripMenuItem.Text = "DDOS"
         '
         'ToolStripSeparator2
         '
@@ -565,13 +572,6 @@ Partial Class Form1
         Me.Flag.Images.SetKeyName(241, "zw.png")
         Me.Flag.Images.SetKeyName(242, "--.png")
         '
-        'DDOSToolStripMenuItem
-        '
-        Me.DDOSToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
-        Me.DDOSToolStripMenuItem.Name = "DDOSToolStripMenuItem"
-        Me.DDOSToolStripMenuItem.Size = New System.Drawing.Size(229, 30)
-        Me.DDOSToolStripMenuItem.Text = "DDOS"
-        '
         'MAIN_TAB
         '
         Me.MAIN_TAB.Controls.Add(Me.TabPage1)
@@ -804,9 +804,9 @@ Partial Class Form1
         Me.Label7.ForeColor = System.Drawing.Color.Lime
         Me.Label7.Location = New System.Drawing.Point(19, 154)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(135, 18)
+        Me.Label7.Size = New System.Drawing.Size(205, 18)
         Me.Label7.TabIndex = 10
-        Me.Label7.Text = "Bitcoin Address"
+        Me.Label7.Text = "Bitcoin Grabber Address"
         '
         'BTC_ADDR
         '

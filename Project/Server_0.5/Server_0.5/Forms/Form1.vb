@@ -95,7 +95,7 @@ Public Class Form1
             End
         End Try
 
-        Me.Text = "Lime Worm v0.5"
+        Me.Text = "Lime Worm v0.5.1"
 
 
         EXE.Enabled = False
@@ -954,6 +954,7 @@ Public Class Form1
             PATH2.Enabled = False
         End If
     End Sub
+
 
 
 

@@ -33,7 +33,6 @@ Partial Class Form1
         Me.RemoteDesktopToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DetailsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PasswordsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DDOSToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.RunAFileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FromDiskToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -119,12 +118,12 @@ Partial Class Form1
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PluginsToolStripMenuItem, Me.ToolStripSeparator2, Me.RunAFileToolStripMenuItem, Me.BotPCOptionsToolStripMenuItem, Me.ControllerOptionsToolStripMenuItem, Me.BotColorToolStripMenuItem, Me.ToolStripSeparator1, Me.AboutToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.ShowImageMargin = False
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(178, 196)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(178, 229)
         '
         'PluginsToolStripMenuItem
         '
         Me.PluginsToolStripMenuItem.BackColor = System.Drawing.Color.Black
-        Me.PluginsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RansomwareToolStripMenuItem, Me.RemoteDesktopToolStripMenuItem, Me.DetailsToolStripMenuItem, Me.PasswordsToolStripMenuItem, Me.DDOSToolStripMenuItem})
+        Me.PluginsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RansomwareToolStripMenuItem, Me.RemoteDesktopToolStripMenuItem, Me.DetailsToolStripMenuItem, Me.PasswordsToolStripMenuItem})
         Me.PluginsToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.PluginsToolStripMenuItem.Name = "PluginsToolStripMenuItem"
         Me.PluginsToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
@@ -179,13 +178,6 @@ Partial Class Form1
         Me.PasswordsToolStripMenuItem.Name = "PasswordsToolStripMenuItem"
         Me.PasswordsToolStripMenuItem.Size = New System.Drawing.Size(229, 30)
         Me.PasswordsToolStripMenuItem.Text = "Passwords"
-        '
-        'DDOSToolStripMenuItem
-        '
-        Me.DDOSToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
-        Me.DDOSToolStripMenuItem.Name = "DDOSToolStripMenuItem"
-        Me.DDOSToolStripMenuItem.Size = New System.Drawing.Size(229, 30)
-        Me.DDOSToolStripMenuItem.Text = "DDOS"
         '
         'ToolStripSeparator2
         '
@@ -1163,5 +1155,4 @@ Partial Class Form1
     Friend WithEvents Label8 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents DDOSToolStripMenuItem As ToolStripMenuItem
 End Class

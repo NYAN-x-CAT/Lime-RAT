@@ -1,6 +1,6 @@
 <img src="https://i.imgur.com/4hzwVaa.gif">
 
-# Lime Worm v0.5
+# Lime Worm v0.5.2
 	
  Simple yet powerful malware for windows
 

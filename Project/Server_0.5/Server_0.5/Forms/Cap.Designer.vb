@@ -97,7 +97,7 @@ Partial Class Cap
         Me.C.Name = "C"
         Me.C.Size = New System.Drawing.Size(118, 26)
         Me.C.TabIndex = 9
-        Me.C.Value = New Decimal(New Integer() {50, 0, 0, 0})
+        Me.C.Value = New Decimal(New Integer() {65, 0, 0, 0})
         '
         'MenuStrip1
         '

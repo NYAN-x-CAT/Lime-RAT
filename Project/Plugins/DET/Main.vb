@@ -5,6 +5,8 @@ Public Class Main
 
     Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String)
 
+        _H = H
+        _P = P
         KEY = K
         Dim M As New IO.MemoryStream ' create memory stream
         Dim lp As Integer = 0

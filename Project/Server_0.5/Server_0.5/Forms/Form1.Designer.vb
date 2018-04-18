@@ -91,6 +91,7 @@ Partial Class Form1
         Me.EXE = New Server_0._5.CHTextbox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.ChGroupBox1 = New Server_0._5.CHGroupBox()
+        Me.ChButton2 = New Server_0._5.CHButton()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -118,7 +119,7 @@ Partial Class Form1
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PluginsToolStripMenuItem, Me.ToolStripSeparator2, Me.RunAFileToolStripMenuItem, Me.BotPCOptionsToolStripMenuItem, Me.ControllerOptionsToolStripMenuItem, Me.BotColorToolStripMenuItem, Me.ToolStripSeparator1, Me.AboutToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.ShowImageMargin = False
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(178, 229)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(178, 196)
         '
         'PluginsToolStripMenuItem
         '
@@ -963,6 +964,7 @@ Partial Class Form1
         '
         Me.ChGroupBox1.BackColor = System.Drawing.Color.Black
         Me.ChGroupBox1.BorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.ChGroupBox1.Controls.Add(Me.ChButton2)
         Me.ChGroupBox1.Controls.Add(Me.Label9)
         Me.ChGroupBox1.Controls.Add(Me.Label8)
         Me.ChGroupBox1.Controls.Add(Me.Label6)
@@ -984,6 +986,19 @@ Partial Class Form1
         Me.ChGroupBox1.Text = "Connection"
         Me.ChGroupBox1.TransparencyKey = System.Drawing.Color.Empty
         Me.ChGroupBox1.Transparent = False
+        '
+        'ChButton2
+        '
+        Me.ChButton2.Customization = "AGQA/wD/AP8AgAD/"
+        Me.ChButton2.Font = New System.Drawing.Font("Verdana", 8.0!)
+        Me.ChButton2.Image = Nothing
+        Me.ChButton2.Location = New System.Drawing.Point(257, 50)
+        Me.ChButton2.Name = "ChButton2"
+        Me.ChButton2.NoRounding = False
+        Me.ChButton2.Size = New System.Drawing.Size(92, 27)
+        Me.ChButton2.TabIndex = 10
+        Me.ChButton2.Text = "Check"
+        Me.ChButton2.Transparent = False
         '
         'Label9
         '
@@ -1155,4 +1170,5 @@ Partial Class Form1
     Friend WithEvents Label8 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents Label2 As Label
+    Friend WithEvents ChButton2 As CHButton
 End Class

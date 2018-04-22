@@ -6,6 +6,8 @@ Public Class Commands
     Public Shared SPL = Main.SPL
     Public Shared C = Main.C
 
+    'Get server commands and apply it
+
     Public Shared Sub Data(ByVal b As Byte())
         Dim A As String() = Split(BS(b), SPL)
         Try

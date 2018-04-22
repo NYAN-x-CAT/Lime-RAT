@@ -1,6 +1,8 @@
 ﻿
 Imports System.Management
 
+'This Class is all about client identifier functions
+
 Public Class ID
     Private Shared SPL = Main.SPL
 

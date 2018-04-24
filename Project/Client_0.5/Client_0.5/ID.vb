@@ -114,13 +114,11 @@ Public Class ID
 
     Public Shared Function Ransomeware()
         Try
-            Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", Nothing)
-            If My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", Nothing) Is Nothing Then
-                My.Computer.Registry.CurrentUser.CreateSubKey("Software\Lime")
-                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", "Not encrypted")
+            If GTV("Ransome-Status") = Nothing Then
+                STV("Ransome-Status", "Not encrypted")
                 Return "Not encrypted"
             Else
-                Return readValue
+                Return GTV("Ransome-Status")
             End If
         Catch ex As Exception
             Return "Error"
@@ -130,13 +128,11 @@ Public Class ID
     Public Shared Function USBSP()
         If Settings.USB = True Then
             Try
-                Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", "USB", Nothing)
-                If My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", "USB", Nothing) Is Nothing Then
-                    My.Computer.Registry.CurrentUser.CreateSubKey("Software\Lime")
-                    My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Lime", "USB", "Not yet")
-                    Return readValue
+                If GTV("USB") = Nothing Then
+                    STV("USB", "Not yet")
+                    Return "Not yet"
                 Else
-                    Return readValue
+                    Return GTV("USB")
                 End If
             Catch ex As Exception
                 Return "Error"

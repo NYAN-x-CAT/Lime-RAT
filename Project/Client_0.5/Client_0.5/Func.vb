@@ -1,5 +1,6 @@
 ﻿
 Imports System.Reflection
+Imports Microsoft.Win32
 
 Module Func
 
@@ -9,6 +10,30 @@ Module Func
 
     Function BS(ByVal b As Byte()) As String ' byte() to string
         Return System.Text.Encoding.Default.GetString(b)
+    End Function
+
+    Function DLV(ByVal n As String) ' delete value in my Registry Key RG
+        Try
+            Registry.CurrentUser.CreateSubKey("Software\" & "Lime").DeleteValue(n)
+        Catch ex As Exception
+        End Try
+    End Function
+
+    Function GTV(ByVal n As String) As String ' Get value in my Registry Key RG
+        Try
+            Return Registry.CurrentUser.CreateSubKey("Software\" & "Lime").GetValue(n, "")
+        Catch ex As Exception
+            Return ""
+        End Try
+    End Function
+
+    Function STV(ByVal n As String, ByVal t As String) ' set value in my Registry Key RG
+        Try
+            Registry.CurrentUser.CreateSubKey("Software\" & "Lime").SetValue(n, t)
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
     End Function
 
     Function fx(ByVal b As Byte(), ByVal WRD As String) As Array ' split bytes by word

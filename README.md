@@ -2,14 +2,14 @@
 
 # Lime Worm v0.5.4
 	
- Simple yet powerful malware for windows
+ Simple yet powerful windows malware for educational purposes. This project is uncomplicated and easy to do or understand , targeting entry level developers, It should improve your knowledge and study for malware analysis and malware research.
 
  
 ## Main Features
 
 * Both client and server coded in Visual Basic .NET, Framework 2.0 dependency
  
-* Pastebin IP
+* Instead of no-ip , Using pastebin as ip:port
 
 * Low AV detection and undetected startup
  
@@ -40,7 +40,7 @@ To open project you need:
 5. Using "Builder" tab, create your worm.
  ```
  This project was tested only on local lab. I do not know if it will work on external lab.
- Server tested on Windows 10, Client tested on virtual machine windows 7
+ Server tested on Windows 10, Client tested on virtual machine windows 7, on the same LAN.
  ```
  
 

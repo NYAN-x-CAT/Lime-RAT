@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##        N Y A N   C A T  |||   Updated on Apr./24/2018        ##
+'##        N Y A N   C A T  |||   Updated on Apr./27/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -19,7 +19,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                     .. Lime Worm v0.5.3 ..                   ##
+'##                     .. Lime Worm v0.5.4 ..                   ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -54,7 +54,7 @@ Public Class Main
             End If
         End Try
 
-        If Settings.ANTI Then 'Lets see if this PC is Fake
+        If Settings.ANTI Then 'Lets see if this PC is  virtual
             Call VMware()
             Call Virtualbox()
             Call Sandboxie()

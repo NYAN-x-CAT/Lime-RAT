@@ -109,6 +109,7 @@
     </Compile>
     <Compile Include="MISC\Func.vb" />
     <Compile Include="MISC\GIO.vb" />
+    <Compile Include="MISC\Iconchanger.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

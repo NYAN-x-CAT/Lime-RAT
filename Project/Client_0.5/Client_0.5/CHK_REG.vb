@@ -16,7 +16,6 @@ Public Class CHK_REG
                 Thread.CurrentThread.Sleep(3000)
 
                 'Compare old string with new string
-                'The client will old use send function IF the string has been changed
 
                 If Old <> GTV("Ransome-Status").ToString Then
                     Old = GTV("Ransome-Status")

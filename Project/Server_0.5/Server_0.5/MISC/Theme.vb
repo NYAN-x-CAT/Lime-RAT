@@ -2870,7 +2870,7 @@ Class CHOnOffBox
         SF2.LineAlignment = StringAlignment.Center
         SF2.Alignment = StringAlignment.Far
 
-        Size = New Size(56, 24)
+        Size = New Size(80, 24)
         MinimumSize = Size
         MaximumSize = Size
     End Sub

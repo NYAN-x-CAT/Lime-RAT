@@ -97,7 +97,7 @@ Partial Class About
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(52, 20)
         Me.Label5.TabIndex = 5
-        Me.Label5.Text = ": 0.5.1"
+        Me.Label5.Text = ": 0.5.4"
         '
         'Label6
         '
@@ -125,9 +125,9 @@ Partial Class About
         Me.Label8.ForeColor = System.Drawing.Color.Lime
         Me.Label8.Location = New System.Drawing.Point(12, 147)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(102, 20)
+        Me.Label8.Size = New System.Drawing.Size(59, 20)
         Me.Label8.TabIndex = 6
-        Me.Label8.Text = "Socket Class"
+        Me.Label8.Text = "Socket"
         '
         'Label9
         '
@@ -175,9 +175,9 @@ Partial Class About
         Me.Label15.ForeColor = System.Drawing.Color.Lime
         Me.Label15.Location = New System.Drawing.Point(12, 228)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(113, 20)
+        Me.Label15.Size = New System.Drawing.Size(105, 20)
         Me.Label15.TabIndex = 10
-        Me.Label15.Text = "GIO Functions"
+        Me.Label15.Text = "GIO Function"
         '
         'Label16
         '
@@ -205,9 +205,9 @@ Partial Class About
         Me.Label18.ForeColor = System.Drawing.Color.Lime
         Me.Label18.Location = New System.Drawing.Point(13, 209)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(86, 20)
+        Me.Label18.Size = New System.Drawing.Size(43, 20)
         Me.Label18.TabIndex = 12
-        Me.Label18.Text = "RDP Class"
+        Me.Label18.Text = "RDP"
         '
         'Label19
         '

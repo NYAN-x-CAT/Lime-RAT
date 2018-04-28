@@ -280,6 +280,28 @@ Public Class ID
 
     End Function
 
+    Public Shared Function DotNET()
+        Try
+            Dim v As New Text.StringBuilder
+            For Each Folder In IO.Directory.GetDirectories((IO.Path.GetPathRoot(Environment.GetLogicalDrives(Environment.SpecialFolder.Desktop)) + "Windows\Microsoft.NET\Framework\"))
+                v.Append(IO.Path.GetFileName(Folder) + " + ")
+            Next
+            Dim str As String = v.ToString
+
+            Dim re As New Text.StringBuilder
+            Dim s As String() = Split(str, " + ")
+            For i As Integer = 0 To s.Length
+                Try
+                    re.Append(s(i).Remove(4) + " + ")
+                Catch ex As Exception
+                End Try
+            Next
+            Return re.ToString
+        Catch ex As Exception
+            Return "Error"
+        End Try
+    End Function
+
     Public Shared Function Getsystem() As String
         Try
             Return SystemInformation.ComputerName.ToString() & SPL &
@@ -298,7 +320,8 @@ Public Class ID
             Application.ExecutablePath & SPL &
             LastReboot() & SPL &
             AV() & SPL &
-            MachineType() & SPL
+            MachineType() & SPL &
+            DotNET() & SPL
 
 
         Catch

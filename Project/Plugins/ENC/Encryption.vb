@@ -204,6 +204,7 @@ Public Class Encryption
         screenshot = New Bitmap(bounds.Width, bounds.Height, Imaging.PixelFormat.Format32bppArgb)
         graph = Graphics.FromImage(screenshot)
         graph.CopyFromScreen(bounds.X, bounds.Y, 0, 0, bounds.Size, CopyPixelOperation.SourceCopy)
+
         Dim TempFileName = Path.GetTempFileName + ".jpeg"
         screenshot.Save(TempFileName, Imaging.ImageFormat.Jpeg)
 

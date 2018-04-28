@@ -59,6 +59,7 @@ Partial Class Form1
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.L1 = New System.Windows.Forms.ListView()
         Me.Country = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.IP = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -75,6 +76,9 @@ Partial Class Form1
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.L2 = New System.Windows.Forms.ListBox()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.ChGroupBox4 = New Server_0._5.CHGroupBox()
+        Me.Icon_OFF = New Server_0._5.CHOnOffBox()
+        Me.Icon_Box = New System.Windows.Forms.PictureBox()
         Me.ChSeparator1 = New Server_0._5.CHSeparator()
         Me.ChButton1 = New Server_0._5.CHButton()
         Me.ChGroupBox3 = New Server_0._5.CHGroupBox()
@@ -93,7 +97,6 @@ Partial Class Form1
         Me.ChGroupBox1 = New Server_0._5.CHGroupBox()
         Me.ChButton2 = New Server_0._5.CHButton()
         Me.Label9 = New System.Windows.Forms.Label()
-        Me.Label8 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -105,6 +108,8 @@ Partial Class Form1
         Me.StatusStrip1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.TabPage3.SuspendLayout()
+        Me.ChGroupBox4.SuspendLayout()
+        CType(Me.Icon_Box, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ChGroupBox3.SuspendLayout()
         Me.ChGroupBox2.SuspendLayout()
         Me.ChGroupBox1.SuspendLayout()
@@ -610,7 +615,7 @@ Partial Class Form1
         '
         Me.StatusStrip1.BackColor = System.Drawing.Color.Black
         Me.StatusStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1})
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.ToolStripStatusLabel2})
         Me.StatusStrip1.Location = New System.Drawing.Point(3, 445)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(1692, 30)
@@ -624,6 +629,13 @@ Partial Class Form1
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
         Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(180, 25)
         Me.ToolStripStatusLabel1.Text = "ToolStripStatusLabel1"
+        '
+        'ToolStripStatusLabel2
+        '
+        Me.ToolStripStatusLabel2.ForeColor = System.Drawing.Color.Lime
+        Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
+        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(206, 25)
+        Me.ToolStripStatusLabel2.Text = "       NOTIFICATION [ON]"
         '
         'L1
         '
@@ -728,6 +740,7 @@ Partial Class Form1
         'TabPage3
         '
         Me.TabPage3.BackColor = System.Drawing.Color.Black
+        Me.TabPage3.Controls.Add(Me.ChGroupBox4)
         Me.TabPage3.Controls.Add(Me.ChSeparator1)
         Me.TabPage3.Controls.Add(Me.ChButton1)
         Me.TabPage3.Controls.Add(Me.ChGroupBox3)
@@ -739,6 +752,49 @@ Partial Class Form1
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Builder"
         '
+        'ChGroupBox4
+        '
+        Me.ChGroupBox4.BackColor = System.Drawing.Color.Black
+        Me.ChGroupBox4.BorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.ChGroupBox4.Controls.Add(Me.Icon_OFF)
+        Me.ChGroupBox4.Controls.Add(Me.Icon_Box)
+        Me.ChGroupBox4.Customization = "AGQA/wAAAP8A/wD/"
+        Me.ChGroupBox4.Font = New System.Drawing.Font("Verdana", 8.0!)
+        Me.ChGroupBox4.Image = Nothing
+        Me.ChGroupBox4.Location = New System.Drawing.Point(1239, 20)
+        Me.ChGroupBox4.Movable = True
+        Me.ChGroupBox4.Name = "ChGroupBox4"
+        Me.ChGroupBox4.NoRounding = False
+        Me.ChGroupBox4.Sizable = True
+        Me.ChGroupBox4.Size = New System.Drawing.Size(169, 241)
+        Me.ChGroupBox4.SmartBounds = True
+        Me.ChGroupBox4.StartPosition = System.Windows.Forms.FormStartPosition.Manual
+        Me.ChGroupBox4.TabIndex = 10
+        Me.ChGroupBox4.Text = "Icon"
+        Me.ChGroupBox4.TransparencyKey = System.Drawing.Color.Empty
+        Me.ChGroupBox4.Transparent = False
+        '
+        'Icon_OFF
+        '
+        Me.Icon_OFF.Checked = False
+        Me.Icon_OFF.Location = New System.Drawing.Point(20, 50)
+        Me.Icon_OFF.MaximumSize = New System.Drawing.Size(80, 24)
+        Me.Icon_OFF.MinimumSize = New System.Drawing.Size(80, 24)
+        Me.Icon_OFF.Name = "Icon_OFF"
+        Me.Icon_OFF.Size = New System.Drawing.Size(80, 24)
+        Me.Icon_OFF.TabIndex = 1
+        Me.Icon_OFF.Text = "ChOnOffBox1"
+        '
+        'Icon_Box
+        '
+        Me.Icon_Box.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Icon_Box.Location = New System.Drawing.Point(20, 91)
+        Me.Icon_Box.Name = "Icon_Box"
+        Me.Icon_Box.Size = New System.Drawing.Size(128, 128)
+        Me.Icon_Box.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Icon_Box.TabIndex = 0
+        Me.Icon_Box.TabStop = False
+        '
         'ChSeparator1
         '
         Me.ChSeparator1.Colors = New Server_0._5.Bloom(-1) {}
@@ -748,7 +804,7 @@ Partial Class Form1
         Me.ChSeparator1.Location = New System.Drawing.Point(25, 346)
         Me.ChSeparator1.Name = "ChSeparator1"
         Me.ChSeparator1.NoRounding = False
-        Me.ChSeparator1.Size = New System.Drawing.Size(1183, 23)
+        Me.ChSeparator1.Size = New System.Drawing.Size(1383, 23)
         Me.ChSeparator1.TabIndex = 9
         Me.ChSeparator1.Text = "ChSeparator1"
         Me.ChSeparator1.Transparent = False
@@ -761,7 +817,7 @@ Partial Class Form1
         Me.ChButton1.Location = New System.Drawing.Point(25, 281)
         Me.ChButton1.Name = "ChButton1"
         Me.ChButton1.NoRounding = False
-        Me.ChButton1.Size = New System.Drawing.Size(1183, 54)
+        Me.ChButton1.Size = New System.Drawing.Size(1383, 54)
         Me.ChButton1.TabIndex = 8
         Me.ChButton1.Text = "B u i l d"
         Me.ChButton1.Transparent = False
@@ -869,13 +925,13 @@ Partial Class Form1
         'DROP
         '
         Me.DROP.Checked = False
-        Me.DROP.Location = New System.Drawing.Point(19, 49)
-        Me.DROP.MaximumSize = New System.Drawing.Size(56, 24)
-        Me.DROP.MinimumSize = New System.Drawing.Size(56, 24)
+        Me.DROP.Location = New System.Drawing.Point(19, 50)
+        Me.DROP.MaximumSize = New System.Drawing.Size(80, 24)
+        Me.DROP.MinimumSize = New System.Drawing.Size(80, 24)
         Me.DROP.Name = "DROP"
-        Me.DROP.Size = New System.Drawing.Size(56, 24)
+        Me.DROP.Size = New System.Drawing.Size(80, 24)
         Me.DROP.TabIndex = 6
-        Me.DROP.Text = "ChOnOffBox1"
+        Me.DROP.Text = "ChOnOffBox2"
         '
         'PATH2
         '
@@ -966,7 +1022,6 @@ Partial Class Form1
         Me.ChGroupBox1.BorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.ChGroupBox1.Controls.Add(Me.ChButton2)
         Me.ChGroupBox1.Controls.Add(Me.Label9)
-        Me.ChGroupBox1.Controls.Add(Me.Label8)
         Me.ChGroupBox1.Controls.Add(Me.Label6)
         Me.ChGroupBox1.Controls.Add(Me.Label2)
         Me.ChGroupBox1.Controls.Add(Me.Label1)
@@ -1009,16 +1064,6 @@ Partial Class Form1
         Me.Label9.Size = New System.Drawing.Size(148, 18)
         Me.Label9.TabIndex = 5
         Me.Label9.Text = "YourIP:YourPORT"
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.ForeColor = System.Drawing.Color.Lime
-        Me.Label8.Location = New System.Drawing.Point(16, 209)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(195, 18)
-        Me.Label8.TabIndex = 4
-        Me.Label8.Text = "*must be RAW version"
         '
         'Label6
         '
@@ -1087,6 +1132,8 @@ Partial Class Form1
         Me.StatusStrip1.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage3.ResumeLayout(False)
+        Me.ChGroupBox4.ResumeLayout(False)
+        CType(Me.Icon_Box, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ChGroupBox3.ResumeLayout(False)
         Me.ChGroupBox3.PerformLayout()
         Me.ChGroupBox2.ResumeLayout(False)
@@ -1140,7 +1187,6 @@ Partial Class Form1
     Friend WithEvents Label1 As Label
     Friend WithEvents Pastebin As CHTextbox
     Friend WithEvents ChGroupBox2 As CHGroupBox
-    Friend WithEvents DROP As CHOnOffBox
     Friend WithEvents PATH2 As CHTextbox
     Friend WithEvents Label5 As Label
     Friend WithEvents PATH1 As CHCombobox
@@ -1167,8 +1213,12 @@ Partial Class Form1
     Friend WithEvents Label7 As Label
     Friend WithEvents BTC_ADDR As CHTextbox
     Friend WithEvents Label9 As Label
-    Friend WithEvents Label8 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents ChButton2 As CHButton
+    Friend WithEvents ChGroupBox4 As CHGroupBox
+    Friend WithEvents Icon_Box As PictureBox
+    Friend WithEvents Icon_OFF As CHOnOffBox
+    Friend WithEvents DROP As CHOnOffBox
+    Friend WithEvents ToolStripStatusLabel2 As ToolStripStatusLabel
 End Class

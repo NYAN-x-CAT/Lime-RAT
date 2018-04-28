@@ -20,7 +20,7 @@ Public Class GIO
             End While
             FS.Close()
         Catch ex As Exception
-
+            MsgBox("GIO.dat not found, Please reatart lime worm.exe")
         End Try
     End Sub
     Private Function ConvertIPAddressToNumber(ByVal IPA As IPAddress) As Long

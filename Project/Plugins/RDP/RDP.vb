@@ -31,27 +31,6 @@ Public Class CRDP
             Case 6
                 zs.Width = zs.Width / 2.1
                 zs.Height = zs.Height / 2.1
-            Case 7
-                zs.Width = zs.Width / 2.2
-                zs.Height = zs.Height / 2.2
-            Case 8
-                zs.Width = zs.Width / 2.5
-                zs.Height = zs.Height / 2.5
-            Case 9
-                zs.Width = zs.Width / 3
-                zs.Height = zs.Height / 3
-            Case 10
-                zs.Width = zs.Width / 3.5
-                zs.Height = zs.Height / 3.5
-            Case 11
-                zs.Width = zs.Width / 4
-                zs.Height = zs.Height / 4
-            Case 12
-                zs.Width = zs.Width / 5
-                zs.Height = zs.Height / 5
-            Case 13
-                zs.Width = zs.Width / 6
-                zs.Height = zs.Height / 6
         End Select
         zs.Width = Mid(zs.Width.ToString, 1, zs.Width.ToString.Length - 1) & 0
         zs.Height = Mid(zs.Height.ToString, 1, zs.Height.ToString.Length - 1) & 0

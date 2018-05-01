@@ -6,6 +6,7 @@
     Public Event Disconnected(ByVal u As USER)
     Public Event Connected(ByVal u As USER)
     Public Event ms(ByVal u As USER, ByVal ms As Integer)
+    Public BBB
     Sub New(ByVal port As Integer)
         S = New Net.Sockets.TcpListener(port)
         S.Start()
@@ -66,6 +67,7 @@ disconnect:
     Public Function Send(ByVal u As USER, ByVal b As Byte()) As Boolean
         Try
             SyncLock u.C
+                BBB = siz(b.Length)
                 u.C.Send(b, 0, b.Length, Net.Sockets.SocketFlags.None)
                 u.C.Send(SB(KEY), 0, KEY.Length, Net.Sockets.SocketFlags.None)
                 Return True
@@ -75,7 +77,10 @@ disconnect:
             Return False
         End Try
     End Function
+
 End Class
+
+
 Public Class USER
     Public WithEvents Timer As Timer
     Public Listner As Listner

@@ -46,10 +46,6 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IconLib, Version=0.73.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\IconLib.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
@@ -67,8 +63,6 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BTC.vb" />
-    <Compile Include="CHK_REG.vb" />
     <Compile Include="Commands.vb" />
     <Compile Include="ID.vb" />
     <Compile Include="Installation.vb" />
@@ -91,7 +85,6 @@
     <Compile Include="Settings.vb" />
     <Compile Include="SK.vb" />
     <Compile Include="Func.vb" />
-    <Compile Include="USB_SP.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

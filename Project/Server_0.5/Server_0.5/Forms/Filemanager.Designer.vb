@@ -35,9 +35,12 @@ Partial Class Filemanager
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.StatusStrip2 = New System.Windows.Forms.StatusStrip()
+        Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
+        Me.StatusStrip2.SuspendLayout()
         Me.SuspendLayout()
         '
         'ContextMenuStrip1
@@ -84,12 +87,14 @@ Partial Class Filemanager
         'StatusStrip1
         '
         Me.StatusStrip1.BackColor = System.Drawing.Color.Black
+        Me.StatusStrip1.Dock = System.Windows.Forms.DockStyle.Top
         Me.StatusStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FULLPATH})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 437)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 0)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         Me.StatusStrip1.Size = New System.Drawing.Size(845, 22)
+        Me.StatusStrip1.SizingGrip = False
         Me.StatusStrip1.TabIndex = 1
         Me.StatusStrip1.Tag = ""
         Me.StatusStrip1.Text = "StatusStrip1"
@@ -103,9 +108,10 @@ Partial Class Filemanager
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.SystemColors.ControlDark
+        Me.Panel1.Controls.Add(Me.StatusStrip2)
         Me.Panel1.Controls.Add(Me.ListView1)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(0, 0)
+        Me.Panel1.Location = New System.Drawing.Point(0, 22)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(845, 437)
         Me.Panel1.TabIndex = 2
@@ -140,6 +146,26 @@ Partial Class Filemanager
         'Timer1
         '
         '
+        'StatusStrip2
+        '
+        Me.StatusStrip2.BackColor = System.Drawing.Color.Black
+        Me.StatusStrip2.ImageScalingSize = New System.Drawing.Size(24, 24)
+        Me.StatusStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1})
+        Me.StatusStrip2.Location = New System.Drawing.Point(0, 407)
+        Me.StatusStrip2.Name = "StatusStrip2"
+        Me.StatusStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
+        Me.StatusStrip2.Size = New System.Drawing.Size(845, 30)
+        Me.StatusStrip2.SizingGrip = False
+        Me.StatusStrip2.TabIndex = 2
+        Me.StatusStrip2.Text = "StatusStrip2"
+        '
+        'ToolStripStatusLabel1
+        '
+        Me.ToolStripStatusLabel1.ForeColor = System.Drawing.Color.Red
+        Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(17, 25)
+        Me.ToolStripStatusLabel1.Text = " "
+        '
         'Filemanager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
@@ -155,6 +181,9 @@ Partial Class Filemanager
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
+        Me.StatusStrip2.ResumeLayout(False)
+        Me.StatusStrip2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -170,4 +199,6 @@ Partial Class Filemanager
     Friend WithEvents ColumnHeader1 As ColumnHeader
     Friend WithEvents ColumnHeader2 As ColumnHeader
     Friend WithEvents Timer1 As Timer
+    Friend WithEvents StatusStrip2 As StatusStrip
+    Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel
 End Class

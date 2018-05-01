@@ -137,6 +137,30 @@ Namespace My
                 Me("host2") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("       NOTIFICATION [ON]")>  _
+        Public Property Noti() As String
+            Get
+                Return CType(Me("Noti"),String)
+            End Get
+            Set
+                Me("Noti") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property BTC() As String
+            Get
+                Return CType(Me("BTC"),String)
+            End Get
+            Set
+                Me("BTC") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

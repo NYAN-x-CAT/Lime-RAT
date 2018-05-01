@@ -1,52 +1,51 @@
 ﻿Imports System.IO
-Imports System.IO.Compression
+Imports System.Net
 
 Module Func
 
+    Public Function getMD5Hash(ByVal B As Byte()) As String
+        B = New System.Security.Cryptography.MD5CryptoServiceProvider().ComputeHash(B)
+        Dim str2 As String = ""
+        Dim num As Byte
+        For Each num In B
+            str2 = (str2 & num.ToString("x2"))
+        Next
+        Return str2
+    End Function
+
+    Public Function GetExternalAddress() As String
+        Try
+            Dim response As WebResponse = WebRequest.Create("http://checkip.dyndns.org/").GetResponse()
+            Dim reader As New StreamReader(response.GetResponseStream())
+            Dim Str As String = reader.ReadToEnd()
+            reader.Dispose()
+            response.Close()
+            Dim startIndex As Integer = str.IndexOf("Address: ") + 9
+            Dim num2 As Integer = str.LastIndexOf("</body>")
+            Return str.Substring(startIndex, num2 - startIndex)
+        Catch ex As Exception
+            Return " "
+        End Try
+    End Function
+
     Public Function siz(ByVal Size As String) As String
-        If Size.Length < 4 Then
-            Return Size & " Bytes"
-            Exit Function
+        If (Size.ToString.Length < 4) Then
+            Return (CInt(Size) & " Bytes")
         End If
-        Dim s As String = Size / 1024
-        Dim F As String = " KB"
-        Dim ss As Integer
-        If InStr(s, ".") > 0 Then
-            Dim j As Array = Split(s, ".")
-            s = j(0)
-            If j(1).ToString.Length > 3 Then
-                ss = Mid(j(1), 1, 3)
+        Dim str As String = String.Empty
+        Dim num As Double = CDbl(Size) / 1024
+        If (num < 1024) Then
+            str = " KB"
+        Else
+            num = (num / 1024)
+            If (num < 1024) Then
+                str = " MB"
             Else
-                ss = j(1)
+                num = (num / 1024)
+                str = " GB"
             End If
         End If
-        If s.Length > 3 Then
-            s = s / 1024
-            F = " MB"
-            If InStr(s, ".") > 0 Then
-                Dim j As Array = Split(s, ".")
-                s = j(0)
-                If j(1).ToString.Length > 3 Then
-                    ss = Mid(j(1), 1, 3)
-                Else
-                    ss = j(1)
-                End If
-            End If
-        End If
-        If s.Length > 3 Then
-            s = s / 1024
-            F = " GB"
-            If InStr(s, ".") > 0 Then
-                Dim j As Array = Split(s, ".")
-                s = j(0)
-                If j(1).ToString.Length > 3 Then
-                    ss = Mid(j(1), 1, 3)
-                Else
-                    ss = j(1)
-                End If
-            End If
-        End If
-        Return s & "." & ss & F
+        Return (num.ToString(".0") & str)
     End Function
 
     Function SB(ByVal s As String) As Byte() ' string to byte()
@@ -69,6 +68,13 @@ Module Func
         M.Dispose()
         MM.Dispose()
         Return a.ToArray
+    End Function
+
+    Function uFolder(ByVal BotID As String, ByVal file As String)
+        If Not IO.Directory.Exists("Users" + "\" + BotID.ToString) Then
+            IO.Directory.CreateDirectory("Users" + "\" + BotID.ToString)
+        End If
+        Return "Users" + "\" + BotID.ToString + "\" + file
     End Function
 
 End Module

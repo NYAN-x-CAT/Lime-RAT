@@ -69,7 +69,6 @@ Public Class ID
         Try
             Dim tohash As String = Identifier("Win32_Processor", "ProcessorId")
             tohash += "-" & Identifier("Win32_BIOS", "SerialNumber")
-            tohash += "-" & Identifier("Win32_DiskDrive", "Signature")
             tohash += "-" & Identifier("Win32_BaseBoard", "SerialNumber")
             tohash += "-" & Identifier("Win32_VideoController", "Name")
             Return MD5HASH(tohash)
@@ -129,8 +128,8 @@ Public Class ID
         If Settings.USB = True Then
             Try
                 If GTV("USB") = Nothing Then
-                    STV("USB", "Not yet")
-                    Return "Not yet"
+                    STV("USB", "Not ready")
+                    Return GTV("USB")
                 Else
                     Return GTV("USB")
                 End If

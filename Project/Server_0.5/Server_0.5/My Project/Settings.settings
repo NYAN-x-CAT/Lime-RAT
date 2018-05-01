@@ -23,5 +23,11 @@
     <Setting Name="host2" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="Noti" Type="System.String" Scope="User">
+      <Value Profile="(Default)">       NOTIFICATION [ON]</Value>
+    </Setting>
+    <Setting Name="BTC" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

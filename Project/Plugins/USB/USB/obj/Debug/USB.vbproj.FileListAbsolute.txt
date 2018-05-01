@@ -1,0 +1,4 @@
+C:\Users\HMJ\source\repos\TEST Worm\Project\Plugins\USB\USB\bin\Debug\USB.dll
+C:\Users\HMJ\source\repos\TEST Worm\Project\Plugins\USB\USB\bin\Debug\USB.pdb
+C:\Users\HMJ\source\repos\TEST Worm\Project\Plugins\USB\USB\bin\Debug\USB.xml
+C:\Users\HMJ\source\repos\TEST Worm\Project\Plugins\USB\USB\bin\Debug\IconLib.dll

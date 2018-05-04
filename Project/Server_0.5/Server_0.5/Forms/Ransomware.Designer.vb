@@ -72,9 +72,9 @@ Partial Class Ransomware
         '
         Me.PictureBox1.ErrorImage = Nothing
         Me.PictureBox1.InitialImage = Nothing
-        Me.PictureBox1.Location = New System.Drawing.Point(15, 34)
+        Me.PictureBox1.Location = New System.Drawing.Point(15, 41)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(411, 220)
+        Me.PictureBox1.Size = New System.Drawing.Size(411, 204)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 2
         Me.PictureBox1.TabStop = False
@@ -118,9 +118,9 @@ Partial Class Ransomware
         Me.RichTextBox1.BackColor = System.Drawing.Color.Black
         Me.RichTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.RichTextBox1.ForeColor = System.Drawing.Color.Lime
-        Me.RichTextBox1.Location = New System.Drawing.Point(15, 38)
+        Me.RichTextBox1.Location = New System.Drawing.Point(15, 56)
         Me.RichTextBox1.Name = "RichTextBox1"
-        Me.RichTextBox1.Size = New System.Drawing.Size(411, 288)
+        Me.RichTextBox1.Size = New System.Drawing.Size(411, 270)
         Me.RichTextBox1.TabIndex = 0
         Me.RichTextBox1.Text = "All your files have been encrypted. pay us 0.02 BITCOIN. Our address is 123456789" &
     "0"

@@ -97,7 +97,7 @@ Partial Class About
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(52, 20)
         Me.Label5.TabIndex = 5
-        Me.Label5.Text = ": 0.5.5"
+        Me.Label5.Text = ": 0.5.6"
         '
         'Label6
         '
@@ -133,11 +133,11 @@ Partial Class About
         '
         Me.Label9.AutoSize = True
         Me.Label9.ForeColor = System.Drawing.Color.Lime
-        Me.Label9.Location = New System.Drawing.Point(166, 167)
+        Me.Label9.Location = New System.Drawing.Point(167, 167)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(62, 20)
+        Me.Label9.Size = New System.Drawing.Size(104, 20)
         Me.Label9.TabIndex = 9
-        Me.Label9.Text = ": v_B01"
+        Me.Label9.Text = ": NAPOLEON"
         '
         'Label10
         '
@@ -145,9 +145,9 @@ Partial Class About
         Me.Label10.ForeColor = System.Drawing.Color.Lime
         Me.Label10.Location = New System.Drawing.Point(12, 167)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(96, 20)
+        Me.Label10.Size = New System.Drawing.Size(61, 20)
         Me.Label10.TabIndex = 8
-        Me.Label10.Text = "USB spread"
+        Me.Label10.Text = "Spread"
         '
         'Label11
         '
@@ -163,11 +163,11 @@ Partial Class About
         '
         Me.Label12.AutoSize = True
         Me.Label12.ForeColor = System.Drawing.Color.Lime
-        Me.Label12.Location = New System.Drawing.Point(12, 187)
+        Me.Label12.Location = New System.Drawing.Point(13, 189)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(121, 20)
+        Me.Label12.Size = New System.Drawing.Size(86, 20)
         Me.Label12.TabIndex = 10
-        Me.Label12.Text = "Passowrd Class"
+        Me.Label12.Text = "Passowrds"
         '
         'Label15
         '

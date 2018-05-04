@@ -1,0 +1,13 @@
+C:\Users\HMJ\source\repos\TEST Worm\Project\Plugins\USB\USB\bin\Debug\USB.dll
+C:\Users\HMJ\source\repos\TEST Worm\Project\Plugins\USB\USB\bin\Debug\USB.pdb
+C:\Users\HMJ\source\repos\TEST Worm\Project\Plugins\USB\USB\bin\Debug\USB.xml
+C:\Users\HMJ\source\repos\TEST Worm\Project\Plugins\USB\USB\bin\Debug\IconLib.dll
+C:\Users\HMJ\source\repos\TEST Worm\Project\Plugins\USB\USB\obj\Debug\USB.Resources.resources
+C:\Users\HMJ\source\repos\TEST Worm\Project\Plugins\USB\USB\obj\Debug\USB.vbproj.GenerateResource.Cache
+C:\Users\HMJ\source\repos\TEST Worm\Project\Plugins\USB\USB\obj\Debug\USB.vbproj.CoreCompileInputs.cache
+C:\Users\HMJ\source\repos\TEST Worm\Project\Plugins\USB\USB\obj\Debug\USB.dll
+C:\Users\HMJ\source\repos\TEST Worm\Project\Plugins\USB\USB\obj\Debug\USB.xml
+C:\Users\HMJ\source\repos\TEST Worm\Project\Plugins\USB\USB\obj\Debug\USB.pdb
+C:\Users\HMJ\source\repos\TEST Worm\Server_0.5\Server_0.5\bin\Debug\Plugin\USB.dll
+C:\Users\HMJ\source\repos\TEST Worm\Server_0.5\Server_0.5\bin\Debug\Plugin\USB.pdb
+C:\Users\HMJ\source\repos\TEST Worm\Server_0.5\Server_0.5\bin\Debug\Plugin\USB.xml

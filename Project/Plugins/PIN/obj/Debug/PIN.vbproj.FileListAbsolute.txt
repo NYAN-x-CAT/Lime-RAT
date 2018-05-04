@@ -1,0 +1,12 @@
+C:\Users\HMJ\source\repos\TEST Worm\Project\Plugins\PIN\PIN\PIN\bin\Debug\PIN.dll
+C:\Users\HMJ\source\repos\TEST Worm\Project\Plugins\PIN\PIN\PIN\bin\Debug\PIN.pdb
+C:\Users\HMJ\source\repos\TEST Worm\Project\Plugins\PIN\PIN\PIN\bin\Debug\PIN.xml
+C:\Users\HMJ\source\repos\TEST Worm\Project\Plugins\PIN\PIN\PIN\obj\Debug\PIN.Resources.resources
+C:\Users\HMJ\source\repos\TEST Worm\Project\Plugins\PIN\PIN\PIN\obj\Debug\PIN.vbproj.GenerateResource.Cache
+C:\Users\HMJ\source\repos\TEST Worm\Project\Plugins\PIN\PIN\PIN\obj\Debug\PIN.vbproj.CoreCompileInputs.cache
+C:\Users\HMJ\source\repos\TEST Worm\Project\Plugins\PIN\PIN\PIN\obj\Debug\PIN.dll
+C:\Users\HMJ\source\repos\TEST Worm\Project\Plugins\PIN\PIN\PIN\obj\Debug\PIN.xml
+C:\Users\HMJ\source\repos\TEST Worm\Project\Plugins\PIN\PIN\PIN\obj\Debug\PIN.pdb
+C:\Users\HMJ\source\repos\Server_0.5\Server_0.5\bin\Debug\Plugin\PIN.dll
+C:\Users\HMJ\source\repos\Server_0.5\Server_0.5\bin\Debug\Plugin\PIN.pdb
+C:\Users\HMJ\source\repos\Server_0.5\Server_0.5\bin\Debug\Plugin\PIN.xml

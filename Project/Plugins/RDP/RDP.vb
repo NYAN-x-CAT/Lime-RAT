@@ -83,6 +83,7 @@ Public Class CRDP
     Private Shared oCo As Integer = 0
     Private Shared oQu As Integer = 0
     Shared Function Cap(ByVal q As Integer, ByVal co As Integer, ByVal Qu As Integer) As Byte()
+        On Error Resume Next
 ee:
         Dim ZS As New Size(QZ(q))
         ZS.Width = Mid(ZS.Width.ToString, 1, ZS.Width.ToString.Length - 1) & 0

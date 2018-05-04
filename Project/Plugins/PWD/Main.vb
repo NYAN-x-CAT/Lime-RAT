@@ -96,8 +96,8 @@ cc:
         Try
 
             Select Case A(0)
-                Case "ENC"
-
+                Case "Close"
+                    CloseMe()
             End Select
 
         Catch ex As Exception

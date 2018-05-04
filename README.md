@@ -1,25 +1,26 @@
 <img src="https://i.imgur.com/4hzwVaa.gif">
 
-# Lime Worm v0.5.5
+# Lime Worm v0.5.6
 	
  Simple yet powerful windows malware for educational purposes. This project is uncomplicated and easy to do or understand , targeting entry level developers, It should improve your knowledge and study for malware analysis and malware research.
 
  
 ## Main Features
 
-* Both client and server coded in Visual Basic .NET, Framework 2.0 dependency
+* .NET - Both client and server coded in Visual Basic .NET, Framework 2.0 dependency.
  
-* Instead of no-ip , Using pastebin as ip:port
+* Connection - Using pastebin.com RAW as ip:port , Instead of noip.com DNS
 
-* Low AV detection and undetected startup
+* Spreading - Infecting all files and folders on USB drivers , Also spread over pinned applications on taskbar
+
+* Bypass - Low AV detection and undetected startup
  
 * Lightweight - About 20 KB
 
-* Ransomware , passwords recovery , RDP , Bitcoin grabber
+* Anti Virtual Machines - Uninstall itself if the machine is virtual to avoid scanning or analyzing
 
-* Spreading over USB drivers
+* And more - Ransomware , passwords recovery , RDP , Bitcoin grabber
  
-* Anti Virtual Machines 
 
 
 ## Prerequisites

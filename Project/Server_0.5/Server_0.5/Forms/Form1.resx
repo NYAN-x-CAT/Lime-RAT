@@ -3554,7 +3554,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj0yLjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAADo
-        VAYAAk1TRnQBSQFMAgEB8wEAAagBBwGoAQcBGQEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFk
+        VAYAAk1TRnQBSQFMAgEB8wEAAdgBEAHYARABGQEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFk
         AwAB0AEDAgABAQEAASAGAAH1AQX/AKIAAwUBBwMQARYDFAEbAxQBGwMUARsDFAEbAxQBGwMUARsDFAEb
         AxQBGwMUARsDFAEbAxQBGwMUARsDFAEbAxQBGwMUARsDFAEbAxQBGwMUARsDFAEbAxQBGwMUARsDEgEY
         AwgBCwMFAQcDEAEWAxQBGwMUARsDFAEbAxQBGwMUARsDFAEbAxQBGwMUARsDFAEbAxQBGwMUARsDFAEb
@@ -10472,6 +10472,12 @@
         0wAM/wHwAwAM/wHwAwAM/wHwRwABEAGAigAM/wHwAwAM/wHwAwAM/wHw0wAM/wHwAwAM/wHwAwAL
 </value>
   </data>
+  <metadata name="BackgroundWorker1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>771, 17</value>
+  </metadata>
+  <metadata name="BackgroundWorker2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1000, 17</value>
+  </metadata>
   <metadata name="StatusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>355, 17</value>
   </metadata>

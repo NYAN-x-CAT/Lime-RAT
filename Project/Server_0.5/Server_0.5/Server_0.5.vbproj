@@ -107,9 +107,9 @@
     <Compile Include="Forms\PWD.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MISC\Func.vb" />
-    <Compile Include="MISC\GIO.vb" />
-    <Compile Include="MISC\Iconchanger.vb" />
+    <Compile Include="Classes\Func.vb" />
+    <Compile Include="Classes\GIO.vb" />
+    <Compile Include="Classes\Iconchanger.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -131,8 +131,8 @@
     <Compile Include="Forms\Ransomware.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MISC\SK.vb" />
-    <Compile Include="MISC\Theme.vb">
+    <Compile Include="Classes\SK.vb" />
+    <Compile Include="Classes\Theme.vb">
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>

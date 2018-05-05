@@ -11,10 +11,10 @@
         Next
 
         P1.Image = New Bitmap(Sz.Width, Sz.Height)
-        C1.SelectedIndex = 0
-
+        C1.SelectedIndex = 1
+        C.Value = 55
         Timer1.Interval = 1000
-        Timer1.Start()
+        ' Timer1.Start()
     End Sub
 
     Public Sub PktToImage(ByVal BY As Byte())
@@ -26,7 +26,7 @@
             Dim Q As New IO.MemoryStream(CType(B(1), Byte()))
             Dim L As Bitmap = Image.FromStream(Q)
             Dim QQ As String() = Split(BS(B(0)), ",")
-            Me.Text = "Remote Desktop  " & u.IP.Split(":")(0) & " | Size: " & siz(BY.LongLength) & " ,Changes: " & QQ.Length - 2
+            Me.Text = "Remote Desktop  " & "Size: " & siz(BY.LongLength) & " ,Changes: " & QQ.Length - 2
             Dim K As Bitmap = P1.Image.GetThumbnailImage(CType(Split(QQ(0), ".")(0), Integer), CType(Split(QQ(0), ".")(1), Integer), Nothing, Nothing)
             Dim G As Graphics = Graphics.FromImage(K)
             Dim tp As Integer = 0
@@ -34,6 +34,7 @@
                 Dim P As New Point(Split(QQ(i), ".")(0), Split(QQ(i), ".")(1))
                 Dim SZ As New Size(L.Width, Split(QQ(i), ".")(2))
                 G.DrawImage(L.Clone(New Rectangle(0, tp, L.Width, CType(Split(QQ(i), ".")(2), Integer)), L.PixelFormat), New Point(CType(Split(QQ(i), ".")(0), Integer), CType(Split(QQ(i), ".")(1), Integer)))
+
                 tp += SZ.Height
             Next
             G.Dispose()
@@ -65,7 +66,6 @@
                 Case 6
                     zs.Width = zs.Width / 2.1
                     zs.Height = zs.Height / 2.1
-
             End Select
             zs.Width = Mid(zs.Width.ToString, 1, zs.Width.ToString.Length - 1) & 0
             zs.Height = Mid(zs.Height.ToString, 1, zs.Height.ToString.Length - 1) & 0

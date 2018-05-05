@@ -4,7 +4,6 @@ Imports System.Drawing.Imaging
 Imports System.Windows.Forms
 
 Public Class CRDP
-    'credit to njq8
     Private Shared OA As New List(Of Bitmap)
     Private Shared OAA As New List(Of Point)
     Private Shared OM As New Bitmap(1, 1) ' OLD IMAGE
@@ -29,8 +28,7 @@ Public Class CRDP
                 zs.Width = zs.Width / 2
                 zs.Height = zs.Height / 2
             Case 6
-                zs.Width = zs.Width / 2.1
-                zs.Height = zs.Height / 2.1
+
         End Select
         zs.Width = Mid(zs.Width.ToString, 1, zs.Width.ToString.Length - 1) & 0
         zs.Height = Mid(zs.Height.ToString, 1, zs.Height.ToString.Length - 1) & 0
@@ -83,7 +81,6 @@ Public Class CRDP
     Private Shared oCo As Integer = 0
     Private Shared oQu As Integer = 0
     Shared Function Cap(ByVal q As Integer, ByVal co As Integer, ByVal Qu As Integer) As Byte()
-        On Error Resume Next
 ee:
         Dim ZS As New Size(QZ(q))
         ZS.Width = Mid(ZS.Width.ToString, 1, ZS.Width.ToString.Length - 1) & 0

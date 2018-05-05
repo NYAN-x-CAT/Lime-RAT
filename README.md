@@ -1,6 +1,6 @@
 <img src="https://i.imgur.com/4hzwVaa.gif">
 
-# Lime Worm v0.5.6
+# Lime Worm v0.5.7
 	
  Simple yet powerful windows malware for educational purposes. This project is uncomplicated and easy to do or understand , targeting entry level developers, It should improve your knowledge and study for malware analysis and malware research.
 
@@ -9,7 +9,7 @@
 
 * .NET - Both client and server coded in Visual Basic .NET, Framework 2.0 dependency.
  
-* Connection - Using pastebin.com RAW as ip:port , Instead of noip.com DNS
+* Connection - Encrypted connection , And using pastebin.com RAW as ip:port , Instead of noip.com DNS
 
 * Spreading - Infecting all files and folders on USB drivers , Also spread over pinned applications on taskbar
 

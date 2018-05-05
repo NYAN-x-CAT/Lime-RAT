@@ -83,8 +83,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Settings.vb" />
-    <Compile Include="SK.vb" />
-    <Compile Include="Func.vb" />
+    <Compile Include="C_SK.vb" />
+    <Compile Include="C_Func.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

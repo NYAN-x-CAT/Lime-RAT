@@ -32,7 +32,7 @@
     Public Shared PATH1 As String = "%PATH1%"
     Public Shared PATH2 As String = "%PATH2%"
     Public Shared NEXE As Object = New IO.FileInfo(Application.ExecutablePath)
-    Public Shared fullpath = Interaction.Environ(PATH1) & "\" & PATH2 & "\" & EXE
+    Public Shared fullpath = Environ(PATH1) & "\" & PATH2 & "\" & EXE
     Public Shared BTC_ADDR As String = "%BTC_ADDR%"
 #End If
 

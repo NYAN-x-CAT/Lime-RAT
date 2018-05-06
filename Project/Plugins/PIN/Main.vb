@@ -15,7 +15,7 @@ Public Class Main
 
 
     Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal SP As String, ByVal PW As String, ByVal FP As String)
-
+        ServerPath = FP
 re:
         Sleep(30000)
 

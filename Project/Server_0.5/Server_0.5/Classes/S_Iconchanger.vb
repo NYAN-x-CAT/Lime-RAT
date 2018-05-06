@@ -1,6 +1,6 @@
 ﻿Imports System.Runtime.InteropServices
 Imports System.Security
-Public Class Iconchanger
+Public Class S_Iconchanger
     <SuppressUnmanagedCodeSecurity()>
     Private Class NativeMethods
         <DllImport("kernel32")>

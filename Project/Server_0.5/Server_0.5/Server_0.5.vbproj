@@ -21,7 +21,9 @@
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
     <DocumentationFile>Lime Worm.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
+    <WarningsAsErrors>
+    </WarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,7 +33,9 @@
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DocumentationFile>Lime Worm.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
+    <WarningsAsErrors>
+    </WarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -71,16 +75,17 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\S_Encryption.vb" />
     <Compile Include="Forms\About.Designer.vb">
       <DependentUpon>About.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\About.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Cap.Designer.vb">
-      <DependentUpon>Cap.vb</DependentUpon>
+    <Compile Include="Forms\RDP.Designer.vb">
+      <DependentUpon>RDP.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Cap.vb">
+    <Compile Include="Forms\RDP.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Filemanager.Designer.vb">
@@ -95,10 +100,10 @@
     <Compile Include="Forms\Form1.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Info.Designer.vb">
-      <DependentUpon>Info.vb</DependentUpon>
+    <Compile Include="Forms\SysInfo.Designer.vb">
+      <DependentUpon>SysInfo.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Info.vb">
+    <Compile Include="Forms\SysInfo.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\PWD.Designer.vb">
@@ -107,9 +112,9 @@
     <Compile Include="Forms\PWD.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Classes\S_Func.vb" />
-    <Compile Include="Classes\GIO.vb" />
-    <Compile Include="Classes\Iconchanger.vb" />
+    <Compile Include="Classes\S_Functions.vb" />
+    <Compile Include="Classes\S_GIO.vb" />
+    <Compile Include="Classes\S_Iconchanger.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -131,7 +136,7 @@
     <Compile Include="Forms\Ransomware.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Classes\S_SK.vb" />
+    <Compile Include="Classes\S_Socket.vb" />
     <Compile Include="Classes\Theme.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -140,8 +145,8 @@
     <EmbeddedResource Include="Forms\About.resx">
       <DependentUpon>About.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Cap.resx">
-      <DependentUpon>Cap.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\RDP.resx">
+      <DependentUpon>RDP.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Filemanager.resx">
@@ -150,8 +155,8 @@
     <EmbeddedResource Include="Forms\Form1.resx">
       <DependentUpon>Form1.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Info.resx">
-      <DependentUpon>Info.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\SysInfo.resx">
+      <DependentUpon>SysInfo.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PWD.resx">
       <DependentUpon>PWD.vb</DependentUpon>

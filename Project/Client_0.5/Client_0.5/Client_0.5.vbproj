@@ -63,10 +63,12 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands.vb" />
-    <Compile Include="ID.vb" />
-    <Compile Include="Installation.vb" />
-    <Compile Include="Main.vb" />
+    <Compile Include="C_Commands.vb" />
+    <Compile Include="C_Encryption.vb" />
+    <Compile Include="C_ID.vb" />
+    <Compile Include="C_Inject.vb" />
+    <Compile Include="C_Installation.vb" />
+    <Compile Include="C_Main.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -82,9 +84,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Settings.vb" />
-    <Compile Include="C_SK.vb" />
-    <Compile Include="C_Func.vb" />
+    <Compile Include="C_Settings.vb" />
+    <Compile Include="C_Socket.vb" />
+    <Compile Include="C_Fuctions.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

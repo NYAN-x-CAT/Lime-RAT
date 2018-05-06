@@ -1,4 +1,4 @@
-﻿Public Class Info
+﻿Public Class SysInfo
     Public F As Form1
     Public U As USER
     Private m_SortingColumn As ColumnHeader

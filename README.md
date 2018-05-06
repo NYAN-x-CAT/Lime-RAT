@@ -1,6 +1,6 @@
 <img src="https://i.imgur.com/4hzwVaa.gif">
 
-# Lime Worm v0.5.7
+# Lime Worm v0.5.8
 	
  Simple yet powerful windows malware for educational purposes. This project is uncomplicated and easy to do or understand , targeting entry level developers, It should improve your knowledge and study for malware analysis and malware research.
 

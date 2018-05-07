@@ -1,7 +1,7 @@
 ﻿Public Class S_Socket
     'credit njq8
     Public S As Net.Sockets.TcpListener
-    Public Shared KEY As String = Convert.ToBase64String(SB("|'N'|"))
+    Public Shared KEY As String = "|'N'|"
     Public Event Data(ByVal u As USER, ByVal b As Byte())
     Public Event Disconnected(ByVal u As USER)
     Public Event Connected(ByVal u As USER)

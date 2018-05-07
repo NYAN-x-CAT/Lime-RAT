@@ -95,9 +95,9 @@ Partial Class About
         Me.Label5.ForeColor = System.Drawing.Color.Lime
         Me.Label5.Location = New System.Drawing.Point(166, 55)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(52, 20)
+        Me.Label5.Size = New System.Drawing.Size(63, 20)
         Me.Label5.TabIndex = 5
-        Me.Label5.Text = ": 0.5.8"
+        Me.Label5.Text = ": 0.5.8B"
         '
         'Label6
         '

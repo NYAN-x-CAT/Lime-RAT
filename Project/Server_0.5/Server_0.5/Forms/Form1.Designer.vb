@@ -37,6 +37,7 @@ Partial Class Form1
         Me.RunAFileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FromDiskToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FromURLToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.VisitURLToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BotPCOptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PCRestartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PCShutdownToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -128,10 +129,10 @@ Partial Class Form1
         Me.ContextMenuStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.ContextMenuStrip1.DropShadowEnabled = False
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PluginsToolStripMenuItem, Me.ToolStripSeparator2, Me.RunAFileToolStripMenuItem, Me.BotPCOptionsToolStripMenuItem, Me.ControllerOptionsToolStripMenuItem, Me.BotColorToolStripMenuItem, Me.ToolStripSeparator1, Me.AboutToolStripMenuItem})
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PluginsToolStripMenuItem, Me.ToolStripSeparator2, Me.RunAFileToolStripMenuItem, Me.VisitURLToolStripMenuItem, Me.BotPCOptionsToolStripMenuItem, Me.ControllerOptionsToolStripMenuItem, Me.BotColorToolStripMenuItem, Me.ToolStripSeparator1, Me.AboutToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.ShowImageMargin = False
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(178, 196)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(178, 226)
         '
         'PluginsToolStripMenuItem
         '
@@ -218,6 +219,13 @@ Partial Class Form1
         Me.FromURLToolStripMenuItem1.Name = "FromURLToolStripMenuItem1"
         Me.FromURLToolStripMenuItem1.Size = New System.Drawing.Size(177, 30)
         Me.FromURLToolStripMenuItem1.Text = "From URL"
+        '
+        'VisitURLToolStripMenuItem
+        '
+        Me.VisitURLToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
+        Me.VisitURLToolStripMenuItem.Name = "VisitURLToolStripMenuItem"
+        Me.VisitURLToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
+        Me.VisitURLToolStripMenuItem.Text = "Visit URL"
         '
         'BotPCOptionsToolStripMenuItem
         '
@@ -1303,4 +1311,5 @@ Partial Class Form1
     Friend WithEvents Injection_Name As CHCombobox
     Friend WithEvents Label8 As Label
     Friend WithEvents Injection_CHK As CHCheckbox
+    Friend WithEvents VisitURLToolStripMenuItem As ToolStripMenuItem
 End Class

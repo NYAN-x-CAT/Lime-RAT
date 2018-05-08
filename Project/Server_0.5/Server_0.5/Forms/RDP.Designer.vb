@@ -138,7 +138,7 @@ Partial Class RDP
         Me.ToolStripContainer1.Text = "ToolStripContainer1"
         Me.ToolStripContainer1.TopToolStripPanelVisible = False
         '
-        'Cap
+        'RDP
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -147,9 +147,7 @@ Partial Class RDP
         Me.Controls.Add(Me.P1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Name = "Cap"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Remote Desktop -"
+        Me.Name = "RDP"
         CType(Me.C, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.P1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ToolStripContainer1.ContentPanel.ResumeLayout(False)

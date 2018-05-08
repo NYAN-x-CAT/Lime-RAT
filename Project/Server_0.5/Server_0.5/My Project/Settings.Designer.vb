@@ -173,6 +173,18 @@ Namespace My
                 Me("pass") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property DWN() As String
+            Get
+                Return CType(Me("DWN"),String)
+            End Get
+            Set
+                Me("DWN") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

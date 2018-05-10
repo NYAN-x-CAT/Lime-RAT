@@ -2243,7 +2243,7 @@ Class CHTextbox
             Case False
                 txtbox.UseSystemPasswordChar = False
         End Select
-        Size = New Size(Width, 25)
+        Size = New Size(Width, 33)
         txtbox.BackColor = Color.Black
         txtbox.ForeColor = Color.Lime
         txtbox.Font = Font
@@ -2583,7 +2583,7 @@ Public Class CHCheckbox : Inherits Control
     End Property
     Protected Overrides Sub OnResize(ByVal e As System.EventArgs)
         MyBase.OnResize(e)
-        Height = 14
+        Height = 18
     End Sub
     Protected Overrides Sub OnClick(ByVal e As System.EventArgs)
         _Checked = Not _Checked

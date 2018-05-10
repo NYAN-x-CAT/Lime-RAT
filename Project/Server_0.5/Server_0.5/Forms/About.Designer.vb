@@ -95,9 +95,9 @@ Partial Class About
         Me.Label5.ForeColor = System.Drawing.Color.Lime
         Me.Label5.Location = New System.Drawing.Point(166, 55)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(63, 20)
+        Me.Label5.Size = New System.Drawing.Size(64, 20)
         Me.Label5.TabIndex = 5
-        Me.Label5.Text = ": 0.5.8C"
+        Me.Label5.Text = ": 0.5.8D"
         '
         'Label6
         '
@@ -272,11 +272,11 @@ Partial Class About
         'Label25
         '
         Me.Label25.AutoSize = True
-        Me.Label25.Font = New System.Drawing.Font("Sitka Subheading", 160.0!, System.Drawing.FontStyle.Bold)
+        Me.Label25.Font = New System.Drawing.Font("Microsoft Sans Serif", 160.0!, System.Drawing.FontStyle.Bold)
         Me.Label25.ForeColor = System.Drawing.Color.Lime
-        Me.Label25.Location = New System.Drawing.Point(380, -72)
+        Me.Label25.Location = New System.Drawing.Point(374, -11)
         Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(379, 462)
+        Me.Label25.Size = New System.Drawing.Size(331, 362)
         Me.Label25.TabIndex = 14
         Me.Label25.Text = "L"
         '

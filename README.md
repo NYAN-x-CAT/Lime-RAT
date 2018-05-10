@@ -1,6 +1,6 @@
 <img src="https://i.imgur.com/aiikRaW.gif">
 
-# Lime Worm v0.5.8C
+# Lime Worm v0.5.8D
 	
  Simple yet powerful windows malware for educational purposes. This project is uncomplicated and easy to do or understand , targeting entry level developers, It should improve your knowledge and study for malware analysis and malware research.
 
@@ -46,8 +46,7 @@ To open project you need:
  
  ## Issues
  
-1. While using injection method, spreading won't work unless the worm.exe is running elevated privilege
-2. While using ransomware, restore point won't be deleted unless the worm.exe is running elevated privilege
+1. While using ransomware, restore point won't be deleted unless the worm.exe is running elevated privilege
 
 ## Author
 

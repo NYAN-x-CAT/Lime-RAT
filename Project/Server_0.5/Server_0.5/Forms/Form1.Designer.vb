@@ -86,7 +86,6 @@ Partial Class Form1
         Me.ChGroupBox4 = New Server_0._5.CHGroupBox()
         Me.Icon_OFF = New Server_0._5.CHOnOffBox()
         Me.Icon_Box = New System.Windows.Forms.PictureBox()
-        Me.ChSeparator1 = New Server_0._5.CHSeparator()
         Me.ChButton1 = New Server_0._5.CHButton()
         Me.ChGroupBox3 = New Server_0._5.CHGroupBox()
         Me.DWN_CHK = New Server_0._5.CHCheckbox()
@@ -98,9 +97,6 @@ Partial Class Form1
         Me.ANTI = New Server_0._5.CHCheckbox()
         Me.USB_CHK = New Server_0._5.CHCheckbox()
         Me.ChGroupBox2 = New Server_0._5.CHGroupBox()
-        Me.Injection_CHK = New Server_0._5.CHCheckbox()
-        Me.Injection_Name = New Server_0._5.CHCombobox()
-        Me.Label8 = New System.Windows.Forms.Label()
         Me.DROP = New Server_0._5.CHOnOffBox()
         Me.PATH2 = New Server_0._5.CHTextbox()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -138,7 +134,7 @@ Partial Class Form1
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PluginsToolStripMenuItem, Me.ToolStripSeparator2, Me.RunAFileToolStripMenuItem, Me.VisitURLToolStripMenuItem, Me.BotPCOptionsToolStripMenuItem, Me.ControllerOptionsToolStripMenuItem, Me.ToolStripSeparator3, Me.CommentToolStripMenuItem, Me.BotColorToolStripMenuItem, Me.ToolStripSeparator1, Me.AboutToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.ShowImageMargin = False
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(178, 262)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(179, 262)
         '
         'PluginsToolStripMenuItem
         '
@@ -146,7 +142,7 @@ Partial Class Form1
         Me.PluginsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RansomwareToolStripMenuItem, Me.RemoteDesktopToolStripMenuItem, Me.DetailsToolStripMenuItem, Me.PasswordsToolStripMenuItem})
         Me.PluginsToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.PluginsToolStripMenuItem.Name = "PluginsToolStripMenuItem"
-        Me.PluginsToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
+        Me.PluginsToolStripMenuItem.Size = New System.Drawing.Size(178, 30)
         Me.PluginsToolStripMenuItem.Text = "Plugins"
         '
         'RansomwareToolStripMenuItem
@@ -154,83 +150,83 @@ Partial Class Form1
         Me.RansomwareToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EncryptToolStripMenuItem, Me.DecryptionToolStripMenuItem, Me.CheckFilesToolStripMenuItem})
         Me.RansomwareToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.RansomwareToolStripMenuItem.Name = "RansomwareToolStripMenuItem"
-        Me.RansomwareToolStripMenuItem.Size = New System.Drawing.Size(229, 30)
+        Me.RansomwareToolStripMenuItem.Size = New System.Drawing.Size(231, 30)
         Me.RansomwareToolStripMenuItem.Text = "Ransomware"
         '
         'EncryptToolStripMenuItem
         '
         Me.EncryptToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.EncryptToolStripMenuItem.Name = "EncryptToolStripMenuItem"
-        Me.EncryptToolStripMenuItem.Size = New System.Drawing.Size(183, 30)
+        Me.EncryptToolStripMenuItem.Size = New System.Drawing.Size(184, 30)
         Me.EncryptToolStripMenuItem.Text = "Encrypt"
         '
         'DecryptionToolStripMenuItem
         '
         Me.DecryptionToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.DecryptionToolStripMenuItem.Name = "DecryptionToolStripMenuItem"
-        Me.DecryptionToolStripMenuItem.Size = New System.Drawing.Size(183, 30)
+        Me.DecryptionToolStripMenuItem.Size = New System.Drawing.Size(184, 30)
         Me.DecryptionToolStripMenuItem.Text = "Decryption"
         '
         'CheckFilesToolStripMenuItem
         '
         Me.CheckFilesToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.CheckFilesToolStripMenuItem.Name = "CheckFilesToolStripMenuItem"
-        Me.CheckFilesToolStripMenuItem.Size = New System.Drawing.Size(183, 30)
+        Me.CheckFilesToolStripMenuItem.Size = New System.Drawing.Size(184, 30)
         Me.CheckFilesToolStripMenuItem.Text = "Check Files"
         '
         'RemoteDesktopToolStripMenuItem
         '
         Me.RemoteDesktopToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.RemoteDesktopToolStripMenuItem.Name = "RemoteDesktopToolStripMenuItem"
-        Me.RemoteDesktopToolStripMenuItem.Size = New System.Drawing.Size(229, 30)
+        Me.RemoteDesktopToolStripMenuItem.Size = New System.Drawing.Size(231, 30)
         Me.RemoteDesktopToolStripMenuItem.Text = "Remote Desktop"
         '
         'DetailsToolStripMenuItem
         '
         Me.DetailsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.DetailsToolStripMenuItem.Name = "DetailsToolStripMenuItem"
-        Me.DetailsToolStripMenuItem.Size = New System.Drawing.Size(229, 30)
+        Me.DetailsToolStripMenuItem.Size = New System.Drawing.Size(231, 30)
         Me.DetailsToolStripMenuItem.Text = "System Info"
         '
         'PasswordsToolStripMenuItem
         '
         Me.PasswordsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.PasswordsToolStripMenuItem.Name = "PasswordsToolStripMenuItem"
-        Me.PasswordsToolStripMenuItem.Size = New System.Drawing.Size(229, 30)
+        Me.PasswordsToolStripMenuItem.Size = New System.Drawing.Size(231, 30)
         Me.PasswordsToolStripMenuItem.Text = "Passwords"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(174, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(175, 6)
         '
         'RunAFileToolStripMenuItem
         '
         Me.RunAFileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FromDiskToolStripMenuItem, Me.FromURLToolStripMenuItem1})
         Me.RunAFileToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.RunAFileToolStripMenuItem.Name = "RunAFileToolStripMenuItem"
-        Me.RunAFileToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
+        Me.RunAFileToolStripMenuItem.Size = New System.Drawing.Size(178, 30)
         Me.RunAFileToolStripMenuItem.Text = "Run a File"
         '
         'FromDiskToolStripMenuItem
         '
         Me.FromDiskToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.FromDiskToolStripMenuItem.Name = "FromDiskToolStripMenuItem"
-        Me.FromDiskToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
+        Me.FromDiskToolStripMenuItem.Size = New System.Drawing.Size(178, 30)
         Me.FromDiskToolStripMenuItem.Text = "From Disk"
         '
         'FromURLToolStripMenuItem1
         '
         Me.FromURLToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.Control
         Me.FromURLToolStripMenuItem1.Name = "FromURLToolStripMenuItem1"
-        Me.FromURLToolStripMenuItem1.Size = New System.Drawing.Size(177, 30)
+        Me.FromURLToolStripMenuItem1.Size = New System.Drawing.Size(178, 30)
         Me.FromURLToolStripMenuItem1.Text = "From URL"
         '
         'VisitURLToolStripMenuItem
         '
         Me.VisitURLToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.VisitURLToolStripMenuItem.Name = "VisitURLToolStripMenuItem"
-        Me.VisitURLToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
+        Me.VisitURLToolStripMenuItem.Size = New System.Drawing.Size(178, 30)
         Me.VisitURLToolStripMenuItem.Text = "Visit URL"
         '
         'BotPCOptionsToolStripMenuItem
@@ -238,28 +234,28 @@ Partial Class Form1
         Me.BotPCOptionsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PCRestartToolStripMenuItem, Me.PCShutdownToolStripMenuItem, Me.PCLogoutToolStripMenuItem})
         Me.BotPCOptionsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.BotPCOptionsToolStripMenuItem.Name = "BotPCOptionsToolStripMenuItem"
-        Me.BotPCOptionsToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
+        Me.BotPCOptionsToolStripMenuItem.Size = New System.Drawing.Size(178, 30)
         Me.BotPCOptionsToolStripMenuItem.Text = "PC Options"
         '
         'PCRestartToolStripMenuItem
         '
         Me.PCRestartToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.PCRestartToolStripMenuItem.Name = "PCRestartToolStripMenuItem"
-        Me.PCRestartToolStripMenuItem.Size = New System.Drawing.Size(203, 30)
+        Me.PCRestartToolStripMenuItem.Size = New System.Drawing.Size(204, 30)
         Me.PCRestartToolStripMenuItem.Text = "PC Restart"
         '
         'PCShutdownToolStripMenuItem
         '
         Me.PCShutdownToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.PCShutdownToolStripMenuItem.Name = "PCShutdownToolStripMenuItem"
-        Me.PCShutdownToolStripMenuItem.Size = New System.Drawing.Size(203, 30)
+        Me.PCShutdownToolStripMenuItem.Size = New System.Drawing.Size(204, 30)
         Me.PCShutdownToolStripMenuItem.Text = "PC Shutdown"
         '
         'PCLogoutToolStripMenuItem
         '
         Me.PCLogoutToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.PCLogoutToolStripMenuItem.Name = "PCLogoutToolStripMenuItem"
-        Me.PCLogoutToolStripMenuItem.Size = New System.Drawing.Size(203, 30)
+        Me.PCLogoutToolStripMenuItem.Size = New System.Drawing.Size(204, 30)
         Me.PCLogoutToolStripMenuItem.Text = "PC Logout"
         '
         'ControllerOptionsToolStripMenuItem
@@ -267,7 +263,7 @@ Partial Class Form1
         Me.ControllerOptionsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UpdateToolStripMenuItem, Me.RestartToolStripMenuItem, Me.CloseToolStripMenuItem, Me.UninstallToolStripMenuItem})
         Me.ControllerOptionsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.ControllerOptionsToolStripMenuItem.Name = "ControllerOptionsToolStripMenuItem"
-        Me.ControllerOptionsToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
+        Me.ControllerOptionsToolStripMenuItem.Size = New System.Drawing.Size(178, 30)
         Me.ControllerOptionsToolStripMenuItem.Text = "Worm Options"
         '
         'UpdateToolStripMenuItem
@@ -276,73 +272,73 @@ Partial Class Form1
         Me.UpdateToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DiskToolStripMenuItem, Me.FromURLToolStripMenuItem})
         Me.UpdateToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.UpdateToolStripMenuItem.Name = "UpdateToolStripMenuItem"
-        Me.UpdateToolStripMenuItem.Size = New System.Drawing.Size(163, 30)
+        Me.UpdateToolStripMenuItem.Size = New System.Drawing.Size(164, 30)
         Me.UpdateToolStripMenuItem.Text = "Update"
         '
         'DiskToolStripMenuItem
         '
         Me.DiskToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.DiskToolStripMenuItem.Name = "DiskToolStripMenuItem"
-        Me.DiskToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
+        Me.DiskToolStripMenuItem.Size = New System.Drawing.Size(178, 30)
         Me.DiskToolStripMenuItem.Text = "From Disk"
         '
         'FromURLToolStripMenuItem
         '
         Me.FromURLToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.FromURLToolStripMenuItem.Name = "FromURLToolStripMenuItem"
-        Me.FromURLToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
+        Me.FromURLToolStripMenuItem.Size = New System.Drawing.Size(178, 30)
         Me.FromURLToolStripMenuItem.Text = "From URL"
         '
         'RestartToolStripMenuItem
         '
         Me.RestartToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.RestartToolStripMenuItem.Name = "RestartToolStripMenuItem"
-        Me.RestartToolStripMenuItem.Size = New System.Drawing.Size(163, 30)
+        Me.RestartToolStripMenuItem.Size = New System.Drawing.Size(164, 30)
         Me.RestartToolStripMenuItem.Text = "Restart"
         '
         'CloseToolStripMenuItem
         '
         Me.CloseToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.CloseToolStripMenuItem.Name = "CloseToolStripMenuItem"
-        Me.CloseToolStripMenuItem.Size = New System.Drawing.Size(163, 30)
+        Me.CloseToolStripMenuItem.Size = New System.Drawing.Size(164, 30)
         Me.CloseToolStripMenuItem.Text = "Close"
         '
         'UninstallToolStripMenuItem
         '
         Me.UninstallToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.UninstallToolStripMenuItem.Name = "UninstallToolStripMenuItem"
-        Me.UninstallToolStripMenuItem.Size = New System.Drawing.Size(163, 30)
+        Me.UninstallToolStripMenuItem.Size = New System.Drawing.Size(164, 30)
         Me.UninstallToolStripMenuItem.Text = "Uninstall"
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(174, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(175, 6)
         '
         'CommentToolStripMenuItem
         '
         Me.CommentToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.CommentToolStripMenuItem.Name = "CommentToolStripMenuItem"
-        Me.CommentToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
+        Me.CommentToolStripMenuItem.Size = New System.Drawing.Size(178, 30)
         Me.CommentToolStripMenuItem.Text = "Comment"
         '
         'BotColorToolStripMenuItem
         '
         Me.BotColorToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.BotColorToolStripMenuItem.Name = "BotColorToolStripMenuItem"
-        Me.BotColorToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
+        Me.BotColorToolStripMenuItem.Size = New System.Drawing.Size(178, 30)
         Me.BotColorToolStripMenuItem.Text = "Worm Color"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(174, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(175, 6)
         '
         'AboutToolStripMenuItem
         '
         Me.AboutToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
-        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(177, 30)
+        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(178, 30)
         Me.AboutToolStripMenuItem.Text = "About"
         '
         'Timer1
@@ -681,7 +677,7 @@ Partial Class Form1
         '
         Me.ToolStripStatusLabel2.ForeColor = System.Drawing.Color.Lime
         Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
-        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(206, 25)
+        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(208, 25)
         Me.ToolStripStatusLabel2.Text = Global.Server_0._5.My.MySettings.Default.Noti
         '
         'L1
@@ -792,7 +788,6 @@ Partial Class Form1
         '
         Me.TabPage3.BackColor = System.Drawing.Color.Black
         Me.TabPage3.Controls.Add(Me.ChGroupBox4)
-        Me.TabPage3.Controls.Add(Me.ChSeparator1)
         Me.TabPage3.Controls.Add(Me.ChButton1)
         Me.TabPage3.Controls.Add(Me.ChGroupBox3)
         Me.TabPage3.Controls.Add(Me.ChGroupBox2)
@@ -845,20 +840,6 @@ Partial Class Form1
         Me.Icon_Box.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.Icon_Box.TabIndex = 0
         Me.Icon_Box.TabStop = False
-        '
-        'ChSeparator1
-        '
-        Me.ChSeparator1.Colors = New Server_0._5.Bloom(-1) {}
-        Me.ChSeparator1.Customization = ""
-        Me.ChSeparator1.Font = New System.Drawing.Font("Verdana", 8.0!)
-        Me.ChSeparator1.Image = Nothing
-        Me.ChSeparator1.Location = New System.Drawing.Point(25, 452)
-        Me.ChSeparator1.Name = "ChSeparator1"
-        Me.ChSeparator1.NoRounding = False
-        Me.ChSeparator1.Size = New System.Drawing.Size(1383, 23)
-        Me.ChSeparator1.TabIndex = 9
-        Me.ChSeparator1.Text = "ChSeparator1"
-        Me.ChSeparator1.Transparent = False
         '
         'ChButton1
         '
@@ -1007,9 +988,6 @@ Partial Class Form1
         '
         Me.ChGroupBox2.BackColor = System.Drawing.Color.Black
         Me.ChGroupBox2.BorderStyle = System.Windows.Forms.FormBorderStyle.None
-        Me.ChGroupBox2.Controls.Add(Me.Injection_CHK)
-        Me.ChGroupBox2.Controls.Add(Me.Injection_Name)
-        Me.ChGroupBox2.Controls.Add(Me.Label8)
         Me.ChGroupBox2.Controls.Add(Me.DROP)
         Me.ChGroupBox2.Controls.Add(Me.PATH2)
         Me.ChGroupBox2.Controls.Add(Me.Label5)
@@ -1032,43 +1010,6 @@ Partial Class Form1
         Me.ChGroupBox2.Text = "Persistence"
         Me.ChGroupBox2.TransparencyKey = System.Drawing.Color.Empty
         Me.ChGroupBox2.Transparent = False
-        '
-        'Injection_CHK
-        '
-        Me.Injection_CHK.BackColor = System.Drawing.Color.Transparent
-        Me.Injection_CHK.Checked = False
-        Me.Injection_CHK.ForeColor = System.Drawing.Color.Black
-        Me.Injection_CHK.Location = New System.Drawing.Point(310, 242)
-        Me.Injection_CHK.Name = "Injection_CHK"
-        Me.Injection_CHK.Size = New System.Drawing.Size(42, 14)
-        Me.Injection_CHK.TabIndex = 9
-        '
-        'Injection_Name
-        '
-        Me.Injection_Name.BackColor = System.Drawing.Color.Transparent
-        Me.Injection_Name.BaseColour = System.Drawing.Color.Black
-        Me.Injection_Name.BorderColour = System.Drawing.Color.DarkGreen
-        Me.Injection_Name.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
-        Me.Injection_Name.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.Injection_Name.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
-        Me.Injection_Name.FontColour = System.Drawing.Color.Lime
-        Me.Injection_Name.FormattingEnabled = True
-        Me.Injection_Name.Items.AddRange(New Object() {"RegSvcs.exe", "RegAsm.exe"})
-        Me.Injection_Name.Location = New System.Drawing.Point(112, 232)
-        Me.Injection_Name.Name = "Injection_Name"
-        Me.Injection_Name.Size = New System.Drawing.Size(176, 29)
-        Me.Injection_Name.StartIndex = 0
-        Me.Injection_Name.TabIndex = 8
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.ForeColor = System.Drawing.Color.Lime
-        Me.Label8.Location = New System.Drawing.Point(13, 238)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(81, 18)
-        Me.Label8.TabIndex = 7
-        Me.Label8.Text = "Injection"
         '
         'DROP
         '
@@ -1209,7 +1150,7 @@ Partial Class Form1
         Me.Label9.ForeColor = System.Drawing.Color.Lime
         Me.Label9.Location = New System.Drawing.Point(16, 201)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(148, 18)
+        Me.Label9.Size = New System.Drawing.Size(150, 18)
         Me.Label9.TabIndex = 5
         Me.Label9.Text = "YourIP:YourPORT"
         '
@@ -1345,7 +1286,6 @@ Partial Class Form1
     Friend WithEvents ANTI As CHCheckbox
     Friend WithEvents USB_CHK As CHCheckbox
     Friend WithEvents ChButton1 As CHButton
-    Friend WithEvents ChSeparator1 As CHSeparator
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
     Friend WithEvents PluginsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents RemoteDesktopToolStripMenuItem As ToolStripMenuItem
@@ -1373,9 +1313,6 @@ Partial Class Form1
     Friend WithEvents PIN_CHK As CHCheckbox
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
     Friend WithEvents BackgroundWorker2 As System.ComponentModel.BackgroundWorker
-    Friend WithEvents Injection_Name As CHCombobox
-    Friend WithEvents Label8 As Label
-    Friend WithEvents Injection_CHK As CHCheckbox
     Friend WithEvents VisitURLToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents COMMENT As ColumnHeader
     Friend WithEvents CommentToolStripMenuItem As ToolStripMenuItem

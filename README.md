@@ -1,8 +1,8 @@
-<img src="https://i.imgur.com/aiikRaW.gif">
+<img src="https://i.imgur.com/1DYYXt4.gif">
 
-# Lime Worm v0.5.8D
+# LimeRAT v0.1 [BETA]
 	
-Simple yet powerful windows malware for educational purposes. This project is uncomplicated and easy to do or understand , targeting entry level developers, It should improve your knowledge and study for malware analysis and malware research.
+Simple yet powerful open source malware which targeting Windows OS for educational purposes. This project is uncomplicated and easy to do or understand , targeting entry level developers, It should improve your knowledge and study for malware analysis and malware research.
 
  
 ## Main Features
@@ -19,7 +19,7 @@ Simple yet powerful windows malware for educational purposes. This project is un
 
 * Anti Virtual Machines - Uninstall itself if the machine is virtual to avoid scanning or analyzing
 
-* And more - Ransomware , passwords recovery , RDP , Bitcoin grabber , Downloader
+* And more - Ransomware , passwords recovery , RDP , Bitcoin grabber , Downloader , Keylogger
  
 
 
@@ -33,19 +33,20 @@ To open project you need:
  
  
 ## Testing
-1. Open "Project\Server_0.5\Lime Worm Project.sln" 
+
+1. Open "LimeRAT.sln" 
 2. Set Compiler to "Debug" mode
-3. On Solution Explorer, Right click on "Solution Lime Worm Project" and press "Rebuild Solution"
-4. Press Run button. be aware that both client and server are 127.0.0.1
+3. On Solution Explorer, Right click on "Solution LimeRAT Project" and press "Rebuild Solution"
+4. Press Run button. be aware that both client and server are localhost
 
 
 ## Compiling
  
-1. Open "Project\Server_0.5\Lime Worm Project.sln" 
+1. Open "LimeRAT.sln" 
 2. Set Compiler to "Release" mode
-3. On Solution Explorer, Right click on "Solution Lime Worm Project" and press "Rebuild Solution"
-4. Execute "Server_0.5\Server_0.5\bin\Release\Lime Worm.exe"
-5. Using "Builder" tab, create your worm.
+3. On Solution Explorer, Right click on "Solution LimeRAT Project" and press "Rebuild Solution"
+4. Everything will be under "\Project\_EXE\Release"
+
  ```
  This project was tested only on local lab. I do not know if it will work on external lab.
  Server tested on Windows 10, Client tested on virtual machine windows 7, on the same LAN.
@@ -54,7 +55,7 @@ To open project you need:
  
  ## Issues
  
-1. While using ransomware, restore point won't be deleted unless the worm.exe is running elevated privilege
+1. While using ransomware, restore point won't be deleted unless you are running elevated privilege
 
 
 ## Author

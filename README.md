@@ -7,15 +7,17 @@ Simple yet powerful open source malware which targeting Windows OS for education
  
 ## Main Features
 
-* .NET - Both client and server coded in Visual Basic .NET, Framework 2.0 dependency.
+* .NET - Coded in Visual Basic .NET, Client required framework 2.0 dependency, And server is 4.0
  
-* Connection - Encrypted connection , And using pastebin.com RAW as ip:port , Instead of noip.com DNS
+* Connection - Using pastebin.com RAW as ip:port , Instead of noip.com DNS
+
+* Encryption - The communication between server & client is encrypted with AES
 
 * Spreading - Infecting all files and folders on USB drivers , Also spread over pinned applications on taskbar
 
 * Bypass - Low AV detection and undetected startup
  
-* Lightweight - About 20 KB
+* Lightweight - About 27 KB
 
 * Anti Virtual Machines - Uninstall itself if the machine is virtual to avoid scanning or analyzing
 
@@ -57,6 +59,7 @@ To open project you need:
  
 1. While using ransomware, restore point won't be deleted unless you are running elevated privilege
 
+ ``` Found an issue? report it here https://github.com/NYAN-x-CAT/Lime-RAT/issues/new  ```
 
 ## Author
 

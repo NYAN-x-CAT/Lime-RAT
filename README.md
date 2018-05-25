@@ -2,7 +2,7 @@
 
 # LimeRAT v0.1 [BETA]
 	
-Simple yet powerful open source malware which targeting Windows OS for educational purposes. This project is uncomplicated and easy to do or understand , targeting entry level developers, It should improve your knowledge and study for malware analysis and malware research.
+Simple yet powerful malware which targeting Windows OS for educational purposes. This project is uncomplicated and easy to do or understand , targeting entry level developers, It should improve your knowledge and study for malware analysis and malware research.
 
  
 ## Main Features

@@ -9,7 +9,7 @@ Simple yet powerful malware which targeting Windows OS for educational purposes.
 
 * .NET - Coded in Visual Basic .NET, Client required framework 2.0 dependency, And server is 4.0
  
-* Connection - Using pastebin.com RAW as ip:port , Instead of noip.com DNS
+* Connection - Using pastebin.com as ip:port , Instead of noip.com DNS
 
 * Encryption - The communication between server & client is encrypted with AES
 

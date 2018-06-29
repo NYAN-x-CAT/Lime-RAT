@@ -21,7 +21,7 @@ Simple yet powerful malware which targeting Windows OS for educational purposes.
 
 * Anti Virtual Machines - Uninstall itself if the machine is virtual to avoid scanning or analyzing
 
-* And more - Ransomware , passwords recovery , RDP , Bitcoin grabber , Downloader , Keylogger
+* And more - Ransomware , passwords recovery , Remote desktop , Bitcoin grabber , Downloader , Keylogger
  
 
 

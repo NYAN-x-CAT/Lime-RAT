@@ -225,7 +225,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
-    <Content Include="MetroFramework.txt" />
     <None Include="Resources\Intro.wav" />
     <None Include="Resources\Error.wav" />
     <None Include="Resources\Lime%27s wallpaper.jpg" />

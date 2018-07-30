@@ -41,8 +41,6 @@ Partial Class About
         Me.MetroLabel14 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel15 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel16 = New MetroFramework.Controls.MetroLabel()
-        Me.MetroLabel17 = New MetroFramework.Controls.MetroLabel()
-        Me.MetroLabel18 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel19 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel20 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel21 = New MetroFramework.Controls.MetroLabel()
@@ -144,10 +142,10 @@ Partial Class About
         Me.MetroLabel7.FontWeight = MetroFramework.MetroLabelWeight.Bold
         Me.MetroLabel7.Location = New System.Drawing.Point(197, 197)
         Me.MetroLabel7.Name = "MetroLabel7"
-        Me.MetroLabel7.Size = New System.Drawing.Size(37, 19)
+        Me.MetroLabel7.Size = New System.Drawing.Size(49, 19)
         Me.MetroLabel7.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroLabel7.TabIndex = 0
-        Me.MetroLabel7.Text = ": 0.6"
+        Me.MetroLabel7.Text = ": 0.1.1"
         Me.MetroLabel7.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'MetroLabel8
@@ -250,28 +248,6 @@ Partial Class About
         Me.MetroLabel16.Text = ": njq8"
         Me.MetroLabel16.Theme = MetroFramework.MetroThemeStyle.Dark
         '
-        'MetroLabel17
-        '
-        Me.MetroLabel17.AutoSize = True
-        Me.MetroLabel17.Location = New System.Drawing.Point(23, 425)
-        Me.MetroLabel17.Name = "MetroLabel17"
-        Me.MetroLabel17.Size = New System.Drawing.Size(79, 19)
-        Me.MetroLabel17.Style = MetroFramework.MetroColorStyle.Lime
-        Me.MetroLabel17.TabIndex = 0
-        Me.MetroLabel17.Text = "Gio function"
-        Me.MetroLabel17.Theme = MetroFramework.MetroThemeStyle.Dark
-        '
-        'MetroLabel18
-        '
-        Me.MetroLabel18.AutoSize = True
-        Me.MetroLabel18.Location = New System.Drawing.Point(194, 425)
-        Me.MetroLabel18.Name = "MetroLabel18"
-        Me.MetroLabel18.Size = New System.Drawing.Size(77, 19)
-        Me.MetroLabel18.Style = MetroFramework.MetroColorStyle.Lime
-        Me.MetroLabel18.TabIndex = 0
-        Me.MetroLabel18.Text = ": Dr-Hazem"
-        Me.MetroLabel18.Theme = MetroFramework.MetroThemeStyle.Dark
-        '
         'MetroLabel19
         '
         Me.MetroLabel19.AutoSize = True
@@ -319,7 +295,7 @@ Partial Class About
         'MetroLabel23
         '
         Me.MetroLabel23.AutoSize = True
-        Me.MetroLabel23.Location = New System.Drawing.Point(23, 577)
+        Me.MetroLabel23.Location = New System.Drawing.Point(23, 424)
         Me.MetroLabel23.Name = "MetroLabel23"
         Me.MetroLabel23.Size = New System.Drawing.Size(49, 19)
         Me.MetroLabel23.Style = MetroFramework.MetroColorStyle.Lime
@@ -330,7 +306,7 @@ Partial Class About
         'MetroLabel24
         '
         Me.MetroLabel24.AutoSize = True
-        Me.MetroLabel24.Location = New System.Drawing.Point(194, 577)
+        Me.MetroLabel24.Location = New System.Drawing.Point(194, 424)
         Me.MetroLabel24.Name = "MetroLabel24"
         Me.MetroLabel24.Size = New System.Drawing.Size(118, 19)
         Me.MetroLabel24.Style = MetroFramework.MetroColorStyle.Lime
@@ -380,12 +356,10 @@ Partial Class About
         Me.Controls.Add(Me.MetroLabel26)
         Me.Controls.Add(Me.MetroLabel22)
         Me.Controls.Add(Me.MetroLabel20)
-        Me.Controls.Add(Me.MetroLabel18)
         Me.Controls.Add(Me.MetroLabel23)
         Me.Controls.Add(Me.MetroLabel25)
         Me.Controls.Add(Me.MetroLabel21)
         Me.Controls.Add(Me.MetroLabel19)
-        Me.Controls.Add(Me.MetroLabel17)
         Me.Controls.Add(Me.MetroLabel15)
         Me.Controls.Add(Me.MetroLabel14)
         Me.Controls.Add(Me.MetroLabel13)
@@ -429,8 +403,6 @@ Partial Class About
     Friend WithEvents MetroLabel14 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel15 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel16 As MetroFramework.Controls.MetroLabel
-    Friend WithEvents MetroLabel17 As MetroFramework.Controls.MetroLabel
-    Friend WithEvents MetroLabel18 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel19 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel20 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel21 As MetroFramework.Controls.MetroLabel

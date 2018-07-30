@@ -107,4 +107,18 @@ Module S_Functions
         End Try
     End Function
 
+
+    Public rand As New Random()
+    Public Function Randomi(ByVal lenght As Integer) As String
+        Dim Chr As String = "顧家的程澤是顧商城的首席執行官顧太太希望她的生孫子顧金玉將接管顧成澤公司的使命引導合法的繼承人成為受人尊敬的商人"
+        'Dim Chr As String = "asdfghjklqwertyuiopmnbvcxzQWERTYUIOPLKJHGFDSAZXCVBNM"
+        Dim sb As New Text.StringBuilder()
+        For i As Integer = 1 To lenght
+            Dim idx As Integer = rand.Next(0, Chr.Length)
+            sb.Append(Chr.Substring(idx, 1))
+        Next
+        Return sb.ToString
+    End Function
+
+
 End Module

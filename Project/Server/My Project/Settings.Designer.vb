@@ -233,6 +233,18 @@ Namespace My
                 Me("Encryption") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("1")>  _
+        Public Property Delay() As String
+            Get
+                Return CType(Me("Delay"),String)
+            End Get
+            Set
+                Me("Delay") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

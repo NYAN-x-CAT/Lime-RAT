@@ -43,6 +43,8 @@
     Private Sub MetroButton1_Click(sender As Object, e As EventArgs) Handles MetroButton1.Click
 
 #If DEBUG Then
+        S_Settings.PORT = 8989
+        S_Settings.EncryptionKey = "NYANCAT"
         Main.Show()
         Hide()
 #Else

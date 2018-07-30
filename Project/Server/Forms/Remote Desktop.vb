@@ -4,7 +4,7 @@ Public Class Remote_Desktop
     Public M As Main
     Public U As USER
     Public Sz As Size
-    Public C2 As Integer = 8
+    Public C2 As Integer = 10
     Public SPL = S_Settings.SPL
 
 
@@ -19,6 +19,7 @@ Public Class Remote_Desktop
         Combo_quality.SelectedIndex = 0
         Timer1.Interval = 1000
         Timer1.Start()
+        MetroButton1_Click(MetroButton1, e)
     End Sub
 
     Public Sub PktToImage(ByVal BY As Byte())

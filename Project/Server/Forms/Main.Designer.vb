@@ -45,6 +45,7 @@ Partial Class Main
         Me.EncryptToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DecryptionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CheckFilesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LockScreenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RemoteDesktopToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DetailsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PasswordsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -139,14 +140,14 @@ Partial Class Main
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.MetroTabControl1.Controls.Add(Me.MetroTabPage1)
-        Me.MetroTabControl1.Controls.Add(Me.MetroTabPage3)
         Me.MetroTabControl1.Controls.Add(Me.MetroTabPage2)
+        Me.MetroTabControl1.Controls.Add(Me.MetroTabPage3)
         Me.MetroTabControl1.FontSize = MetroFramework.MetroTabControlSize.Tall
         Me.MetroTabControl1.FontWeight = MetroFramework.MetroTabControlWeight.Bold
         Me.MetroTabControl1.Location = New System.Drawing.Point(23, 73)
         Me.MetroTabControl1.Name = "MetroTabControl1"
         Me.MetroTabControl1.SelectedIndex = 0
-        Me.MetroTabControl1.Size = New System.Drawing.Size(1487, 543)
+        Me.MetroTabControl1.Size = New System.Drawing.Size(1526, 547)
         Me.MetroTabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed
         Me.MetroTabControl1.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroTabControl1.TabIndex = 0
@@ -159,7 +160,7 @@ Partial Class Main
         Me.MetroTabPage1.HorizontalScrollbarBarColor = True
         Me.MetroTabPage1.Location = New System.Drawing.Point(4, 39)
         Me.MetroTabPage1.Name = "MetroTabPage1"
-        Me.MetroTabPage1.Size = New System.Drawing.Size(1479, 500)
+        Me.MetroTabPage1.Size = New System.Drawing.Size(1518, 504)
         Me.MetroTabPage1.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroTabPage1.TabIndex = 0
         Me.MetroTabPage1.Text = "Clients"
@@ -181,7 +182,7 @@ Partial Class Main
         Me.L1.Location = New System.Drawing.Point(0, 25)
         Me.L1.Name = "L1"
         Me.L1.OwnerDraw = True
-        Me.L1.Size = New System.Drawing.Size(1479, 460)
+        Me.L1.Size = New System.Drawing.Size(1518, 464)
         Me.L1.SmallImageList = Me.Flag
         Me.L1.TabIndex = 2
         Me.L1.UseCompatibleStateImageBehavior = False
@@ -249,7 +250,7 @@ Partial Class Main
         'PluginsToolStripMenuItem
         '
         Me.PluginsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        Me.PluginsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RansomwareToolStripMenuItem, Me.RemoteDesktopToolStripMenuItem, Me.DetailsToolStripMenuItem, Me.PasswordsToolStripMenuItem, Me.KeyloggerToolStripMenuItem})
+        Me.PluginsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RansomwareToolStripMenuItem, Me.LockScreenToolStripMenuItem, Me.RemoteDesktopToolStripMenuItem, Me.DetailsToolStripMenuItem, Me.PasswordsToolStripMenuItem, Me.KeyloggerToolStripMenuItem})
         Me.PluginsToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.PluginsToolStripMenuItem.Name = "PluginsToolStripMenuItem"
         Me.PluginsToolStripMenuItem.Size = New System.Drawing.Size(172, 30)
@@ -283,6 +284,13 @@ Partial Class Main
         Me.CheckFilesToolStripMenuItem.Name = "CheckFilesToolStripMenuItem"
         Me.CheckFilesToolStripMenuItem.Size = New System.Drawing.Size(184, 30)
         Me.CheckFilesToolStripMenuItem.Text = "Check Files"
+        '
+        'LockScreenToolStripMenuItem
+        '
+        Me.LockScreenToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
+        Me.LockScreenToolStripMenuItem.Name = "LockScreenToolStripMenuItem"
+        Me.LockScreenToolStripMenuItem.Size = New System.Drawing.Size(231, 30)
+        Me.LockScreenToolStripMenuItem.Text = "Lock Screen"
         '
         'RemoteDesktopToolStripMenuItem
         '
@@ -712,7 +720,7 @@ Partial Class Main
         Me.MetroTabPage2.HorizontalScrollbarBarColor = True
         Me.MetroTabPage2.Location = New System.Drawing.Point(4, 39)
         Me.MetroTabPage2.Name = "MetroTabPage2"
-        Me.MetroTabPage2.Size = New System.Drawing.Size(1479, 500)
+        Me.MetroTabPage2.Size = New System.Drawing.Size(1518, 504)
         Me.MetroTabPage2.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroTabPage2.TabIndex = 1
         Me.MetroTabPage2.Text = "Logs"
@@ -732,7 +740,7 @@ Partial Class Main
         Me.L2.ItemHeight = 20
         Me.L2.Location = New System.Drawing.Point(3, 23)
         Me.L2.Name = "L2"
-        Me.L2.Size = New System.Drawing.Size(1468, 440)
+        Me.L2.Size = New System.Drawing.Size(1507, 440)
         Me.L2.TabIndex = 2
         '
         'MetroTabPage3
@@ -748,7 +756,7 @@ Partial Class Main
         Me.MetroTabPage3.HorizontalScrollbarBarColor = True
         Me.MetroTabPage3.Location = New System.Drawing.Point(4, 39)
         Me.MetroTabPage3.Name = "MetroTabPage3"
-        Me.MetroTabPage3.Size = New System.Drawing.Size(1479, 500)
+        Me.MetroTabPage3.Size = New System.Drawing.Size(1518, 504)
         Me.MetroTabPage3.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroTabPage3.TabIndex = 2
         Me.MetroTabPage3.Text = "Builder"
@@ -1239,9 +1247,9 @@ Partial Class Main
         Me.MetroPanel1.HorizontalScrollbarBarColor = False
         Me.MetroPanel1.HorizontalScrollbarHighlightOnWheel = False
         Me.MetroPanel1.HorizontalScrollbarSize = 10
-        Me.MetroPanel1.Location = New System.Drawing.Point(20, 623)
+        Me.MetroPanel1.Location = New System.Drawing.Point(20, 627)
         Me.MetroPanel1.Name = "MetroPanel1"
-        Me.MetroPanel1.Size = New System.Drawing.Size(1493, 39)
+        Me.MetroPanel1.Size = New System.Drawing.Size(1532, 39)
         Me.MetroPanel1.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroPanel1.TabIndex = 5
         Me.MetroPanel1.Theme = MetroFramework.MetroThemeStyle.Dark
@@ -1317,7 +1325,7 @@ Partial Class Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1533, 682)
+        Me.ClientSize = New System.Drawing.Size(1572, 686)
         Me.Controls.Add(Me.MetroProgressSpinner1)
         Me.Controls.Add(Me.MetroLabel3)
         Me.Controls.Add(Me.MetroTabControl1)
@@ -1448,4 +1456,5 @@ Partial Class Main
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
     Friend WithEvents chkRename As MetroFramework.Controls.MetroCheckBox
+    Friend WithEvents LockScreenToolStripMenuItem As ToolStripMenuItem
 End Class

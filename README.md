@@ -21,7 +21,7 @@ Simple yet powerful RAT which targeting Windows OS for educational purposes. Thi
 
 * Anti Virtual Machines - Uninstall itself if the machine is virtual to avoid scanning or analyzing
 
-* And more - ransomware , passwords recovery , remote desktop , bitcoin grabber , downloader , keylogger
+* And more - ransomware, screen locker, passwords recovery, remote desktop, bitcoin grabber, downloader, keylogger
  
 
 

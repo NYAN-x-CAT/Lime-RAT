@@ -2,7 +2,7 @@
 
 # LimeRAT v0.1.3 [BETA] 
 	
-***Simple yet powerful RAT which targeting Windows OS for educational purposes. This project is uncomplicated and easy to understand, targeting entry-level developers, It should improve your knowledge skills as malware analysis and researcher.***
+***Simple yet powerful RAT which targeting Windows OS for educational purposes. This project is uncomplicated and easy to understand, targeting entry-level developers, It should improve your knowledge and skills as malware analysis and researcher.***
 
 ---
  

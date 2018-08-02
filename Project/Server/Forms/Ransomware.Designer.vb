@@ -115,10 +115,11 @@ Partial Class Ransomware
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MinimumSize = New System.Drawing.Size(800, 450)
         Me.Name = "Ransomware"
-        Me.ShadowType = MetroFramework.Forms.MetroForm.MetroFormShadowType.DropShadow
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultLocation
         Me.Style = MetroFramework.MetroColorStyle.Lime
         Me.Text = "Ransomware"
         Me.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.TopMost = True
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

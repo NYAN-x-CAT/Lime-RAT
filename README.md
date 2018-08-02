@@ -1,6 +1,6 @@
 <img src="https://i.imgur.com/1DYYXt4.gif">
 
-# LimeRAT v0.1.3 [BETA] 
+# LimeRAT v0.1.4 [BETA] 
 	
 ***Simple yet powerful RAT which targeting Windows OS for educational purposes. This project is uncomplicated and easy to understand, targeting entry-level developers, It should improve your knowledge and skills as malware analysis and researcher.***
 
@@ -24,6 +24,8 @@
     - Client size is 24 KB
 - **Anti Virtual Machines**
     - Uninstall itself if the machine is virtual to avoid scanning or analyzing 
+- **Anti-Kill**
+    - PC will auto shutdown (BSOD) whenever the user is tries to kill the payload
  - **And more**
     - Ransomware
     - Screen-locker

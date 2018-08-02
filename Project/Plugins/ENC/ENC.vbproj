@@ -98,5 +98,11 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\App.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DECF.exe" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

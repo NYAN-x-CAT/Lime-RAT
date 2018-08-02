@@ -47,8 +47,16 @@ To open project you need:
 ---
 
 ## Peek
-
+### *Project*
 <img src="https://i.imgur.com/lkzM788.gif">
+
+
+### *Ransomware*
+<img src="https://i.imgur.com/zejht6f.gif">
+
+
+### *Critical Process*
+<img src="https://i.imgur.com/ULqF7n5.gif">
 
 ---
 

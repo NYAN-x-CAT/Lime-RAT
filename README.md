@@ -25,7 +25,7 @@
 - **Anti Virtual Machines**
     - Uninstall itself if the machine is virtual to avoid scanning or analyzing 
 - **Anti-Kill**
-    - PC will auto shutdown (BSOD) whenever the user is tries to kill the payload
+    - PC will auto shutdown (BSOD) whenever the user tries to kill the payload
  - **And more**
     - Ransomware
     - Screen-locker

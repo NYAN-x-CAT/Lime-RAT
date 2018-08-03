@@ -143,6 +143,20 @@
             End Try
         End Function
 
+        Public Shared Function Privileges() As Boolean
+            Try
+                Dim id As Security.Principal.WindowsIdentity = Security.Principal.WindowsIdentity.GetCurrent()
+                Dim p As Security.Principal.WindowsPrincipal = New Security.Principal.WindowsPrincipal(id)
+                If p.IsInRole(Security.Principal.WindowsBuiltInRole.Administrator) Then
+                    Return True
+                Else
+                    Return False
+                End If
+            Catch ex As Exception
+                Return False
+            End Try
+        End Function
+
     End Class
 
 End Namespace

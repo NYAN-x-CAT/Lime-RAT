@@ -49,19 +49,33 @@ Public Class C_ID
             End Try
         End Function
 
-        Public Shared Function MD5HASH(ByVal input As String) As String
-            Try
-                Dim md5 As Security.Cryptography.MD5CryptoServiceProvider = New Security.Cryptography.MD5CryptoServiceProvider()
-                Dim temp As Byte() = md5.ComputeHash(Text.Encoding.UTF8.GetBytes(input))
-                Dim sb As Text.StringBuilder = New Text.StringBuilder()
-                For i As Integer = 10 To temp.Length - 1
-                    sb.Append(temp(i).ToString("x2"))
-                Next
-                Return sb.ToString().ToUpper()
-            Catch ex As Exception
-                Return "Error"
-            End Try
-        End Function
+    Public Shared Function MD5HASH(ByVal input As String) As String
+        Try
+            Dim md5 As Security.Cryptography.MD5CryptoServiceProvider = New Security.Cryptography.MD5CryptoServiceProvider()
+            Dim temp As Byte() = md5.ComputeHash(Text.Encoding.UTF8.GetBytes(input))
+            Dim sb As Text.StringBuilder = New Text.StringBuilder()
+            For i As Integer = 10 To temp.Length - 1
+                sb.Append(temp(i).ToString("x2"))
+            Next
+            Return sb.ToString().ToUpper()
+        Catch ex As Exception
+            Return "Error"
+        End Try
+    End Function
+
+    Public Shared Function Privileges() As Boolean
+        Try
+            Dim id As Security.Principal.WindowsIdentity = Security.Principal.WindowsIdentity.GetCurrent()
+            Dim p As Security.Principal.WindowsPrincipal = New Security.Principal.WindowsPrincipal(id)
+            If p.IsInRole(Security.Principal.WindowsBuiltInRole.Administrator) Then
+                Return True
+            Else
+                Return False
+            End If
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
 
 
-    End Class
+End Class

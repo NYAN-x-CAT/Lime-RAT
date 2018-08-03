@@ -1,5 +1,5 @@
 ﻿'##################################################################
-'##         N Y A N   C A T  |||   Updated on Aug/02/2018        ##
+'##         N Y A N   C A T  |||   Updated on Aug/03/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -93,6 +93,8 @@ Namespace Lime
 
             Dim DW As Threading.Thread = New Threading.Thread(AddressOf Downloader)
             DW.Start()
+
+            AddHandler Microsoft.Win32.SystemEvents.SessionEnding, AddressOf Handler_SessionEnding
 
         End Sub
 

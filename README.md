@@ -53,7 +53,7 @@ To open project you need:
 
 
 ### *Ransomware*
-<img src="https://i.imgur.com/zejht6f.gif">
+<img src="https://i.imgur.com/aZjpXFe.gif">
 
 
 ### *Critical Process*

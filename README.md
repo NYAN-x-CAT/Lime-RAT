@@ -1,6 +1,6 @@
 <img src="https://i.imgur.com/1DYYXt4.gif">
 
-# LimeRAT v0.1.5 [BETA] 
+# LimeRAT v0.1.6 [BETA] 
 	
 ***Simple yet powerful RAT which targeting Windows OS for educational purposes. This project is uncomplicated and easy to understand, targeting entry-level developers, It should improve your knowledge and skills as malware analysis and researcher.***
 
@@ -29,6 +29,7 @@
  - **And more**
     - Ransomware
     - Screen-locker
+	- File Manager
     - Passowrds recovery
     - Remote desktop
     - Bitcoin grabber
@@ -111,8 +112,8 @@ https://github.com/NYAN-x-CAT/Lime-RAT/releases
  
  ## Issues
  
-1. While using ransomware, restore point won't be deleted unless stub is running elevated privilege
-2. Set stub's process as critical won't work unless stub running elevated privilege
+1. While using ransomware, restore point won't be deleted unless payload is running hight privilege
+2. Anti-Kill (BSOD) won't work unless payload is running hight privilege
 
 > Found an issue? report it here https://github.com/NYAN-x-CAT/Lime-RAT/issues/new
 

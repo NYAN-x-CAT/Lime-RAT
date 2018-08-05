@@ -120,5 +120,32 @@ Module S_Functions
         Return sb.ToString
     End Function
 
+    Public Function GZip(ByVal B As Byte(), ByRef CM As Boolean) As Byte()
+        If CM Then
+            Dim MS As New IO.MemoryStream
+            Dim Ziped As New IO.Compression.GZipStream(MS, IO.Compression.CompressionMode.Compress, True)
+            Ziped.Write(B, 0, B.Length)
+            Ziped.Dispose()
+            MS.Position = 0
+            Dim buffer As Byte() = New Byte((CInt(MS.Length) + 1) - 1) {}
+            MS.Read(buffer, 0, buffer.Length)
+            MS.Dispose()
+            Return buffer
+        Else
+            Dim MS As New IO.MemoryStream(B)
+            Dim Ziped As New IO.Compression.GZipStream(MS, IO.Compression.CompressionMode.Decompress)
+            Dim buffer As Byte() = New Byte(4 - 1) {}
+            MS.Position = (MS.Length - 5)
+            MS.Read(buffer, 0, 4)
+            Dim count As Integer = BitConverter.ToInt32(buffer, 0)
+            MS.Position = 0
+            Dim array As Byte() = New Byte(((count - 1) + 1) - 1) {}
+            Ziped.Read(array, 0, count)
+            Ziped.Dispose()
+            MS.Dispose()
+            Return array
+        End If
+    End Function
+
 
 End Module

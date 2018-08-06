@@ -62,7 +62,7 @@ To open project you need:
 ---
 
 ## Plugin Example
-
+#### VB.NET
 ```vb.net
 'Easy to create a DLL plugin
 Public Class Main
@@ -77,6 +77,19 @@ Public Class Main
 End Class
 ```
 
+#### C#
+```c#
+public class Main
+{
+    // Simple Msgbox
+    public static void CN(string H, int P, string K, string SP, string PW, string FP, string HW, string BT, string PB)
+    {
+        Msgbox("Hello Client!");
+
+        Send("MSG" + SPL + "Hello Server!"); // Client will send msg back to server
+    }
+}
+```
 ---
  
 ## Testing

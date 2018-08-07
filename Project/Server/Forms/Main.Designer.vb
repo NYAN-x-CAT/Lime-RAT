@@ -152,8 +152,8 @@ Partial Class Main
         Me.MetroTabControl1.Size = New System.Drawing.Size(1526, 547)
         Me.MetroTabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed
         Me.MetroTabControl1.Style = MetroFramework.MetroColorStyle.Lime
-        Me.MetroTabControl1.TabIndex = 1
-        Me.MetroTabControl1.Tag = "1"
+        Me.MetroTabControl1.TabIndex = 0
+        Me.MetroTabControl1.Tag = "0"
         Me.MetroTabControl1.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'MetroTabPage1
@@ -880,11 +880,11 @@ Partial Class Main
         Me._numDelay.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me._numDelay.ForeColor = System.Drawing.Color.FromArgb(CType(CType(153, Byte), Integer), CType(CType(153, Byte), Integer), CType(CType(153, Byte), Integer))
         Me._numDelay.Location = New System.Drawing.Point(137, 141)
-        Me._numDelay.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me._numDelay.Minimum = New Decimal(New Integer() {2, 0, 0, 0})
         Me._numDelay.Name = "_numDelay"
         Me._numDelay.Size = New System.Drawing.Size(77, 22)
         Me._numDelay.TabIndex = 14
-        Me._numDelay.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        Me._numDelay.Value = New Decimal(New Integer() {2, 0, 0, 0})
         '
         'MetroLabel11
         '

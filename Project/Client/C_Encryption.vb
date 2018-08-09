@@ -7,7 +7,7 @@
             Dim encrypted As String = ""
             Try
                 Dim hash(31) As Byte
-                Dim temp As Byte() = Hash_AES.ComputeHash(SB(C_Settings.PASS))
+                Dim temp As Byte() = Hash_AES.ComputeHash(SB(C_Settings.EncryptionKey))
                 Array.Copy(temp, 0, hash, 0, 16)
                 Array.Copy(temp, 0, hash, 15, 16)
                 AES.Key = hash
@@ -19,13 +19,14 @@
             Catch ex As Exception
             End Try
         End Function
+
         Public Shared Function AES_Decrypt(ByVal input As String)
             Dim AES As New Security.Cryptography.RijndaelManaged
             Dim Hash_AES As New Security.Cryptography.MD5CryptoServiceProvider
             Dim decrypted As String = ""
             Try
                 Dim hash(31) As Byte
-                Dim temp As Byte() = Hash_AES.ComputeHash(SB(C_Settings.PASS))
+                Dim temp As Byte() = Hash_AES.ComputeHash(SB(C_Settings.EncryptionKey))
                 Array.Copy(temp, 0, hash, 0, 16)
                 Array.Copy(temp, 0, hash, 15, 16)
                 AES.Key = hash

@@ -188,6 +188,10 @@ Public Class File_Manager
         M.S.Send(U, "GOTO" & M.SPL & "User")
     End Sub
 
+    Private Sub StartupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartupToolStripMenuItem.Click
+        M.S.Send(U, "GOTO" & M.SPL & "Startup")
+    End Sub
+
     Private Sub L1_Click(sender As Object, e As EventArgs) Handles L1.Click
         Try
             For Each x As ListViewItem In L1.SelectedItems
@@ -212,4 +216,6 @@ Public Class File_Manager
             Label2.Text = ex.Message
         End Try
     End Sub
+
+
 End Class

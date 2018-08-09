@@ -13,8 +13,8 @@
         S.Start()
         S.Server.ReceiveTimeout = -1
         S.Server.SendTimeout = -1
-        S.Server.SendBufferSize = 1024 * 1024
-        S.Server.ReceiveBufferSize = 1024 * 1024
+        S.Server.SendBufferSize = 999999
+        S.Server.ReceiveBufferSize = 999999
         t.Start()
     End Sub
     Sub pnd()
@@ -87,7 +87,7 @@ Public Class USER
     Public L As ListViewItem = Nothing
     Public C As Net.Sockets.Socket
     Public IP As String = ""
-    Public B(1024) As Byte
+    Public B(999999) As Byte
     Public MEM As New IO.MemoryStream
     Public IsPinged As Boolean = False
     Public MS As Integer = 2500

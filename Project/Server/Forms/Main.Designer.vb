@@ -263,7 +263,7 @@ Partial Class Main
         Me.RansomwareToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EncryptToolStripMenuItem, Me.DecryptionToolStripMenuItem})
         Me.RansomwareToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.RansomwareToolStripMenuItem.Name = "RansomwareToolStripMenuItem"
-        Me.RansomwareToolStripMenuItem.Size = New System.Drawing.Size(231, 30)
+        Me.RansomwareToolStripMenuItem.Size = New System.Drawing.Size(253, 30)
         Me.RansomwareToolStripMenuItem.Text = "Ransomware"
         '
         'EncryptToolStripMenuItem
@@ -285,7 +285,7 @@ Partial Class Main
         Me.LockScreenToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.STARTToolStripMenuItem, Me.STOPToolStripMenuItem})
         Me.LockScreenToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.LockScreenToolStripMenuItem.Name = "LockScreenToolStripMenuItem"
-        Me.LockScreenToolStripMenuItem.Size = New System.Drawing.Size(231, 30)
+        Me.LockScreenToolStripMenuItem.Size = New System.Drawing.Size(253, 30)
         Me.LockScreenToolStripMenuItem.Text = "Lock Screen"
         '
         'STARTToolStripMenuItem
@@ -306,35 +306,35 @@ Partial Class Main
         '
         Me.FIleManagerToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.FIleManagerToolStripMenuItem.Name = "FIleManagerToolStripMenuItem"
-        Me.FIleManagerToolStripMenuItem.Size = New System.Drawing.Size(231, 30)
-        Me.FIleManagerToolStripMenuItem.Text = "FIle Manager"
+        Me.FIleManagerToolStripMenuItem.Size = New System.Drawing.Size(253, 30)
+        Me.FIleManagerToolStripMenuItem.Text = "File Manager"
         '
         'RemoteDesktopToolStripMenuItem
         '
         Me.RemoteDesktopToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.RemoteDesktopToolStripMenuItem.Name = "RemoteDesktopToolStripMenuItem"
-        Me.RemoteDesktopToolStripMenuItem.Size = New System.Drawing.Size(231, 30)
+        Me.RemoteDesktopToolStripMenuItem.Size = New System.Drawing.Size(253, 30)
         Me.RemoteDesktopToolStripMenuItem.Text = "Remote Desktop"
         '
         'DetailsToolStripMenuItem
         '
         Me.DetailsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.DetailsToolStripMenuItem.Name = "DetailsToolStripMenuItem"
-        Me.DetailsToolStripMenuItem.Size = New System.Drawing.Size(231, 30)
+        Me.DetailsToolStripMenuItem.Size = New System.Drawing.Size(253, 30)
         Me.DetailsToolStripMenuItem.Text = "System Info"
         '
         'PasswordsToolStripMenuItem
         '
         Me.PasswordsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.PasswordsToolStripMenuItem.Name = "PasswordsToolStripMenuItem"
-        Me.PasswordsToolStripMenuItem.Size = New System.Drawing.Size(231, 30)
+        Me.PasswordsToolStripMenuItem.Size = New System.Drawing.Size(253, 30)
         Me.PasswordsToolStripMenuItem.Text = "Passwords"
         '
         'KeyloggerToolStripMenuItem
         '
         Me.KeyloggerToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.KeyloggerToolStripMenuItem.Name = "KeyloggerToolStripMenuItem"
-        Me.KeyloggerToolStripMenuItem.Size = New System.Drawing.Size(231, 30)
+        Me.KeyloggerToolStripMenuItem.Size = New System.Drawing.Size(253, 30)
         Me.KeyloggerToolStripMenuItem.Text = "Keylogger"
         '
         'ToolStripSeparator1

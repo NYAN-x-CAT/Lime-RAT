@@ -59,11 +59,11 @@ Module S_Functions
     End Function
 
     Function SB(ByVal s As String) As Byte() ' string to byte()
-        Return Text.Encoding.Default.GetBytes(s)
+        Return Text.Encoding.UTF8.GetBytes(s)
     End Function
 
     Function BS(ByVal b As Byte()) As String ' byte() to string
-        Return Text.Encoding.Default.GetString(b)
+        Return Text.Encoding.UTF8.GetString(b)
     End Function
 
     Function fx(ByVal b As Byte(), ByVal WRD As String) As Array ' split bytes by word

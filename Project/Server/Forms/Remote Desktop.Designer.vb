@@ -35,6 +35,7 @@ Partial Class Remote_Desktop
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.MetroStyleManager1 = New MetroFramework.Components.MetroStyleManager(Me.components)
         Me.MetroLabel3 = New MetroFramework.Controls.MetroLabel()
+        Me.CHKmouse = New MetroFramework.Controls.MetroCheckBox()
         Me.MetroPanel1.SuspendLayout()
         CType(Me.P1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -42,6 +43,7 @@ Partial Class Remote_Desktop
         '
         'MetroPanel1
         '
+        Me.MetroPanel1.Controls.Add(Me.CHKmouse)
         Me.MetroPanel1.Controls.Add(Me.MetroButton2)
         Me.MetroPanel1.Controls.Add(Me.MetroButton1)
         Me.MetroPanel1.Controls.Add(Me.Combo_quality)
@@ -53,7 +55,7 @@ Partial Class Remote_Desktop
         Me.MetroPanel1.HorizontalScrollbarSize = 10
         Me.MetroPanel1.Location = New System.Drawing.Point(23, 101)
         Me.MetroPanel1.Name = "MetroPanel1"
-        Me.MetroPanel1.Size = New System.Drawing.Size(742, 69)
+        Me.MetroPanel1.Size = New System.Drawing.Size(813, 69)
         Me.MetroPanel1.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroPanel1.TabIndex = 0
         Me.MetroPanel1.Theme = MetroFramework.MetroThemeStyle.Dark
@@ -63,9 +65,9 @@ Partial Class Remote_Desktop
         '
         'MetroButton2
         '
-        Me.MetroButton2.Location = New System.Drawing.Point(622, 12)
+        Me.MetroButton2.Location = New System.Drawing.Point(700, 12)
         Me.MetroButton2.Name = "MetroButton2"
-        Me.MetroButton2.Size = New System.Drawing.Size(106, 29)
+        Me.MetroButton2.Size = New System.Drawing.Size(90, 29)
         Me.MetroButton2.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroButton2.TabIndex = 4
         Me.MetroButton2.Text = "Save"
@@ -73,9 +75,9 @@ Partial Class Remote_Desktop
         '
         'MetroButton1
         '
-        Me.MetroButton1.Location = New System.Drawing.Point(493, 12)
+        Me.MetroButton1.Location = New System.Drawing.Point(581, 12)
         Me.MetroButton1.Name = "MetroButton1"
-        Me.MetroButton1.Size = New System.Drawing.Size(106, 29)
+        Me.MetroButton1.Size = New System.Drawing.Size(90, 29)
         Me.MetroButton1.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroButton1.TabIndex = 1
         Me.MetroButton1.Text = "Start"
@@ -138,7 +140,7 @@ Partial Class Remote_Desktop
         Me.P1.InitialImage = Nothing
         Me.P1.Location = New System.Drawing.Point(31, 198)
         Me.P1.Name = "P1"
-        Me.P1.Size = New System.Drawing.Size(720, 402)
+        Me.P1.Size = New System.Drawing.Size(805, 402)
         Me.P1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.P1.TabIndex = 1
         Me.P1.TabStop = False
@@ -166,11 +168,23 @@ Partial Class Remote_Desktop
         Me.MetroLabel3.Text = "  "
         Me.MetroLabel3.Theme = MetroFramework.MetroThemeStyle.Dark
         '
+        'CHKmouse
+        '
+        Me.CHKmouse.AutoSize = True
+        Me.CHKmouse.Location = New System.Drawing.Point(474, 19)
+        Me.CHKmouse.Name = "CHKmouse"
+        Me.CHKmouse.Size = New System.Drawing.Size(59, 15)
+        Me.CHKmouse.Style = MetroFramework.MetroColorStyle.Lime
+        Me.CHKmouse.TabIndex = 3
+        Me.CHKmouse.Text = "Mouse"
+        Me.CHKmouse.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.CHKmouse.UseVisualStyleBackColor = True
+        '
         'Remote_Desktop
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(782, 666)
+        Me.ClientSize = New System.Drawing.Size(867, 666)
         Me.Controls.Add(Me.MetroLabel3)
         Me.Controls.Add(Me.P1)
         Me.Controls.Add(Me.MetroPanel1)
@@ -202,4 +216,5 @@ Partial Class Remote_Desktop
     Friend WithEvents Timer1 As Timer
     Friend WithEvents MetroStyleManager1 As MetroFramework.Components.MetroStyleManager
     Friend WithEvents MetroLabel3 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents CHKmouse As MetroFramework.Controls.MetroCheckBox
 End Class

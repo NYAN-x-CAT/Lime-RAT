@@ -290,11 +290,11 @@ cc:
     Public Shared Alive As Boolean = False
 
     Public Shared Function SB(ByVal s As String) As Byte()
-        Return Text.Encoding.Default.GetBytes(s)
+        Return Text.Encoding.UTF8.GetBytes(s)
     End Function
 
     Public Shared Function BS(ByVal b As Byte()) As String
-        Return Text.Encoding.Default.GetString(b)
+        Return Text.Encoding.UTF8.GetString(b)
     End Function
 
     Public Shared Function AES_Encrypt(ByVal input As String)

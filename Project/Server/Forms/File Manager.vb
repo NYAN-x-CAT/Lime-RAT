@@ -137,6 +137,7 @@ Public Class File_Manager
     Private Sub File_Manager_Resize(sender As Object, e As EventArgs) Handles Me.Resize
         L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
         PictureBox1.Anchor = (AnchorStyles.Bottom + AnchorStyles.Right)
+        Label2.Anchor = (AnchorStyles.Bottom + AnchorStyles.Left)
     End Sub
 
     Private Sub DWToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DWToolStripMenuItem.Click

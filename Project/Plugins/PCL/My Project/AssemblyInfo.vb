@@ -8,17 +8,17 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("LimeRAT")>
+<Assembly: AssemblyTitle("PCL")>
 <Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("LimeRAT")>
-<Assembly: AssemblyCopyright("Copyright © NYAN CAT 2018")>
+<Assembly: AssemblyCompany("Microsoft")>
+<Assembly: AssemblyProduct("PCL")>
+<Assembly: AssemblyCopyright("Copyright © Microsoft 2018")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
-<Assembly: Guid("927104e1-aa17-4167-817c-7673fe26d46e")>
+<Assembly: Guid("e2cc7158-aee6-4463-95bf-fb5295e9e37a")>
 
 ' Version information for an assembly consists of the following four values:
 '
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")>
 
-<Assembly: AssemblyVersion("0.1.7.0")>
-<Assembly: AssemblyFileVersion("0.1.7.0")>
+<Assembly: AssemblyVersion("1.0.0.0")>
+<Assembly: AssemblyFileVersion("1.0.0.0")>

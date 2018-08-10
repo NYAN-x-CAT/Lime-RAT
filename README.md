@@ -1,6 +1,6 @@
 <img src="https://i.imgur.com/1DYYXt4.gif">
 
-# LimeRAT v0.1.6.2 [BETA] 
+# LimeRAT v0.1.7.0 [BETA] 
 	
 ***Simple yet powerful RAT which targeting Windows OS for educational purposes. This project is uncomplicated and easy to understand, targeting entry-level developers, It should improve your knowledge and skills as malware analysis and researcher.***
 
@@ -21,7 +21,7 @@
 - **Bypass**
     - Low AV detection and undetected startup method
 - **Lightweight**
-    - Client size is 24 KB
+    - Payload size is about 24 KB
 - **Anti Virtual Machines**
     - Uninstall itself if the machine is virtual to avoid scanning or analyzing 
 - **Anti-Kill**

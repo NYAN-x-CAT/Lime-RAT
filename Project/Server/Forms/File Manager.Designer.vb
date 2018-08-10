@@ -36,6 +36,7 @@ Partial Class File_Manager
         Me.AppDataToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TempToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UserFolderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.StartupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.RunToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DWToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -47,7 +48,6 @@ Partial Class File_Manager
         Me.MetroStyleManager1 = New MetroFramework.Components.MetroStyleManager(Me.components)
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Label2 = New MetroFramework.Controls.MetroLabel()
-        Me.StartupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -88,94 +88,101 @@ Partial Class File_Manager
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BackToolStripMenuItem, Me.RefreshToolStripMenuItem, Me.ToolStripSeparator2, Me.GoToToolStripMenuItem, Me.ToolStripSeparator1, Me.RunToolStripMenuItem, Me.DWToolStripMenuItem, Me.UploadToolStripMenuItem, Me.DeleteToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(254, 259)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(180, 226)
         '
         'BackToolStripMenuItem
         '
         Me.BackToolStripMenuItem.Image = CType(resources.GetObject("BackToolStripMenuItem.Image"), System.Drawing.Image)
         Me.BackToolStripMenuItem.Name = "BackToolStripMenuItem"
-        Me.BackToolStripMenuItem.Size = New System.Drawing.Size(253, 30)
+        Me.BackToolStripMenuItem.Size = New System.Drawing.Size(179, 30)
         Me.BackToolStripMenuItem.Text = "Back"
         '
         'RefreshToolStripMenuItem
         '
         Me.RefreshToolStripMenuItem.Image = CType(resources.GetObject("RefreshToolStripMenuItem.Image"), System.Drawing.Image)
         Me.RefreshToolStripMenuItem.Name = "RefreshToolStripMenuItem"
-        Me.RefreshToolStripMenuItem.Size = New System.Drawing.Size(253, 30)
+        Me.RefreshToolStripMenuItem.Size = New System.Drawing.Size(179, 30)
         Me.RefreshToolStripMenuItem.Text = "Refresh"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(250, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(176, 6)
         '
         'GoToToolStripMenuItem
         '
         Me.GoToToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DesktopToolStripMenuItem, Me.AppDataToolStripMenuItem, Me.TempToolStripMenuItem, Me.UserFolderToolStripMenuItem, Me.StartupToolStripMenuItem})
         Me.GoToToolStripMenuItem.Image = CType(resources.GetObject("GoToToolStripMenuItem.Image"), System.Drawing.Image)
         Me.GoToToolStripMenuItem.Name = "GoToToolStripMenuItem"
-        Me.GoToToolStripMenuItem.Size = New System.Drawing.Size(253, 30)
+        Me.GoToToolStripMenuItem.Size = New System.Drawing.Size(179, 30)
         Me.GoToToolStripMenuItem.Text = "Go To"
         '
         'DesktopToolStripMenuItem
         '
         Me.DesktopToolStripMenuItem.Image = CType(resources.GetObject("DesktopToolStripMenuItem.Image"), System.Drawing.Image)
         Me.DesktopToolStripMenuItem.Name = "DesktopToolStripMenuItem"
-        Me.DesktopToolStripMenuItem.Size = New System.Drawing.Size(253, 30)
+        Me.DesktopToolStripMenuItem.Size = New System.Drawing.Size(187, 30)
         Me.DesktopToolStripMenuItem.Text = "Desktop"
         '
         'AppDataToolStripMenuItem
         '
         Me.AppDataToolStripMenuItem.Image = CType(resources.GetObject("AppDataToolStripMenuItem.Image"), System.Drawing.Image)
         Me.AppDataToolStripMenuItem.Name = "AppDataToolStripMenuItem"
-        Me.AppDataToolStripMenuItem.Size = New System.Drawing.Size(253, 30)
+        Me.AppDataToolStripMenuItem.Size = New System.Drawing.Size(187, 30)
         Me.AppDataToolStripMenuItem.Text = "AppData"
         '
         'TempToolStripMenuItem
         '
         Me.TempToolStripMenuItem.Image = CType(resources.GetObject("TempToolStripMenuItem.Image"), System.Drawing.Image)
         Me.TempToolStripMenuItem.Name = "TempToolStripMenuItem"
-        Me.TempToolStripMenuItem.Size = New System.Drawing.Size(253, 30)
+        Me.TempToolStripMenuItem.Size = New System.Drawing.Size(187, 30)
         Me.TempToolStripMenuItem.Text = "Temp"
         '
         'UserFolderToolStripMenuItem
         '
         Me.UserFolderToolStripMenuItem.Image = CType(resources.GetObject("UserFolderToolStripMenuItem.Image"), System.Drawing.Image)
         Me.UserFolderToolStripMenuItem.Name = "UserFolderToolStripMenuItem"
-        Me.UserFolderToolStripMenuItem.Size = New System.Drawing.Size(253, 30)
+        Me.UserFolderToolStripMenuItem.Size = New System.Drawing.Size(187, 30)
         Me.UserFolderToolStripMenuItem.Text = "User Folder"
+        '
+        'StartupToolStripMenuItem
+        '
+        Me.StartupToolStripMenuItem.Image = CType(resources.GetObject("StartupToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.StartupToolStripMenuItem.Name = "StartupToolStripMenuItem"
+        Me.StartupToolStripMenuItem.Size = New System.Drawing.Size(187, 30)
+        Me.StartupToolStripMenuItem.Text = "Startup"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(250, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(176, 6)
         '
         'RunToolStripMenuItem
         '
         Me.RunToolStripMenuItem.Image = CType(resources.GetObject("RunToolStripMenuItem.Image"), System.Drawing.Image)
         Me.RunToolStripMenuItem.Name = "RunToolStripMenuItem"
-        Me.RunToolStripMenuItem.Size = New System.Drawing.Size(253, 30)
+        Me.RunToolStripMenuItem.Size = New System.Drawing.Size(179, 30)
         Me.RunToolStripMenuItem.Text = "Run"
         '
         'DWToolStripMenuItem
         '
         Me.DWToolStripMenuItem.Image = CType(resources.GetObject("DWToolStripMenuItem.Image"), System.Drawing.Image)
         Me.DWToolStripMenuItem.Name = "DWToolStripMenuItem"
-        Me.DWToolStripMenuItem.Size = New System.Drawing.Size(253, 30)
+        Me.DWToolStripMenuItem.Size = New System.Drawing.Size(179, 30)
         Me.DWToolStripMenuItem.Text = "Download"
         '
         'UploadToolStripMenuItem
         '
         Me.UploadToolStripMenuItem.Image = CType(resources.GetObject("UploadToolStripMenuItem.Image"), System.Drawing.Image)
         Me.UploadToolStripMenuItem.Name = "UploadToolStripMenuItem"
-        Me.UploadToolStripMenuItem.Size = New System.Drawing.Size(253, 30)
+        Me.UploadToolStripMenuItem.Size = New System.Drawing.Size(179, 30)
         Me.UploadToolStripMenuItem.Text = "Upload"
         '
         'DeleteToolStripMenuItem
         '
         Me.DeleteToolStripMenuItem.Image = CType(resources.GetObject("DeleteToolStripMenuItem.Image"), System.Drawing.Image)
         Me.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem"
-        Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(253, 30)
+        Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(179, 30)
         Me.DeleteToolStripMenuItem.Text = "Delete"
         '
         'ImageList1
@@ -242,13 +249,6 @@ Partial Class File_Manager
         Me.Label2.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.Label2.UseMnemonic = False
         Me.Label2.UseStyleColors = True
-        '
-        'StartupToolStripMenuItem
-        '
-        Me.StartupToolStripMenuItem.Image = CType(resources.GetObject("StartupToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.StartupToolStripMenuItem.Name = "StartupToolStripMenuItem"
-        Me.StartupToolStripMenuItem.Size = New System.Drawing.Size(253, 30)
-        Me.StartupToolStripMenuItem.Text = "Startup"
         '
         'File_Manager
         '

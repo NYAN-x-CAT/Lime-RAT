@@ -145,7 +145,7 @@ Partial Class About
         Me.MetroLabel7.Size = New System.Drawing.Size(61, 19)
         Me.MetroLabel7.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroLabel7.TabIndex = 0
-        Me.MetroLabel7.Text = ": 0.1.6.2"
+        Me.MetroLabel7.Text = ": 0.1.7.0"
         Me.MetroLabel7.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'MetroLabel8
@@ -336,10 +336,10 @@ Partial Class About
         Me.MetroLabel26.AutoSize = True
         Me.MetroLabel26.Location = New System.Drawing.Point(194, 501)
         Me.MetroLabel26.Name = "MetroLabel26"
-        Me.MetroLabel26.Size = New System.Drawing.Size(63, 19)
+        Me.MetroLabel26.Size = New System.Drawing.Size(41, 19)
         Me.MetroLabel26.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroLabel26.TabIndex = 0
-        Me.MetroLabel26.Text = ": Flowx08"
+        Me.MetroLabel26.Text = ": njq8"
         Me.MetroLabel26.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'About

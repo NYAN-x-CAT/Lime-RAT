@@ -50,6 +50,8 @@ Partial Class About
         Me.MetroStyleManager1 = New MetroFramework.Components.MetroStyleManager(Me.components)
         Me.MetroLabel25 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel26 = New MetroFramework.Controls.MetroLabel()
+        Me.MetroLabel17 = New MetroFramework.Controls.MetroLabel()
+        Me.MetroLabel18 = New MetroFramework.Controls.MetroLabel()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -145,7 +147,7 @@ Partial Class About
         Me.MetroLabel7.Size = New System.Drawing.Size(61, 19)
         Me.MetroLabel7.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroLabel7.TabIndex = 0
-        Me.MetroLabel7.Text = ": 0.1.7.0"
+        Me.MetroLabel7.Text = ": 0.1.7.1"
         Me.MetroLabel7.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'MetroLabel8
@@ -342,11 +344,35 @@ Partial Class About
         Me.MetroLabel26.Text = ": njq8"
         Me.MetroLabel26.Theme = MetroFramework.MetroThemeStyle.Dark
         '
+        'MetroLabel17
+        '
+        Me.MetroLabel17.AutoSize = True
+        Me.MetroLabel17.Location = New System.Drawing.Point(194, 581)
+        Me.MetroLabel17.Name = "MetroLabel17"
+        Me.MetroLabel17.Size = New System.Drawing.Size(73, 19)
+        Me.MetroLabel17.Style = MetroFramework.MetroColorStyle.Lime
+        Me.MetroLabel17.TabIndex = 2
+        Me.MetroLabel17.Text = ": 1M50RRY"
+        Me.MetroLabel17.Theme = MetroFramework.MetroThemeStyle.Dark
+        '
+        'MetroLabel18
+        '
+        Me.MetroLabel18.AutoSize = True
+        Me.MetroLabel18.Location = New System.Drawing.Point(23, 581)
+        Me.MetroLabel18.Name = "MetroLabel18"
+        Me.MetroLabel18.Size = New System.Drawing.Size(49, 19)
+        Me.MetroLabel18.Style = MetroFramework.MetroColorStyle.Lime
+        Me.MetroLabel18.TabIndex = 3
+        Me.MetroLabel18.Text = "Crypto"
+        Me.MetroLabel18.Theme = MetroFramework.MetroThemeStyle.Dark
+        '
         'About
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 635)
+        Me.ClientSize = New System.Drawing.Size(800, 681)
+        Me.Controls.Add(Me.MetroLabel17)
+        Me.Controls.Add(Me.MetroLabel18)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.MetroLabel8)
         Me.Controls.Add(Me.MetroLabel10)
@@ -412,4 +438,6 @@ Partial Class About
     Friend WithEvents MetroStyleManager1 As MetroFramework.Components.MetroStyleManager
     Friend WithEvents MetroLabel26 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel25 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents MetroLabel17 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents MetroLabel18 As MetroFramework.Controls.MetroLabel
 End Class

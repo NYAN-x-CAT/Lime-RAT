@@ -12,7 +12,6 @@
         Public Shared KEY As String = "|'N'|" 'socket key
         Public Shared SPL As String = "|'L'|" 'split bytes
         Public Shared EXE As String = "CLIENT.exe" 'client name
-        Public Shared NMT As Threading.Mutex = Nothing ' mutex
         Public Shared MTX As String = "I0xpbWVSQVQ=" 'mutex
         Public Shared USB As Boolean = False 'usb spread
         Public Shared PIN As Boolean = False 'pin spread
@@ -34,7 +33,6 @@
         Public Shared KEY As String = "%KEY%"
         Public Shared SPL As String = "%SPL%"
         Public Shared EXE As String = "%EXE%"
-        Public Shared NMT As Threading.Mutex = Nothing
         Public Shared MTX As String = "I0xpbWVSQVQ="
         Public Shared USB As Boolean = "%USB%"
         Public Shared PIN As Boolean = "%PIN%"

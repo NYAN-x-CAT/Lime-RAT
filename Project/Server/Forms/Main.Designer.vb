@@ -78,6 +78,8 @@ Partial Class Main
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Flag = New System.Windows.Forms.ImageList(Me.components)
+        Me.MetroTabPage2 = New MetroFramework.Controls.MetroTabPage()
+        Me.L2 = New System.Windows.Forms.ListBox()
         Me.MetroTabPage3 = New MetroFramework.Controls.MetroTabPage()
         Me.chkRename = New MetroFramework.Controls.MetroCheckBox()
         Me.radioNET4 = New MetroFramework.Controls.MetroRadioButton()
@@ -110,8 +112,6 @@ Partial Class Main
         Me.MetroTile1 = New MetroFramework.Controls.MetroTile()
         Me._pastebin = New MetroFramework.Controls.MetroTextBox()
         Me.MetroLabel4 = New MetroFramework.Controls.MetroLabel()
-        Me.MetroTabPage2 = New MetroFramework.Controls.MetroTabPage()
-        Me.L2 = New System.Windows.Forms.ListBox()
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
@@ -128,6 +128,7 @@ Partial Class Main
         Me.MetroTabControl1.SuspendLayout()
         Me.MetroTabPage1.SuspendLayout()
         Me.Main_Rightclick.SuspendLayout()
+        Me.MetroTabPage2.SuspendLayout()
         Me.MetroTabPage3.SuspendLayout()
         Me.MetroPanel5.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -135,7 +136,6 @@ Partial Class Main
         CType(Me._numDelay, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MetroPanel3.SuspendLayout()
         Me.MetroPanel2.SuspendLayout()
-        Me.MetroTabPage2.SuspendLayout()
         Me.MetroPanel1.SuspendLayout()
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -146,8 +146,8 @@ Partial Class Main
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.MetroTabControl1.Controls.Add(Me.MetroTabPage1)
-        Me.MetroTabControl1.Controls.Add(Me.MetroTabPage3)
         Me.MetroTabControl1.Controls.Add(Me.MetroTabPage2)
+        Me.MetroTabControl1.Controls.Add(Me.MetroTabPage3)
         Me.MetroTabControl1.FontSize = MetroFramework.MetroTabControlSize.Tall
         Me.MetroTabControl1.FontWeight = MetroFramework.MetroTabControlWeight.Bold
         Me.MetroTabControl1.Location = New System.Drawing.Point(23, 73)
@@ -791,6 +791,35 @@ Partial Class Main
         Me.Flag.Images.SetKeyName(241, "zw.png")
         Me.Flag.Images.SetKeyName(242, "--.png")
         '
+        'MetroTabPage2
+        '
+        Me.MetroTabPage2.Controls.Add(Me.L2)
+        Me.MetroTabPage2.HorizontalScrollbarBarColor = True
+        Me.MetroTabPage2.Location = New System.Drawing.Point(4, 39)
+        Me.MetroTabPage2.Name = "MetroTabPage2"
+        Me.MetroTabPage2.Size = New System.Drawing.Size(1518, 504)
+        Me.MetroTabPage2.Style = MetroFramework.MetroColorStyle.Lime
+        Me.MetroTabPage2.TabIndex = 1
+        Me.MetroTabPage2.Text = "Logs"
+        Me.MetroTabPage2.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.MetroTabPage2.VerticalScrollbarBarColor = True
+        '
+        'L2
+        '
+        Me.L2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.L2.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        Me.L2.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.L2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.L2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(142, Byte), Integer), CType(CType(188, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.L2.FormattingEnabled = True
+        Me.L2.ItemHeight = 20
+        Me.L2.Location = New System.Drawing.Point(3, 23)
+        Me.L2.Name = "L2"
+        Me.L2.Size = New System.Drawing.Size(1507, 440)
+        Me.L2.TabIndex = 2
+        '
         'MetroTabPage3
         '
         Me.MetroTabPage3.Controls.Add(Me.chkRename)
@@ -830,11 +859,13 @@ Partial Class Main
         'radioNET4
         '
         Me.radioNET4.AutoSize = True
+        Me.radioNET4.Checked = True
         Me.radioNET4.Location = New System.Drawing.Point(1198, 358)
         Me.radioNET4.Name = "radioNET4"
         Me.radioNET4.Size = New System.Drawing.Size(66, 15)
         Me.radioNET4.Style = MetroFramework.MetroColorStyle.Lime
         Me.radioNET4.TabIndex = 13
+        Me.radioNET4.TabStop = True
         Me.radioNET4.Text = ".NET 4.0"
         Me.radioNET4.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.radioNET4.UseVisualStyleBackColor = True
@@ -842,13 +873,11 @@ Partial Class Main
         'radioNET2
         '
         Me.radioNET2.AutoSize = True
-        Me.radioNET2.Checked = True
         Me.radioNET2.Location = New System.Drawing.Point(1198, 327)
         Me.radioNET2.Name = "radioNET2"
         Me.radioNET2.Size = New System.Drawing.Size(66, 15)
         Me.radioNET2.Style = MetroFramework.MetroColorStyle.Lime
         Me.radioNET2.TabIndex = 13
-        Me.radioNET2.TabStop = True
         Me.radioNET2.Text = ".NET 2.0"
         Me.radioNET2.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.radioNET2.UseVisualStyleBackColor = True
@@ -1259,35 +1288,6 @@ Partial Class Main
         Me.MetroLabel4.Text = "Pastebin URL"
         Me.MetroLabel4.Theme = MetroFramework.MetroThemeStyle.Dark
         '
-        'MetroTabPage2
-        '
-        Me.MetroTabPage2.Controls.Add(Me.L2)
-        Me.MetroTabPage2.HorizontalScrollbarBarColor = True
-        Me.MetroTabPage2.Location = New System.Drawing.Point(4, 39)
-        Me.MetroTabPage2.Name = "MetroTabPage2"
-        Me.MetroTabPage2.Size = New System.Drawing.Size(1518, 504)
-        Me.MetroTabPage2.Style = MetroFramework.MetroColorStyle.Lime
-        Me.MetroTabPage2.TabIndex = 1
-        Me.MetroTabPage2.Text = "Logs"
-        Me.MetroTabPage2.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.MetroTabPage2.VerticalScrollbarBarColor = True
-        '
-        'L2
-        '
-        Me.L2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.L2.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        Me.L2.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.L2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
-        Me.L2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(142, Byte), Integer), CType(CType(188, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.L2.FormattingEnabled = True
-        Me.L2.ItemHeight = 20
-        Me.L2.Location = New System.Drawing.Point(3, 23)
-        Me.L2.Name = "L2"
-        Me.L2.Size = New System.Drawing.Size(1507, 440)
-        Me.L2.TabIndex = 2
-        '
         'NotifyIcon1
         '
         Me.NotifyIcon1.Icon = CType(resources.GetObject("NotifyIcon1.Icon"), System.Drawing.Icon)
@@ -1417,6 +1417,7 @@ Partial Class Main
         Me.MetroTabControl1.ResumeLayout(False)
         Me.MetroTabPage1.ResumeLayout(False)
         Me.Main_Rightclick.ResumeLayout(False)
+        Me.MetroTabPage2.ResumeLayout(False)
         Me.MetroTabPage3.ResumeLayout(False)
         Me.MetroTabPage3.PerformLayout()
         Me.MetroPanel5.ResumeLayout(False)
@@ -1429,7 +1430,6 @@ Partial Class Main
         Me.MetroPanel3.PerformLayout()
         Me.MetroPanel2.ResumeLayout(False)
         Me.MetroPanel2.PerformLayout()
-        Me.MetroTabPage2.ResumeLayout(False)
         Me.MetroPanel1.ResumeLayout(False)
         Me.MetroPanel1.PerformLayout()
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).EndInit()

@@ -2,10 +2,15 @@
 
 # LimeRAT v0.1.7 [BETA]
 	
-***Simple yet powerful RAT which targeting Windows OS for educational purposes. This project is simple and easy to understand, It should give you a general knowledge about .NET malwares.***
+***Remote Administration Tool For Windows***
 
 ---
  
+ ## Description
+ Simple yet powerful RAT for Windows machines. This project is simple and easy to understand, It should give you a general knowledge about dotNET malwares and how it behaves. 
+ 
+ ---
+
 ## Main Features
 
 - **.NET**
@@ -21,16 +26,16 @@
 - **Bypass**
     - Low AV detection and undetected startup method
 - **Lightweight**
-    - Payload size is about 24 KB
+    - Payload size is about 25 KB
 - **Anti Virtual Machines**
     - Uninstall itself if the machine is virtual to avoid scanning or analyzing 
 - **Anti-Kill**
     - PC will auto shutdown (BSOD) whenever the user tries to kill the payload
  - **And more**
     - Ransomware
-	- Cryptocurrency stealer
+    - Cryptocurrency stealer
     - Screen-locker
-	- File Manager
+    - File Manager
     - Passowrds stealer
     - Remote desktop
     - Bitcoin grabber
@@ -124,12 +129,12 @@ https://github.com/NYAN-x-CAT/Lime-RAT/releases
  
  ---
  
- ## Issues
+ ## Notes
  
 1. While using ransomware, restore point won't be deleted unless payload is running hight privilege
 2. Anti-Kill (BSOD) won't work unless payload is running hight privilege
 
-> Found an issue? report it here https://github.com/NYAN-x-CAT/Lime-RAT/issues/new
+> Found a bug? Please, report it here https://github.com/NYAN-x-CAT/Lime-RAT/issues/new
 
 ---
 

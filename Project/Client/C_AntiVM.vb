@@ -19,7 +19,7 @@
                 ElseIf LoadLibrary("SbieDll.dll") = True Then
                     GoTo del
 
-                ElseIf IO.File.Exists(Environment.GetEnvironmentVariable("windir") & "\vboxservice.dll") Then
+                ElseIf IO.File.Exists(Environment.GetEnvironmentVariable("windir") & "\vboxhook.dll") Then
                     GoTo del
                 End If
                 Exit Sub

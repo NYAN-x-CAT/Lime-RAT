@@ -1,4 +1,4 @@
-<img src="https://i.imgur.com/1DYYXt4.gif">
+<img src="https://i.imgur.com/Iq5MkAf.gif">
 
 # LimeRAT v0.1.7 [BETA]
 	

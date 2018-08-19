@@ -25,7 +25,6 @@ Partial Class About
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(About))
         Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.MetroLabel2 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel3 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel4 = New MetroFramework.Controls.MetroLabel()
@@ -52,8 +51,12 @@ Partial Class About
         Me.MetroLabel26 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel17 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel18 = New MetroFramework.Controls.MetroLabel()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.MetroLabel27 = New MetroFramework.Controls.MetroLabel()
+        Me.MetroLabel28 = New MetroFramework.Controls.MetroLabel()
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MetroLabel1
@@ -67,16 +70,6 @@ Partial Class About
         Me.MetroLabel1.TabIndex = 0
         Me.MetroLabel1.Text = "Project Name"
         Me.MetroLabel1.Theme = MetroFramework.MetroThemeStyle.Dark
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(528, 127)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(249, 223)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 1
-        Me.PictureBox1.TabStop = False
         '
         'MetroLabel2
         '
@@ -147,7 +140,7 @@ Partial Class About
         Me.MetroLabel7.Size = New System.Drawing.Size(61, 19)
         Me.MetroLabel7.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroLabel7.TabIndex = 0
-        Me.MetroLabel7.Text = ": 0.1.7.2"
+        Me.MetroLabel7.Text = ": 0.1.7.3"
         Me.MetroLabel7.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'MetroLabel8
@@ -366,11 +359,48 @@ Partial Class About
         Me.MetroLabel18.Text = "Crypto"
         Me.MetroLabel18.Theme = MetroFramework.MetroThemeStyle.Dark
         '
+        'PictureBox1
+        '
+        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
+        Me.PictureBox1.Location = New System.Drawing.Point(505, 127)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(228, 222)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 1
+        Me.PictureBox1.TabStop = False
+        '
+        'MetroLabel27
+        '
+        Me.MetroLabel27.AutoSize = True
+        Me.MetroLabel27.Location = New System.Drawing.Point(194, 621)
+        Me.MetroLabel27.Name = "MetroLabel27"
+        Me.MetroLabel27.Size = New System.Drawing.Size(40, 19)
+        Me.MetroLabel27.Style = MetroFramework.MetroColorStyle.Lime
+        Me.MetroLabel27.TabIndex = 4
+        Me.MetroLabel27.Text = ": Pulz"
+        Me.MetroLabel27.Theme = MetroFramework.MetroThemeStyle.Dark
+        '
+        'MetroLabel28
+        '
+        Me.MetroLabel28.AutoSize = True
+        Me.MetroLabel28.Location = New System.Drawing.Point(23, 621)
+        Me.MetroLabel28.Name = "MetroLabel28"
+        Me.MetroLabel28.Size = New System.Drawing.Size(33, 19)
+        Me.MetroLabel28.Style = MetroFramework.MetroColorStyle.Lime
+        Me.MetroLabel28.TabIndex = 5
+        Me.MetroLabel28.Text = "Icon"
+        Me.MetroLabel28.Theme = MetroFramework.MetroThemeStyle.Dark
+        '
+        'BackgroundWorker1
+        '
+        '
         'About
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 681)
+        Me.ClientSize = New System.Drawing.Size(800, 732)
+        Me.Controls.Add(Me.MetroLabel27)
+        Me.Controls.Add(Me.MetroLabel28)
         Me.Controls.Add(Me.MetroLabel17)
         Me.Controls.Add(Me.MetroLabel18)
         Me.Controls.Add(Me.PictureBox1)
@@ -405,8 +435,8 @@ Partial Class About
         Me.Style = MetroFramework.MetroColorStyle.Lime
         Me.Text = "About"
         Me.Theme = MetroFramework.MetroThemeStyle.Dark
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -440,4 +470,7 @@ Partial Class About
     Friend WithEvents MetroLabel25 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel17 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel18 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents MetroLabel27 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents MetroLabel28 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
 End Class

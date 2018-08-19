@@ -25,6 +25,7 @@ Partial Class Remote_Desktop
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Remote_Desktop))
         Me.MetroPanel1 = New MetroFramework.Controls.MetroPanel()
+        Me.CHKmouse = New MetroFramework.Controls.MetroCheckBox()
         Me.MetroButton2 = New MetroFramework.Controls.MetroButton()
         Me.MetroButton1 = New MetroFramework.Controls.MetroButton()
         Me.Combo_quality = New MetroFramework.Controls.MetroComboBox()
@@ -35,7 +36,6 @@ Partial Class Remote_Desktop
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.MetroStyleManager1 = New MetroFramework.Components.MetroStyleManager(Me.components)
         Me.MetroLabel3 = New MetroFramework.Controls.MetroLabel()
-        Me.CHKmouse = New MetroFramework.Controls.MetroCheckBox()
         Me.MetroPanel1.SuspendLayout()
         CType(Me.P1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -62,6 +62,18 @@ Partial Class Remote_Desktop
         Me.MetroPanel1.VerticalScrollbarBarColor = True
         Me.MetroPanel1.VerticalScrollbarHighlightOnWheel = False
         Me.MetroPanel1.VerticalScrollbarSize = 10
+        '
+        'CHKmouse
+        '
+        Me.CHKmouse.AutoSize = True
+        Me.CHKmouse.Location = New System.Drawing.Point(474, 19)
+        Me.CHKmouse.Name = "CHKmouse"
+        Me.CHKmouse.Size = New System.Drawing.Size(59, 15)
+        Me.CHKmouse.Style = MetroFramework.MetroColorStyle.Lime
+        Me.CHKmouse.TabIndex = 3
+        Me.CHKmouse.Text = "Mouse"
+        Me.CHKmouse.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.CHKmouse.UseVisualStyleBackColor = True
         '
         'MetroButton2
         '
@@ -167,18 +179,6 @@ Partial Class Remote_Desktop
         Me.MetroLabel3.TabIndex = 2
         Me.MetroLabel3.Text = "  "
         Me.MetroLabel3.Theme = MetroFramework.MetroThemeStyle.Dark
-        '
-        'CHKmouse
-        '
-        Me.CHKmouse.AutoSize = True
-        Me.CHKmouse.Location = New System.Drawing.Point(474, 19)
-        Me.CHKmouse.Name = "CHKmouse"
-        Me.CHKmouse.Size = New System.Drawing.Size(59, 15)
-        Me.CHKmouse.Style = MetroFramework.MetroColorStyle.Lime
-        Me.CHKmouse.TabIndex = 3
-        Me.CHKmouse.Text = "Mouse"
-        Me.CHKmouse.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.CHKmouse.UseVisualStyleBackColor = True
         '
         'Remote_Desktop
         '

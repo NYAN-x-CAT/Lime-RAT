@@ -135,7 +135,7 @@ Public Class Main
                 Next
                 If lp = 1000 Then
                     lp = 0
-                    Dim mx As Integer = 50 * 1024 'refresh after 100kb
+                    Dim mx As Integer = 250 * 1024 'refresh after 250kb
                     If Logs.Length > mx Then
                         Logs = Logs.Remove(0, Logs.Length - mx)
                     End If

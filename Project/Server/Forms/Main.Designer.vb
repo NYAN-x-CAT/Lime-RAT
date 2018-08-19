@@ -1352,7 +1352,7 @@ Partial Class Main
         Me.MetroToggle1.Checked = Global.Lime_RAT.My.MySettings.Default.Notif
         Me.MetroToggle1.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Lime_RAT.My.MySettings.Default, "Notif", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.MetroToggle1.FontWeight = MetroFramework.MetroLinkWeight.Light
-        Me.MetroToggle1.Location = New System.Drawing.Point(1293, 8)
+        Me.MetroToggle1.Location = New System.Drawing.Point(1310, 8)
         Me.MetroToggle1.Name = "MetroToggle1"
         Me.MetroToggle1.Size = New System.Drawing.Size(80, 24)
         Me.MetroToggle1.Style = MetroFramework.MetroColorStyle.Lime

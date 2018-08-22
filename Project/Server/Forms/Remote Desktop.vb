@@ -4,7 +4,7 @@ Public Class Remote_Desktop
     Public M As Main
     Public U As USER
     Public Sz As Size
-    Public C2 As Integer = 10
+    Public C2 As Integer = 1
     Public SPL = S_Settings.SPL
     Public BOT As String
 
@@ -32,7 +32,7 @@ Public Class Remote_Desktop
             Dim Q As New IO.MemoryStream(CType(B(1), Byte()))
             Dim L As Bitmap = Image.FromStream(Q)
             Dim QQ As String() = Split(BS(B(0)), ",")
-            MetroLabel3.Text = "Remote Desktop  " & "Size: " & siz(BY.LongLength) & " ,Changes: " & QQ.Length - 2
+            MetroLabel3.Text = "Remote Desktop  " & "Size: " & siz(BY.LongLength)
             Dim K As Bitmap = P1.Image.GetThumbnailImage(CType(Split(QQ(0), ".")(0), Integer), CType(Split(QQ(0), ".")(1), Integer), Nothing, Nothing)
             Dim G As Graphics = Graphics.FromImage(K)
             Dim tp As Integer = 0

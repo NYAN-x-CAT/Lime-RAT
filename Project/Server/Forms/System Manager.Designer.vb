@@ -63,17 +63,17 @@ Partial Class System_Manager
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.MetroTabControl1.Controls.Add(Me.MetroTabPage1)
-        Me.MetroTabControl1.Controls.Add(Me.MetroTabPage3)
         Me.MetroTabControl1.Controls.Add(Me.MetroTabPage2)
+        Me.MetroTabControl1.Controls.Add(Me.MetroTabPage3)
         Me.MetroTabControl1.FontSize = MetroFramework.MetroTabControlSize.Tall
         Me.MetroTabControl1.FontWeight = MetroFramework.MetroTabControlWeight.Regular
         Me.MetroTabControl1.Location = New System.Drawing.Point(23, 90)
         Me.MetroTabControl1.Name = "MetroTabControl1"
         Me.MetroTabControl1.SelectedIndex = 0
-        Me.MetroTabControl1.Size = New System.Drawing.Size(1180, 1043)
+        Me.MetroTabControl1.Size = New System.Drawing.Size(1180, 1004)
         Me.MetroTabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed
         Me.MetroTabControl1.Style = MetroFramework.MetroColorStyle.Lime
-        Me.MetroTabControl1.TabIndex = 1
+        Me.MetroTabControl1.TabIndex = 0
         Me.MetroTabControl1.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'MetroTabPage1
@@ -82,7 +82,7 @@ Partial Class System_Manager
         Me.MetroTabPage1.HorizontalScrollbarBarColor = True
         Me.MetroTabPage1.Location = New System.Drawing.Point(4, 39)
         Me.MetroTabPage1.Name = "MetroTabPage1"
-        Me.MetroTabPage1.Size = New System.Drawing.Size(1172, 1000)
+        Me.MetroTabPage1.Size = New System.Drawing.Size(1172, 961)
         Me.MetroTabPage1.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroTabPage1.TabIndex = 0
         Me.MetroTabPage1.Text = "Details"
@@ -102,7 +102,7 @@ Partial Class System_Manager
         Me.ListView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None
         Me.ListView1.Location = New System.Drawing.Point(17, 39)
         Me.ListView1.Name = "ListView1"
-        Me.ListView1.Size = New System.Drawing.Size(1134, 934)
+        Me.ListView1.Size = New System.Drawing.Size(1134, 895)
         Me.ListView1.TabIndex = 2
         Me.ListView1.UseCompatibleStateImageBehavior = False
         Me.ListView1.View = System.Windows.Forms.View.Details
@@ -135,7 +135,7 @@ Partial Class System_Manager
         Me.MetroTabPage3.HorizontalScrollbarBarColor = True
         Me.MetroTabPage3.Location = New System.Drawing.Point(4, 39)
         Me.MetroTabPage3.Name = "MetroTabPage3"
-        Me.MetroTabPage3.Size = New System.Drawing.Size(1172, 1000)
+        Me.MetroTabPage3.Size = New System.Drawing.Size(1172, 961)
         Me.MetroTabPage3.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroTabPage3.TabIndex = 2
         Me.MetroTabPage3.Text = "Startup"
@@ -155,7 +155,7 @@ Partial Class System_Manager
         Me.L3.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None
         Me.L3.Location = New System.Drawing.Point(17, 43)
         Me.L3.Name = "L3"
-        Me.L3.Size = New System.Drawing.Size(1134, 938)
+        Me.L3.Size = New System.Drawing.Size(1134, 837)
         Me.L3.TabIndex = 2
         Me.L3.UseCompatibleStateImageBehavior = False
         Me.L3.View = System.Windows.Forms.View.Details
@@ -181,7 +181,7 @@ Partial Class System_Manager
         Me.MetroTabPage2.HorizontalScrollbarBarColor = True
         Me.MetroTabPage2.Location = New System.Drawing.Point(4, 39)
         Me.MetroTabPage2.Name = "MetroTabPage2"
-        Me.MetroTabPage2.Size = New System.Drawing.Size(1172, 1000)
+        Me.MetroTabPage2.Size = New System.Drawing.Size(1172, 961)
         Me.MetroTabPage2.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroTabPage2.TabIndex = 1
         Me.MetroTabPage2.Text = "Process"
@@ -202,7 +202,7 @@ Partial Class System_Manager
         Me.L2.Location = New System.Drawing.Point(12, 41)
         Me.L2.Name = "L2"
         Me.L2.OwnerDraw = True
-        Me.L2.Size = New System.Drawing.Size(1149, 941)
+        Me.L2.Size = New System.Drawing.Size(1149, 866)
         Me.L2.TabIndex = 2
         Me.L2.UseCompatibleStateImageBehavior = False
         Me.L2.View = System.Windows.Forms.View.Details
@@ -252,7 +252,7 @@ Partial Class System_Manager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1226, 1176)
+        Me.ClientSize = New System.Drawing.Size(1226, 1137)
         Me.Controls.Add(Me.MetroTabControl1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "System_Manager"

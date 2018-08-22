@@ -159,7 +159,7 @@ Public Class File_Manager
             End With
 
             If o.ShowDialog = Windows.Forms.DialogResult.OK Then
-                M.S.Send(U, "UP" & M.SPL & Label1.Text + IO.Path.GetFileName(o.FileName) & M.SPL & BS(GZip(IO.File.ReadAllBytes(o.FileName), True)))
+                M.S.Send(U, "UP" & M.SPL & Label1.Text + IO.Path.GetFileName(o.FileName) & M.SPL & Convert.ToBase64String(GZip(IO.File.ReadAllBytes(o.FileName), True)))
                 Label2.Text = "Uploading " + IO.Path.GetFileName(o.FileName)
             End If
         Catch ex As Exception

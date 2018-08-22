@@ -41,7 +41,13 @@
 #End Region
 
     Private Sub MetroButton1_Click(sender As Object, e As EventArgs) Handles MetroButton1.Click
+        If GTV("Read") <> "1" Then
 
+            Try
+                Process.Start(Windows.Forms.Application.StartupPath + "\MISC\Support\Guidance.html")
+                STV("Read", "1")
+            Catch : End Try
+        End If
 #If DEBUG Then
         S_Settings.PORT = 8989
         S_Settings.EncryptionKey = "NYANCAT"
@@ -64,5 +70,8 @@
 
     Private Sub Intro_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Text = "LimeRAT @" + Environment.UserName
+        '#If Not DEBUG Then
+        '                MsgBox("Beta Tester Version")
+        '#End If
     End Sub
 End Class

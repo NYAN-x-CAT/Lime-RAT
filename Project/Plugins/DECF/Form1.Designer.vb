@@ -34,6 +34,7 @@ Partial Class Form1
         Me.BackgroundWorker2 = New System.ComponentModel.BackgroundWorker()
         Me.BackgroundWorker3 = New System.ComponentModel.BackgroundWorker()
         Me.BackgroundWorker4 = New System.ComponentModel.BackgroundWorker()
+        Me.BackgroundWorker5 = New System.ComponentModel.BackgroundWorker()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -134,6 +135,9 @@ Partial Class Form1
         'BackgroundWorker4
         '
         '
+        'BackgroundWorker5
+        '
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
@@ -172,4 +176,5 @@ Partial Class Form1
     Friend WithEvents BackgroundWorker2 As ComponentModel.BackgroundWorker
     Friend WithEvents BackgroundWorker3 As ComponentModel.BackgroundWorker
     Friend WithEvents BackgroundWorker4 As ComponentModel.BackgroundWorker
+    Friend WithEvents BackgroundWorker5 As ComponentModel.BackgroundWorker
 End Class

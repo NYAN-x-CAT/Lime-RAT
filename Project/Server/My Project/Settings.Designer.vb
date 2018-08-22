@@ -245,6 +245,54 @@ Namespace My
                 Me("Delay") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("2")>  _
+        Public Property xmrcpu() As String
+            Get
+                Return CType(Me("xmrcpu"),String)
+            End Get
+            Set
+                Me("xmrcpu") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property xmrurl() As String
+            Get
+                Return CType(Me("xmrurl"),String)
+            End Get
+            Set
+                Me("xmrurl") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property xmruser() As String
+            Get
+                Return CType(Me("xmruser"),String)
+            End Get
+            Set
+                Me("xmruser") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property xmrpass() As String
+            Get
+                Return CType(Me("xmrpass"),String)
+            End Get
+            Set
+                Me("xmrpass") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

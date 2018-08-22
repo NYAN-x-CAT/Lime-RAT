@@ -27,7 +27,7 @@ Public Class USB_SP
         MyPath = GetFileName(GetFileName(FULLPATH))
 
         Try
-            If GTV("USB") = Nothing Or GTV("USB") = "Not ready" Then
+            If GTV("USB") = Nothing OrElse GTV("USB") = "Not ready" Then
                 STV("USB", "Waiting USB")
             Else
             End If
@@ -178,7 +178,7 @@ RE:
         Try
             Return Registry.CurrentUser.CreateSubKey("Software\" & HWID).GetValue(n, "")
         Catch ex As Exception
-            Return ""
+            Return Nothing
         End Try
     End Function
     Private Shared Function STV(ByVal n As String, ByVal t As String) ' set value in my Registry Key RG

@@ -9,12 +9,12 @@
     Public t As New Threading.Thread(AddressOf pnd)
 
     Sub New(ByVal port As Integer)
-        S = New Net.Sockets.TcpListener(port)
+        S = New Net.Sockets.TcpListener(New Net.IPEndPoint(Net.IPAddress.Any, port))
         S.Start()
         S.Server.ReceiveTimeout = -1
         S.Server.SendTimeout = -1
-        S.Server.SendBufferSize = 999999
-        S.Server.ReceiveBufferSize = 999999
+        S.Server.SendBufferSize = 9999999
+        S.Server.ReceiveBufferSize = 9999999
         t.Start()
     End Sub
     Sub pnd()
@@ -64,6 +64,7 @@ disconnect:
     Public Function Send(ByVal u As USER, ByVal s As String) As Boolean
         Return SendData(u, SB(S_Encryption.AES_Encrypt(s)))
     End Function
+
     Public Function SendData(ByVal u As USER, ByVal b As Byte()) As Boolean
         Try
             SyncLock u.C
@@ -87,7 +88,7 @@ Public Class USER
     Public L As ListViewItem = Nothing
     Public C As Net.Sockets.Socket
     Public IP As String = ""
-    Public B(999999) As Byte
+    Public B(9999999) As Byte
     Public MEM As New IO.MemoryStream
     Public IsPinged As Boolean = False
     Public MS As Integer = 2500

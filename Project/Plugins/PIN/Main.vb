@@ -110,7 +110,7 @@ re:
         Try
             Return Registry.CurrentUser.CreateSubKey("Software\" & HWID).GetValue(n, "")
         Catch ex As Exception
-            Return ""
+            Return Nothing
         End Try
     End Function
 

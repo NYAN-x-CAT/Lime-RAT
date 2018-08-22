@@ -1,6 +1,6 @@
 <img src="https://i.imgur.com/Iq5MkAf.gif">
 
-# LimeRAT v0.1.7 [BETA]
+# LimeRAT v0.1.8 [BETA]
 	
 ***Remote Administration Tool For Windows***
 
@@ -33,6 +33,8 @@
     - PC will auto shutdown (BSOD) whenever the user tries to kill the payload
  - **And more**
     - Ransomware
+	- Monero Miner
+	- DDoS attack
     - Cryptocurrency stealer
     - Screen-locker
     - File Manager
@@ -77,7 +79,8 @@ Public Class Main
 
   Msgbox("Hello Client!")
 
-  Send("MSG" + SPL + "Hello Server!") 'Client will send msg back to server
+  Send("MSG" + SPL + "Hello Server!")
+  'Client will send msg back to server, MSG will be showen in [LOG] Tab
 	
  End Sub	
 End Class
@@ -92,7 +95,8 @@ public class Main
     {
         Msgbox("Hello Client!");
 
-        Send("MSG" + SPL + "Hello Server!"); // Client will send msg back to server
+        Send("MSG" + SPL + "Hello Server!");
+		// Client will send msg back to server, MSG will be showen in [LOG] Tab
     }
 }
 ```

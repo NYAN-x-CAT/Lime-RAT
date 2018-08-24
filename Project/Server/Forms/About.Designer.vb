@@ -55,6 +55,8 @@ Partial Class About
         Me.MetroLabel27 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel28 = New MetroFramework.Controls.MetroLabel()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.MetroLabel29 = New MetroFramework.Controls.MetroLabel()
+        Me.MetroLabel30 = New MetroFramework.Controls.MetroLabel()
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -140,7 +142,7 @@ Partial Class About
         Me.MetroLabel7.Size = New System.Drawing.Size(61, 19)
         Me.MetroLabel7.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroLabel7.TabIndex = 0
-        Me.MetroLabel7.Text = ": 0.1.8.0"
+        Me.MetroLabel7.Text = ": 0.1.8.1"
         Me.MetroLabel7.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'MetroLabel8
@@ -394,11 +396,35 @@ Partial Class About
         'BackgroundWorker1
         '
         '
+        'MetroLabel29
+        '
+        Me.MetroLabel29.AutoSize = True
+        Me.MetroLabel29.Location = New System.Drawing.Point(194, 664)
+        Me.MetroLabel29.Name = "MetroLabel29"
+        Me.MetroLabel29.Size = New System.Drawing.Size(50, 19)
+        Me.MetroLabel29.Style = MetroFramework.MetroColorStyle.Lime
+        Me.MetroLabel29.TabIndex = 6
+        Me.MetroLabel29.Text = ": xmrig"
+        Me.MetroLabel29.Theme = MetroFramework.MetroThemeStyle.Dark
+        '
+        'MetroLabel30
+        '
+        Me.MetroLabel30.AutoSize = True
+        Me.MetroLabel30.Location = New System.Drawing.Point(23, 664)
+        Me.MetroLabel30.Name = "MetroLabel30"
+        Me.MetroLabel30.Size = New System.Drawing.Size(43, 19)
+        Me.MetroLabel30.Style = MetroFramework.MetroColorStyle.Lime
+        Me.MetroLabel30.TabIndex = 7
+        Me.MetroLabel30.Text = "Miner"
+        Me.MetroLabel30.Theme = MetroFramework.MetroThemeStyle.Dark
+        '
         'About
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 732)
+        Me.ClientSize = New System.Drawing.Size(800, 763)
+        Me.Controls.Add(Me.MetroLabel29)
+        Me.Controls.Add(Me.MetroLabel30)
         Me.Controls.Add(Me.MetroLabel27)
         Me.Controls.Add(Me.MetroLabel28)
         Me.Controls.Add(Me.MetroLabel17)
@@ -473,4 +499,6 @@ Partial Class About
     Friend WithEvents MetroLabel27 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel28 As MetroFramework.Controls.MetroLabel
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents MetroLabel29 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents MetroLabel30 As MetroFramework.Controls.MetroLabel
 End Class

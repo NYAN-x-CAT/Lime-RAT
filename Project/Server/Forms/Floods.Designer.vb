@@ -118,7 +118,7 @@ Partial Class Floods
         '
         Me.Flood_Attack.FormattingEnabled = True
         Me.Flood_Attack.ItemHeight = 23
-        Me.Flood_Attack.Items.AddRange(New Object() {"Slowloris"})
+        Me.Flood_Attack.Items.AddRange(New Object() {"Slowloris", "ARME"})
         Me.Flood_Attack.Location = New System.Drawing.Point(137, 132)
         Me.Flood_Attack.Name = "Flood_Attack"
         Me.Flood_Attack.Size = New System.Drawing.Size(156, 29)

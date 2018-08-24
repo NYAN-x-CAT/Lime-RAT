@@ -72,9 +72,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Byte[].
         '''</summary>
-        Friend ReadOnly Property GIO() As Byte()
+        Friend ReadOnly Property GeoIP() As Byte()
             Get
-                Dim obj As Object = ResourceManager.GetObject("GIO", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("GeoIP", resourceCulture)
                 Return CType(obj,Byte())
             End Get
         End Property

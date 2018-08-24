@@ -148,14 +148,6 @@ https://github.com/NYAN-x-CAT/Lime-RAT/releases
 
 ---
 
-## Donation
-
-**Buy me a coffee!**
-* XMR: `49H8Kbf15JFN2diG5evGHA5G49qhgFBuDid86z3MKxTv59dcqySCzFWUL3SgsEk2SufzTziHp3UE5P8BatwuyFuv1bBKQw2`
-* BTC: `12hTx7u7AqdNr8qo4UFuLwb6XAVjoDioax`
-
----
-
 ## Disclaimer
 
 I, the creator, am not responsible for any actions, and or damages, caused by this software.

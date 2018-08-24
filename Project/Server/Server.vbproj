@@ -99,7 +99,7 @@
   <ItemGroup>
     <Compile Include="Classes\S_Encryption.vb" />
     <Compile Include="Classes\S_Functions.vb" />
-    <Compile Include="Classes\S_GeoIP.vb" />
+    <Compile Include="Classes\S_GIO.vb" />
     <Compile Include="Classes\S_IconChanger.vb" />
     <Compile Include="Classes\S_Settings.vb" />
     <Compile Include="Classes\S_Socket.vb" />
@@ -239,10 +239,11 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="packages.config" />
-    <None Include="Resources\GeoIP.dat" />
+    <None Include="Resources\GIO.dat" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Resources\Guidance.txt" />
     <None Include="Resources\Intro.wav" />
     <None Include="Resources\Error.wav" />
     <None Include="Resources\Lime%27s wallpaper.jpg" />

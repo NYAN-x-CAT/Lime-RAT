@@ -1,5 +1,5 @@
 ﻿'##################################################################
-'##         N Y A N   C A T  |||   Updated on Aug/24/2018        ##
+'##         N Y A N   C A T  |||   Updated on Aug/20/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -134,7 +134,7 @@ Public Class Main
 
 #Region "Clients Requests"
 
-    Private Shared _Gio As New S_GeoIP(Application.StartupPath & "\Misc\GeoIP.dat")
+    Private Shared _Gio As New S_GIO(Application.StartupPath & "\Misc\GIO.dat")
     Delegate Sub _Data(ByVal u As USER, ByVal b() As Byte)
     Private Sub S_Data(ByVal u As USER, ByVal b() As Byte) Handles S.Data
         Dim A As String() = Split(S_Encryption.AES_Decrypt(BS(b)), S_Settings.SPL)
@@ -823,7 +823,7 @@ Public Class Main
 
     Public Sub Messages(ByVal user As String, ByVal msg As String)
         L2.Items.Add("[" + DateAndTime.Now.ToString("hh:mm:ss tt") + "]" + "  " + user + "  →  " + msg.ToString)
-        If msg.ToString.Contains("Error!") AndAlso MetroToggle1.Checked = True Then
+        If msg.ToString.Contains("Error!") Then
             Try : My.Computer.Audio.Play(My.Resources._Error, AudioPlayMode.Background) : Catch : End Try 'https://freesound.org/people/eardeer/sounds/385281/
         End If
     End Sub
@@ -1246,11 +1246,9 @@ Public Class Main
         End Try
     End Sub
 
-
-    Private Sub DDoSToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DDoSToolStripMenuItem.Click
+    Private Sub TestToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TestToolStripMenuItem.Click
         Floods.Show()
     End Sub
-
 
 #End Region
 

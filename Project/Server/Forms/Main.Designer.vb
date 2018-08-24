@@ -54,7 +54,6 @@ Partial Class Main
         Me.PasswordsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CryptocurrencyStealerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.XMRMinerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DDoSToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.DownloadAndExecuteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FromDiskToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -84,9 +83,8 @@ Partial Class Main
         Me.StopToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TestToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Flag = New System.Windows.Forms.ImageList(Me.components)
-        Me.MetroTabPage2 = New MetroFramework.Controls.MetroTabPage()
-        Me.L2 = New System.Windows.Forms.ListBox()
         Me.MetroTabPage3 = New MetroFramework.Controls.MetroTabPage()
         Me.chkRename = New MetroFramework.Controls.MetroCheckBox()
         Me.radioNET4 = New MetroFramework.Controls.MetroRadioButton()
@@ -120,6 +118,8 @@ Partial Class Main
         Me.MetroTile1 = New MetroFramework.Controls.MetroTile()
         Me._pastebin = New MetroFramework.Controls.MetroTextBox()
         Me.MetroLabel4 = New MetroFramework.Controls.MetroLabel()
+        Me.MetroTabPage2 = New MetroFramework.Controls.MetroTabPage()
+        Me.L2 = New System.Windows.Forms.ListBox()
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
@@ -136,7 +136,6 @@ Partial Class Main
         Me.MetroTabControl1.SuspendLayout()
         Me.MetroTabPage1.SuspendLayout()
         Me.Main_Rightclick.SuspendLayout()
-        Me.MetroTabPage2.SuspendLayout()
         Me.MetroTabPage3.SuspendLayout()
         Me.MetroPanel5.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -144,6 +143,7 @@ Partial Class Main
         CType(Me._numDelay, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MetroPanel3.SuspendLayout()
         Me.MetroPanel2.SuspendLayout()
+        Me.MetroTabPage2.SuspendLayout()
         Me.MetroPanel1.SuspendLayout()
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -273,15 +273,15 @@ Partial Class Main
         Me.Main_Rightclick.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.Main_Rightclick.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.Main_Rightclick.ImageScalingSize = New System.Drawing.Size(24, 24)
-        Me.Main_Rightclick.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PluginsToolStripMenuItem, Me.ToolStripSeparator1, Me.DownloadAndExecuteToolStripMenuItem, Me.MiscellaneousToolStripMenuItem, Me.BotPCOptionsToolStripMenuItem, Me.ControllerOptionsToolStripMenuItem, Me.ToolStripSeparator2, Me.NoteToolStripMenuItem, Me.ClientColorToolStripMenuItem, Me.ClientFolderToolStripMenuItem, Me.ToolStripSeparator3, Me.AutoUpdateClientsToolStripMenuItem, Me.ToolStripSeparator4, Me.AboutToolStripMenuItem})
+        Me.Main_Rightclick.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PluginsToolStripMenuItem, Me.ToolStripSeparator1, Me.DownloadAndExecuteToolStripMenuItem, Me.MiscellaneousToolStripMenuItem, Me.BotPCOptionsToolStripMenuItem, Me.ControllerOptionsToolStripMenuItem, Me.ToolStripSeparator2, Me.NoteToolStripMenuItem, Me.ClientColorToolStripMenuItem, Me.ClientFolderToolStripMenuItem, Me.ToolStripSeparator3, Me.AutoUpdateClientsToolStripMenuItem, Me.ToolStripSeparator4, Me.AboutToolStripMenuItem, Me.TestToolStripMenuItem})
         Me.Main_Rightclick.Name = "ContextMenuStrip1"
         Me.Main_Rightclick.ShowImageMargin = False
-        Me.Main_Rightclick.Size = New System.Drawing.Size(221, 328)
+        Me.Main_Rightclick.Size = New System.Drawing.Size(221, 358)
         '
         'PluginsToolStripMenuItem
         '
         Me.PluginsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        Me.PluginsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RansomwareToolStripMenuItem, Me.LockScreenToolStripMenuItem, Me.FIleManagerToolStripMenuItem, Me.RemoteDesktopToolStripMenuItem, Me.DetailsToolStripMenuItem, Me.PasswordsToolStripMenuItem, Me.CryptocurrencyStealerToolStripMenuItem, Me.XMRMinerToolStripMenuItem, Me.DDoSToolStripMenuItem})
+        Me.PluginsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RansomwareToolStripMenuItem, Me.LockScreenToolStripMenuItem, Me.FIleManagerToolStripMenuItem, Me.RemoteDesktopToolStripMenuItem, Me.DetailsToolStripMenuItem, Me.PasswordsToolStripMenuItem, Me.CryptocurrencyStealerToolStripMenuItem, Me.XMRMinerToolStripMenuItem})
         Me.PluginsToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.PluginsToolStripMenuItem.Name = "PluginsToolStripMenuItem"
         Me.PluginsToolStripMenuItem.Size = New System.Drawing.Size(220, 30)
@@ -385,14 +385,6 @@ Partial Class Main
         Me.XMRMinerToolStripMenuItem.Name = "XMRMinerToolStripMenuItem"
         Me.XMRMinerToolStripMenuItem.Size = New System.Drawing.Size(275, 30)
         Me.XMRMinerToolStripMenuItem.Text = "Monero Miner"
-        '
-        'DDoSToolStripMenuItem
-        '
-        Me.DDoSToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        Me.DDoSToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
-        Me.DDoSToolStripMenuItem.Name = "DDoSToolStripMenuItem"
-        Me.DDoSToolStripMenuItem.Size = New System.Drawing.Size(275, 30)
-        Me.DDoSToolStripMenuItem.Text = "DDoS"
         '
         'ToolStripSeparator1
         '
@@ -612,6 +604,13 @@ Partial Class Main
         Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
         Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(220, 30)
         Me.AboutToolStripMenuItem.Text = "About"
+        '
+        'TestToolStripMenuItem
+        '
+        Me.TestToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
+        Me.TestToolStripMenuItem.Name = "TestToolStripMenuItem"
+        Me.TestToolStripMenuItem.Size = New System.Drawing.Size(220, 30)
+        Me.TestToolStripMenuItem.Text = "test"
         '
         'Flag
         '
@@ -860,35 +859,6 @@ Partial Class Main
         Me.Flag.Images.SetKeyName(240, "zm.png")
         Me.Flag.Images.SetKeyName(241, "zw.png")
         Me.Flag.Images.SetKeyName(242, "--.png")
-        '
-        'MetroTabPage2
-        '
-        Me.MetroTabPage2.Controls.Add(Me.L2)
-        Me.MetroTabPage2.HorizontalScrollbarBarColor = True
-        Me.MetroTabPage2.Location = New System.Drawing.Point(4, 39)
-        Me.MetroTabPage2.Name = "MetroTabPage2"
-        Me.MetroTabPage2.Size = New System.Drawing.Size(1614, 504)
-        Me.MetroTabPage2.Style = MetroFramework.MetroColorStyle.Lime
-        Me.MetroTabPage2.TabIndex = 1
-        Me.MetroTabPage2.Text = "Logs"
-        Me.MetroTabPage2.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.MetroTabPage2.VerticalScrollbarBarColor = True
-        '
-        'L2
-        '
-        Me.L2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.L2.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        Me.L2.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.L2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
-        Me.L2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(142, Byte), Integer), CType(CType(188, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.L2.FormattingEnabled = True
-        Me.L2.ItemHeight = 20
-        Me.L2.Location = New System.Drawing.Point(3, 23)
-        Me.L2.Name = "L2"
-        Me.L2.Size = New System.Drawing.Size(1603, 440)
-        Me.L2.TabIndex = 2
         '
         'MetroTabPage3
         '
@@ -1373,6 +1343,35 @@ Partial Class Main
         Me.MetroLabel4.Text = "Pastebin URL"
         Me.MetroLabel4.Theme = MetroFramework.MetroThemeStyle.Dark
         '
+        'MetroTabPage2
+        '
+        Me.MetroTabPage2.Controls.Add(Me.L2)
+        Me.MetroTabPage2.HorizontalScrollbarBarColor = True
+        Me.MetroTabPage2.Location = New System.Drawing.Point(4, 39)
+        Me.MetroTabPage2.Name = "MetroTabPage2"
+        Me.MetroTabPage2.Size = New System.Drawing.Size(1614, 504)
+        Me.MetroTabPage2.Style = MetroFramework.MetroColorStyle.Lime
+        Me.MetroTabPage2.TabIndex = 1
+        Me.MetroTabPage2.Text = "Logs"
+        Me.MetroTabPage2.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.MetroTabPage2.VerticalScrollbarBarColor = True
+        '
+        'L2
+        '
+        Me.L2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.L2.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        Me.L2.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.L2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.L2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(142, Byte), Integer), CType(CType(188, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.L2.FormattingEnabled = True
+        Me.L2.ItemHeight = 20
+        Me.L2.Location = New System.Drawing.Point(3, 23)
+        Me.L2.Name = "L2"
+        Me.L2.Size = New System.Drawing.Size(1603, 440)
+        Me.L2.TabIndex = 2
+        '
         'NotifyIcon1
         '
         Me.NotifyIcon1.Icon = CType(resources.GetObject("NotifyIcon1.Icon"), System.Drawing.Icon)
@@ -1504,7 +1503,6 @@ Partial Class Main
         Me.MetroTabControl1.ResumeLayout(False)
         Me.MetroTabPage1.ResumeLayout(False)
         Me.Main_Rightclick.ResumeLayout(False)
-        Me.MetroTabPage2.ResumeLayout(False)
         Me.MetroTabPage3.ResumeLayout(False)
         Me.MetroTabPage3.PerformLayout()
         Me.MetroPanel5.ResumeLayout(False)
@@ -1517,6 +1515,7 @@ Partial Class Main
         Me.MetroPanel3.PerformLayout()
         Me.MetroPanel2.ResumeLayout(False)
         Me.MetroPanel2.PerformLayout()
+        Me.MetroTabPage2.ResumeLayout(False)
         Me.MetroPanel1.ResumeLayout(False)
         Me.MetroPanel1.PerformLayout()
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1634,5 +1633,5 @@ Partial Class Main
     Friend WithEvents XMR As ColumnHeader
     Friend WithEvents XMRMinerToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents MetroLabel12 As MetroFramework.Controls.MetroLabel
-    Friend WithEvents DDoSToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents TestToolStripMenuItem As ToolStripMenuItem
 End Class

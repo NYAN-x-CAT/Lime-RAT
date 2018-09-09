@@ -29,14 +29,17 @@
     - Payload size is about 25 KB
 - **Anti Virtual Machines**
     - Uninstall itself if the machine is virtual to avoid scanning or analyzing 
-- **Anti-Kill**
-    - PC will auto shutdown (BSOD) whenever the user tries to kill the payload
+- **Ransomware**
+    - Encrypting files on all HHD and USB with .Lime extension
+- **XMR Miner**
+    - High performance Monero CPU miner with user idle\active optimizations
+- **DDoS**
+    - Creating a powerful DDOS attack to make an online service unavailable
+- **Crypto Stealer**
+    - Stealing Cryptocurrency sensitive data
+- **Screen-Locker**
+    - Prevents user from accessing their Windows GUI  
  - **And more**
-    - Ransomware
-	- Monero Miner
-	- DDoS attack
-    - Cryptocurrency stealer
-    - Screen-locker
     - File Manager
     - Passowrds stealer
     - Remote desktop

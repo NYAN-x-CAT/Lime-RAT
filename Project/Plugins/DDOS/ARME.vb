@@ -54,12 +54,13 @@ Public Module ARME
             Attacks = 0
         End If
 
+        STV("Flood|STOP", "True")
     End Sub
 
     Public Sub StopARME()
 
 1:
-        If GTV("ARME|STOP") = "False" Then
+        If GTV("Flood|STOP") = "False" Then
             Thread.Sleep(1000)
             GoTo 1
         End If

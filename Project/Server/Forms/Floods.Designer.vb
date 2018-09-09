@@ -31,8 +31,10 @@ Partial Class Floods
         Me.MetroLabel2 = New MetroFramework.Controls.MetroLabel()
         Me.Flood_Threads = New MetroFramework.Controls.MetroTextBox()
         Me.Flood_Attack = New MetroFramework.Controls.MetroComboBox()
-        Me.Flood_Type = New MetroFramework.Controls.MetroLabel()
+        Me.MetroLabel6 = New MetroFramework.Controls.MetroLabel()
         Me.MetroTile1 = New MetroFramework.Controls.MetroTile()
+        Me.MetroLabel3 = New MetroFramework.Controls.MetroLabel()
+        Me.Flood_Port = New MetroFramework.Controls.MetroTextBox()
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -118,7 +120,7 @@ Partial Class Floods
         '
         Me.Flood_Attack.FormattingEnabled = True
         Me.Flood_Attack.ItemHeight = 23
-        Me.Flood_Attack.Items.AddRange(New Object() {"Slowloris", "ARME"})
+        Me.Flood_Attack.Items.AddRange(New Object() {"Slowloris", "ARME", "UDP"})
         Me.Flood_Attack.Location = New System.Drawing.Point(137, 132)
         Me.Flood_Attack.Name = "Flood_Attack"
         Me.Flood_Attack.Size = New System.Drawing.Size(156, 29)
@@ -126,17 +128,17 @@ Partial Class Floods
         Me.Flood_Attack.TabIndex = 11
         Me.Flood_Attack.Theme = MetroFramework.MetroThemeStyle.Dark
         '
-        'Flood_Type
+        'MetroLabel6
         '
-        Me.Flood_Type.AutoSize = True
-        Me.Flood_Type.FontWeight = MetroFramework.MetroLabelWeight.Regular
-        Me.Flood_Type.Location = New System.Drawing.Point(36, 132)
-        Me.Flood_Type.Name = "Flood_Type"
-        Me.Flood_Type.Size = New System.Drawing.Size(48, 19)
-        Me.Flood_Type.Style = MetroFramework.MetroColorStyle.Lime
-        Me.Flood_Type.TabIndex = 12
-        Me.Flood_Type.Text = "Attack"
-        Me.Flood_Type.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.MetroLabel6.AutoSize = True
+        Me.MetroLabel6.FontWeight = MetroFramework.MetroLabelWeight.Regular
+        Me.MetroLabel6.Location = New System.Drawing.Point(36, 132)
+        Me.MetroLabel6.Name = "MetroLabel6"
+        Me.MetroLabel6.Size = New System.Drawing.Size(48, 19)
+        Me.MetroLabel6.Style = MetroFramework.MetroColorStyle.Lime
+        Me.MetroLabel6.TabIndex = 12
+        Me.MetroLabel6.Text = "Attack"
+        Me.MetroLabel6.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'MetroTile1
         '
@@ -149,13 +151,41 @@ Partial Class Floods
         Me.MetroTile1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.MetroTile1.Theme = MetroFramework.MetroThemeStyle.Dark
         '
+        'MetroLabel3
+        '
+        Me.MetroLabel3.AutoSize = True
+        Me.MetroLabel3.FontWeight = MetroFramework.MetroLabelWeight.Regular
+        Me.MetroLabel3.Location = New System.Drawing.Point(366, 132)
+        Me.MetroLabel3.Name = "MetroLabel3"
+        Me.MetroLabel3.Size = New System.Drawing.Size(35, 19)
+        Me.MetroLabel3.Style = MetroFramework.MetroColorStyle.Lime
+        Me.MetroLabel3.TabIndex = 15
+        Me.MetroLabel3.Text = "Port"
+        Me.MetroLabel3.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.MetroLabel3.Visible = False
+        '
+        'Flood_Port
+        '
+        Me.Flood_Port.FontSize = MetroFramework.MetroTextBoxSize.Medium
+        Me.Flood_Port.ForeColor = System.Drawing.Color.FromArgb(CType(CType(142, Byte), Integer), CType(CType(188, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Flood_Port.Location = New System.Drawing.Point(467, 132)
+        Me.Flood_Port.Name = "Flood_Port"
+        Me.Flood_Port.Size = New System.Drawing.Size(92, 36)
+        Me.Flood_Port.Style = MetroFramework.MetroColorStyle.Lime
+        Me.Flood_Port.TabIndex = 14
+        Me.Flood_Port.Text = "8080"
+        Me.Flood_Port.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.Flood_Port.Visible = False
+        '
         'Floods
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.MetroLabel3)
+        Me.Controls.Add(Me.Flood_Port)
         Me.Controls.Add(Me.MetroTile1)
-        Me.Controls.Add(Me.Flood_Type)
+        Me.Controls.Add(Me.MetroLabel6)
         Me.Controls.Add(Me.Flood_Attack)
         Me.Controls.Add(Me.MetroLabel2)
         Me.Controls.Add(Me.Flood_Threads)
@@ -181,7 +211,9 @@ Partial Class Floods
     Friend WithEvents MetroLabel1 As MetroFramework.Controls.MetroLabel
     Friend WithEvents Flood_Time As MetroFramework.Controls.MetroTextBox
     Friend WithEvents MetroLabel5 As MetroFramework.Controls.MetroLabel
-    Friend WithEvents Flood_Type As MetroFramework.Controls.MetroLabel
+    Friend WithEvents MetroLabel6 As MetroFramework.Controls.MetroLabel
     Friend WithEvents Flood_Attack As MetroFramework.Controls.MetroComboBox
     Friend WithEvents MetroTile1 As MetroFramework.Controls.MetroTile
+    Friend WithEvents MetroLabel3 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents Flood_Port As MetroFramework.Controls.MetroTextBox
 End Class

@@ -115,7 +115,7 @@ cc:
             Select Case A(0)
                 Case "DEC"
                     Dim DEC As New Decryption
-                    DEC.P1 = A(1)
+                    DEC.Pass = A(1)
                     Threading.Thread.CurrentThread.Sleep(1000)
                     DEC.BeforeDec()
             End Select

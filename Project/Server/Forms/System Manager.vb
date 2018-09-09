@@ -1,7 +1,7 @@
 ﻿Public Class System_Manager
 
     Public M As Main
-    Public U As USER
+    Public U As Integer
     Private m_SortingColumn As ColumnHeader
 
     Private Sub lvwBooks_ColumnClick(ByVal sender As System.Object, ByVal e As ColumnClickEventArgs) Handles L2.ColumnClick
@@ -56,8 +56,8 @@
 
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        If U.IsConnected = False Then
-            Close()
+        If Not M.S.Online.Contains(U) Then
+            Me.Close()
         End If
     End Sub
 

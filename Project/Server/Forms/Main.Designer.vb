@@ -133,6 +133,8 @@ Partial Class Main
         Me.BackgroundWorker2 = New System.ComponentModel.BackgroundWorker()
         Me.MetroStyleExtender1 = New MetroFramework.Components.MetroStyleExtender(Me.components)
         Me.MetroToolTip1 = New MetroFramework.Components.MetroToolTip()
+        Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
+        Me.Timer3 = New System.Windows.Forms.Timer(Me.components)
         Me.MetroTabControl1.SuspendLayout()
         Me.MetroTabPage1.SuspendLayout()
         Me.Main_Rightclick.SuspendLayout()
@@ -196,6 +198,7 @@ Partial Class Main
         Me.L1.Location = New System.Drawing.Point(0, 25)
         Me.L1.Name = "L1"
         Me.L1.OwnerDraw = True
+        Me.L1.ShowGroups = False
         Me.L1.Size = New System.Drawing.Size(1614, 464)
         Me.L1.SmallImageList = Me.Flag
         Me.L1.TabIndex = 2
@@ -276,7 +279,7 @@ Partial Class Main
         Me.Main_Rightclick.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PluginsToolStripMenuItem, Me.ToolStripSeparator1, Me.DownloadAndExecuteToolStripMenuItem, Me.MiscellaneousToolStripMenuItem, Me.BotPCOptionsToolStripMenuItem, Me.ControllerOptionsToolStripMenuItem, Me.ToolStripSeparator2, Me.NoteToolStripMenuItem, Me.ClientColorToolStripMenuItem, Me.ClientFolderToolStripMenuItem, Me.ToolStripSeparator3, Me.AutoUpdateClientsToolStripMenuItem, Me.ToolStripSeparator4, Me.AboutToolStripMenuItem})
         Me.Main_Rightclick.Name = "ContextMenuStrip1"
         Me.Main_Rightclick.ShowImageMargin = False
-        Me.Main_Rightclick.Size = New System.Drawing.Size(221, 361)
+        Me.Main_Rightclick.Size = New System.Drawing.Size(221, 328)
         '
         'PluginsToolStripMenuItem
         '
@@ -918,12 +921,12 @@ Partial Class Main
         Me.chkRename.FontSize = MetroFramework.MetroLinkSize.Medium
         Me.chkRename.Location = New System.Drawing.Point(1321, 326)
         Me.chkRename.Name = "chkRename"
-        Me.chkRename.Size = New System.Drawing.Size(122, 19)
+        Me.chkRename.Size = New System.Drawing.Size(140, 19)
         Me.chkRename.Style = MetroFramework.MetroColorStyle.Lime
         Me.chkRename.TabIndex = 15
-        Me.chkRename.Text = "Rename Classes"
+        Me.chkRename.Text = "Simple obfuscation"
         Me.chkRename.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.MetroToolTip1.SetToolTip(Me.chkRename, " All pinned application on bottom bar will be injected with the client.exe")
+        Me.MetroToolTip1.SetToolTip(Me.chkRename, "Renaming namespace + classes + methods + parm")
         Me.chkRename.UseVisualStyleBackColor = True
         '
         'radioNET4
@@ -1287,7 +1290,7 @@ Partial Class Main
         Me._drop.TabIndex = 1
         Me._drop.Text = "Off"
         Me._drop.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.MetroToolTip1.SetToolTip(Me._drop, " Install client to PC [OFF \ ON]")
+        Me.MetroToolTip1.SetToolTip(Me._drop, " Install client to PC to run at startup")
         Me._drop.UseVisualStyleBackColor = True
         '
         'MetroLabel5
@@ -1484,6 +1487,15 @@ Partial Class Main
         Me.MetroToolTip1.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroToolTip1.Theme = MetroFramework.MetroThemeStyle.Dark
         '
+        'Timer2
+        '
+        Me.Timer2.Enabled = True
+        Me.Timer2.Interval = 30000
+        '
+        'Timer3
+        '
+        Me.Timer3.Interval = 5000
+        '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
@@ -1635,4 +1647,6 @@ Partial Class Main
     Friend WithEvents XMRMinerToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents MetroLabel12 As MetroFramework.Controls.MetroLabel
     Friend WithEvents DDoSToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Timer2 As Timer
+    Friend WithEvents Timer3 As Timer
 End Class

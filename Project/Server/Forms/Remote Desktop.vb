@@ -2,7 +2,7 @@
 
 Public Class Remote_Desktop
     Public M As Main
-    Public U As USER
+    Public U As Integer
     Public Sz As Size
     Public C2 As Integer = 1
     Public SPL = S_Settings.SPL
@@ -154,7 +154,7 @@ Public Class Remote_Desktop
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        If U.IsConnected = False Then
+        If Not M.S.Online.Contains(U) Then
             Me.Close()
         End If
     End Sub

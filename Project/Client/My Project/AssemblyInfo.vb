@@ -10,9 +10,9 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyTitle("")>
 <Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("Microsoft")>
+<Assembly: AssemblyCompany("")>
 <Assembly: AssemblyProduct("")>
-<Assembly: AssemblyCopyright("Copyright © Microsoft 2018")>
+<Assembly: AssemblyCopyright("")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>

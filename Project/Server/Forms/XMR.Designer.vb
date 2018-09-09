@@ -23,6 +23,7 @@ Partial Class XMR
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(XMR))
         Me.MetroStyleManager1 = New MetroFramework.Components.MetroStyleManager(Me.components)
         Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
         Me.MetroToolTip1 = New MetroFramework.Components.MetroToolTip()
@@ -33,12 +34,16 @@ Partial Class XMR
         Me.txtUSER = New MetroFramework.Controls.MetroTextBox()
         Me.txtCPU = New MetroFramework.Controls.MetroTextBox()
         Me.txtURL = New MetroFramework.Controls.MetroTextBox()
+        Me.txtCustoms = New MetroFramework.Controls.MetroTextBox()
+        Me.chkPass = New MetroFramework.Controls.MetroCheckBox()
         Me.MetroButton1 = New MetroFramework.Controls.MetroButton()
         Me.MetroButton2 = New MetroFramework.Controls.MetroButton()
         Me.chk = New MetroFramework.Controls.MetroCheckBox()
-        Me.chkPass = New MetroFramework.Controls.MetroCheckBox()
         Me.MetroPanel1 = New MetroFramework.Controls.MetroPanel()
+        Me.MetroTile1 = New MetroFramework.Controls.MetroTile()
+        Me.MetroCheckBox1 = New MetroFramework.Controls.MetroCheckBox()
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MetroPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'MetroStyleManager1
@@ -59,6 +64,12 @@ Partial Class XMR
         Me.MetroLabel1.Text = "Threads"
         Me.MetroLabel1.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.MetroToolTip1.SetToolTip(Me.MetroLabel1, "set process priority (0 idle, 2 normal to 5 highest)")
+        '
+        'MetroToolTip1
+        '
+        Me.MetroToolTip1.AutoPopDelay = 10000
+        Me.MetroToolTip1.InitialDelay = 500
+        Me.MetroToolTip1.ReshowDelay = 100
         '
         'MetroLabel2
         '
@@ -97,12 +108,11 @@ Partial Class XMR
         Me.MetroLabel4.TabIndex = 12
         Me.MetroLabel4.Text = "Password"
         Me.MetroLabel4.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.MetroToolTip1.SetToolTip(Me.MetroLabel4, "username for mining server")
+        Me.MetroToolTip1.SetToolTip(Me.MetroLabel4, "password for mining server")
         '
         'txtPASS
         '
         Me.txtPASS.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Lime_RAT.My.MySettings.Default, "xmrpass", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.txtPASS.Enabled = False
         Me.txtPASS.FontSize = MetroFramework.MetroTextBoxSize.Medium
         Me.txtPASS.FontWeight = MetroFramework.MetroTextBoxWeight.Light
         Me.txtPASS.ForeColor = System.Drawing.Color.FromArgb(CType(CType(142, Byte), Integer), CType(CType(188, Byte), Integer), CType(CType(0, Byte), Integer))
@@ -113,7 +123,7 @@ Partial Class XMR
         Me.txtPASS.TabIndex = 13
         Me.txtPASS.Text = Global.Lime_RAT.My.MySettings.Default.xmrpass
         Me.txtPASS.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.MetroToolTip1.SetToolTip(Me.txtPASS, "username for mining server")
+        Me.MetroToolTip1.SetToolTip(Me.txtPASS, "password for mining server")
         '
         'txtUSER
         '
@@ -161,9 +171,40 @@ Partial Class XMR
         Me.txtURL.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.MetroToolTip1.SetToolTip(Me.txtURL, "URL of mining server")
         '
+        'txtCustoms
+        '
+        Me.txtCustoms.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Lime_RAT.My.MySettings.Default, "xmrcustom", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.txtCustoms.Enabled = False
+        Me.txtCustoms.FontSize = MetroFramework.MetroTextBoxSize.Medium
+        Me.txtCustoms.FontWeight = MetroFramework.MetroTextBoxWeight.Light
+        Me.txtCustoms.ForeColor = System.Drawing.Color.FromArgb(CType(CType(142, Byte), Integer), CType(CType(188, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.txtCustoms.Location = New System.Drawing.Point(161, 380)
+        Me.txtCustoms.Name = "txtCustoms"
+        Me.txtCustoms.Size = New System.Drawing.Size(543, 36)
+        Me.txtCustoms.Style = MetroFramework.MetroColorStyle.Lime
+        Me.txtCustoms.TabIndex = 17
+        Me.txtCustoms.Text = Global.Lime_RAT.My.MySettings.Default.xmrcustom
+        Me.txtCustoms.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.MetroToolTip1.SetToolTip(Me.txtCustoms, resources.GetString("txtCustoms.ToolTip"))
+        '
+        'chkPass
+        '
+        Me.chkPass.AutoSize = True
+        Me.chkPass.FontSize = MetroFramework.MetroLinkSize.Medium
+        Me.chkPass.FontWeight = MetroFramework.MetroLinkWeight.Bold
+        Me.chkPass.Location = New System.Drawing.Point(567, 363)
+        Me.chkPass.Name = "chkPass"
+        Me.chkPass.Size = New System.Drawing.Size(160, 19)
+        Me.chkPass.Style = MetroFramework.MetroColorStyle.Lime
+        Me.chkPass.TabIndex = 14
+        Me.chkPass.Text = "Use Client ID as pwd"
+        Me.chkPass.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.MetroToolTip1.SetToolTip(Me.chkPass, "If checked, password will equal to every client id")
+        Me.chkPass.UseVisualStyleBackColor = True
+        '
         'MetroButton1
         '
-        Me.MetroButton1.Location = New System.Drawing.Point(168, 499)
+        Me.MetroButton1.Location = New System.Drawing.Point(161, 500)
         Me.MetroButton1.Name = "MetroButton1"
         Me.MetroButton1.Size = New System.Drawing.Size(191, 45)
         Me.MetroButton1.Style = MetroFramework.MetroColorStyle.Lime
@@ -173,7 +214,7 @@ Partial Class XMR
         '
         'MetroButton2
         '
-        Me.MetroButton2.Location = New System.Drawing.Point(536, 499)
+        Me.MetroButton2.Location = New System.Drawing.Point(513, 500)
         Me.MetroButton2.Name = "MetroButton2"
         Me.MetroButton2.Size = New System.Drawing.Size(191, 45)
         Me.MetroButton2.Style = MetroFramework.MetroColorStyle.Lime
@@ -197,31 +238,20 @@ Partial Class XMR
         Me.chk.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.chk.UseVisualStyleBackColor = True
         '
-        'chkPass
-        '
-        Me.chkPass.AutoSize = True
-        Me.chkPass.Checked = True
-        Me.chkPass.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkPass.FontSize = MetroFramework.MetroLinkSize.Medium
-        Me.chkPass.FontWeight = MetroFramework.MetroLinkWeight.Bold
-        Me.chkPass.Location = New System.Drawing.Point(567, 363)
-        Me.chkPass.Name = "chkPass"
-        Me.chkPass.Size = New System.Drawing.Size(160, 19)
-        Me.chkPass.Style = MetroFramework.MetroColorStyle.Lime
-        Me.chkPass.TabIndex = 14
-        Me.chkPass.Text = "Use Client ID as pwd"
-        Me.chkPass.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.chkPass.UseVisualStyleBackColor = True
-        '
         'MetroPanel1
         '
         Me.MetroPanel1.BorderStyle = MetroFramework.Drawing.MetroBorderStyle.FixedSingle
+        Me.MetroPanel1.Controls.Add(Me.MetroTile1)
+        Me.MetroPanel1.Controls.Add(Me.MetroCheckBox1)
+        Me.MetroPanel1.Controls.Add(Me.txtCustoms)
+        Me.MetroPanel1.Controls.Add(Me.MetroButton1)
+        Me.MetroPanel1.Controls.Add(Me.MetroButton2)
         Me.MetroPanel1.HorizontalScrollbarBarColor = True
         Me.MetroPanel1.HorizontalScrollbarHighlightOnWheel = False
         Me.MetroPanel1.HorizontalScrollbarSize = 10
         Me.MetroPanel1.Location = New System.Drawing.Point(23, 100)
         Me.MetroPanel1.Name = "MetroPanel1"
-        Me.MetroPanel1.Size = New System.Drawing.Size(834, 481)
+        Me.MetroPanel1.Size = New System.Drawing.Size(834, 593)
         Me.MetroPanel1.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroPanel1.TabIndex = 15
         Me.MetroPanel1.Theme = MetroFramework.MetroThemeStyle.Dark
@@ -229,11 +259,36 @@ Partial Class XMR
         Me.MetroPanel1.VerticalScrollbarHighlightOnWheel = False
         Me.MetroPanel1.VerticalScrollbarSize = 10
         '
+        'MetroTile1
+        '
+        Me.MetroTile1.Location = New System.Drawing.Point(571, 30)
+        Me.MetroTile1.Name = "MetroTile1"
+        Me.MetroTile1.Size = New System.Drawing.Size(133, 36)
+        Me.MetroTile1.Style = MetroFramework.MetroColorStyle.Lime
+        Me.MetroTile1.TabIndex = 16
+        Me.MetroTile1.Text = "Test Settings"
+        Me.MetroTile1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.MetroTile1.Theme = MetroFramework.MetroThemeStyle.Dark
+        '
+        'MetroCheckBox1
+        '
+        Me.MetroCheckBox1.AutoSize = True
+        Me.MetroCheckBox1.FontSize = MetroFramework.MetroLinkSize.Medium
+        Me.MetroCheckBox1.FontWeight = MetroFramework.MetroLinkWeight.Bold
+        Me.MetroCheckBox1.Location = New System.Drawing.Point(20, 380)
+        Me.MetroCheckBox1.Name = "MetroCheckBox1"
+        Me.MetroCheckBox1.Size = New System.Drawing.Size(103, 19)
+        Me.MetroCheckBox1.Style = MetroFramework.MetroColorStyle.Lime
+        Me.MetroCheckBox1.TabIndex = 18
+        Me.MetroCheckBox1.Text = "Customized"
+        Me.MetroCheckBox1.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.MetroCheckBox1.UseVisualStyleBackColor = True
+        '
         'XMR
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(880, 604)
+        Me.ClientSize = New System.Drawing.Size(880, 716)
         Me.Controls.Add(Me.chkPass)
         Me.Controls.Add(Me.txtPASS)
         Me.Controls.Add(Me.MetroLabel4)
@@ -241,8 +296,6 @@ Partial Class XMR
         Me.Controls.Add(Me.txtCPU)
         Me.Controls.Add(Me.txtURL)
         Me.Controls.Add(Me.chk)
-        Me.Controls.Add(Me.MetroButton2)
-        Me.Controls.Add(Me.MetroButton1)
         Me.Controls.Add(Me.MetroLabel3)
         Me.Controls.Add(Me.MetroLabel2)
         Me.Controls.Add(Me.MetroLabel1)
@@ -254,6 +307,8 @@ Partial Class XMR
         Me.Text = "XMR CPU Mining"
         Me.Theme = MetroFramework.MetroThemeStyle.Dark
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MetroPanel1.ResumeLayout(False)
+        Me.MetroPanel1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -274,4 +329,7 @@ Partial Class XMR
     Friend WithEvents txtPASS As MetroFramework.Controls.MetroTextBox
     Friend WithEvents MetroLabel4 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroPanel1 As MetroFramework.Controls.MetroPanel
+    Friend WithEvents MetroCheckBox1 As MetroFramework.Controls.MetroCheckBox
+    Friend WithEvents txtCustoms As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents MetroTile1 As MetroFramework.Controls.MetroTile
 End Class

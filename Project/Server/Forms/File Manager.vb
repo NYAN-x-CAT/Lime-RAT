@@ -87,8 +87,8 @@ Public Class File_Manager
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        If U.IsConnected = False Then
-            Close()
+        If Not M.S.Online.Contains(U) Then
+            Me.Close()
         End If
     End Sub
 

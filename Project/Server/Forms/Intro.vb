@@ -42,7 +42,6 @@
 
     Private Sub MetroButton1_Click(sender As Object, e As EventArgs) Handles MetroButton1.Click
         If GTV("Read") <> "1" Then
-
             Try
                 Process.Start(Windows.Forms.Application.StartupPath + "\MISC\Support\Guidance.html")
                 STV("Read", "1")
@@ -71,7 +70,7 @@
     Private Sub Intro_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Text = "LimeRAT @" + Environment.UserName
         '#If Not DEBUG Then
-        '                MsgBox("Beta Tester Version")
+        '        MsgBox("Beta Tester Version " + S_Settings.StubVer)
         '#End If
     End Sub
 End Class

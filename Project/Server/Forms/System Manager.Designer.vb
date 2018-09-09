@@ -32,12 +32,6 @@ Partial Class System_Manager
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.CopyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RefreshToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MetroTabPage3 = New MetroFramework.Controls.MetroTabPage()
-        Me.L3 = New System.Windows.Forms.ListView()
-        Me.ColumnHeader6 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader7 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ContextMenuStrip3 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.RefreshToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MetroTabPage2 = New MetroFramework.Controls.MetroTabPage()
         Me.L2 = New System.Windows.Forms.ListView()
         Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -45,15 +39,21 @@ Partial Class System_Manager
         Me.ColumnHeader5 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ContextMenuStrip2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.RefreshToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MetroTabPage3 = New MetroFramework.Controls.MetroTabPage()
+        Me.L3 = New System.Windows.Forms.ListView()
+        Me.ColumnHeader6 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader7 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ContextMenuStrip3 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.RefreshToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.MetroStyleManager1 = New MetroFramework.Components.MetroStyleManager(Me.components)
         Me.MetroTabControl1.SuspendLayout()
         Me.MetroTabPage1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
-        Me.MetroTabPage3.SuspendLayout()
-        Me.ContextMenuStrip3.SuspendLayout()
         Me.MetroTabPage2.SuspendLayout()
         Me.ContextMenuStrip2.SuspendLayout()
+        Me.MetroTabPage3.SuspendLayout()
+        Me.ContextMenuStrip3.SuspendLayout()
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -70,7 +70,7 @@ Partial Class System_Manager
         Me.MetroTabControl1.Location = New System.Drawing.Point(23, 90)
         Me.MetroTabControl1.Name = "MetroTabControl1"
         Me.MetroTabControl1.SelectedIndex = 0
-        Me.MetroTabControl1.Size = New System.Drawing.Size(1180, 1004)
+        Me.MetroTabControl1.Size = New System.Drawing.Size(917, 691)
         Me.MetroTabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed
         Me.MetroTabControl1.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroTabControl1.TabIndex = 0
@@ -82,7 +82,7 @@ Partial Class System_Manager
         Me.MetroTabPage1.HorizontalScrollbarBarColor = True
         Me.MetroTabPage1.Location = New System.Drawing.Point(4, 39)
         Me.MetroTabPage1.Name = "MetroTabPage1"
-        Me.MetroTabPage1.Size = New System.Drawing.Size(1172, 961)
+        Me.MetroTabPage1.Size = New System.Drawing.Size(909, 648)
         Me.MetroTabPage1.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroTabPage1.TabIndex = 0
         Me.MetroTabPage1.Text = "Details"
@@ -102,7 +102,7 @@ Partial Class System_Manager
         Me.ListView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None
         Me.ListView1.Location = New System.Drawing.Point(17, 39)
         Me.ListView1.Name = "ListView1"
-        Me.ListView1.Size = New System.Drawing.Size(1134, 895)
+        Me.ListView1.Size = New System.Drawing.Size(871, 582)
         Me.ListView1.TabIndex = 2
         Me.ListView1.UseCompatibleStateImageBehavior = False
         Me.ListView1.View = System.Windows.Forms.View.Details
@@ -128,52 +128,6 @@ Partial Class System_Manager
         Me.RefreshToolStripMenuItem2.Name = "RefreshToolStripMenuItem2"
         Me.RefreshToolStripMenuItem2.Size = New System.Drawing.Size(156, 30)
         Me.RefreshToolStripMenuItem2.Text = "Refresh"
-        '
-        'MetroTabPage3
-        '
-        Me.MetroTabPage3.Controls.Add(Me.L3)
-        Me.MetroTabPage3.HorizontalScrollbarBarColor = True
-        Me.MetroTabPage3.Location = New System.Drawing.Point(4, 39)
-        Me.MetroTabPage3.Name = "MetroTabPage3"
-        Me.MetroTabPage3.Size = New System.Drawing.Size(1172, 961)
-        Me.MetroTabPage3.Style = MetroFramework.MetroColorStyle.Lime
-        Me.MetroTabPage3.TabIndex = 2
-        Me.MetroTabPage3.Text = "Startup"
-        Me.MetroTabPage3.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.MetroTabPage3.VerticalScrollbarBarColor = True
-        '
-        'L3
-        '
-        Me.L3.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.L3.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        Me.L3.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.L3.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader6, Me.ColumnHeader7})
-        Me.L3.ContextMenuStrip = Me.ContextMenuStrip3
-        Me.L3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
-        Me.L3.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None
-        Me.L3.Location = New System.Drawing.Point(17, 43)
-        Me.L3.Name = "L3"
-        Me.L3.Size = New System.Drawing.Size(1134, 837)
-        Me.L3.TabIndex = 2
-        Me.L3.UseCompatibleStateImageBehavior = False
-        Me.L3.View = System.Windows.Forms.View.Details
-        '
-        'ContextMenuStrip3
-        '
-        Me.ContextMenuStrip3.ImageScalingSize = New System.Drawing.Size(24, 24)
-        Me.ContextMenuStrip3.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RefreshToolStripMenuItem1})
-        Me.ContextMenuStrip3.Name = "ContextMenuStrip3"
-        Me.ContextMenuStrip3.Size = New System.Drawing.Size(157, 34)
-        '
-        'RefreshToolStripMenuItem1
-        '
-        Me.RefreshToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        Me.RefreshToolStripMenuItem1.ForeColor = System.Drawing.Color.White
-        Me.RefreshToolStripMenuItem1.Name = "RefreshToolStripMenuItem1"
-        Me.RefreshToolStripMenuItem1.Size = New System.Drawing.Size(156, 30)
-        Me.RefreshToolStripMenuItem1.Text = "Refresh"
         '
         'MetroTabPage2
         '
@@ -237,6 +191,52 @@ Partial Class System_Manager
         Me.RefreshToolStripMenuItem.Size = New System.Drawing.Size(156, 30)
         Me.RefreshToolStripMenuItem.Text = "Refresh"
         '
+        'MetroTabPage3
+        '
+        Me.MetroTabPage3.Controls.Add(Me.L3)
+        Me.MetroTabPage3.HorizontalScrollbarBarColor = True
+        Me.MetroTabPage3.Location = New System.Drawing.Point(4, 39)
+        Me.MetroTabPage3.Name = "MetroTabPage3"
+        Me.MetroTabPage3.Size = New System.Drawing.Size(1172, 961)
+        Me.MetroTabPage3.Style = MetroFramework.MetroColorStyle.Lime
+        Me.MetroTabPage3.TabIndex = 2
+        Me.MetroTabPage3.Text = "Startup"
+        Me.MetroTabPage3.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.MetroTabPage3.VerticalScrollbarBarColor = True
+        '
+        'L3
+        '
+        Me.L3.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.L3.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        Me.L3.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.L3.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader6, Me.ColumnHeader7})
+        Me.L3.ContextMenuStrip = Me.ContextMenuStrip3
+        Me.L3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
+        Me.L3.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None
+        Me.L3.Location = New System.Drawing.Point(17, 43)
+        Me.L3.Name = "L3"
+        Me.L3.Size = New System.Drawing.Size(1134, 837)
+        Me.L3.TabIndex = 2
+        Me.L3.UseCompatibleStateImageBehavior = False
+        Me.L3.View = System.Windows.Forms.View.Details
+        '
+        'ContextMenuStrip3
+        '
+        Me.ContextMenuStrip3.ImageScalingSize = New System.Drawing.Size(24, 24)
+        Me.ContextMenuStrip3.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RefreshToolStripMenuItem1})
+        Me.ContextMenuStrip3.Name = "ContextMenuStrip3"
+        Me.ContextMenuStrip3.Size = New System.Drawing.Size(157, 34)
+        '
+        'RefreshToolStripMenuItem1
+        '
+        Me.RefreshToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        Me.RefreshToolStripMenuItem1.ForeColor = System.Drawing.Color.White
+        Me.RefreshToolStripMenuItem1.Name = "RefreshToolStripMenuItem1"
+        Me.RefreshToolStripMenuItem1.Size = New System.Drawing.Size(156, 30)
+        Me.RefreshToolStripMenuItem1.Text = "Refresh"
+        '
         'Timer1
         '
         Me.Timer1.Enabled = True
@@ -252,7 +252,7 @@ Partial Class System_Manager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1226, 1137)
+        Me.ClientSize = New System.Drawing.Size(963, 824)
         Me.Controls.Add(Me.MetroTabControl1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "System_Manager"
@@ -264,10 +264,10 @@ Partial Class System_Manager
         Me.MetroTabControl1.ResumeLayout(False)
         Me.MetroTabPage1.ResumeLayout(False)
         Me.ContextMenuStrip1.ResumeLayout(False)
-        Me.MetroTabPage3.ResumeLayout(False)
-        Me.ContextMenuStrip3.ResumeLayout(False)
         Me.MetroTabPage2.ResumeLayout(False)
         Me.ContextMenuStrip2.ResumeLayout(False)
+        Me.MetroTabPage3.ResumeLayout(False)
+        Me.ContextMenuStrip3.ResumeLayout(False)
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 

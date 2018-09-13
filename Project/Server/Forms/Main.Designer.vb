@@ -55,6 +55,7 @@ Partial Class Main
         Me.CryptocurrencyStealerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.XMRMinerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DDoSToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EnableWindowsRDPToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.DownloadAndExecuteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FromDiskToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -63,6 +64,7 @@ Partial Class Main
         Me.VisitWebsiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RunAsAdministratorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.KeyloggerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PersistenceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BotPCOptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PCRestartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PCShutdownToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -79,12 +81,17 @@ Partial Class Main
         Me.ClientColorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ClientFolderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
-        Me.AutoUpdateClientsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.StartToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.StopToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.OnConnectToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Flag = New System.Windows.Forms.ImageList(Me.components)
+        Me.MetroTabPage4 = New MetroFramework.Controls.MetroTabPage()
+        Me.CAPsec = New System.Windows.Forms.NumericUpDown()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.CAPstart = New MetroFramework.Controls.MetroButton()
+        Me.L3 = New System.Windows.Forms.ListView()
+        Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.MetroTabPage2 = New MetroFramework.Controls.MetroTabPage()
         Me.L2 = New System.Windows.Forms.ListBox()
         Me.MetroTabPage3 = New MetroFramework.Controls.MetroTabPage()
@@ -135,9 +142,12 @@ Partial Class Main
         Me.MetroToolTip1 = New MetroFramework.Components.MetroToolTip()
         Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
         Me.Timer3 = New System.Windows.Forms.Timer(Me.components)
+        Me.Timer4 = New System.Windows.Forms.Timer(Me.components)
         Me.MetroTabControl1.SuspendLayout()
         Me.MetroTabPage1.SuspendLayout()
         Me.Main_Rightclick.SuspendLayout()
+        Me.MetroTabPage4.SuspendLayout()
+        CType(Me.CAPsec, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MetroTabPage2.SuspendLayout()
         Me.MetroTabPage3.SuspendLayout()
         Me.MetroPanel5.SuspendLayout()
@@ -155,7 +165,9 @@ Partial Class Main
         Me.MetroTabControl1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.MetroTabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
         Me.MetroTabControl1.Controls.Add(Me.MetroTabPage1)
+        Me.MetroTabControl1.Controls.Add(Me.MetroTabPage4)
         Me.MetroTabControl1.Controls.Add(Me.MetroTabPage2)
         Me.MetroTabControl1.Controls.Add(Me.MetroTabPage3)
         Me.MetroTabControl1.FontSize = MetroFramework.MetroTabControlSize.Tall
@@ -168,15 +180,16 @@ Partial Class Main
         Me.MetroTabControl1.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroTabControl1.TabIndex = 0
         Me.MetroTabControl1.Tag = "0"
+        Me.MetroTabControl1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.MetroTabControl1.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'MetroTabPage1
         '
         Me.MetroTabPage1.Controls.Add(Me.L1)
         Me.MetroTabPage1.HorizontalScrollbarBarColor = True
-        Me.MetroTabPage1.Location = New System.Drawing.Point(4, 39)
+        Me.MetroTabPage1.Location = New System.Drawing.Point(4, 42)
         Me.MetroTabPage1.Name = "MetroTabPage1"
-        Me.MetroTabPage1.Size = New System.Drawing.Size(1614, 504)
+        Me.MetroTabPage1.Size = New System.Drawing.Size(1614, 501)
         Me.MetroTabPage1.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroTabPage1.TabIndex = 0
         Me.MetroTabPage1.Text = "Clients"
@@ -199,7 +212,7 @@ Partial Class Main
         Me.L1.Name = "L1"
         Me.L1.OwnerDraw = True
         Me.L1.ShowGroups = False
-        Me.L1.Size = New System.Drawing.Size(1614, 464)
+        Me.L1.Size = New System.Drawing.Size(1614, 449)
         Me.L1.SmallImageList = Me.Flag
         Me.L1.TabIndex = 2
         Me.L1.UseCompatibleStateImageBehavior = False
@@ -276,18 +289,18 @@ Partial Class Main
         Me.Main_Rightclick.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.Main_Rightclick.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.Main_Rightclick.ImageScalingSize = New System.Drawing.Size(24, 24)
-        Me.Main_Rightclick.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PluginsToolStripMenuItem, Me.ToolStripSeparator1, Me.DownloadAndExecuteToolStripMenuItem, Me.MiscellaneousToolStripMenuItem, Me.BotPCOptionsToolStripMenuItem, Me.ControllerOptionsToolStripMenuItem, Me.ToolStripSeparator2, Me.NoteToolStripMenuItem, Me.ClientColorToolStripMenuItem, Me.ClientFolderToolStripMenuItem, Me.ToolStripSeparator3, Me.AutoUpdateClientsToolStripMenuItem, Me.ToolStripSeparator4, Me.AboutToolStripMenuItem})
+        Me.Main_Rightclick.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PluginsToolStripMenuItem, Me.ToolStripSeparator1, Me.DownloadAndExecuteToolStripMenuItem, Me.MiscellaneousToolStripMenuItem, Me.BotPCOptionsToolStripMenuItem, Me.ControllerOptionsToolStripMenuItem, Me.ToolStripSeparator2, Me.NoteToolStripMenuItem, Me.ClientColorToolStripMenuItem, Me.ClientFolderToolStripMenuItem, Me.ToolStripSeparator3, Me.OnConnectToolStripMenuItem, Me.ToolStripSeparator4, Me.AboutToolStripMenuItem})
         Me.Main_Rightclick.Name = "ContextMenuStrip1"
         Me.Main_Rightclick.ShowImageMargin = False
-        Me.Main_Rightclick.Size = New System.Drawing.Size(221, 328)
+        Me.Main_Rightclick.Size = New System.Drawing.Size(201, 328)
         '
         'PluginsToolStripMenuItem
         '
         Me.PluginsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        Me.PluginsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RansomwareToolStripMenuItem, Me.LockScreenToolStripMenuItem, Me.FIleManagerToolStripMenuItem, Me.RemoteDesktopToolStripMenuItem, Me.DetailsToolStripMenuItem, Me.PasswordsToolStripMenuItem, Me.CryptocurrencyStealerToolStripMenuItem, Me.XMRMinerToolStripMenuItem, Me.DDoSToolStripMenuItem})
+        Me.PluginsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RansomwareToolStripMenuItem, Me.LockScreenToolStripMenuItem, Me.FIleManagerToolStripMenuItem, Me.RemoteDesktopToolStripMenuItem, Me.DetailsToolStripMenuItem, Me.PasswordsToolStripMenuItem, Me.CryptocurrencyStealerToolStripMenuItem, Me.XMRMinerToolStripMenuItem, Me.DDoSToolStripMenuItem, Me.EnableWindowsRDPToolStripMenuItem})
         Me.PluginsToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.PluginsToolStripMenuItem.Name = "PluginsToolStripMenuItem"
-        Me.PluginsToolStripMenuItem.Size = New System.Drawing.Size(220, 30)
+        Me.PluginsToolStripMenuItem.Size = New System.Drawing.Size(200, 30)
         Me.PluginsToolStripMenuItem.Text = "Plugins"
         '
         'RansomwareToolStripMenuItem
@@ -297,7 +310,7 @@ Partial Class Main
         Me.RansomwareToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.RansomwareToolStripMenuItem.Name = "RansomwareToolStripMenuItem"
         Me.RansomwareToolStripMenuItem.Size = New System.Drawing.Size(275, 30)
-        Me.RansomwareToolStripMenuItem.Text = "Ransomware"
+        Me.RansomwareToolStripMenuItem.Text = "Lime Ransomware"
         '
         'EncryptToolStripMenuItem
         '
@@ -397,17 +410,25 @@ Partial Class Main
         Me.DDoSToolStripMenuItem.Size = New System.Drawing.Size(275, 30)
         Me.DDoSToolStripMenuItem.Text = "DDoS"
         '
+        'EnableWindowsRDPToolStripMenuItem
+        '
+        Me.EnableWindowsRDPToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        Me.EnableWindowsRDPToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
+        Me.EnableWindowsRDPToolStripMenuItem.Name = "EnableWindowsRDPToolStripMenuItem"
+        Me.EnableWindowsRDPToolStripMenuItem.Size = New System.Drawing.Size(275, 30)
+        Me.EnableWindowsRDPToolStripMenuItem.Text = "Enable Windows RDP"
+        '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(217, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(197, 6)
         '
         'DownloadAndExecuteToolStripMenuItem
         '
         Me.DownloadAndExecuteToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FromDiskToolStripMenuItem, Me.FromURLToolStripMenuItem1})
         Me.DownloadAndExecuteToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.DownloadAndExecuteToolStripMenuItem.Name = "DownloadAndExecuteToolStripMenuItem"
-        Me.DownloadAndExecuteToolStripMenuItem.Size = New System.Drawing.Size(220, 30)
+        Me.DownloadAndExecuteToolStripMenuItem.Size = New System.Drawing.Size(200, 30)
         Me.DownloadAndExecuteToolStripMenuItem.Text = "Download&Execute"
         '
         'FromDiskToolStripMenuItem
@@ -430,10 +451,10 @@ Partial Class Main
         '
         'MiscellaneousToolStripMenuItem
         '
-        Me.MiscellaneousToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VisitWebsiteToolStripMenuItem, Me.RunAsAdministratorToolStripMenuItem, Me.KeyloggerToolStripMenuItem})
+        Me.MiscellaneousToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VisitWebsiteToolStripMenuItem, Me.RunAsAdministratorToolStripMenuItem, Me.KeyloggerToolStripMenuItem, Me.PersistenceToolStripMenuItem})
         Me.MiscellaneousToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.MiscellaneousToolStripMenuItem.Name = "MiscellaneousToolStripMenuItem"
-        Me.MiscellaneousToolStripMenuItem.Size = New System.Drawing.Size(220, 30)
+        Me.MiscellaneousToolStripMenuItem.Size = New System.Drawing.Size(200, 30)
         Me.MiscellaneousToolStripMenuItem.Text = "Miscellaneous"
         '
         'VisitWebsiteToolStripMenuItem
@@ -460,12 +481,20 @@ Partial Class Main
         Me.KeyloggerToolStripMenuItem.Size = New System.Drawing.Size(261, 30)
         Me.KeyloggerToolStripMenuItem.Text = "Keylogger"
         '
+        'PersistenceToolStripMenuItem
+        '
+        Me.PersistenceToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        Me.PersistenceToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
+        Me.PersistenceToolStripMenuItem.Name = "PersistenceToolStripMenuItem"
+        Me.PersistenceToolStripMenuItem.Size = New System.Drawing.Size(261, 30)
+        Me.PersistenceToolStripMenuItem.Text = "Persistence"
+        '
         'BotPCOptionsToolStripMenuItem
         '
         Me.BotPCOptionsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PCRestartToolStripMenuItem, Me.PCShutdownToolStripMenuItem, Me.PCLogoutToolStripMenuItem})
         Me.BotPCOptionsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.BotPCOptionsToolStripMenuItem.Name = "BotPCOptionsToolStripMenuItem"
-        Me.BotPCOptionsToolStripMenuItem.Size = New System.Drawing.Size(220, 30)
+        Me.BotPCOptionsToolStripMenuItem.Size = New System.Drawing.Size(200, 30)
         Me.BotPCOptionsToolStripMenuItem.Text = "PC Options"
         '
         'PCRestartToolStripMenuItem
@@ -497,7 +526,7 @@ Partial Class Main
         Me.ControllerOptionsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UpdateToolStripMenuItem, Me.RestartToolStripMenuItem, Me.CloseToolStripMenuItem, Me.UninstallToolStripMenuItem})
         Me.ControllerOptionsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.ControllerOptionsToolStripMenuItem.Name = "ControllerOptionsToolStripMenuItem"
-        Me.ControllerOptionsToolStripMenuItem.Size = New System.Drawing.Size(220, 30)
+        Me.ControllerOptionsToolStripMenuItem.Size = New System.Drawing.Size(200, 30)
         Me.ControllerOptionsToolStripMenuItem.Text = "Client Options"
         '
         'UpdateToolStripMenuItem
@@ -552,68 +581,51 @@ Partial Class Main
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(217, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(197, 6)
         '
         'NoteToolStripMenuItem
         '
         Me.NoteToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.NoteToolStripMenuItem.Name = "NoteToolStripMenuItem"
-        Me.NoteToolStripMenuItem.Size = New System.Drawing.Size(220, 30)
+        Me.NoteToolStripMenuItem.Size = New System.Drawing.Size(200, 30)
         Me.NoteToolStripMenuItem.Text = "Note"
         '
         'ClientColorToolStripMenuItem
         '
         Me.ClientColorToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.ClientColorToolStripMenuItem.Name = "ClientColorToolStripMenuItem"
-        Me.ClientColorToolStripMenuItem.Size = New System.Drawing.Size(220, 30)
+        Me.ClientColorToolStripMenuItem.Size = New System.Drawing.Size(200, 30)
         Me.ClientColorToolStripMenuItem.Text = "Client Color"
         '
         'ClientFolderToolStripMenuItem
         '
         Me.ClientFolderToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.ClientFolderToolStripMenuItem.Name = "ClientFolderToolStripMenuItem"
-        Me.ClientFolderToolStripMenuItem.Size = New System.Drawing.Size(220, 30)
+        Me.ClientFolderToolStripMenuItem.Size = New System.Drawing.Size(200, 30)
         Me.ClientFolderToolStripMenuItem.Text = "Client Folder"
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(217, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(197, 6)
         '
-        'AutoUpdateClientsToolStripMenuItem
+        'OnConnectToolStripMenuItem
         '
-        Me.AutoUpdateClientsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StartToolStripMenuItem1, Me.StopToolStripMenuItem1})
-        Me.AutoUpdateClientsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
-        Me.AutoUpdateClientsToolStripMenuItem.Name = "AutoUpdateClientsToolStripMenuItem"
-        Me.AutoUpdateClientsToolStripMenuItem.Size = New System.Drawing.Size(220, 30)
-        Me.AutoUpdateClientsToolStripMenuItem.Text = "Auto-Update Clients"
-        '
-        'StartToolStripMenuItem1
-        '
-        Me.StartToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        Me.StartToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.Control
-        Me.StartToolStripMenuItem1.Name = "StartToolStripMenuItem1"
-        Me.StartToolStripMenuItem1.Size = New System.Drawing.Size(135, 30)
-        Me.StartToolStripMenuItem1.Text = "Start"
-        '
-        'StopToolStripMenuItem1
-        '
-        Me.StopToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        Me.StopToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.Control
-        Me.StopToolStripMenuItem1.Name = "StopToolStripMenuItem1"
-        Me.StopToolStripMenuItem1.Size = New System.Drawing.Size(135, 30)
-        Me.StopToolStripMenuItem1.Text = "Stop"
+        Me.OnConnectToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
+        Me.OnConnectToolStripMenuItem.Name = "OnConnectToolStripMenuItem"
+        Me.OnConnectToolStripMenuItem.Size = New System.Drawing.Size(200, 30)
+        Me.OnConnectToolStripMenuItem.Text = "On Connect"
         '
         'ToolStripSeparator4
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(217, 6)
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(197, 6)
         '
         'AboutToolStripMenuItem
         '
         Me.AboutToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
-        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(220, 30)
+        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(200, 30)
         Me.AboutToolStripMenuItem.Text = "About"
         '
         'Flag
@@ -864,13 +876,91 @@ Partial Class Main
         Me.Flag.Images.SetKeyName(241, "zw.png")
         Me.Flag.Images.SetKeyName(242, "--.png")
         '
+        'MetroTabPage4
+        '
+        Me.MetroTabPage4.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        Me.MetroTabPage4.Controls.Add(Me.CAPsec)
+        Me.MetroTabPage4.Controls.Add(Me.Label2)
+        Me.MetroTabPage4.Controls.Add(Me.Label1)
+        Me.MetroTabPage4.Controls.Add(Me.CAPstart)
+        Me.MetroTabPage4.Controls.Add(Me.L3)
+        Me.MetroTabPage4.ForeColor = System.Drawing.SystemColors.Control
+        Me.MetroTabPage4.HorizontalScrollbarBarColor = True
+        Me.MetroTabPage4.Location = New System.Drawing.Point(4, 42)
+        Me.MetroTabPage4.Name = "MetroTabPage4"
+        Me.MetroTabPage4.Size = New System.Drawing.Size(1614, 501)
+        Me.MetroTabPage4.Style = MetroFramework.MetroColorStyle.Lime
+        Me.MetroTabPage4.TabIndex = 3
+        Me.MetroTabPage4.Text = "Thumbnail"
+        Me.MetroTabPage4.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.MetroTabPage4.VerticalScrollbarBarColor = True
+        '
+        'CAPsec
+        '
+        Me.CAPsec.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        Me.CAPsec.ForeColor = System.Drawing.SystemColors.Control
+        Me.CAPsec.Location = New System.Drawing.Point(277, 57)
+        Me.CAPsec.Minimum = New Decimal(New Integer() {3, 0, 0, 0})
+        Me.CAPsec.Name = "CAPsec"
+        Me.CAPsec.Size = New System.Drawing.Size(59, 26)
+        Me.CAPsec.TabIndex = 12
+        Me.CAPsec.Value = New Decimal(New Integer() {5, 0, 0, 0})
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(354, 59)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(64, 20)
+        Me.Label2.TabIndex = 11
+        Me.Label2.Text = "Second"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(191, 59)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(66, 20)
+        Me.Label1.TabIndex = 10
+        Me.Label1.Text = "Refresh"
+        '
+        'CAPstart
+        '
+        Me.CAPstart.Location = New System.Drawing.Point(8, 33)
+        Me.CAPstart.Name = "CAPstart"
+        Me.CAPstart.Size = New System.Drawing.Size(158, 46)
+        Me.CAPstart.Style = MetroFramework.MetroColorStyle.Lime
+        Me.CAPstart.TabIndex = 7
+        Me.CAPstart.Text = "START"
+        Me.CAPstart.Theme = MetroFramework.MetroThemeStyle.Dark
+        '
+        'L3
+        '
+        Me.L3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.L3.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        Me.L3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.L3.ForeColor = System.Drawing.SystemColors.Control
+        Me.L3.LargeImageList = Me.ImageList1
+        Me.L3.Location = New System.Drawing.Point(24, 107)
+        Me.L3.Name = "L3"
+        Me.L3.Size = New System.Drawing.Size(1272, 371)
+        Me.L3.TabIndex = 2
+        Me.L3.UseCompatibleStateImageBehavior = False
+        '
+        'ImageList1
+        '
+        Me.ImageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit
+        Me.ImageList1.ImageSize = New System.Drawing.Size(256, 156)
+        Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
+        '
         'MetroTabPage2
         '
         Me.MetroTabPage2.Controls.Add(Me.L2)
         Me.MetroTabPage2.HorizontalScrollbarBarColor = True
-        Me.MetroTabPage2.Location = New System.Drawing.Point(4, 39)
+        Me.MetroTabPage2.Location = New System.Drawing.Point(4, 42)
         Me.MetroTabPage2.Name = "MetroTabPage2"
-        Me.MetroTabPage2.Size = New System.Drawing.Size(1614, 504)
+        Me.MetroTabPage2.Size = New System.Drawing.Size(1614, 501)
         Me.MetroTabPage2.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroTabPage2.TabIndex = 1
         Me.MetroTabPage2.Text = "Logs"
@@ -890,7 +980,7 @@ Partial Class Main
         Me.L2.ItemHeight = 20
         Me.L2.Location = New System.Drawing.Point(3, 23)
         Me.L2.Name = "L2"
-        Me.L2.Size = New System.Drawing.Size(1603, 440)
+        Me.L2.Size = New System.Drawing.Size(1603, 420)
         Me.L2.TabIndex = 2
         '
         'MetroTabPage3
@@ -904,9 +994,9 @@ Partial Class Main
         Me.MetroTabPage3.Controls.Add(Me.MetroPanel3)
         Me.MetroTabPage3.Controls.Add(Me.MetroPanel2)
         Me.MetroTabPage3.HorizontalScrollbarBarColor = True
-        Me.MetroTabPage3.Location = New System.Drawing.Point(4, 39)
+        Me.MetroTabPage3.Location = New System.Drawing.Point(4, 42)
         Me.MetroTabPage3.Name = "MetroTabPage3"
-        Me.MetroTabPage3.Size = New System.Drawing.Size(1614, 504)
+        Me.MetroTabPage3.Size = New System.Drawing.Size(1614, 501)
         Me.MetroTabPage3.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroTabPage3.TabIndex = 2
         Me.MetroTabPage3.Text = "Builder"
@@ -1496,6 +1586,9 @@ Partial Class Main
         '
         Me.Timer3.Interval = 5000
         '
+        'Timer4
+        '
+        '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
@@ -1516,6 +1609,9 @@ Partial Class Main
         Me.MetroTabControl1.ResumeLayout(False)
         Me.MetroTabPage1.ResumeLayout(False)
         Me.Main_Rightclick.ResumeLayout(False)
+        Me.MetroTabPage4.ResumeLayout(False)
+        Me.MetroTabPage4.PerformLayout()
+        CType(Me.CAPsec, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MetroTabPage2.ResumeLayout(False)
         Me.MetroTabPage3.ResumeLayout(False)
         Me.MetroTabPage3.PerformLayout()
@@ -1639,14 +1735,22 @@ Partial Class Main
     Friend WithEvents KeyloggerToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ClientFolderToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CryptocurrencyStealerToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents AutoUpdateClientsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
-    Friend WithEvents StartToolStripMenuItem1 As ToolStripMenuItem
-    Friend WithEvents StopToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents XMR As ColumnHeader
     Friend WithEvents XMRMinerToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents MetroLabel12 As MetroFramework.Controls.MetroLabel
     Friend WithEvents DDoSToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents Timer2 As Timer
     Friend WithEvents Timer3 As Timer
+    Friend WithEvents OnConnectToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents EnableWindowsRDPToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MetroTabPage4 As MetroFramework.Controls.MetroTabPage
+    Friend WithEvents ImageList1 As ImageList
+    Friend WithEvents L3 As ListView
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents CAPstart As MetroFramework.Controls.MetroButton
+    Friend WithEvents Timer4 As Timer
+    Friend WithEvents CAPsec As NumericUpDown
+    Friend WithEvents PersistenceToolStripMenuItem As ToolStripMenuItem
 End Class

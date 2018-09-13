@@ -32,7 +32,6 @@ Partial Class XMR
         Me.MetroLabel4 = New MetroFramework.Controls.MetroLabel()
         Me.txtPASS = New MetroFramework.Controls.MetroTextBox()
         Me.txtUSER = New MetroFramework.Controls.MetroTextBox()
-        Me.txtCPU = New MetroFramework.Controls.MetroTextBox()
         Me.txtURL = New MetroFramework.Controls.MetroTextBox()
         Me.txtCustoms = New MetroFramework.Controls.MetroTextBox()
         Me.chkPass = New MetroFramework.Controls.MetroCheckBox()
@@ -40,10 +39,12 @@ Partial Class XMR
         Me.MetroButton2 = New MetroFramework.Controls.MetroButton()
         Me.chk = New MetroFramework.Controls.MetroCheckBox()
         Me.MetroPanel1 = New MetroFramework.Controls.MetroPanel()
+        Me.txtCPU = New System.Windows.Forms.NumericUpDown()
         Me.MetroTile1 = New MetroFramework.Controls.MetroTile()
         Me.MetroCheckBox1 = New MetroFramework.Controls.MetroCheckBox()
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MetroPanel1.SuspendLayout()
+        CType(Me.txtCPU, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MetroStyleManager1
@@ -116,9 +117,9 @@ Partial Class XMR
         Me.txtPASS.FontSize = MetroFramework.MetroTextBoxSize.Medium
         Me.txtPASS.FontWeight = MetroFramework.MetroTextBoxWeight.Light
         Me.txtPASS.ForeColor = System.Drawing.Color.FromArgb(CType(CType(142, Byte), Integer), CType(CType(188, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.txtPASS.Location = New System.Drawing.Point(184, 363)
+        Me.txtPASS.Location = New System.Drawing.Point(223, 363)
         Me.txtPASS.Name = "txtPASS"
-        Me.txtPASS.Size = New System.Drawing.Size(349, 36)
+        Me.txtPASS.Size = New System.Drawing.Size(310, 36)
         Me.txtPASS.Style = MetroFramework.MetroColorStyle.Lime
         Me.txtPASS.TabIndex = 13
         Me.txtPASS.Text = Global.Lime_RAT.My.MySettings.Default.xmrpass
@@ -131,30 +132,14 @@ Partial Class XMR
         Me.txtUSER.FontSize = MetroFramework.MetroTextBoxSize.Medium
         Me.txtUSER.FontWeight = MetroFramework.MetroTextBoxWeight.Light
         Me.txtUSER.ForeColor = System.Drawing.Color.FromArgb(CType(CType(142, Byte), Integer), CType(CType(188, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.txtUSER.Location = New System.Drawing.Point(184, 284)
+        Me.txtUSER.Location = New System.Drawing.Point(223, 284)
         Me.txtUSER.Name = "txtUSER"
-        Me.txtUSER.Size = New System.Drawing.Size(543, 36)
+        Me.txtUSER.Size = New System.Drawing.Size(504, 36)
         Me.txtUSER.Style = MetroFramework.MetroColorStyle.Lime
         Me.txtUSER.TabIndex = 11
         Me.txtUSER.Text = Global.Lime_RAT.My.MySettings.Default.xmruser
         Me.txtUSER.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.MetroToolTip1.SetToolTip(Me.txtUSER, "username for mining server")
-        '
-        'txtCPU
-        '
-        Me.txtCPU.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Lime_RAT.My.MySettings.Default, "xmrcpu", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.txtCPU.Enabled = False
-        Me.txtCPU.FontSize = MetroFramework.MetroTextBoxSize.Medium
-        Me.txtCPU.FontWeight = MetroFramework.MetroTextBoxWeight.Light
-        Me.txtCPU.ForeColor = System.Drawing.Color.FromArgb(CType(CType(142, Byte), Integer), CType(CType(188, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.txtCPU.Location = New System.Drawing.Point(184, 130)
-        Me.txtCPU.Name = "txtCPU"
-        Me.txtCPU.Size = New System.Drawing.Size(56, 36)
-        Me.txtCPU.Style = MetroFramework.MetroColorStyle.Lime
-        Me.txtCPU.TabIndex = 10
-        Me.txtCPU.Text = Global.Lime_RAT.My.MySettings.Default.xmrcpu
-        Me.txtCPU.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.MetroToolTip1.SetToolTip(Me.txtCPU, "number of miner threads")
         '
         'txtURL
         '
@@ -162,9 +147,9 @@ Partial Class XMR
         Me.txtURL.FontSize = MetroFramework.MetroTextBoxSize.Medium
         Me.txtURL.FontWeight = MetroFramework.MetroTextBoxWeight.Light
         Me.txtURL.ForeColor = System.Drawing.Color.FromArgb(CType(CType(142, Byte), Integer), CType(CType(188, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.txtURL.Location = New System.Drawing.Point(184, 206)
+        Me.txtURL.Location = New System.Drawing.Point(223, 206)
         Me.txtURL.Name = "txtURL"
-        Me.txtURL.Size = New System.Drawing.Size(543, 36)
+        Me.txtURL.Size = New System.Drawing.Size(504, 36)
         Me.txtURL.Style = MetroFramework.MetroColorStyle.Lime
         Me.txtURL.TabIndex = 9
         Me.txtURL.Text = Global.Lime_RAT.My.MySettings.Default.xmrurl
@@ -178,9 +163,9 @@ Partial Class XMR
         Me.txtCustoms.FontSize = MetroFramework.MetroTextBoxSize.Medium
         Me.txtCustoms.FontWeight = MetroFramework.MetroTextBoxWeight.Light
         Me.txtCustoms.ForeColor = System.Drawing.Color.FromArgb(CType(CType(142, Byte), Integer), CType(CType(188, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.txtCustoms.Location = New System.Drawing.Point(161, 380)
+        Me.txtCustoms.Location = New System.Drawing.Point(200, 380)
         Me.txtCustoms.Name = "txtCustoms"
-        Me.txtCustoms.Size = New System.Drawing.Size(543, 36)
+        Me.txtCustoms.Size = New System.Drawing.Size(504, 36)
         Me.txtCustoms.Style = MetroFramework.MetroColorStyle.Lime
         Me.txtCustoms.TabIndex = 17
         Me.txtCustoms.Text = Global.Lime_RAT.My.MySettings.Default.xmrcustom
@@ -204,7 +189,7 @@ Partial Class XMR
         '
         'MetroButton1
         '
-        Me.MetroButton1.Location = New System.Drawing.Point(161, 500)
+        Me.MetroButton1.Location = New System.Drawing.Point(200, 500)
         Me.MetroButton1.Name = "MetroButton1"
         Me.MetroButton1.Size = New System.Drawing.Size(191, 45)
         Me.MetroButton1.Style = MetroFramework.MetroColorStyle.Lime
@@ -229,7 +214,7 @@ Partial Class XMR
         Me.chk.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chk.FontSize = MetroFramework.MetroLinkSize.Medium
         Me.chk.FontWeight = MetroFramework.MetroLinkWeight.Bold
-        Me.chk.Location = New System.Drawing.Point(285, 130)
+        Me.chk.Location = New System.Drawing.Point(311, 28)
         Me.chk.Name = "chk"
         Me.chk.Size = New System.Drawing.Size(53, 19)
         Me.chk.Style = MetroFramework.MetroColorStyle.Lime
@@ -241,8 +226,10 @@ Partial Class XMR
         'MetroPanel1
         '
         Me.MetroPanel1.BorderStyle = MetroFramework.Drawing.MetroBorderStyle.FixedSingle
+        Me.MetroPanel1.Controls.Add(Me.txtCPU)
         Me.MetroPanel1.Controls.Add(Me.MetroTile1)
         Me.MetroPanel1.Controls.Add(Me.MetroCheckBox1)
+        Me.MetroPanel1.Controls.Add(Me.chk)
         Me.MetroPanel1.Controls.Add(Me.txtCustoms)
         Me.MetroPanel1.Controls.Add(Me.MetroButton1)
         Me.MetroPanel1.Controls.Add(Me.MetroButton2)
@@ -259,8 +246,22 @@ Partial Class XMR
         Me.MetroPanel1.VerticalScrollbarHighlightOnWheel = False
         Me.MetroPanel1.VerticalScrollbarSize = 10
         '
+        'txtCPU
+        '
+        Me.txtCPU.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.txtCPU.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtCPU.ForeColor = System.Drawing.Color.FromArgb(CType(CType(204, Byte), Integer), CType(CType(204, Byte), Integer), CType(CType(204, Byte), Integer))
+        Me.txtCPU.Location = New System.Drawing.Point(200, 27)
+        Me.txtCPU.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
+        Me.txtCPU.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.txtCPU.Name = "txtCPU"
+        Me.txtCPU.Size = New System.Drawing.Size(64, 22)
+        Me.txtCPU.TabIndex = 16
+        Me.txtCPU.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
         'MetroTile1
         '
+        Me.MetroTile1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(142, Byte), Integer), CType(CType(188, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.MetroTile1.Location = New System.Drawing.Point(571, 30)
         Me.MetroTile1.Name = "MetroTile1"
         Me.MetroTile1.Size = New System.Drawing.Size(133, 36)
@@ -293,9 +294,7 @@ Partial Class XMR
         Me.Controls.Add(Me.txtPASS)
         Me.Controls.Add(Me.MetroLabel4)
         Me.Controls.Add(Me.txtUSER)
-        Me.Controls.Add(Me.txtCPU)
         Me.Controls.Add(Me.txtURL)
-        Me.Controls.Add(Me.chk)
         Me.Controls.Add(Me.MetroLabel3)
         Me.Controls.Add(Me.MetroLabel2)
         Me.Controls.Add(Me.MetroLabel1)
@@ -309,6 +308,7 @@ Partial Class XMR
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MetroPanel1.ResumeLayout(False)
         Me.MetroPanel1.PerformLayout()
+        CType(Me.txtCPU, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -322,7 +322,6 @@ Partial Class XMR
     Friend WithEvents MetroButton1 As MetroFramework.Controls.MetroButton
     Friend WithEvents MetroButton2 As MetroFramework.Controls.MetroButton
     Friend WithEvents chk As MetroFramework.Controls.MetroCheckBox
-    Friend WithEvents txtCPU As MetroFramework.Controls.MetroTextBox
     Friend WithEvents txtURL As MetroFramework.Controls.MetroTextBox
     Friend WithEvents txtUSER As MetroFramework.Controls.MetroTextBox
     Friend WithEvents chkPass As MetroFramework.Controls.MetroCheckBox
@@ -332,4 +331,5 @@ Partial Class XMR
     Friend WithEvents MetroCheckBox1 As MetroFramework.Controls.MetroCheckBox
     Friend WithEvents txtCustoms As MetroFramework.Controls.MetroTextBox
     Friend WithEvents MetroTile1 As MetroFramework.Controls.MetroTile
+    Friend WithEvents txtCPU As NumericUpDown
 End Class

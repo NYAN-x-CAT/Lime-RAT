@@ -123,6 +123,9 @@
   <metadata name="MetroToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>243, 17</value>
   </metadata>
+  <metadata name="MetroToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>243, 17</value>
+  </metadata>
   <data name="txtCustoms.ToolTip" xml:space="preserve">
     <value>'-a, --algo=ALGO          cryptonight (default) Or cryptonight-lite
 '-o, --url=URL            URL of mining server

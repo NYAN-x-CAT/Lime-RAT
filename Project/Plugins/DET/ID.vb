@@ -241,7 +241,7 @@ Public Class ID
 
             Return StrReverse(KEYSTRING)
         Catch ex As Exception
-            Return "Error!"
+            Return "Error"
         End Try
 
     End Function
@@ -250,19 +250,9 @@ Public Class ID
         Try
             Dim v As New Text.StringBuilder
             For Each Folder In IO.Directory.GetDirectories((IO.Path.GetPathRoot(Environment.GetLogicalDrives(Environment.SpecialFolder.Desktop)) + "Windows\Microsoft.NET\Framework\"))
-                v.Append(IO.Path.GetFileName(Folder) + "  ")
+                v.Append(IO.Path.GetFileName(Folder).Substring(0, 4) + "  ")
             Next
-            Dim str As String = v.ToString
-
-            Dim re As New Text.StringBuilder
-            Dim s As String() = Split(str, "  ")
-            For i As Integer = 0 To s.Length
-                Try
-                    re.Append(s(i).Remove(4) + "  ")
-                Catch ex As Exception
-                End Try
-            Next
-            Return re.ToString
+            Return v.ToString
         Catch ex As Exception
             Return "Error"
         End Try

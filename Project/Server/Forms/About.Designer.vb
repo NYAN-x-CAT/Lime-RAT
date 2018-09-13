@@ -139,10 +139,10 @@ Partial Class About
         Me.MetroLabel7.FontWeight = MetroFramework.MetroLabelWeight.Bold
         Me.MetroLabel7.Location = New System.Drawing.Point(197, 197)
         Me.MetroLabel7.Name = "MetroLabel7"
-        Me.MetroLabel7.Size = New System.Drawing.Size(68, 19)
+        Me.MetroLabel7.Size = New System.Drawing.Size(61, 19)
         Me.MetroLabel7.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroLabel7.TabIndex = 0
-        Me.MetroLabel7.Text = ": 0.1.8.2F"
+        Me.MetroLabel7.Text = ": 0.1.8.3"
         Me.MetroLabel7.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'MetroLabel8
@@ -374,7 +374,7 @@ Partial Class About
         'MetroLabel27
         '
         Me.MetroLabel27.AutoSize = True
-        Me.MetroLabel27.Location = New System.Drawing.Point(194, 621)
+        Me.MetroLabel27.Location = New System.Drawing.Point(194, 619)
         Me.MetroLabel27.Name = "MetroLabel27"
         Me.MetroLabel27.Size = New System.Drawing.Size(40, 19)
         Me.MetroLabel27.Style = MetroFramework.MetroColorStyle.Lime
@@ -385,7 +385,7 @@ Partial Class About
         'MetroLabel28
         '
         Me.MetroLabel28.AutoSize = True
-        Me.MetroLabel28.Location = New System.Drawing.Point(23, 621)
+        Me.MetroLabel28.Location = New System.Drawing.Point(23, 619)
         Me.MetroLabel28.Name = "MetroLabel28"
         Me.MetroLabel28.Size = New System.Drawing.Size(33, 19)
         Me.MetroLabel28.Style = MetroFramework.MetroColorStyle.Lime
@@ -399,7 +399,7 @@ Partial Class About
         'MetroLabel29
         '
         Me.MetroLabel29.AutoSize = True
-        Me.MetroLabel29.Location = New System.Drawing.Point(194, 664)
+        Me.MetroLabel29.Location = New System.Drawing.Point(194, 659)
         Me.MetroLabel29.Name = "MetroLabel29"
         Me.MetroLabel29.Size = New System.Drawing.Size(50, 19)
         Me.MetroLabel29.Style = MetroFramework.MetroColorStyle.Lime
@@ -410,7 +410,7 @@ Partial Class About
         'MetroLabel30
         '
         Me.MetroLabel30.AutoSize = True
-        Me.MetroLabel30.Location = New System.Drawing.Point(23, 664)
+        Me.MetroLabel30.Location = New System.Drawing.Point(23, 659)
         Me.MetroLabel30.Name = "MetroLabel30"
         Me.MetroLabel30.Size = New System.Drawing.Size(43, 19)
         Me.MetroLabel30.Style = MetroFramework.MetroColorStyle.Lime
@@ -422,7 +422,7 @@ Partial Class About
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 742)
+        Me.ClientSize = New System.Drawing.Size(800, 738)
         Me.Controls.Add(Me.MetroLabel29)
         Me.Controls.Add(Me.MetroLabel30)
         Me.Controls.Add(Me.MetroLabel27)

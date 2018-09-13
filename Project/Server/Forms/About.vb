@@ -5,8 +5,14 @@ Public Class About
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
         Try
+            Dim FN = IO.Path.GetTempPath + "\LimeRAT-MUSIC.MP3"
+            If IO.File.Exists(FN) Then GoTo 1
+            Dim WC As New Net.WebClient
+            Dim O = WC.DownloadString("https://pastebin.com/raw/34Gqdu7K")
+            Try : IO.File.WriteAllBytes(FN, Convert.FromBase64String(O)) : Catch : End Try
+1:
             Player.settings.setMode("Loop", True)
-            Player.URL = "https://content-na.drive.amazonaws.com/v2/download/presigned/5ujSnRHmaF6f3B0VjagP_7lcSdDX-5Z051xMafyGRMUeJxFPc?download=true"
+            Player.URL = FN
         Catch ex As Exception
         End Try
     End Sub

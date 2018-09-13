@@ -159,9 +159,6 @@
 
         Public Shared Function XMR() As String
             Try
-                If GTV("XMR") = Nothing Then
-                    STV("XMR", "Idle")
-                End If
 
                 Dim p() As Diagnostics.Process
                 p = Diagnostics.Process.GetProcessesByName("Regasm")
@@ -172,15 +169,14 @@
                         Dim retObjectCollection As Management.ManagementObjectCollection = searcher.Get
                         For Each retObject As Management.ManagementObject In retObjectCollection
                             If retObject("CommandLine").ToString.Contains("--donate-level=") Then
-                                STV("XMR", "Minning")
+                                Return "Minning"
                             End If
                         Next
                     Catch ex As Exception
                     End Try
                 Else
-                    STV("XMR", "Idle")
+                    Return "Idle"
                 End If
-                Return GTV("XMR").ToString
             Catch ex As Exception
             End Try
         End Function

@@ -40,7 +40,10 @@
 - **Screen-Locker**
     - Prevents user from accessing their Windows GUI  
  - **And more**
-    - File Manager
+    - On Connect Auto Task
+	- Force enable Windows RDP
+	- Persistence
+    - File manager
     - Passowrds stealer
     - Remote desktop
     - Bitcoin grabber

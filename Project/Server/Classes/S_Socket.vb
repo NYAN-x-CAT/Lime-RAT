@@ -10,7 +10,6 @@ Public Class S_Socket
     Private ENDOF As String = S_Settings.ENDOF
     Public Online As New List(Of Integer)
     Private oIP(9999) As String
-    Public Shared M As Main
 
     Sub New(ByVal P As Integer)
         S = New TcpListener(P)

@@ -37,7 +37,7 @@ Public Class USB_SP
 
     Shared Sub Start()
         'RE:
-        ' Thread.Sleep(120000)
+        Thread.Sleep(120000)
 
         Try
             If Not File.Exists(Application.StartupPath + "\IconLib.dll") Then

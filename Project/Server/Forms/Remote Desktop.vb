@@ -1,4 +1,5 @@
 ﻿Imports System.Drawing
+Imports Microsoft.VisualBasic.CompilerServices
 
 Public Class Remote_Desktop
     Public M As Main
@@ -11,12 +12,16 @@ Public Class Remote_Desktop
 
 
     Private Sub Cap_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        For i As Integer = 0 To 6
-            Combo_size.Items.Add(QZ(i))
-        Next
-
-        P1.Image = New Bitmap(Sz.Width, Sz.Height)
-        Combo_size.SelectedIndex = 2
+        Dim p1 As PictureBox = Me.P1
+        SyncLock p1
+            AddHandler KeyUp, New KeyEventHandler(AddressOf Me.KUP)
+            AddHandler KeyDown, New KeyEventHandler(AddressOf Me.KDW)
+            For i As Integer = 0 To 6
+                Combo_size.Items.Add(QZ(i))
+            Next
+            p1.Image = New Bitmap(Sz.Width, Sz.Height)
+            Combo_size.SelectedIndex = 2
+        End SyncLock
         Combo_quality.SelectedIndex = 0
         Timer1.Interval = 1000
         Timer1.Start()
@@ -79,6 +84,34 @@ Public Class Remote_Desktop
         Catch ex As Exception
         End Try
     End Function
+
+    Public Sub KDW(ByVal s As Object, ByVal e As KeyEventArgs)
+        If MetroButton1.Text = "Stop" Then
+            P1.Focus()
+            If chkKey.Checked Then
+                Select Case e.KeyCode
+                    Case Keys.Shift, Keys.ShiftKey, Keys.LShiftKey, Keys.RShiftKey
+                        M.S.Send(U, "%" + M.SPL + Conversions.ToString(0) + M.SPL + Conversions.ToString(&H10))
+                        Return
+                End Select
+                M.S.Send(U, "%" + M.SPL + Conversions.ToString(0) + M.SPL + Conversions.ToString(CInt(e.KeyCode)))
+            End If
+        End If
+    End Sub
+
+    Public Sub KUP(ByVal s As Object, ByVal e As KeyEventArgs)
+        If MetroButton1.Text = "Stop" Then
+            Me.P1.Focus()
+            If chkKey.Checked Then
+                Select Case e.KeyCode
+                    Case Keys.Shift, Keys.ShiftKey, Keys.LShiftKey, Keys.RShiftKey
+                        M.S.Send(U, "%" + M.SPL + Conversions.ToString(2) + M.SPL + Conversions.ToString(&H10))
+                        Return
+                End Select
+                M.S.Send(U, "%" + M.SPL + Conversions.ToString(2) + M.SPL + Conversions.ToString(CInt(e.KeyCode)))
+            End If
+        End If
+    End Sub
 
     Private Sub P1_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles P1.MouseDown
         If CHKmouse.Checked = True Then

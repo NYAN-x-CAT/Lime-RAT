@@ -36,6 +36,9 @@
         On Error Resume Next
     End Sub
 
+    Private Sub Pass_Recovery_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        M.PW_F = False
+    End Sub
 
     ' Sort using the clicked column.
     Private Sub lvwBooks_ColumnClick(ByVal sender As System.Object, ByVal e As ColumnClickEventArgs) Handles L1.ColumnClick

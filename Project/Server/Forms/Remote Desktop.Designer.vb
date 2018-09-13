@@ -25,6 +25,7 @@ Partial Class Remote_Desktop
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Remote_Desktop))
         Me.MetroPanel1 = New MetroFramework.Controls.MetroPanel()
+        Me.chkKey = New MetroFramework.Controls.MetroCheckBox()
         Me.CHKmouse = New MetroFramework.Controls.MetroCheckBox()
         Me.MetroButton2 = New MetroFramework.Controls.MetroButton()
         Me.MetroButton1 = New MetroFramework.Controls.MetroButton()
@@ -43,6 +44,7 @@ Partial Class Remote_Desktop
         '
         'MetroPanel1
         '
+        Me.MetroPanel1.Controls.Add(Me.chkKey)
         Me.MetroPanel1.Controls.Add(Me.CHKmouse)
         Me.MetroPanel1.Controls.Add(Me.MetroButton2)
         Me.MetroPanel1.Controls.Add(Me.MetroButton1)
@@ -63,10 +65,22 @@ Partial Class Remote_Desktop
         Me.MetroPanel1.VerticalScrollbarHighlightOnWheel = False
         Me.MetroPanel1.VerticalScrollbarSize = 10
         '
+        'chkKey
+        '
+        Me.chkKey.AutoSize = True
+        Me.chkKey.Location = New System.Drawing.Point(469, 42)
+        Me.chkKey.Name = "chkKey"
+        Me.chkKey.Size = New System.Drawing.Size(73, 15)
+        Me.chkKey.Style = MetroFramework.MetroColorStyle.Lime
+        Me.chkKey.TabIndex = 5
+        Me.chkKey.Text = "Keyboard"
+        Me.chkKey.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.chkKey.UseVisualStyleBackColor = True
+        '
         'CHKmouse
         '
         Me.CHKmouse.AutoSize = True
-        Me.CHKmouse.Location = New System.Drawing.Point(474, 19)
+        Me.CHKmouse.Location = New System.Drawing.Point(469, 12)
         Me.CHKmouse.Name = "CHKmouse"
         Me.CHKmouse.Size = New System.Drawing.Size(59, 15)
         Me.CHKmouse.Style = MetroFramework.MetroColorStyle.Lime
@@ -189,6 +203,7 @@ Partial Class Remote_Desktop
         Me.Controls.Add(Me.P1)
         Me.Controls.Add(Me.MetroPanel1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.KeyPreview = True
         Me.MinimumSize = New System.Drawing.Size(782, 666)
         Me.Name = "Remote_Desktop"
         Me.ShadowType = MetroFramework.Forms.MetroForm.MetroFormShadowType.DropShadow
@@ -217,4 +232,5 @@ Partial Class Remote_Desktop
     Friend WithEvents MetroStyleManager1 As MetroFramework.Components.MetroStyleManager
     Friend WithEvents MetroLabel3 As MetroFramework.Controls.MetroLabel
     Friend WithEvents CHKmouse As MetroFramework.Controls.MetroCheckBox
+    Friend WithEvents chkKey As MetroFramework.Controls.MetroCheckBox
 End Class

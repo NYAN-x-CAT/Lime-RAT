@@ -307,6 +307,18 @@ Namespace My
                 Me("xmrcustom") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("30")>  _
+        Public Property PING_VALUE() As Integer
+            Get
+                Return CType(Me("PING_VALUE"),Integer)
+            End Get
+            Set
+                Me("PING_VALUE") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

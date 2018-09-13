@@ -27,15 +27,18 @@ Partial Class Floods
         Me.Flood_Host = New MetroFramework.Controls.MetroTextBox()
         Me.MetroLabel5 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
-        Me.Flood_Time = New MetroFramework.Controls.MetroTextBox()
         Me.MetroLabel2 = New MetroFramework.Controls.MetroLabel()
-        Me.Flood_Threads = New MetroFramework.Controls.MetroTextBox()
         Me.Flood_Attack = New MetroFramework.Controls.MetroComboBox()
         Me.MetroLabel6 = New MetroFramework.Controls.MetroLabel()
         Me.MetroTile1 = New MetroFramework.Controls.MetroTile()
         Me.MetroLabel3 = New MetroFramework.Controls.MetroLabel()
-        Me.Flood_Port = New MetroFramework.Controls.MetroTextBox()
+        Me.Flood_Threads = New System.Windows.Forms.NumericUpDown()
+        Me.Flood_Time = New System.Windows.Forms.NumericUpDown()
+        Me.Flood_Port = New System.Windows.Forms.NumericUpDown()
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Flood_Threads, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Flood_Time, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Flood_Port, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MetroStyleManager1
@@ -80,18 +83,6 @@ Partial Class Floods
         Me.MetroLabel1.Text = "Time [minutes]"
         Me.MetroLabel1.Theme = MetroFramework.MetroThemeStyle.Dark
         '
-        'Flood_Time
-        '
-        Me.Flood_Time.FontSize = MetroFramework.MetroTextBoxSize.Medium
-        Me.Flood_Time.ForeColor = System.Drawing.Color.FromArgb(CType(CType(142, Byte), Integer), CType(CType(188, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Flood_Time.Location = New System.Drawing.Point(467, 270)
-        Me.Flood_Time.Name = "Flood_Time"
-        Me.Flood_Time.Size = New System.Drawing.Size(92, 36)
-        Me.Flood_Time.Style = MetroFramework.MetroColorStyle.Lime
-        Me.Flood_Time.TabIndex = 7
-        Me.Flood_Time.Text = "5"
-        Me.Flood_Time.Theme = MetroFramework.MetroThemeStyle.Dark
-        '
         'MetroLabel2
         '
         Me.MetroLabel2.AutoSize = True
@@ -103,18 +94,6 @@ Partial Class Floods
         Me.MetroLabel2.TabIndex = 10
         Me.MetroLabel2.Text = "Threads"
         Me.MetroLabel2.Theme = MetroFramework.MetroThemeStyle.Dark
-        '
-        'Flood_Threads
-        '
-        Me.Flood_Threads.FontSize = MetroFramework.MetroTextBoxSize.Medium
-        Me.Flood_Threads.ForeColor = System.Drawing.Color.FromArgb(CType(CType(142, Byte), Integer), CType(CType(188, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Flood_Threads.Location = New System.Drawing.Point(137, 270)
-        Me.Flood_Threads.Name = "Flood_Threads"
-        Me.Flood_Threads.Size = New System.Drawing.Size(92, 36)
-        Me.Flood_Threads.Style = MetroFramework.MetroColorStyle.Lime
-        Me.Flood_Threads.TabIndex = 9
-        Me.Flood_Threads.Text = "2"
-        Me.Flood_Threads.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'Flood_Attack
         '
@@ -164,17 +143,44 @@ Partial Class Floods
         Me.MetroLabel3.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.MetroLabel3.Visible = False
         '
+        'Flood_Threads
+        '
+        Me.Flood_Threads.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Flood_Threads.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.Flood_Threads.ForeColor = System.Drawing.Color.FromArgb(CType(CType(204, Byte), Integer), CType(CType(204, Byte), Integer), CType(CType(204, Byte), Integer))
+        Me.Flood_Threads.Location = New System.Drawing.Point(137, 275)
+        Me.Flood_Threads.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
+        Me.Flood_Threads.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.Flood_Threads.Name = "Flood_Threads"
+        Me.Flood_Threads.Size = New System.Drawing.Size(81, 22)
+        Me.Flood_Threads.TabIndex = 17
+        Me.Flood_Threads.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'Flood_Time
+        '
+        Me.Flood_Time.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Flood_Time.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.Flood_Time.ForeColor = System.Drawing.Color.FromArgb(CType(CType(204, Byte), Integer), CType(CType(204, Byte), Integer), CType(CType(204, Byte), Integer))
+        Me.Flood_Time.Location = New System.Drawing.Point(467, 275)
+        Me.Flood_Time.Maximum = New Decimal(New Integer() {9999999, 0, 0, 0})
+        Me.Flood_Time.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.Flood_Time.Name = "Flood_Time"
+        Me.Flood_Time.Size = New System.Drawing.Size(81, 22)
+        Me.Flood_Time.TabIndex = 18
+        Me.Flood_Time.Value = New Decimal(New Integer() {5, 0, 0, 0})
+        '
         'Flood_Port
         '
-        Me.Flood_Port.FontSize = MetroFramework.MetroTextBoxSize.Medium
-        Me.Flood_Port.ForeColor = System.Drawing.Color.FromArgb(CType(CType(142, Byte), Integer), CType(CType(188, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Flood_Port.Location = New System.Drawing.Point(467, 132)
+        Me.Flood_Port.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Flood_Port.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.Flood_Port.ForeColor = System.Drawing.Color.FromArgb(CType(CType(204, Byte), Integer), CType(CType(204, Byte), Integer), CType(CType(204, Byte), Integer))
+        Me.Flood_Port.Location = New System.Drawing.Point(467, 134)
+        Me.Flood_Port.Maximum = New Decimal(New Integer() {9999999, 0, 0, 0})
+        Me.Flood_Port.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.Flood_Port.Name = "Flood_Port"
-        Me.Flood_Port.Size = New System.Drawing.Size(92, 36)
-        Me.Flood_Port.Style = MetroFramework.MetroColorStyle.Lime
-        Me.Flood_Port.TabIndex = 14
-        Me.Flood_Port.Text = "8080"
-        Me.Flood_Port.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.Flood_Port.Size = New System.Drawing.Size(81, 22)
+        Me.Flood_Port.TabIndex = 19
+        Me.Flood_Port.Value = New Decimal(New Integer() {80, 0, 0, 0})
         Me.Flood_Port.Visible = False
         '
         'Floods
@@ -182,15 +188,15 @@ Partial Class Floods
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Controls.Add(Me.MetroLabel3)
         Me.Controls.Add(Me.Flood_Port)
+        Me.Controls.Add(Me.Flood_Time)
+        Me.Controls.Add(Me.Flood_Threads)
+        Me.Controls.Add(Me.MetroLabel3)
         Me.Controls.Add(Me.MetroTile1)
         Me.Controls.Add(Me.MetroLabel6)
         Me.Controls.Add(Me.Flood_Attack)
         Me.Controls.Add(Me.MetroLabel2)
-        Me.Controls.Add(Me.Flood_Threads)
         Me.Controls.Add(Me.MetroLabel1)
-        Me.Controls.Add(Me.Flood_Time)
         Me.Controls.Add(Me.MetroLabel5)
         Me.Controls.Add(Me.Flood_Host)
         Me.Name = "Floods"
@@ -199,6 +205,9 @@ Partial Class Floods
         Me.Text = "Floods"
         Me.Theme = MetroFramework.MetroThemeStyle.Dark
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Flood_Threads, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Flood_Time, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Flood_Port, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -207,13 +216,13 @@ Partial Class Floods
     Friend WithEvents MetroStyleManager1 As MetroFramework.Components.MetroStyleManager
     Friend WithEvents Flood_Host As MetroFramework.Controls.MetroTextBox
     Friend WithEvents MetroLabel2 As MetroFramework.Controls.MetroLabel
-    Friend WithEvents Flood_Threads As MetroFramework.Controls.MetroTextBox
     Friend WithEvents MetroLabel1 As MetroFramework.Controls.MetroLabel
-    Friend WithEvents Flood_Time As MetroFramework.Controls.MetroTextBox
     Friend WithEvents MetroLabel5 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel6 As MetroFramework.Controls.MetroLabel
     Friend WithEvents Flood_Attack As MetroFramework.Controls.MetroComboBox
     Friend WithEvents MetroTile1 As MetroFramework.Controls.MetroTile
     Friend WithEvents MetroLabel3 As MetroFramework.Controls.MetroLabel
-    Friend WithEvents Flood_Port As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents Flood_Port As NumericUpDown
+    Friend WithEvents Flood_Time As NumericUpDown
+    Friend WithEvents Flood_Threads As NumericUpDown
 End Class

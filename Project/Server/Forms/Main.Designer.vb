@@ -129,7 +129,7 @@ Partial Class Main
         Me.MetroLabel4 = New MetroFramework.Controls.MetroLabel()
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.LabelUpdate = New System.Windows.Forms.Timer(Me.components)
         Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
         Me.MetroPanel1 = New MetroFramework.Controls.MetroPanel()
         Me.MetroLabel2 = New MetroFramework.Controls.MetroLabel()
@@ -140,9 +140,10 @@ Partial Class Main
         Me.BackgroundWorker2 = New System.ComponentModel.BackgroundWorker()
         Me.MetroStyleExtender1 = New MetroFramework.Components.MetroStyleExtender(Me.components)
         Me.MetroToolTip1 = New MetroFramework.Components.MetroToolTip()
-        Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
-        Me.Timer3 = New System.Windows.Forms.Timer(Me.components)
-        Me.Timer4 = New System.Windows.Forms.Timer(Me.components)
+        Me.PingClients = New System.Windows.Forms.Timer(Me.components)
+        Me.AutoUpdate = New System.Windows.Forms.Timer(Me.components)
+        Me.CAP = New System.Windows.Forms.Timer(Me.components)
+        Me.Dicconnction = New System.Windows.Forms.Timer(Me.components)
         Me.MetroTabControl1.SuspendLayout()
         Me.MetroTabPage1.SuspendLayout()
         Me.Main_Rightclick.SuspendLayout()
@@ -212,6 +213,7 @@ Partial Class Main
         Me.L1.Name = "L1"
         Me.L1.OwnerDraw = True
         Me.L1.ShowGroups = False
+        Me.L1.ShowItemToolTips = True
         Me.L1.Size = New System.Drawing.Size(1614, 449)
         Me.L1.SmallImageList = Me.Flag
         Me.L1.TabIndex = 2
@@ -1475,10 +1477,10 @@ Partial Class Main
         'BackgroundWorker1
         '
         '
-        'Timer1
+        'LabelUpdate
         '
-        Me.Timer1.Enabled = True
-        Me.Timer1.Interval = 500
+        Me.LabelUpdate.Enabled = True
+        Me.LabelUpdate.Interval = 500
         '
         'MetroLabel1
         '
@@ -1577,17 +1579,22 @@ Partial Class Main
         Me.MetroToolTip1.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroToolTip1.Theme = MetroFramework.MetroThemeStyle.Dark
         '
-        'Timer2
+        'PingClients
         '
-        Me.Timer2.Enabled = True
-        Me.Timer2.Interval = 30000
+        Me.PingClients.Enabled = True
+        Me.PingClients.Interval = 30000
         '
-        'Timer3
+        'AutoUpdate
         '
-        Me.Timer3.Interval = 5000
+        Me.AutoUpdate.Interval = 5000
         '
-        'Timer4
+        'CAP
         '
+        '
+        'Dicconnction
+        '
+        Me.Dicconnction.Enabled = True
+        Me.Dicconnction.Interval = 60000
         '
         'Main
         '
@@ -1678,7 +1685,7 @@ Partial Class Main
     Friend WithEvents ClientColorToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AboutToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
-    Friend WithEvents Timer1 As Timer
+    Friend WithEvents LabelUpdate As Timer
     Friend WithEvents MetroLabel1 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroPanel1 As MetroFramework.Controls.MetroPanel
     Friend WithEvents MetroToggle1 As MetroFramework.Controls.MetroToggle
@@ -1740,8 +1747,8 @@ Partial Class Main
     Friend WithEvents XMRMinerToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents MetroLabel12 As MetroFramework.Controls.MetroLabel
     Friend WithEvents DDoSToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents Timer2 As Timer
-    Friend WithEvents Timer3 As Timer
+    Friend WithEvents PingClients As Timer
+    Friend WithEvents AutoUpdate As Timer
     Friend WithEvents OnConnectToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents EnableWindowsRDPToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents MetroTabPage4 As MetroFramework.Controls.MetroTabPage
@@ -1750,7 +1757,8 @@ Partial Class Main
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents CAPstart As MetroFramework.Controls.MetroButton
-    Friend WithEvents Timer4 As Timer
+    Friend WithEvents CAP As Timer
     Friend WithEvents CAPsec As NumericUpDown
     Friend WithEvents PersistenceToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Dicconnction As Timer
 End Class

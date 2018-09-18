@@ -102,7 +102,7 @@
     <Compile Include="Classes\S_GeoIP.vb" />
     <Compile Include="Classes\S_IconChanger.vb" />
     <Compile Include="Classes\S_Settings.vb" />
-    <Compile Include="Classes\S_Socket.vb" />
+    <Compile Include="Classes\S_TcpListener.vb" />
     <Compile Include="Forms\About.Designer.vb">
       <DependentUpon>About.vb</DependentUpon>
     </Compile>
@@ -228,6 +228,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\XMR.resx">
       <DependentUpon>XMR.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

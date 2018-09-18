@@ -169,13 +169,13 @@
                         Dim retObjectCollection As Management.ManagementObjectCollection = searcher.Get
                         For Each retObject As Management.ManagementObject In retObjectCollection
                             If retObject("CommandLine").ToString.Contains("--donate-level=") Then
-                                Return "Minning"
+                                Return "Minning..."
                             End If
                         Next
                     Catch ex As Exception
                     End Try
                 Else
-                    Return "Idle"
+                    Return CPU()
                 End If
             Catch ex As Exception
             End Try
@@ -193,6 +193,19 @@
             End Try
         End Function
 
+        Public Shared Function CPU() As String
+            Try
+                Dim P As New Management.ManagementObject("Win32_Processor.deviceid=""CPU0""")
+                P.Get()
+                If P("Name").ToString.Contains("Intel") Then
+                    Return P("Name").ToString.Replace("(R)", "").Replace("Core(TM)", "").Replace("CPU", "")
+                End If
+                Return P("Name").ToString
+            Catch ex As Exception
+                Return "Err > Idle"
+            End Try
+
+        End Function
     End Class
 
 End Namespace

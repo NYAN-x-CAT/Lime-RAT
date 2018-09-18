@@ -70,7 +70,7 @@
     <Compile Include="C_Main.vb" />
     <Compile Include="C_Nosleep.vb" />
     <Compile Include="C_Settings.vb" />
-    <Compile Include="C_Socket.vb" />
+    <Compile Include="C_TcpClient.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
   </ItemGroup>
   <ItemGroup />

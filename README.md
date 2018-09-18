@@ -1,6 +1,6 @@
 <img src="https://i.imgur.com/Iq5MkAf.gif">
 
-# LimeRAT v0.1.8 [BETA]
+# LimeRAT v0.1.8
 	
 ***Remote Administration Tool For Windows***
  

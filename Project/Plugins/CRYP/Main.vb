@@ -1,6 +1,25 @@
 ﻿Imports System.Net.Sockets
 Imports System.Security.Cryptography
 
+'# This should work since the dll doesn't need to listen for server requests.
+
+'Dim Client As TcpClient = New TcpClient()
+'Client.Connect(HOST, PORT)
+'Client.SendBufferSize = 102400
+'Client.SendTimeout = -1
+'Client.Client.SendTimeout = -1
+'Client.Client.SendBufferSize = 102400
+'Try
+'Dim r As System.IO.MemoryStream = New System.IO.MemoryStream()
+'Dim b As Byte() = System.Text.Encoding.UTF8.GetBytes(AES_Encrypt("#YOURCASE#" & "|'L'|" & "#DATA1#" & "|'L'|" & "#DATA2#") & "|'N'|")
+'r.Write(b, 0, b.Length)
+'Client.Client.Send(b, 0, b.Length, SocketFlags.None)
+'Client.Client.Poll(-1, SelectMode.SelectRead)
+'r.Dispose()
+'Client.Client.Close(20000)
+'Catch ex6 As Exception
+'End Try
+
 Public Class Main
 
     Public Shared C As TcpClient = Nothing

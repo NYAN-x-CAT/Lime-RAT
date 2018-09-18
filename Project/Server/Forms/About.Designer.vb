@@ -142,7 +142,7 @@ Partial Class About
         Me.MetroLabel7.Size = New System.Drawing.Size(61, 19)
         Me.MetroLabel7.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroLabel7.TabIndex = 0
-        Me.MetroLabel7.Text = ": 0.1.8.3"
+        Me.MetroLabel7.Text = ": 0.1.8.4"
         Me.MetroLabel7.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'MetroLabel8
@@ -162,10 +162,10 @@ Partial Class About
         Me.MetroLabel9.AutoSize = True
         Me.MetroLabel9.Location = New System.Drawing.Point(23, 273)
         Me.MetroLabel9.Name = "MetroLabel9"
-        Me.MetroLabel9.Size = New System.Drawing.Size(47, 19)
+        Me.MetroLabel9.Size = New System.Drawing.Size(94, 19)
         Me.MetroLabel9.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroLabel9.TabIndex = 0
-        Me.MetroLabel9.Text = "Socket"
+        Me.MetroLabel9.Text = "Server Listener"
         Me.MetroLabel9.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'MetroLabel10

@@ -105,9 +105,9 @@ Public Class ID
         Try
             Dim P As New Management.ManagementObject("Win32_Processor.deviceid=""CPU0""")
             P.Get()
-            If P("Name").ToString.Contains("Intel") Then
-                Return P("Name").ToString.Replace("(R)", "").Replace("Core(TM)", "").Replace("CPU", "")
-            End If
+            ' If P("Name").ToString.Contains("Intel") Then
+            Return P("Name").ToString.Replace("(R)", "").Replace("Core(TM)", "").Replace("CPU", "")
+            ' End If
             Return P("Name").ToString
         Catch ex As Exception
             Return "Error"

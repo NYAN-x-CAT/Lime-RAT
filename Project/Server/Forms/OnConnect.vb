@@ -5,7 +5,7 @@
 
     Private Sub barPing_Scroll(sender As Object, e As ScrollEventArgs) Handles barPing.Scroll
         txtPing.Text = "Ping All Clients Every : " + barPing.Value.ToString + " Second"
-        Main.Timer2.Interval = barPing.Value * 1000
+        Main.PingClients.Interval = barPing.Value * 1000
     End Sub
 
     Private Sub chkDE_CheckedChanged(sender As Object, e As EventArgs) Handles chkDE.CheckedChanged
@@ -79,7 +79,7 @@ e:
                     'End If
 
                     Main.ClientEXE = o.FileName
-                    Main.Timer3.Start()
+                    Main.AutoUpdate.Start()
                 End If
             End If
         Catch ex As Exception
@@ -90,7 +90,7 @@ e:
 
     Private Sub btnUpdateStop_Click(sender As Object, e As EventArgs) Handles btnUpdateStop.Click
         Try
-            Main.Timer3.Dispose()
+            Main.AutoUpdate.Dispose()
         Catch ex As Exception
         End Try
     End Sub

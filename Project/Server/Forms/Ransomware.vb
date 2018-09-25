@@ -13,6 +13,10 @@
     End Sub
 
     Private Sub MetroButton1_Click(sender As Object, e As EventArgs) Handles MetroButton1.Click
+        If PictureBox1.ImageLocation = Nothing Then
+            MsgBox("Missing Wallpaper", MsgBoxStyle.Critical)
+            Return
+        End If
         OK = True
         Close()
     End Sub

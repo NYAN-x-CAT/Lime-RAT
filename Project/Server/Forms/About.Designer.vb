@@ -139,10 +139,10 @@ Partial Class About
         Me.MetroLabel7.FontWeight = MetroFramework.MetroLabelWeight.Bold
         Me.MetroLabel7.Location = New System.Drawing.Point(197, 197)
         Me.MetroLabel7.Name = "MetroLabel7"
-        Me.MetroLabel7.Size = New System.Drawing.Size(71, 19)
+        Me.MetroLabel7.Size = New System.Drawing.Size(70, 19)
         Me.MetroLabel7.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroLabel7.TabIndex = 0
-        Me.MetroLabel7.Text = ": 0.1.8.4A"
+        Me.MetroLabel7.Text = ": 0.1.8.4B"
         Me.MetroLabel7.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'MetroLabel8

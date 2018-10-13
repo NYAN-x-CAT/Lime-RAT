@@ -16,7 +16,7 @@
 - **.NET**
     - Coded in Visual Basic .NET, Client required framework 2.0 or 4.0 dependency, And server is 4.0
 - **Connection**
-    - Using pastebin.com as ip:port , Instead of noip.com DNS
+    - Using pastebin.com as ip:port , Instead of noip.com DNS. And Also using multi-ports
 - **Plugin**
     - Using plugin system to decrease stub's size and lower the AV detection
 - **Encryption**

@@ -70,6 +70,7 @@
         End Try
     End Sub
 
+
     Private Sub RefreshToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles RefreshToolStripMenuItem2.Click
         M.S.Send(U, "Sysinfo")
     End Sub
@@ -84,6 +85,20 @@
 
     Private Sub System_Manager_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         M.S.Send(U, "Close")
+    End Sub
+
+    Private Sub KillToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles KillToolStripMenuItem.Click
+        On Error Resume Next
+        For Each x As ListViewItem In L2.SelectedItems
+            M.S.Send(U, "PROCKILL" + M.SPL + x.SubItems(1).Text.ToString)
+        Next
+    End Sub
+
+    Private Sub KillDeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles KillDeleteToolStripMenuItem.Click
+        On Error Resume Next
+        For Each x As ListViewItem In L2.SelectedItems
+            M.S.Send(U, "PROCDEL" + M.SPL + x.SubItems(1).Text.ToString + M.SPL + x.SubItems(2).Text.ToString)
+        Next
     End Sub
 
     Private Sub L2_DrawColumnHeader(ByVal sender As Object, ByVal e As DrawListViewColumnHeaderEventArgs) Handles L2.DrawColumnHeader
@@ -114,6 +129,15 @@
         On Error Resume Next
         L2.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
     End Sub
+
+    Private Sub MetroTabPage2_Enter(sender As Object, e As EventArgs) Handles MetroTabPage2.Enter
+        M.S.Send(U, "PROC")
+    End Sub
+
+    Private Sub MetroTabPage3_Enter(sender As Object, e As EventArgs) Handles MetroTabPage3.Enter
+        M.S.Send(U, "STUP")
+    End Sub
+
 End Class
 
 Public Class MyRenderer

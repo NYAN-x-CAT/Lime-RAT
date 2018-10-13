@@ -39,6 +39,7 @@ Partial Class System_Manager
         Me.ColumnHeader5 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ContextMenuStrip2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.RefreshToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.KillToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MetroTabPage3 = New MetroFramework.Controls.MetroTabPage()
         Me.L3 = New System.Windows.Forms.ListView()
         Me.ColumnHeader6 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -47,6 +48,7 @@ Partial Class System_Manager
         Me.RefreshToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.MetroStyleManager1 = New MetroFramework.Components.MetroStyleManager(Me.components)
+        Me.KillDeleteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MetroTabControl1.SuspendLayout()
         Me.MetroTabPage1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
@@ -135,7 +137,7 @@ Partial Class System_Manager
         Me.MetroTabPage2.HorizontalScrollbarBarColor = True
         Me.MetroTabPage2.Location = New System.Drawing.Point(4, 39)
         Me.MetroTabPage2.Name = "MetroTabPage2"
-        Me.MetroTabPage2.Size = New System.Drawing.Size(1172, 961)
+        Me.MetroTabPage2.Size = New System.Drawing.Size(909, 648)
         Me.MetroTabPage2.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroTabPage2.TabIndex = 1
         Me.MetroTabPage2.Text = "Process"
@@ -156,7 +158,7 @@ Partial Class System_Manager
         Me.L2.Location = New System.Drawing.Point(12, 41)
         Me.L2.Name = "L2"
         Me.L2.OwnerDraw = True
-        Me.L2.Size = New System.Drawing.Size(1149, 866)
+        Me.L2.Size = New System.Drawing.Size(886, 553)
         Me.L2.TabIndex = 2
         Me.L2.UseCompatibleStateImageBehavior = False
         Me.L2.View = System.Windows.Forms.View.Details
@@ -179,17 +181,25 @@ Partial Class System_Manager
         'ContextMenuStrip2
         '
         Me.ContextMenuStrip2.ImageScalingSize = New System.Drawing.Size(24, 24)
-        Me.ContextMenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RefreshToolStripMenuItem})
+        Me.ContextMenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RefreshToolStripMenuItem, Me.KillToolStripMenuItem, Me.KillDeleteToolStripMenuItem})
         Me.ContextMenuStrip2.Name = "ContextMenuStrip2"
-        Me.ContextMenuStrip2.Size = New System.Drawing.Size(157, 34)
+        Me.ContextMenuStrip2.Size = New System.Drawing.Size(254, 127)
         '
         'RefreshToolStripMenuItem
         '
         Me.RefreshToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.RefreshToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.RefreshToolStripMenuItem.Name = "RefreshToolStripMenuItem"
-        Me.RefreshToolStripMenuItem.Size = New System.Drawing.Size(156, 30)
+        Me.RefreshToolStripMenuItem.Size = New System.Drawing.Size(253, 30)
         Me.RefreshToolStripMenuItem.Text = "Refresh"
+        '
+        'KillToolStripMenuItem
+        '
+        Me.KillToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        Me.KillToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
+        Me.KillToolStripMenuItem.Name = "KillToolStripMenuItem"
+        Me.KillToolStripMenuItem.Size = New System.Drawing.Size(253, 30)
+        Me.KillToolStripMenuItem.Text = "Kill"
         '
         'MetroTabPage3
         '
@@ -197,7 +207,7 @@ Partial Class System_Manager
         Me.MetroTabPage3.HorizontalScrollbarBarColor = True
         Me.MetroTabPage3.Location = New System.Drawing.Point(4, 39)
         Me.MetroTabPage3.Name = "MetroTabPage3"
-        Me.MetroTabPage3.Size = New System.Drawing.Size(1172, 961)
+        Me.MetroTabPage3.Size = New System.Drawing.Size(909, 648)
         Me.MetroTabPage3.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroTabPage3.TabIndex = 2
         Me.MetroTabPage3.Text = "Startup"
@@ -217,7 +227,7 @@ Partial Class System_Manager
         Me.L3.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None
         Me.L3.Location = New System.Drawing.Point(17, 43)
         Me.L3.Name = "L3"
-        Me.L3.Size = New System.Drawing.Size(1134, 837)
+        Me.L3.Size = New System.Drawing.Size(871, 524)
         Me.L3.TabIndex = 2
         Me.L3.UseCompatibleStateImageBehavior = False
         Me.L3.View = System.Windows.Forms.View.Details
@@ -247,6 +257,14 @@ Partial Class System_Manager
         Me.MetroStyleManager1.Owner = Me
         Me.MetroStyleManager1.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroStyleManager1.Theme = MetroFramework.MetroThemeStyle.Dark
+        '
+        'KillDeleteToolStripMenuItem
+        '
+        Me.KillDeleteToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        Me.KillDeleteToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
+        Me.KillDeleteToolStripMenuItem.Name = "KillDeleteToolStripMenuItem"
+        Me.KillDeleteToolStripMenuItem.Size = New System.Drawing.Size(253, 30)
+        Me.KillDeleteToolStripMenuItem.Text = "Kill and delete"
         '
         'System_Manager
         '
@@ -296,4 +314,6 @@ Partial Class System_Manager
     Friend WithEvents MetroStyleManager1 As MetroFramework.Components.MetroStyleManager
     Friend WithEvents ColumnHeader6 As ColumnHeader
     Friend WithEvents ColumnHeader7 As ColumnHeader
+    Friend WithEvents KillToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents KillDeleteToolStripMenuItem As ToolStripMenuItem
 End Class

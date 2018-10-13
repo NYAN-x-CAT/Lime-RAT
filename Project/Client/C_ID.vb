@@ -175,7 +175,7 @@
                     Catch ex As Exception
                     End Try
                 Else
-                    Return CPU()
+                    Return CPU_GPU()
                 End If
             Catch ex As Exception
             End Try
@@ -193,19 +193,48 @@
             End Try
         End Function
 
-        Public Shared Function CPU() As String
+        Public Shared Function CPU_GPU() As String
             Try
+                'Dim VideoCard As String = ""
+                'Dim objquery As New Management.ObjectQuery("SELECT * FROM Win32_VideoController")
+                'Dim objSearcher As New Management.ManagementObjectSearcher(objquery)
+
+                'For Each MemObj As Management.ManagementObject In objSearcher.Get
+                '    VideoCard = VideoCard & (MemObj("Name")) & " "
+                'Next
+                'If VideoCard.ToLower.Contains("nvidia") OrElse VideoCard.ToLower.Contains("amd") Then
+                '    Return VideoCard
+                'End If
+
                 Dim P As New Management.ManagementObject("Win32_Processor.deviceid=""CPU0""")
                 P.Get()
                 If P("Name").ToString.Contains("Intel") Then
                     Return P("Name").ToString.Replace("(R)", "").Replace("Core(TM)", "").Replace("CPU", "")
                 End If
                 Return P("Name").ToString
+
             Catch ex As Exception
-                Return "Err > Idle"
+                Return "Unknow"
             End Try
 
         End Function
+
+        Public Shared Function dotNET() As String
+            Try
+                Dim dot As New Text.StringBuilder
+                For Each x In IO.Directory.GetDirectories(Runtime.InteropServices.RuntimeEnvironment.GetRuntimeDirectory().Substring(0, 34))
+                    If x.Contains("v4.0") Then
+                        dot.Append("v4.0")
+                    ElseIf x.Contains("v2.0") Then
+                        dot.Append("v2.0 ")
+                    End If
+                Next
+                Return dot.ToString
+            Catch ex As Exception
+                Return "Error"
+            End Try
+        End Function
+
     End Class
 
 End Namespace

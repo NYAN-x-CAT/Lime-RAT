@@ -1,5 +1,4 @@
 ﻿Public Class Intro
-
 #Region "Sub New"
     Sub New()
 
@@ -48,14 +47,13 @@
             Catch : End Try
         End If
 #If DEBUG Then
-        S_Settings.PORT = 8989
+        '  S_Settings.PORT = 8989
         S_Settings.EncryptionKey = "NYANCAT"
         Main.Show()
         Hide()
 #Else
         Try
-            If MetroTextBox1.Text <> String.Empty AndAlso MetroTextBox2.Text <> String.Empty Then
-                S_Settings.PORT = MetroTextBox1.Text
+            If S_Settings.PORT.Count > 0 AndAlso MetroTextBox2.Text <> String.Empty Then
                 S_Settings.EncryptionKey = MetroTextBox2.Text
                 My.Settings.Save()
                 Main.Show()
@@ -65,12 +63,52 @@
             MsgBox(ex.Message)
         End Try
 #End If
+
+        Try
+            Dim myWriter As New IO.StreamWriter("MISC/PORTS.dat")
+            For Each i In S_Settings.PORT.ToList
+                myWriter.WriteLine(i)
+            Next
+            myWriter.Close()
+        Catch ex As Exception
+        End Try
     End Sub
 
     Private Sub Intro_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Text = "LimeRAT @" + Environment.UserName
-        '#If Not DEBUG Then
-        '        MsgBox("Beta Tester Version " + S_Settings.StubVer)
-        '#End If
+
+        Try
+            If IO.File.Exists("MISC/PORTS.dat") Then
+                Dim TheList() As String = IO.File.ReadAllLines("MISC/PORTS.dat")
+                For Each line As String In TheList
+                    S_Settings.PORT.Add(line)
+                    ListBox1.Items.Add(line)
+                Next
+            End If
+        Catch ex As Exception
+        End Try
+
+    End Sub
+
+    Private Sub MetroButton2_Click(sender As Object, e As EventArgs) Handles MetroButton2.Click
+        Try
+            If Not S_Settings.PORT.Contains(MetroTextBox1.Text) AndAlso MetroTextBox1.Text <= 65535 Then
+                ListBox1.Items.Add(MetroTextBox1.Text)
+                S_Settings.PORT.Add(MetroTextBox1.Text)
+                MetroTextBox1.Text = Nothing
+            End If
+        Catch ex As Exception
+        End Try
+    End Sub
+
+    Private Sub RemoveToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemoveToolStripMenuItem.Click
+        Try
+            For Each item In ListBox1.SelectedItems
+                ListBox1.Items.Remove(item)
+                S_Settings.PORT.Remove(item)
+            Next
+        Catch ex As Exception
+
+        End Try
     End Sub
 End Class

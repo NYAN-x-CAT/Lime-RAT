@@ -11,13 +11,15 @@ Public Class S_TcpListener
     Public Online As New List(Of Integer)
     Private oIP(9999) As String
 
-    Sub New(ByVal P As Integer)
-        S = New TcpListener(New Net.IPEndPoint(Net.IPAddress.Any, P))
-        S.Server.ReceiveTimeout = -1
-        S.Server.SendTimeout = -1
-        S.Start()
-        Dim T As New Threading.Thread(AddressOf PND, 10)
-        T.Start()
+    Sub New(ByVal P As List(Of Integer))
+        For Each port In P.ToList
+            S = New TcpListener(New Net.IPEndPoint(Net.IPAddress.Any, port))
+            S.Server.ReceiveTimeout = -1
+            S.Server.SendTimeout = -1
+            S.Start()
+            Dim T As New Threading.Thread(AddressOf PND, 10)
+            T.Start(S)
+        Next
     End Sub
 
     Sub Send(ByVal sock As Integer, ByVal s As String)
@@ -52,7 +54,7 @@ re:
         GoTo re
     End Function
 
-    Private Sub PND()
+    Private Sub PND(ByVal S As TcpListener)
         Try
             ReDim SK(9999)
 re:

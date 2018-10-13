@@ -98,6 +98,7 @@ Public Class Main
                 registryKey3.Close()
             Catch ex As Exception
                 'Send("MSG" + SPL + "HRD! " + ex.Message)
+                Return
             End Try
 
             Try

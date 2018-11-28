@@ -108,14 +108,16 @@ Public Class Decryption
 
     Public Sub File_Dec(ByVal file As String, ByVal key As String)
         On Error Resume Next
-        Dim B2Dec As Byte() = IO.File.ReadAllBytes(file)
-        Dim KeyBytes As Byte() = Text.Encoding.UTF8.GetBytes(key)
-        KeyBytes = SHA256.Create().ComputeHash(KeyBytes)
-        Dim BytesDec As Byte() = AES_Dec(B2Dec, KeyBytes)
-        IO.File.WriteAllBytes(file, BytesDec)
-        Dim exten As String = System.IO.Path.GetExtension(file)
-        Dim result As String = file.Substring(0, file.Length - exten.Length)
-        IO.File.Move(file, result)
+        If file.EndsWith(".Lime") Then
+            Dim B2Dec As Byte() = IO.File.ReadAllBytes(file)
+            Dim KeyBytes As Byte() = Text.Encoding.UTF8.GetBytes(key)
+            KeyBytes = SHA256.Create().ComputeHash(KeyBytes)
+            Dim BytesDec As Byte() = AES_Dec(B2Dec, KeyBytes)
+            IO.File.WriteAllBytes(file, BytesDec)
+            Dim exten As String = System.IO.Path.GetExtension(file)
+            Dim result As String = file.Substring(0, file.Length - exten.Length)
+            IO.File.Move(file, result)
+        End If
     End Sub
 
     Public Sub Dir_Dec(ByVal ThePath As String, ByVal key As String)
@@ -123,10 +125,7 @@ Public Class Decryption
         Dim files As String() = Directory.GetFiles(ThePath)
         Dim SubDirectories As String() = Directory.GetDirectories(ThePath)
         For i As Integer = 0 To files.Length - 1
-            Dim exten As String = Path.GetExtension(files(i))
-            If exten = ".Lime" Then
-                File_Dec(files(i), key)
-            End If
+            File_Dec(files(i), key)
         Next
 
         For i As Integer = 0 To SubDirectories.Length - 1

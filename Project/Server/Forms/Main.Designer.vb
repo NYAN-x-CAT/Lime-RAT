@@ -147,7 +147,6 @@ Partial Class Main
         Me.PingClients = New System.Windows.Forms.Timer(Me.components)
         Me.AutoUpdate = New System.Windows.Forms.Timer(Me.components)
         Me.CAP = New System.Windows.Forms.Timer(Me.components)
-        Me.Dicconnction = New System.Windows.Forms.Timer(Me.components)
         Me.MetroTabControl1.SuspendLayout()
         Me.MetroTabPage1.SuspendLayout()
         Me.Main_Rightclick.SuspendLayout()
@@ -1622,10 +1621,6 @@ Partial Class Main
         'CAP
         '
         '
-        'Dicconnction
-        '
-        Me.Dicconnction.Interval = 60000
-        '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
@@ -1787,7 +1782,6 @@ Partial Class Main
     Friend WithEvents CAP As Timer
     Friend WithEvents CAPsec As NumericUpDown
     Friend WithEvents PersistenceToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents Dicconnction As Timer
     Friend WithEvents ListviewOptionsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ClientColorToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents ClientNoteToolStripMenuItem As ToolStripMenuItem

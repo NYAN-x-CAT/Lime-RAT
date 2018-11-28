@@ -1,7 +1,7 @@
 ﻿Public Class System_Manager
 
     Public M As Main
-    Public U As Integer
+    Public C As S_Client
     Private m_SortingColumn As ColumnHeader
 
     Private Sub lvwBooks_ColumnClick(ByVal sender As System.Object, ByVal e As ColumnClickEventArgs) Handles L2.ColumnClick
@@ -56,7 +56,7 @@
 
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        If Not M.S.Online.Contains(U) Then
+        If Not C.IsConnected Then
             Me.Close()
         End If
     End Sub
@@ -72,32 +72,32 @@
 
 
     Private Sub RefreshToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles RefreshToolStripMenuItem2.Click
-        M.S.Send(U, "Sysinfo")
+        C.BeginSend("Sysinfo")
     End Sub
 
     Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RefreshToolStripMenuItem.Click
-        M.S.Send(U, "PROC")
+        C.BeginSend("PROC")
     End Sub
 
     Private Sub RefreshToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles RefreshToolStripMenuItem1.Click
-        M.S.Send(U, "STUP")
+        C.BeginSend("STUP")
     End Sub
 
     Private Sub System_Manager_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-        M.S.Send(U, "Close")
+        C.BeginSend("Close")
     End Sub
 
     Private Sub KillToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles KillToolStripMenuItem.Click
         On Error Resume Next
         For Each x As ListViewItem In L2.SelectedItems
-            M.S.Send(U, "PROCKILL" + M.SPL + x.SubItems(1).Text.ToString)
+            C.BeginSend("PROCKILL" + M.SPL + x.SubItems(1).Text.ToString)
         Next
     End Sub
 
     Private Sub KillDeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles KillDeleteToolStripMenuItem.Click
         On Error Resume Next
         For Each x As ListViewItem In L2.SelectedItems
-            M.S.Send(U, "PROCDEL" + M.SPL + x.SubItems(1).Text.ToString + M.SPL + x.SubItems(2).Text.ToString)
+            C.BeginSend("PROCDEL" + M.SPL + x.SubItems(1).Text.ToString + M.SPL + x.SubItems(2).Text.ToString)
         Next
     End Sub
 
@@ -131,11 +131,11 @@
     End Sub
 
     Private Sub MetroTabPage2_Enter(sender As Object, e As EventArgs) Handles MetroTabPage2.Enter
-        M.S.Send(U, "PROC")
+        C.BeginSend("PROC")
     End Sub
 
     Private Sub MetroTabPage3_Enter(sender As Object, e As EventArgs) Handles MetroTabPage3.Enter
-        M.S.Send(U, "STUP")
+        C.BeginSend("STUP")
     End Sub
 
 End Class

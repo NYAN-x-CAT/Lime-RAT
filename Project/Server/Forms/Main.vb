@@ -77,7 +77,7 @@ Public Class Main
         End Try
 
         Try
-            '  AddHandler S_Client.Read, AddressOf S_Messages.Read
+            AddHandler S_Client.Read, AddressOf S_Messages.Read
             For Each x In S_Settings.PORT.ToList
                 S = New S_TcpListener
                 Dim T As New Threading.Thread(AddressOf S.Start)

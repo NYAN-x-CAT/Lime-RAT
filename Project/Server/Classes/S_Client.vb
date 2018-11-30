@@ -11,7 +11,7 @@ Public Class S_Client
     Public Received As Integer = 1024 * 100
     Public Buffer(Received) As Byte
     Public MS As MemoryStream = Nothing
-    'Public Shared Event Read(ByVal C As S_Client, ByVal b() As Byte)
+    Public Shared Event Read(ByVal C As S_Client, ByVal b() As Byte)
 
     Sub New(ByVal CL As Socket)
         Me.C = CL
@@ -31,8 +31,8 @@ Public Class S_Client
 re:
                 If BS(MS.ToArray).Contains(S_Settings.EOF) Then
                     Dim A As Array = Await fx(MS.ToArray, S_Settings.EOF)
-                    ' RaiseEvent Read(Me, A(0))
-                    Threading.ThreadPool.QueueUserWorkItem(New Threading.WaitCallback(AddressOf BeginRead), A(0))
+                    RaiseEvent Read(Me, A(0))
+                    ' Threading.ThreadPool.QueueUserWorkItem(New Threading.WaitCallback(AddressOf BeginRead), A(0))
 
                     MS.Dispose()
                     MS = New MemoryStream
@@ -52,9 +52,9 @@ re:
         End Try
     End Sub
 
-    Sub BeginRead(ByVal A As Array)
-        S_Messages.Read(Me, A)
-    End Sub
+    'Sub BeginRead(ByVal A As Array)
+    '    S_Messages.Read(Me, A)
+    'End Sub
 
     Delegate Sub _isDisconnected()
     Sub isDisconnected()
@@ -119,13 +119,13 @@ re:
         End If
     End Sub
 
-    Sub Send(ByVal b As Byte())
-        If IsConnected Then
-            Threading.ThreadPool.QueueUserWorkItem(New Threading.WaitCallback(AddressOf _BeginSend), b)
-        End If
-    End Sub
+    'Sub Send(ByVal b As Byte())
+    '    If IsConnected Then
+    '        Threading.ThreadPool.QueueUserWorkItem(New Threading.WaitCallback(AddressOf _BeginSend), b)
+    '    End If
+    'End Sub
 
-    Sub _BeginSend(ByVal b As Byte())
+    Sub Send(ByVal b As Byte())
         Try
             C.Poll(-1, SelectMode.SelectWrite)
             C.BeginSend(b.ToArray, 0, b.Length, SocketFlags.None, New AsyncCallback(AddressOf EndSend), C)

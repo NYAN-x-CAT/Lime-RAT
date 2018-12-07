@@ -1,6 +1,6 @@
 <img src="https://i.imgur.com/Iq5MkAf.gif">
 
-# LimeRAT v0.1.8
+# LimeRAT v0.1.9
 	
 ***Remote Administration Tool For Windows***
  
@@ -162,10 +162,9 @@ https://github.com/NYAN-x-CAT/Lime-RAT/releases
 
 ---
 
-## Support
+## Found Bug?
 
 * Github: https://github.com/NYAN-x-CAT/Lime-RAT/issues/new
-* Discord: https://discord.gg/bngKcYw
 * Email: NYANxCAT@pm.me
 
 ---

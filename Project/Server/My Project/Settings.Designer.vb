@@ -310,7 +310,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("30")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("45")>  _
         Public Property PING_VALUE() As Integer
             Get
                 Return CType(Me("PING_VALUE"),Integer)

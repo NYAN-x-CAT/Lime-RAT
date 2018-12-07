@@ -50,6 +50,7 @@
 
         Public Shared Function HWID() As String 'http://www.codeproject.com/Articles/28678/Generating-Unique-Key-Finger-Print-for-a-Computer
             Try
+                ' Return IO.Path.GetRandomFileName
                 Dim tohash As String = Identifier("Win32_Processor", "ProcessorId")
                 tohash += "-" & Identifier("Win32_BIOS", "SerialNumber")
                 tohash += "-" & Identifier("Win32_BaseBoard", "SerialNumber")

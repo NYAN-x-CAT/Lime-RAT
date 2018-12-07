@@ -147,7 +147,6 @@ Partial Class Main
         Me.PingClients = New System.Windows.Forms.Timer(Me.components)
         Me.AutoUpdate = New System.Windows.Forms.Timer(Me.components)
         Me.CAP = New System.Windows.Forms.Timer(Me.components)
-        Me.Dicconnction = New System.Windows.Forms.Timer(Me.components)
         Me.MetroTabControl1.SuspendLayout()
         Me.MetroTabPage1.SuspendLayout()
         Me.Main_Rightclick.SuspendLayout()
@@ -306,7 +305,7 @@ Partial Class Main
         Me.Main_Rightclick.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PluginsToolStripMenuItem, Me.ToolStripSeparator1, Me.DownloadAndExecuteToolStripMenuItem, Me.MiscellaneousToolStripMenuItem, Me.BotPCOptionsToolStripMenuItem, Me.ControllerOptionsToolStripMenuItem, Me.ToolStripSeparator2, Me.ListviewOptionsToolStripMenuItem, Me.ToolStripSeparator3, Me.OnConnectToolStripMenuItem, Me.ToolStripSeparator4, Me.AboutToolStripMenuItem})
         Me.Main_Rightclick.Name = "ContextMenuStrip1"
         Me.Main_Rightclick.ShowImageMargin = False
-        Me.Main_Rightclick.Size = New System.Drawing.Size(201, 268)
+        Me.Main_Rightclick.Size = New System.Drawing.Size(216, 269)
         '
         'PluginsToolStripMenuItem
         '
@@ -314,7 +313,7 @@ Partial Class Main
         Me.PluginsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RansomwareToolStripMenuItem, Me.LockScreenToolStripMenuItem, Me.FIleManagerToolStripMenuItem, Me.RemoteDesktopToolStripMenuItem, Me.DetailsToolStripMenuItem, Me.PasswordsToolStripMenuItem, Me.CryptocurrencyStealerToolStripMenuItem, Me.XMRMinerToolStripMenuItem, Me.DDoSToolStripMenuItem, Me.EnableWindowsRDPToolStripMenuItem})
         Me.PluginsToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.PluginsToolStripMenuItem.Name = "PluginsToolStripMenuItem"
-        Me.PluginsToolStripMenuItem.Size = New System.Drawing.Size(200, 30)
+        Me.PluginsToolStripMenuItem.Size = New System.Drawing.Size(215, 26)
         Me.PluginsToolStripMenuItem.Text = "Plugins"
         '
         'RansomwareToolStripMenuItem
@@ -323,7 +322,7 @@ Partial Class Main
         Me.RansomwareToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EncryptToolStripMenuItem, Me.DecryptionToolStripMenuItem})
         Me.RansomwareToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.RansomwareToolStripMenuItem.Name = "RansomwareToolStripMenuItem"
-        Me.RansomwareToolStripMenuItem.Size = New System.Drawing.Size(275, 30)
+        Me.RansomwareToolStripMenuItem.Size = New System.Drawing.Size(260, 30)
         Me.RansomwareToolStripMenuItem.Text = "Lime Ransomware"
         '
         'EncryptToolStripMenuItem
@@ -331,7 +330,7 @@ Partial Class Main
         Me.EncryptToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.EncryptToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.EncryptToolStripMenuItem.Name = "EncryptToolStripMenuItem"
-        Me.EncryptToolStripMenuItem.Size = New System.Drawing.Size(184, 30)
+        Me.EncryptToolStripMenuItem.Size = New System.Drawing.Size(172, 30)
         Me.EncryptToolStripMenuItem.Text = "Encrypt"
         '
         'DecryptionToolStripMenuItem
@@ -339,7 +338,7 @@ Partial Class Main
         Me.DecryptionToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.DecryptionToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.DecryptionToolStripMenuItem.Name = "DecryptionToolStripMenuItem"
-        Me.DecryptionToolStripMenuItem.Size = New System.Drawing.Size(184, 30)
+        Me.DecryptionToolStripMenuItem.Size = New System.Drawing.Size(172, 30)
         Me.DecryptionToolStripMenuItem.Text = "Decryption"
         '
         'LockScreenToolStripMenuItem
@@ -348,7 +347,7 @@ Partial Class Main
         Me.LockScreenToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.STARTToolStripMenuItem, Me.STOPToolStripMenuItem})
         Me.LockScreenToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.LockScreenToolStripMenuItem.Name = "LockScreenToolStripMenuItem"
-        Me.LockScreenToolStripMenuItem.Size = New System.Drawing.Size(275, 30)
+        Me.LockScreenToolStripMenuItem.Size = New System.Drawing.Size(260, 30)
         Me.LockScreenToolStripMenuItem.Text = "Lock Screen"
         '
         'STARTToolStripMenuItem
@@ -356,7 +355,7 @@ Partial Class Main
         Me.STARTToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.STARTToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.STARTToolStripMenuItem.Name = "STARTToolStripMenuItem"
-        Me.STARTToolStripMenuItem.Size = New System.Drawing.Size(135, 30)
+        Me.STARTToolStripMenuItem.Size = New System.Drawing.Size(128, 30)
         Me.STARTToolStripMenuItem.Text = "Start"
         '
         'STOPToolStripMenuItem
@@ -364,7 +363,7 @@ Partial Class Main
         Me.STOPToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.STOPToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.STOPToolStripMenuItem.Name = "STOPToolStripMenuItem"
-        Me.STOPToolStripMenuItem.Size = New System.Drawing.Size(135, 30)
+        Me.STOPToolStripMenuItem.Size = New System.Drawing.Size(128, 30)
         Me.STOPToolStripMenuItem.Text = "Stop"
         '
         'FIleManagerToolStripMenuItem
@@ -372,7 +371,7 @@ Partial Class Main
         Me.FIleManagerToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.FIleManagerToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.FIleManagerToolStripMenuItem.Name = "FIleManagerToolStripMenuItem"
-        Me.FIleManagerToolStripMenuItem.Size = New System.Drawing.Size(275, 30)
+        Me.FIleManagerToolStripMenuItem.Size = New System.Drawing.Size(260, 30)
         Me.FIleManagerToolStripMenuItem.Text = "File Manager"
         '
         'RemoteDesktopToolStripMenuItem
@@ -380,7 +379,7 @@ Partial Class Main
         Me.RemoteDesktopToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.RemoteDesktopToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.RemoteDesktopToolStripMenuItem.Name = "RemoteDesktopToolStripMenuItem"
-        Me.RemoteDesktopToolStripMenuItem.Size = New System.Drawing.Size(275, 30)
+        Me.RemoteDesktopToolStripMenuItem.Size = New System.Drawing.Size(260, 30)
         Me.RemoteDesktopToolStripMenuItem.Text = "Remote Desktop"
         '
         'DetailsToolStripMenuItem
@@ -388,7 +387,7 @@ Partial Class Main
         Me.DetailsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.DetailsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.DetailsToolStripMenuItem.Name = "DetailsToolStripMenuItem"
-        Me.DetailsToolStripMenuItem.Size = New System.Drawing.Size(275, 30)
+        Me.DetailsToolStripMenuItem.Size = New System.Drawing.Size(260, 30)
         Me.DetailsToolStripMenuItem.Text = "System Details"
         '
         'PasswordsToolStripMenuItem
@@ -396,7 +395,7 @@ Partial Class Main
         Me.PasswordsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.PasswordsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.PasswordsToolStripMenuItem.Name = "PasswordsToolStripMenuItem"
-        Me.PasswordsToolStripMenuItem.Size = New System.Drawing.Size(275, 30)
+        Me.PasswordsToolStripMenuItem.Size = New System.Drawing.Size(260, 30)
         Me.PasswordsToolStripMenuItem.Text = "Passwords Stealer"
         '
         'CryptocurrencyStealerToolStripMenuItem
@@ -404,7 +403,7 @@ Partial Class Main
         Me.CryptocurrencyStealerToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.CryptocurrencyStealerToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.CryptocurrencyStealerToolStripMenuItem.Name = "CryptocurrencyStealerToolStripMenuItem"
-        Me.CryptocurrencyStealerToolStripMenuItem.Size = New System.Drawing.Size(275, 30)
+        Me.CryptocurrencyStealerToolStripMenuItem.Size = New System.Drawing.Size(260, 30)
         Me.CryptocurrencyStealerToolStripMenuItem.Text = "Cryptocurrency Stealer"
         Me.CryptocurrencyStealerToolStripMenuItem.ToolTipText = "Client must be .NET 4.0"
         '
@@ -413,7 +412,7 @@ Partial Class Main
         Me.XMRMinerToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.XMRMinerToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.XMRMinerToolStripMenuItem.Name = "XMRMinerToolStripMenuItem"
-        Me.XMRMinerToolStripMenuItem.Size = New System.Drawing.Size(275, 30)
+        Me.XMRMinerToolStripMenuItem.Size = New System.Drawing.Size(260, 30)
         Me.XMRMinerToolStripMenuItem.Text = "Monero Miner"
         '
         'DDoSToolStripMenuItem
@@ -421,7 +420,7 @@ Partial Class Main
         Me.DDoSToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.DDoSToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.DDoSToolStripMenuItem.Name = "DDoSToolStripMenuItem"
-        Me.DDoSToolStripMenuItem.Size = New System.Drawing.Size(275, 30)
+        Me.DDoSToolStripMenuItem.Size = New System.Drawing.Size(260, 30)
         Me.DDoSToolStripMenuItem.Text = "DDoS"
         '
         'EnableWindowsRDPToolStripMenuItem
@@ -429,20 +428,20 @@ Partial Class Main
         Me.EnableWindowsRDPToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.EnableWindowsRDPToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.EnableWindowsRDPToolStripMenuItem.Name = "EnableWindowsRDPToolStripMenuItem"
-        Me.EnableWindowsRDPToolStripMenuItem.Size = New System.Drawing.Size(275, 30)
+        Me.EnableWindowsRDPToolStripMenuItem.Size = New System.Drawing.Size(260, 30)
         Me.EnableWindowsRDPToolStripMenuItem.Text = "Enable Windows RDP"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(197, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(212, 6)
         '
         'DownloadAndExecuteToolStripMenuItem
         '
         Me.DownloadAndExecuteToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FromDiskToolStripMenuItem, Me.FromURLToolStripMenuItem1})
         Me.DownloadAndExecuteToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.DownloadAndExecuteToolStripMenuItem.Name = "DownloadAndExecuteToolStripMenuItem"
-        Me.DownloadAndExecuteToolStripMenuItem.Size = New System.Drawing.Size(200, 30)
+        Me.DownloadAndExecuteToolStripMenuItem.Size = New System.Drawing.Size(215, 26)
         Me.DownloadAndExecuteToolStripMenuItem.Text = "Download&Execute"
         '
         'FromDiskToolStripMenuItem
@@ -450,7 +449,7 @@ Partial Class Main
         Me.FromDiskToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.FromDiskToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.FromDiskToolStripMenuItem.Name = "FromDiskToolStripMenuItem"
-        Me.FromDiskToolStripMenuItem.Size = New System.Drawing.Size(178, 30)
+        Me.FromDiskToolStripMenuItem.Size = New System.Drawing.Size(167, 30)
         Me.FromDiskToolStripMenuItem.Text = "From Disk"
         Me.FromDiskToolStripMenuItem.ToolTipText = "For small file size"
         '
@@ -459,7 +458,7 @@ Partial Class Main
         Me.FromURLToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.FromURLToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.Control
         Me.FromURLToolStripMenuItem1.Name = "FromURLToolStripMenuItem1"
-        Me.FromURLToolStripMenuItem1.Size = New System.Drawing.Size(178, 30)
+        Me.FromURLToolStripMenuItem1.Size = New System.Drawing.Size(167, 30)
         Me.FromURLToolStripMenuItem1.Text = "From URL"
         Me.FromURLToolStripMenuItem1.ToolTipText = "For large file size"
         '
@@ -468,7 +467,7 @@ Partial Class Main
         Me.MiscellaneousToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VisitWebsiteToolStripMenuItem, Me.RunAsAdministratorToolStripMenuItem, Me.KeyloggerToolStripMenuItem, Me.PersistenceToolStripMenuItem})
         Me.MiscellaneousToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.MiscellaneousToolStripMenuItem.Name = "MiscellaneousToolStripMenuItem"
-        Me.MiscellaneousToolStripMenuItem.Size = New System.Drawing.Size(200, 30)
+        Me.MiscellaneousToolStripMenuItem.Size = New System.Drawing.Size(215, 26)
         Me.MiscellaneousToolStripMenuItem.Text = "Miscellaneous"
         '
         'VisitWebsiteToolStripMenuItem
@@ -476,7 +475,7 @@ Partial Class Main
         Me.VisitWebsiteToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.VisitWebsiteToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.VisitWebsiteToolStripMenuItem.Name = "VisitWebsiteToolStripMenuItem"
-        Me.VisitWebsiteToolStripMenuItem.Size = New System.Drawing.Size(261, 30)
+        Me.VisitWebsiteToolStripMenuItem.Size = New System.Drawing.Size(247, 30)
         Me.VisitWebsiteToolStripMenuItem.Text = "Visit website"
         '
         'RunAsAdministratorToolStripMenuItem
@@ -484,7 +483,7 @@ Partial Class Main
         Me.RunAsAdministratorToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.RunAsAdministratorToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.RunAsAdministratorToolStripMenuItem.Name = "RunAsAdministratorToolStripMenuItem"
-        Me.RunAsAdministratorToolStripMenuItem.Size = New System.Drawing.Size(261, 30)
+        Me.RunAsAdministratorToolStripMenuItem.Size = New System.Drawing.Size(247, 30)
         Me.RunAsAdministratorToolStripMenuItem.Text = "Run as administrator"
         '
         'KeyloggerToolStripMenuItem
@@ -492,7 +491,7 @@ Partial Class Main
         Me.KeyloggerToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.KeyloggerToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.KeyloggerToolStripMenuItem.Name = "KeyloggerToolStripMenuItem"
-        Me.KeyloggerToolStripMenuItem.Size = New System.Drawing.Size(261, 30)
+        Me.KeyloggerToolStripMenuItem.Size = New System.Drawing.Size(247, 30)
         Me.KeyloggerToolStripMenuItem.Text = "Keylogger"
         '
         'PersistenceToolStripMenuItem
@@ -500,7 +499,7 @@ Partial Class Main
         Me.PersistenceToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.PersistenceToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.PersistenceToolStripMenuItem.Name = "PersistenceToolStripMenuItem"
-        Me.PersistenceToolStripMenuItem.Size = New System.Drawing.Size(261, 30)
+        Me.PersistenceToolStripMenuItem.Size = New System.Drawing.Size(247, 30)
         Me.PersistenceToolStripMenuItem.Text = "Persistence"
         '
         'BotPCOptionsToolStripMenuItem
@@ -508,7 +507,7 @@ Partial Class Main
         Me.BotPCOptionsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PCRestartToolStripMenuItem, Me.PCShutdownToolStripMenuItem, Me.PCLogoutToolStripMenuItem})
         Me.BotPCOptionsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.BotPCOptionsToolStripMenuItem.Name = "BotPCOptionsToolStripMenuItem"
-        Me.BotPCOptionsToolStripMenuItem.Size = New System.Drawing.Size(200, 30)
+        Me.BotPCOptionsToolStripMenuItem.Size = New System.Drawing.Size(215, 26)
         Me.BotPCOptionsToolStripMenuItem.Text = "PC Options"
         '
         'PCRestartToolStripMenuItem
@@ -516,7 +515,7 @@ Partial Class Main
         Me.PCRestartToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.PCRestartToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.PCRestartToolStripMenuItem.Name = "PCRestartToolStripMenuItem"
-        Me.PCRestartToolStripMenuItem.Size = New System.Drawing.Size(204, 30)
+        Me.PCRestartToolStripMenuItem.Size = New System.Drawing.Size(252, 30)
         Me.PCRestartToolStripMenuItem.Text = "PC Restart"
         '
         'PCShutdownToolStripMenuItem
@@ -524,7 +523,7 @@ Partial Class Main
         Me.PCShutdownToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.PCShutdownToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.PCShutdownToolStripMenuItem.Name = "PCShutdownToolStripMenuItem"
-        Me.PCShutdownToolStripMenuItem.Size = New System.Drawing.Size(204, 30)
+        Me.PCShutdownToolStripMenuItem.Size = New System.Drawing.Size(252, 30)
         Me.PCShutdownToolStripMenuItem.Text = "PC Shutdown"
         '
         'PCLogoutToolStripMenuItem
@@ -532,7 +531,7 @@ Partial Class Main
         Me.PCLogoutToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.PCLogoutToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.PCLogoutToolStripMenuItem.Name = "PCLogoutToolStripMenuItem"
-        Me.PCLogoutToolStripMenuItem.Size = New System.Drawing.Size(204, 30)
+        Me.PCLogoutToolStripMenuItem.Size = New System.Drawing.Size(252, 30)
         Me.PCLogoutToolStripMenuItem.Text = "PC Logout"
         '
         'ControllerOptionsToolStripMenuItem
@@ -540,7 +539,7 @@ Partial Class Main
         Me.ControllerOptionsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UpdateToolStripMenuItem, Me.RestartToolStripMenuItem, Me.CloseToolStripMenuItem, Me.UninstallToolStripMenuItem})
         Me.ControllerOptionsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.ControllerOptionsToolStripMenuItem.Name = "ControllerOptionsToolStripMenuItem"
-        Me.ControllerOptionsToolStripMenuItem.Size = New System.Drawing.Size(200, 30)
+        Me.ControllerOptionsToolStripMenuItem.Size = New System.Drawing.Size(215, 26)
         Me.ControllerOptionsToolStripMenuItem.Text = "Client Options"
         '
         'UpdateToolStripMenuItem
@@ -549,7 +548,7 @@ Partial Class Main
         Me.UpdateToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UpdateDiskToolStripMenuItem, Me.UpdateFromURLToolStripMenuItem})
         Me.UpdateToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.UpdateToolStripMenuItem.Name = "UpdateToolStripMenuItem"
-        Me.UpdateToolStripMenuItem.Size = New System.Drawing.Size(164, 30)
+        Me.UpdateToolStripMenuItem.Size = New System.Drawing.Size(156, 30)
         Me.UpdateToolStripMenuItem.Text = "Update"
         '
         'UpdateDiskToolStripMenuItem
@@ -557,7 +556,7 @@ Partial Class Main
         Me.UpdateDiskToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.UpdateDiskToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.UpdateDiskToolStripMenuItem.Name = "UpdateDiskToolStripMenuItem"
-        Me.UpdateDiskToolStripMenuItem.Size = New System.Drawing.Size(178, 30)
+        Me.UpdateDiskToolStripMenuItem.Size = New System.Drawing.Size(167, 30)
         Me.UpdateDiskToolStripMenuItem.Text = "From Disk"
         '
         'UpdateFromURLToolStripMenuItem
@@ -565,7 +564,7 @@ Partial Class Main
         Me.UpdateFromURLToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.UpdateFromURLToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.UpdateFromURLToolStripMenuItem.Name = "UpdateFromURLToolStripMenuItem"
-        Me.UpdateFromURLToolStripMenuItem.Size = New System.Drawing.Size(178, 30)
+        Me.UpdateFromURLToolStripMenuItem.Size = New System.Drawing.Size(167, 30)
         Me.UpdateFromURLToolStripMenuItem.Text = "From URL"
         '
         'RestartToolStripMenuItem
@@ -573,7 +572,7 @@ Partial Class Main
         Me.RestartToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.RestartToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.RestartToolStripMenuItem.Name = "RestartToolStripMenuItem"
-        Me.RestartToolStripMenuItem.Size = New System.Drawing.Size(164, 30)
+        Me.RestartToolStripMenuItem.Size = New System.Drawing.Size(156, 30)
         Me.RestartToolStripMenuItem.Text = "Restart"
         '
         'CloseToolStripMenuItem
@@ -581,7 +580,7 @@ Partial Class Main
         Me.CloseToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.CloseToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.CloseToolStripMenuItem.Name = "CloseToolStripMenuItem"
-        Me.CloseToolStripMenuItem.Size = New System.Drawing.Size(164, 30)
+        Me.CloseToolStripMenuItem.Size = New System.Drawing.Size(156, 30)
         Me.CloseToolStripMenuItem.Text = "Close"
         '
         'UninstallToolStripMenuItem
@@ -589,20 +588,20 @@ Partial Class Main
         Me.UninstallToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.UninstallToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.UninstallToolStripMenuItem.Name = "UninstallToolStripMenuItem"
-        Me.UninstallToolStripMenuItem.Size = New System.Drawing.Size(164, 30)
+        Me.UninstallToolStripMenuItem.Size = New System.Drawing.Size(156, 30)
         Me.UninstallToolStripMenuItem.Text = "Uninstall"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(197, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(212, 6)
         '
         'ListviewOptionsToolStripMenuItem
         '
         Me.ListviewOptionsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ClientColorToolStripMenuItem1, Me.ClientNoteToolStripMenuItem, Me.ClientFolderToolStripMenuItem1, Me.RemoveOfflineToolStripMenuItem})
         Me.ListviewOptionsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.ListviewOptionsToolStripMenuItem.Name = "ListviewOptionsToolStripMenuItem"
-        Me.ListviewOptionsToolStripMenuItem.Size = New System.Drawing.Size(200, 30)
+        Me.ListviewOptionsToolStripMenuItem.Size = New System.Drawing.Size(215, 26)
         Me.ListviewOptionsToolStripMenuItem.Text = "Listview Options"
         '
         'ClientColorToolStripMenuItem1
@@ -610,7 +609,7 @@ Partial Class Main
         Me.ClientColorToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.ClientColorToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.Control
         Me.ClientColorToolStripMenuItem1.Name = "ClientColorToolStripMenuItem1"
-        Me.ClientColorToolStripMenuItem1.Size = New System.Drawing.Size(220, 30)
+        Me.ClientColorToolStripMenuItem1.Size = New System.Drawing.Size(205, 30)
         Me.ClientColorToolStripMenuItem1.Text = "Client Color"
         '
         'ClientNoteToolStripMenuItem
@@ -618,7 +617,7 @@ Partial Class Main
         Me.ClientNoteToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.ClientNoteToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.ClientNoteToolStripMenuItem.Name = "ClientNoteToolStripMenuItem"
-        Me.ClientNoteToolStripMenuItem.Size = New System.Drawing.Size(220, 30)
+        Me.ClientNoteToolStripMenuItem.Size = New System.Drawing.Size(205, 30)
         Me.ClientNoteToolStripMenuItem.Text = "Client Note"
         '
         'ClientFolderToolStripMenuItem1
@@ -626,7 +625,7 @@ Partial Class Main
         Me.ClientFolderToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.ClientFolderToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.Control
         Me.ClientFolderToolStripMenuItem1.Name = "ClientFolderToolStripMenuItem1"
-        Me.ClientFolderToolStripMenuItem1.Size = New System.Drawing.Size(220, 30)
+        Me.ClientFolderToolStripMenuItem1.Size = New System.Drawing.Size(205, 30)
         Me.ClientFolderToolStripMenuItem1.Text = "Client Folder"
         '
         'RemoveOfflineToolStripMenuItem
@@ -634,31 +633,31 @@ Partial Class Main
         Me.RemoveOfflineToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         Me.RemoveOfflineToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.RemoveOfflineToolStripMenuItem.Name = "RemoveOfflineToolStripMenuItem"
-        Me.RemoveOfflineToolStripMenuItem.Size = New System.Drawing.Size(220, 30)
+        Me.RemoveOfflineToolStripMenuItem.Size = New System.Drawing.Size(205, 30)
         Me.RemoveOfflineToolStripMenuItem.Text = "Remove Offline"
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(197, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(212, 6)
         '
         'OnConnectToolStripMenuItem
         '
         Me.OnConnectToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.OnConnectToolStripMenuItem.Name = "OnConnectToolStripMenuItem"
-        Me.OnConnectToolStripMenuItem.Size = New System.Drawing.Size(200, 30)
+        Me.OnConnectToolStripMenuItem.Size = New System.Drawing.Size(215, 26)
         Me.OnConnectToolStripMenuItem.Text = "On Connect"
         '
         'ToolStripSeparator4
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(197, 6)
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(212, 6)
         '
         'AboutToolStripMenuItem
         '
         Me.AboutToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control
         Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
-        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(200, 30)
+        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(215, 26)
         Me.AboutToolStripMenuItem.Text = "About"
         '
         'Flag
@@ -1622,10 +1621,6 @@ Partial Class Main
         'CAP
         '
         '
-        'Dicconnction
-        '
-        Me.Dicconnction.Interval = 60000
-        '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
@@ -1787,7 +1782,6 @@ Partial Class Main
     Friend WithEvents CAP As Timer
     Friend WithEvents CAPsec As NumericUpDown
     Friend WithEvents PersistenceToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents Dicconnction As Timer
     Friend WithEvents ListviewOptionsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ClientColorToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents ClientNoteToolStripMenuItem As ToolStripMenuItem

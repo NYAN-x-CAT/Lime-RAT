@@ -359,7 +359,7 @@ Public Class Main
                                 Exit For
                             End If
                         Next
-                        L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+                      '  L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
                     End SyncLock
                     Exit Select
 

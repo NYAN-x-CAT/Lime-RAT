@@ -30,11 +30,11 @@ Partial Class Intro
         Me.MetroTextBox2 = New MetroFramework.Controls.MetroTextBox()
         Me.MetroLabel2 = New MetroFramework.Controls.MetroLabel()
         Me.MetroPanel1 = New MetroFramework.Controls.MetroPanel()
+        Me.MetroTextBox1 = New MetroFramework.Controls.MetroTextBox()
         Me.MetroButton2 = New MetroFramework.Controls.MetroButton()
         Me.ListBox1 = New System.Windows.Forms.ListBox()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.RemoveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MetroTextBox1 = New MetroFramework.Controls.MetroTextBox()
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MetroPanel1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
@@ -49,9 +49,9 @@ Partial Class Intro
         'MetroButton1
         '
         Me.MetroButton1.Highlight = True
-        Me.MetroButton1.Location = New System.Drawing.Point(30, 325)
+        Me.MetroButton1.Location = New System.Drawing.Point(20, 319)
         Me.MetroButton1.Name = "MetroButton1"
-        Me.MetroButton1.Size = New System.Drawing.Size(336, 37)
+        Me.MetroButton1.Size = New System.Drawing.Size(106, 37)
         Me.MetroButton1.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroButton1.TabIndex = 0
         Me.MetroButton1.Text = "Start"
@@ -74,9 +74,9 @@ Partial Class Intro
         '
         Me.MetroTextBox2.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Lime_RAT.My.MySettings.Default, "Encryption", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.MetroTextBox2.FontSize = MetroFramework.MetroTextBoxSize.Medium
-        Me.MetroTextBox2.Location = New System.Drawing.Point(131, 237)
+        Me.MetroTextBox2.Location = New System.Drawing.Point(101, 237)
         Me.MetroTextBox2.Name = "MetroTextBox2"
-        Me.MetroTextBox2.Size = New System.Drawing.Size(225, 36)
+        Me.MetroTextBox2.Size = New System.Drawing.Size(230, 36)
         Me.MetroTextBox2.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroTextBox2.TabIndex = 4
         Me.MetroTextBox2.Text = Global.Lime_RAT.My.MySettings.Default.Encryption
@@ -117,10 +117,20 @@ Partial Class Intro
         Me.MetroPanel1.VerticalScrollbarHighlightOnWheel = False
         Me.MetroPanel1.VerticalScrollbarSize = 10
         '
+        'MetroTextBox1
+        '
+        Me.MetroTextBox1.FontSize = MetroFramework.MetroTextBoxSize.Medium
+        Me.MetroTextBox1.Location = New System.Drawing.Point(101, 26)
+        Me.MetroTextBox1.Name = "MetroTextBox1"
+        Me.MetroTextBox1.Size = New System.Drawing.Size(97, 36)
+        Me.MetroTextBox1.Style = MetroFramework.MetroColorStyle.Lime
+        Me.MetroTextBox1.TabIndex = 2
+        Me.MetroTextBox1.Theme = MetroFramework.MetroThemeStyle.Dark
+        '
         'MetroButton2
         '
         Me.MetroButton2.Highlight = True
-        Me.MetroButton2.Location = New System.Drawing.Point(286, 25)
+        Me.MetroButton2.Location = New System.Drawing.Point(261, 25)
         Me.MetroButton2.Name = "MetroButton2"
         Me.MetroButton2.Size = New System.Drawing.Size(70, 37)
         Me.MetroButton2.Style = MetroFramework.MetroColorStyle.Lime
@@ -137,9 +147,9 @@ Partial Class Intro
         Me.ListBox1.ForeColor = System.Drawing.SystemColors.Control
         Me.ListBox1.FormattingEnabled = True
         Me.ListBox1.ItemHeight = 20
-        Me.ListBox1.Location = New System.Drawing.Point(131, 92)
+        Me.ListBox1.Location = New System.Drawing.Point(101, 89)
         Me.ListBox1.Name = "ListBox1"
-        Me.ListBox1.Size = New System.Drawing.Size(115, 120)
+        Me.ListBox1.Size = New System.Drawing.Size(97, 120)
         Me.ListBox1.TabIndex = 5
         '
         'ContextMenuStrip1
@@ -147,23 +157,13 @@ Partial Class Intro
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RemoveToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(150, 34)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(163, 34)
         '
         'RemoveToolStripMenuItem
         '
         Me.RemoveToolStripMenuItem.Name = "RemoveToolStripMenuItem"
-        Me.RemoveToolStripMenuItem.Size = New System.Drawing.Size(149, 30)
+        Me.RemoveToolStripMenuItem.Size = New System.Drawing.Size(162, 30)
         Me.RemoveToolStripMenuItem.Text = "Remove"
-        '
-        'MetroTextBox1
-        '
-        Me.MetroTextBox1.FontSize = MetroFramework.MetroTextBoxSize.Medium
-        Me.MetroTextBox1.Location = New System.Drawing.Point(131, 26)
-        Me.MetroTextBox1.Name = "MetroTextBox1"
-        Me.MetroTextBox1.Size = New System.Drawing.Size(115, 36)
-        Me.MetroTextBox1.Style = MetroFramework.MetroColorStyle.Lime
-        Me.MetroTextBox1.TabIndex = 2
-        Me.MetroTextBox1.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'Intro
         '

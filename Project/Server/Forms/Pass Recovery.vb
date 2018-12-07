@@ -1,7 +1,7 @@
 ﻿Public Class Pass_Recovery
 
     Public M As Main
-    Public U As S_Client
+    Public U
     Private m_SortingColumn As ColumnHeader
 
     Private Sub L1_DrawColumnHeader(ByVal sender As Object, ByVal e As DrawListViewColumnHeaderEventArgs) Handles L1.DrawColumnHeader

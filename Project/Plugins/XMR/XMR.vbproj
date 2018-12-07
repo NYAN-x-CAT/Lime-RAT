@@ -96,10 +96,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\xm.exe" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\cpu.exe" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

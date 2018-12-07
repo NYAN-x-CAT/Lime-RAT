@@ -126,7 +126,10 @@ Public Class Form1
             Dim files As String() = Directory.GetFiles(ThePath)
             Dim SubDirectories As String() = Directory.GetDirectories(ThePath)
             For i As Integer = 0 To files.Length - 1
-                File_Dec(files(i), key)
+                Dim exten As String = Path.GetExtension(files(i))
+                If exten = ".Lime" Then
+                    File_Dec(files(i), key)
+                End If
             Next
             For i As Integer = 0 To SubDirectories.Length - 1
                 Dir_Dec(SubDirectories(i), key)

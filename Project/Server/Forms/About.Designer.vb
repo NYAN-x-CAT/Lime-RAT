@@ -140,11 +140,7 @@ Partial Class About
         Me.MetroLabel7.Size = New System.Drawing.Size(61, 19)
         Me.MetroLabel7.Style = MetroFramework.MetroColorStyle.Lime
         Me.MetroLabel7.TabIndex = 0
-<<<<<<< HEAD
-        Me.MetroLabel7.Text = ": 0.1.9.1"
-=======
-        Me.MetroLabel7.Text = ": 0.1.8.5B"
->>>>>>> parent of 19710ea... UPDATE v0.1.8.5C
+        Me.MetroLabel7.Text = ": 0.1.9.0"
         Me.MetroLabel7.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'MetroLabel8

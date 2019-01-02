@@ -1,9 +1,5 @@
 ﻿'##################################################################
-<<<<<<< HEAD
 '##        N Y A N   C A T  |||   Updated on Nov./27/2018        ##
-=======
-'##        N Y A N   C A T  |||   Updated on Sept/25/2018        ##
->>>>>>> parent of 19710ea... UPDATE v0.1.8.5C
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -60,7 +56,7 @@ Namespace Lime
                 Dim createdNew As Boolean = False
                 C_Settings.MTX = New Threading.Mutex(True, C_ID.HWID, createdNew)
                 If Not createdNew Then
-                    End
+                       End
                 End If
 
                 If C_Settings.ANTI Then

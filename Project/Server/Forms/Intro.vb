@@ -46,7 +46,6 @@
                 STV("Read", "1")
             Catch : End Try
         End If
-
 #If DEBUG Then
         '  S_Settings.PORT = 8989
         S_Settings.EncryptionKey = "NYANCAT"
@@ -85,14 +84,6 @@
                     S_Settings.PORT.Add(line)
                     ListBox1.Items.Add(line)
                 Next
-            End If
-        Catch ex As Exception
-        End Try
-
-        Try
-            If GTV("READPORTMSG") = Nothing Then
-                MsgBox("New PORT system. You need to create 1 pastebin and insert you ports like this  127.0.0.1:8989:7878:5656", MsgBoxStyle.Information)
-                STV("READPORTMSG", "1")
             End If
         Catch ex As Exception
         End Try

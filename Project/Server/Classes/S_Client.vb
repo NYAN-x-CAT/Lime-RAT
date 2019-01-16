@@ -19,7 +19,6 @@ Public Class S_Client
         C.SendBufferSize = 1024 * 1000
         Me.MS = New MemoryStream
         Me.IP = CL.RemoteEndPoint.ToString
-
         C.BeginReceive(Buffer, 0, Buffer.Length, SocketFlags.None, New AsyncCallback(AddressOf BeginReceive), Nothing)
     End Sub
 
@@ -76,6 +75,7 @@ re:
                     L.SubItems(S_Messages.M.PING.Index).Text = "Offline"
                     L.ForeColor = Color.Red
                     S_Messages.Messages("{" + IP + "}", "Disconnected")
+                    S_Settings.Online.Remove(Me)
                 End If
             End If
         Catch ex As Exception

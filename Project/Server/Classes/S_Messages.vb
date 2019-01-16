@@ -30,7 +30,7 @@
                         C.L.Tag = C
                         Try : C.L.ToolTipText = String.Format("Administrator {0}" + Environment.NewLine + "Full Path {1}", A(14), A(15)) : Catch : End Try
                         C.L.SubItems.Add(C.IP.Split(":")(0))
-
+                        S_Settings.Online.Add(C)
                         For i As Integer = 1 To A.Length - 1
                             If i = 15 Then Exit For
                             C.L.SubItems.Add(A(i))

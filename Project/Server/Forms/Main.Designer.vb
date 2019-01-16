@@ -1612,7 +1612,7 @@ Partial Class Main
         'PingClients
         '
         Me.PingClients.Enabled = True
-        Me.PingClients.Interval = 30000
+        Me.PingClients.Interval = 60000
         '
         'AutoUpdate
         '

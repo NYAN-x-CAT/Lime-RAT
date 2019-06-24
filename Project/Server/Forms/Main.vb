@@ -77,6 +77,19 @@ Public Class Main
         Catch ex As Exception
         End Try
 
+#If DEBUG Then
+        Try
+            AddHandler S_Client.Read, AddressOf S_Messages.Read
+            S = New S_TcpListener
+            Dim T As New Threading.Thread(AddressOf S.Start)
+            T.Start(8989)
+            S_Settings.EncryptionKey = "NYANCAT"
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            End
+        End Try
+#Else
+        
         Try
             AddHandler S_Client.Read, AddressOf S_Messages.Read
             For Each x In S_Settings.PORT.ToList
@@ -88,6 +101,7 @@ Public Class Main
             MsgBox(ex.Message)
             End
         End Try
+#End If
 
         Try
             Main_Rightclick.Renderer = New MyRenderer()
